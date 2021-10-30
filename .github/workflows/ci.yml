@@ -24,6 +24,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Three
+      run: |
+            sudo apt-get install tree && tree $GITHUB_WORKSPACE
+
     - name: Get Build Version
       run: |
         Import-Module $NUPKGS\GetBuildVersion.psm1
