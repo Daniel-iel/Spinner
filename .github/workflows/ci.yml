@@ -19,18 +19,18 @@ jobs:
     - name: Three
       run: |
             sudo apt-get install tree && tree $GITHUB_WORKSPACE
-                       
+
     - name: Setup .NET Core SDK ${{ matrix.dotnet-version }} 🔧
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: ${{ matrix.dotnet-version }}
     
     - name: Restore dependencies 📦
-      run: dotnet restore $GITHUB_WORKSPACE/app/spinner.sln
+      run: dotnet restore $GITHUB_WORKSPACE/app/Spinner.sln
     
     - name: Build ⚙️
-      run: dotnet build $GITHUB_WORKSPACE/app/spinner.sln -c Release --no-restore
+      run: dotnet build $GITHUB_WORKSPACE/app/Spinner.sln -c Release --no-restore
     
     - name: Test 🧪
-      run: dotnet test $GITHUB_WORKSPACE/app/spinner.sln --no-build --verbosity normal --no-restore
+      run: dotnet test $GITHUB_WORKSPACE/app/Spinner.sln --no-build --verbosity normal --no-restore
  
