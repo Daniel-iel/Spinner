@@ -15,7 +15,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
+
+    - name: Three
+      run: |
+            sudo apt-get install tree && tree $GITHUB_WORKSPACE
+                       
     - name: Setup .NET Core SDK ${{ matrix.dotnet-version }} 🔧
       uses: actions/setup-dotnet@v1
       with:
