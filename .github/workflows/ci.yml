@@ -20,7 +20,7 @@ jobs:
       with:
         dotnet-version: ${{ matrix.dotnet-version }}
     - name: Restore dependencies 📦
-      run: dotnet restore
+      run: dotnet restore app/spinner.sln
     - name: Build ⚙️
       run: dotnet build app/spinner.sln -c Release --no-restore
     - name: Test 🧪
