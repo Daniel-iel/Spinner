@@ -32,5 +32,5 @@ jobs:
       run: dotnet build $GITHUB_WORKSPACE/app/Spinner.sln -c Release --no-restore
     
     - name: Test 🧪
-      run: dotnet test $GITHUB_WORKSPACE/app/Spinner.sln --no-build --verbosity normal --no-restore
+      run: dotnet test $GITHUB_WORKSPACE/app/Spinner.sln --configuration Release --no-build
  
