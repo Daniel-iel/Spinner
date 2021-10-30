@@ -7,47 +7,22 @@ on:
     branches: [ main ]
 
 jobs:
-  build-dotnet30:
+  build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet-version: ['3.0', '3.1.x', '5.0.x' ]
+
     steps:
     - uses: actions/checkout@v2
-    - name: Setup .NET
+    - name: Setup .NET Core SDK ${{ matrix.dotnet-version }} 🔧
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.0.x
-    - name: Restore dependencies
+        dotnet-version: ${{ matrix.dotnet-version }}
+    - name: Restore dependencies 📦
       run: dotnet restore
-    - name: Build
+    - name: Build ⚙️
       run: dotnet build --no-restore
-    - name: Test
+    - name: Test 🧪
       run: dotnet test --no-build --verbosity normal
-      
-  build-dotnet31:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
-      
-  build-dotnet5:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.1.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+ 
