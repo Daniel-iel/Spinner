@@ -15,14 +15,18 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    
     - name: Setup .NET Core SDK ${{ matrix.dotnet-version }} 🔧
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: ${{ matrix.dotnet-version }}
+    
     - name: Restore dependencies 📦
-      run: dotnet restore app/spinner.sln
+      run: dotnet restore $GITHUB_WORKSPACE/app/spinner.sln
+    
     - name: Build ⚙️
-      run: dotnet build app/spinner.sln -c Release --no-restore
+      run: dotnet build $GITHUB_WORKSPACE/app/spinner.sln -c Release --no-restore
+    
     - name: Test 🧪
-      run: dotnet test app/spinner.sln --no-build --verbosity normal --no-restore
+      run: dotnet test $GITHUB_WORKSPACE/app/spinner.sln --no-build --verbosity normal --no-restore
  
