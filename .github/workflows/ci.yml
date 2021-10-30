@@ -16,10 +16,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Three
-      run: |
-            sudo apt-get install tree && tree $GITHUB_WORKSPACE
-
     - name: Setup .NET Core SDK ${{ matrix.dotnet-version }} 🔧
       uses: actions/setup-dotnet@v1
       with:
@@ -32,5 +28,5 @@ jobs:
       run: dotnet build $GITHUB_WORKSPACE/app/Spinner.sln -c Release --no-restore
     
     - name: Test 🧪
-      run: dotnet test $GITHUB_WORKSPACE/app/Spinner.sln --configuration Release --no-build
+      run: dotnet test $GITHUB_WORKSPACE/app/Spinner.sln --configuration Release --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$GITHUB_WORKSPACE/Coverage
  
