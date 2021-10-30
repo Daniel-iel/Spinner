@@ -12,8 +12,8 @@ jobs:
   build:
 
     env:    
-      APP: $GITHUB_WORKSPACE/app      
-      PROJECT_SLN:  $env:APP/Spinner.sln
+      APP: './app'      
+      PROJECT_SLN:  '$env:APP/Spinner.sln'
 
     runs-on: ubuntu-latest
     strategy:
