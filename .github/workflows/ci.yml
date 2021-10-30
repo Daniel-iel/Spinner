@@ -7,13 +7,14 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
-  env:    
-    APP: $GITHUB_WORKSPACE/app
-    PROJECT_SLN: $APP/Spinner.sln
     
 jobs:
   build:
+
+    env:    
+      APP: $GITHUB_WORKSPACE/app
+      PROJECT_SLN: $APP/Spinner.sln
+      
     runs-on: ubuntu-latest
     strategy:
       matrix:
