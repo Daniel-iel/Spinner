@@ -12,8 +12,7 @@ jobs:
   build:
 
     env:    
-      APP: $GITHUB_WORKSPACE/app
-      NUPKGS: $GITHUB_WORKSPACE\nupkgs
+      APP: $GITHUB_WORKSPACE/app      
       PROJECT_SLN: $APP/Spinner.sln
 
     runs-on: ubuntu-latest
@@ -30,7 +29,7 @@ jobs:
 
     - name: Get Build Version
       run: |
-        Import-Module $NUPKGS\GetBuildVersion.psm1
+        Import-Module .\nupkgs\GetBuildVersion.psm1
         Write-Host $Env:GITHUB_REF
         $version = GetBuildVersion -VersionString $Env:GITHUB_REF
         echo "BUILD_VERSION=$version" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
