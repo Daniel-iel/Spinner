@@ -1,11 +1,17 @@
 name: .NET
 
 on:
+  create:
+    branches: [ release/** ]
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
 
+  env:    
+    APP: $GITHUB_WORKSPACE/app
+    PROJECT_SLN: $APP/Spinner.sln
+    
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,17 +22,25 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Get Build Version
+      run: |
+        Import-Module .\build\GetBuildVersion.psm1
+        Write-Host $Env:GITHUB_REF
+        $version = GetBuildVersion -VersionString $Env:GITHUB_REF
+        echo "BUILD_VERSION=$version" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
+      shell: pwsh
+
     - name: Setup .NET Core SDK ${{ matrix.dotnet-version }} 🔧
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: ${{ matrix.dotnet-version }}
     
     - name: Restore dependencies 📦
-      run: dotnet restore $GITHUB_WORKSPACE/app/Spinner.sln
+      run: dotnet restore $PROJECT_SLN
     
     - name: Build ⚙️
-      run: dotnet build $GITHUB_WORKSPACE/app/Spinner.sln -c Release --no-restore
+      run: dotnet build $PROJECT_SLN -c Release --no-restore
     
     - name: Test 🧪
-      run: dotnet test $GITHUB_WORKSPACE/app/Spinner.sln --configuration Release --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$GITHUB_WORKSPACE/Coverage
+      run: dotnet test $PROJECT_SLN --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$GITHUB_WORKSPACE/Coverage
  
