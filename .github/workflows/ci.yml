@@ -44,7 +44,7 @@ jobs:
       run: dotnet restore $PROJECT_SLN
     
     - name: Build ⚙️
-      run: dotnet build $PROJECT_SLN -c Release --no-restore -p:Version=$env:BUILD_VERSION
+      run: dotnet build $PROJECT_SLN -c Release --no-restore
     
     - name: Test 🧪
       run: dotnet test $PROJECT_SLN --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$GITHUB_WORKSPACE/Coverage
