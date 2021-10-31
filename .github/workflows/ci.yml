@@ -40,12 +40,15 @@ jobs:
       with:
         dotnet-version: ${{ matrix.dotnet-version }}
     
-    - name: Restore dependencies 📦
+    - name: Restore Dependencies 📦
       run: dotnet restore $PROJECT_SLN
     
     - name: Build ⚙️
-      run: dotnet build $PROJECT_SLN -c Release --no-restore
+      run: dotnet build $PROJECT_SLN -c Release -p:Version=$BUILD_VERSION --no-restore
     
     - name: Test 🧪
       run: dotnet test $PROJECT_SLN --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$GITHUB_WORKSPACE/Coverage
  
+    - name: Publish Package
+      if: startsWith(github.ref, 'refs/heads/release')
+      run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_TOKEN}}
