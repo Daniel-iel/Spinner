@@ -13,7 +13,7 @@ jobs:
 
     env:    
       APP: '.\app'      
-      PROJECT_SLN:  '.\app\Spinner.sln'
+      PROJECT_SLN: '.\app\Spinner.sln'
 
     runs-on: ubuntu-latest
     strategy:
@@ -41,11 +41,11 @@ jobs:
         dotnet-version: ${{ matrix.dotnet-version }}
     
     - name: Restore dependencies 📦
-      run: dotnet restore $env:PROJECT_SLN
+      run: dotnet restore $PROJECT_SLN
     
     - name: Build ⚙️
-      run: dotnet build $env:PROJECT_SLN -c Release --no-restore
+      run: dotnet build $PROJECT_SLN -c Release --no-restore -p:Version=$env:BUILD_VERSION
     
     - name: Test 🧪
-      run: dotnet test $env:PROJECT_SLN --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$GITHUB_WORKSPACE/Coverage
+      run: dotnet test $PROJECT_SLN --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$GITHUB_WORKSPACE/Coverage
  
