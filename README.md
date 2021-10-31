@@ -9,6 +9,6 @@
         <img src="https://github.com/SpinnerAlloc/Spinner/actions/workflows/ci.yml/badge.svg" alt="build status"></a>             
     <a href="https://lgtm.com/projects/g/SpinnerAlloc/Spinner/alerts/">
         <img src="https://img.shields.io/lgtm/alerts/g/badges/shields" alt="Total alerts"/></a>  
-    <a href="#license">
+    <a href="https://github.com/SpinnerAlloc/Spinner/blob/main/LICENSE">
         <img src="https://img.shields.io/github/license/SpinnerAlloc/Spinner" alt="Total alerts"/></a>
 </p>
