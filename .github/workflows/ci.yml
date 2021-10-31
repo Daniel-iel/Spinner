@@ -13,7 +13,7 @@ jobs:
 
     env:    
       APP: './app'      
-      PROJECT_SLN:  '$env:APP/Spinner.sln'
+      PROJECT_SLN:  './app/Spinner.sln'
 
     runs-on: ubuntu-latest
     strategy:
