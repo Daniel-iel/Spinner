@@ -12,8 +12,8 @@ jobs:
   build:
 
     env:    
-      APP: './app'      
-      PROJECT_SLN:  './app/Spinner.sln'
+      APP: '.\app'      
+      PROJECT_SLN:  '.\app\Spinner.sln'
 
     runs-on: ubuntu-latest
     strategy:
