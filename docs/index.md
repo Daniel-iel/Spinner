@@ -1,37 +1,34 @@
-## Welcome to GitHub Pages
+# Spinner
 
-You can use the [editor on GitHub](https://github.com/SpinnerAlloc/Spinner/edit/main/docs/index.md) to maintain and preview the content for your website in Markdown files.
+### About
+  Spinner is a simple object mapper, it's useful to communicate to any system that use positional string.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Get Started
 
-### Markdown
+```csharp
+  [ContextProperty(lenght: 50)]
+  public struct Nothing
+  {
+    public Nothing(string name, string adress)
+    {
+      this.Name = name;
+      this.Adress = adress;
+    }
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+    [WriteProperty(lenght: 20, order: 1, paddingChar: ' ')]
+    public string Name { get; private set; }
 
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+    [WriteProperty(lenght: 30, order: 2, paddingChar: ' ')]
+    public string Adress { get; private set; }
+ }
+    
+ var nothing = new Nothing("spinner", "www.spinner.com.br");
+ var spinner = new Spinner<Nothing>(nothing);
+ var stringResponse = spinner.WriteAsString();   
+ // stringresponse = "              spinner            www.spinner.com.br   "
+        
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+### Support
 
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/SpinnerAlloc/Spinner/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+Having trouble with spinner? let we know opening an [issue](https://github.com/SpinnerAlloc/Spinner/issues)
