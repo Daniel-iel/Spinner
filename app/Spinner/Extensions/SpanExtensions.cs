@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("Spinner.Test")]
 
 namespace Spinner.Extencions
 {
-    public static class SpanExtensions
+    internal static class SpanExtensions
     {
-        public static unsafe ReadOnlySpan<char> PadLeft(this ReadOnlySpan<char> @this, int totalWidth, char paddingChar)
+        internal static unsafe ReadOnlySpan<char> PadLeft(this ReadOnlySpan<char> @this, int totalWidth, char paddingChar)
         {
             int totalPad = totalWidth - @this.Length;
             bool shouldNotPad = totalWidth - @this.Length < 1;
