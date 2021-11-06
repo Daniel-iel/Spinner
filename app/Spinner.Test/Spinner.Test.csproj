@@ -25,8 +25,4 @@
     <ProjectReference Include="..\Spinner\Spinner.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Attributes\" />
-  </ItemGroup>
-
 </Project>
