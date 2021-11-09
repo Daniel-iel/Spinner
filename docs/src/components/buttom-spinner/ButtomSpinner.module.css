@@ -1,0 +1,20 @@
+
+.butomSpinner {
+    margin: 0.25rem  0.125rem;    
+    border-color: #F5793B;
+    color: #F5793B;    
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;    
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;    
+    user-select: none;
+    background-color: transparent;
+    border: 1 px solid transparent;
+    padding: 0.375 rem 0.75 rem;
+    font-size: 1rem;
+    border-radius: 0.25 rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}

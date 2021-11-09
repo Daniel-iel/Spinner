@@ -20,3 +20,6 @@ obj
 
 .user
 *.user*
+
+node_modules
+*/node_modules
