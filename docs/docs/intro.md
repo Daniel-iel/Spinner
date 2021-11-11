@@ -4,32 +4,56 @@ sidebar_position: 1
 
 # Tutorial Intro
 
-Let's discover **Docusaurus in less than 5 minutes**.
+Let's discover **Spinner in less than 5 minutes**.
 
 ## Getting Started
 
-Get started by **creating a new site**.
+Get started by **configuring you project**.
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+## Installing Spinner package
 
-## Generate a new site
-
-Generate a new Docusaurus site using the **classic template**:
+To install spinner in your project using **Nuget Package**:
 
 ```shell
-npm init docusaurus@latest my-website classic
+dotnet add package Spinner
 ```
 
-## Start your site
+## Mapping your model
 
 Run the development server:
 
-```shell
-cd my-website
-
-npx docusaurus start
+```cs
+[ContextProperty(lenght: 50)]
+public struct Nothing
+{
+  public Nothing(string name, string site)
+  {
+    this.Name = name;
+    this.Site = site;
+  }
+  
+  [WriteProperty(lenght: 20, order: 1, paddingChar: ' ')]
+  public string Name { get; private set; }
+  
+  [WriteProperty(lenght: 30, order: 2, paddingChar: ' ')]
+  public string Site { get; private set; }
+}
 ```
 
-Your site starts at `http://localhost:3000`.
+## Using spinner
 
-Open `docs/intro.md` and edit some lines: the site **reloads automatically** and displays your changes.
+Run **WriteAsString** to get mapped object as string or call **WriteAsSpan** to get the result as span:
+
+```c#
+ var nothing = new Nothing("spinner", "www.spinner.com.br");
+ var spinner = new Spinner<Nothing>(nothing);
+ var stringResponse = spinner.WriteAsString();   
+ //stringresponse = "              spinner            www.spinner.com.br"
+```
+
+```c#
+ var nothing = new Nothing("spinner", "www.spinner.com.br");
+ var spinner = new Spinner<Nothing>(nothing);
+ var spanResponse = spinner.WriteAsSpan();   
+ //spanResponse = "              spinner            www.spinner.com.br"
+```
