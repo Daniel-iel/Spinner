@@ -4,9 +4,9 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Spinner',
-  tagline: '',
-  url: 'https://spinneralloc.github.io/Spinner/',
-  baseUrl: '/',
+  tagline: 'Spinner Documentation',
+  url: 'https://spinneralloc.github.io/',
+  baseUrl: '/Spinner/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'assets/favicon.ico',
