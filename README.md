@@ -1,4 +1,6 @@
-<img src="/Assets/svgexport-6.png?raw=true">
+<p class="text-align: center;">
+  <img src="/Assets/svgexport-6.png?raw=true">
+</p>
 
 # Spinner
          
