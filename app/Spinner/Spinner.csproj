@@ -8,7 +8,7 @@
     <RepositoryUrl>https://github.com/SpinnerAlloc/Spinner</RepositoryUrl>    
     <PackageIcon>svgexport-6.png</PackageIcon>    
     <PackageIconUrl />    
-    <PackageTags>Integration Lagacy Comunication</PackageTags>    
+    <PackageTags>Integration; Integration by positional string; positional stringeLegacy comunication</PackageTags>    
     <PackageProjectUrl>https://github.com/SpinnerAlloc/Doc</PackageProjectUrl>    
     <Description />
   </PropertyGroup>
