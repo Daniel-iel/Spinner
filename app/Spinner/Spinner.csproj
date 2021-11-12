@@ -22,7 +22,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.CoreUtility" Version="16.10.230" />
+    <PackageReference Include="Microsoft.VisualStudio.CoreUtility" Version="17.0.487" />
   </ItemGroup>
 
   <ItemGroup>
