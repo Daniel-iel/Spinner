@@ -17,14 +17,21 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: "12.x"
+          cache: 'npm'
+          cache-dependency-path: ./docs/package-lock.json
       - uses: webfactory/ssh-agent@v0.5.0
         with:
           ssh-private-key: ${{ secrets.GH_PAGES_DEPLOY }}
+      
+      - name: Install Dependencies  
+        run: npm install     
+
+      - name: Build
+        run: npm install  
+
       - name: Release to GitHub Pages
         env:
           USE_SSH: true
           GIT_USER: git
-        run: |
-            npm install -p ./docs 
-            npm run -p ./docs
-            npm run deploy -p ./docs
+        run: npm run deploy
+            
