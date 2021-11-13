@@ -28,7 +28,7 @@ jobs:
         run: npm install     
 
       - name: Build
-        run: npm install  
+        run: npm run build
 
       - name: Release to GitHub Pages
         env:
