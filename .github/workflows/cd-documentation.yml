@@ -25,5 +25,6 @@ jobs:
           USE_SSH: true
           GIT_USER: git
         run: |
-            npm --prefix .\docs install
-            npm run --prefix .\docs deploy
+            npm install -p ./docs 
+            npm run -p ./docs
+            npm run deploy -p ./docs
