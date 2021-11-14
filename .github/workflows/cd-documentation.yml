@@ -4,35 +4,41 @@ on:
   push:
     tags:
       - v*
-    branches: [main]
+    branches: [main, 'doc/*']
   pull_request:
     branches: [main]
 
 jobs:
   gh-release:
+    env:    
+      DOC_FOLDER: './docs'      
+     
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: "15.x"
-          cache: "npm"
-          cache-dependency-path: ./docs/package-lock.json
-          path: "./docs"
+      - uses: actions/checkout@v1     
       - uses: webfactory/ssh-agent@v0.5.0
         with:
           ssh-private-key: ${{ secrets.GH_PAGES_DEPLOY }}
 
-      - name: Install Dependencies
-        working-directory: "./docs"
+      - name: Setup Node 🔧
+        uses: actions/setup-node@v1 
+        with:
+          node-version: "15.x"
+          cache: "npm"
+          cache-dependency-path: ./docs/package-lock.json
+          path: $DOC_FOLDER
+
+      - name: Restore Dependencies 📦
+        working-directory: $DOC_FOLDER
         run: npm install --force
 
-      - name: Build
-        working-directory: "./docs"
+      - name: Build ⚙️
+        working-directory: $DOC_FOLDER
         run: npm run build
 
-      - name: Release to GitHub Pages
-        working-directory: "./docs"
+      - name: Publish to GitHub Pages ✉️
+        if: startsWith(github.ref, 'refs/tags/v') && github.eventName == 'push'        
+        working-directory: $DOC_FOLDER        
         env:
           USE_SSH: true
           GIT_USER: git
