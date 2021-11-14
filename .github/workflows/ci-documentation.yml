@@ -11,7 +11,7 @@ on:
 jobs:
   gh-release:
     env:    
-      DOC_FOLDER: '.\docs'      
+      DOC_FOLDER: './docs'      
      
     runs-on: ubuntu-latest
     steps:
@@ -29,16 +29,16 @@ jobs:
           path: $DOC_FOLDER
 
       - name: Restore Dependencies 📦
-        working-directory: './docs'
+        working-directory: ${{ env.DOC_FOLDER }}
         run: npm install --force
 
       - name: Build ⚙️
-        working-directory: $DOC_FOLDER
+        working-directory: ${{ env.DOC_FOLDER }}
         run: npm run build
 
       - name: Publish to GitHub Pages ✉️
         if: startsWith(github.ref, 'refs/tags/v')      
-        working-directory: $DOC_FOLDER        
+        working-directory: ${{ env.DOC_FOLDER }}
         env:
           USE_SSH: true
           GIT_USER: git
