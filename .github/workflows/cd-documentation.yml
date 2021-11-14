@@ -10,29 +10,30 @@ on:
 
 jobs:
   gh-release:
-
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
           node-version: "12.x"
-          cache: 'npm'
+          cache: "npm"
           cache-dependency-path: ./docs/package-lock.json
-          path: './docs'
+          path: "./docs"
       - uses: webfactory/ssh-agent@v0.5.0
         with:
           ssh-private-key: ${{ secrets.GH_PAGES_DEPLOY }}
-      
+
       - name: Install Dependencies
-        run: npm install     
+        working-directory: "../../docs"
+        run: npm install
 
       - name: Build
+        working-directory: "../../docs"
         run: npm run build
 
       - name: Release to GitHub Pages
+        working-directory: "../../docs"
         env:
           USE_SSH: true
           GIT_USER: git
         run: npm run deploy
-            
