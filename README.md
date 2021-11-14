@@ -1,6 +1,6 @@
-<p class="text-align: center;">
-  <img src="/Assets/svgexport-6.png?raw=true">
-</p>
+<div align="center">
+  <img src="./assets/svgexport-6.png?raw=true">
+</div>
 
 # Spinner
          
@@ -23,10 +23,12 @@
     <img src="https://img.shields.io/nuget/dt/Spinner" alt="Nuget"/>
 </a>  
 
-### 🕮 Introduction 
+<br />
+
+### Introduction 
 Spinner is a simple object mapper, it’s useful to communicate to any system that uses a positional string as communication, for example,  integrations with the mainframe.
 
-### ♨️Spinner provides features:
+### Spinner provides features:
 * Fast write.
 * Convert object to a mapped string.
 * Convert string to a mapped object(commig soon).
@@ -61,7 +63,7 @@ public struct Nothing
  var nothing = new Nothing("spinner", "www.spinner.com.br");
  var spinner = new Spinner<Nothing>(nothing);
  var stringResponse = spinner.WriteAsString();   
- // stringresponse = "              spinner            www.spinner.com.br   "
+ // stringResponse = "              spinner            www.spinner.com.br"
 ```
 
 ## Documentation
@@ -72,22 +74,3 @@ See Learn: Getting Started for setting up your project [here](https://spinnerall
 
 ## License
 Our code and framework are licensed under the MIT licence. Please see the licence file for more information. You can do whatever you want as long as you include the original copyright and license notice in any copy of the software/source.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

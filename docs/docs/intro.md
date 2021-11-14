@@ -22,7 +22,7 @@ dotnet add package Spinner
 
 Run the development server:
 
-```cs
+```csharp
 [ContextProperty(lenght: 50)]
 public struct Nothing
 {
@@ -44,14 +44,14 @@ public struct Nothing
 
 Run **WriteAsString** to get mapped object as string or call **WriteAsSpan** to get the result as span:
 
-```c#
+```csharp
  var nothing = new Nothing("spinner", "www.spinner.com.br");
  var spinner = new Spinner<Nothing>(nothing);
  var stringResponse = spinner.WriteAsString();   
  //stringresponse = "              spinner            www.spinner.com.br"
 ```
 
-```c#
+```csharp
  var nothing = new Nothing("spinner", "www.spinner.com.br");
  var spinner = new Spinner<Nothing>(nothing);
  var spanResponse = spinner.WriteAsSpan();   
