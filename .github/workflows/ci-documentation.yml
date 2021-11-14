@@ -29,7 +29,7 @@ jobs:
           path: $DOC_FOLDER
 
       - name: Restore Dependencies 📦
-        working-directory: $DOC_FOLDER
+        working-directory: './docs'
         run: npm install --force
 
       - name: Build ⚙️
