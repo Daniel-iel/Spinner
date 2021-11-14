@@ -11,7 +11,7 @@ on:
 jobs:
   gh-release:
     env:    
-      DOC_FOLDER: './docs'      
+      DOC_FOLDER: '.\docs'      
      
     runs-on: ubuntu-latest
     steps:
