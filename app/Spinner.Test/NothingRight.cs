@@ -1,20 +1,21 @@
 ﻿using Spinner.Attribute;
+using Spinner.Enuns;
 
 namespace Spinner.Test
 {
     [ContextProperty(lenght: 50)]
-    internal struct Nothing
+    internal struct NothingRight
     {
-        public Nothing(string name, string adress)
+        public NothingRight(string name, string adress)
         {
             this.Name = name;
             this.Adress = adress;
         }
 
-        [WriteProperty(lenght: 20, order: 1, paddingChar: ' ')]
+        [WriteProperty(lenght: 20, order: 1, paddingChar: ' ', PaddingType.Right)]
         public string Name { get; private set; }
 
-        [WriteProperty(lenght: 30, order: 2, paddingChar: ' ')]
+        [WriteProperty(lenght: 30, order: 2, paddingChar: ' ', PaddingType.Right)]
         public string Adress { get; private set; }
     }
 }

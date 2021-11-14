@@ -3,18 +3,18 @@
 namespace Spinner.Test
 {
     [ContextProperty(lenght: 50)]
-    internal struct NothingCaseTwo
+    internal struct NothingLeft
     {
-        public NothingCaseTwo(string name, string adress)
+        public NothingLeft(string name, string adress)
         {
             this.Name = name;
             this.Adress = adress;
         }
 
-        [WriteProperty(lenght: 70, order: 1, paddingChar: ' ')]
+        [WriteProperty(lenght: 20, order: 1, paddingChar: ' ')]
         public string Name { get; private set; }
 
-        [WriteProperty(lenght: 90, order: 2, paddingChar: ' ')]
+        [WriteProperty(lenght: 30, order: 2, paddingChar: ' ')]
         public string Adress { get; private set; }
     }
 }
