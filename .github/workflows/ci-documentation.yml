@@ -37,7 +37,7 @@ jobs:
         run: npm run build
 
       - name: Publish to GitHub Pages ✉️
-        if: startsWith(github.ref, 'refs/tags/v') && github.eventName == 'push'        
+        if: startsWith(github.ref, 'refs/tags/v')      
         working-directory: $DOC_FOLDER        
         env:
           USE_SSH: true
