@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="/assets/svgexport-6.png?raw=true">
+  <img src="/Assets/svgexport-6.png?raw=true">
 </div>
 
 # Spinner
