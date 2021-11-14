@@ -9,7 +9,7 @@
     <PackageIcon>svgexport-6.png</PackageIcon>    
     <PackageIconUrl />    
     <PackageTags>Integration; Integration by positional string; positional stringeLegacy comunication</PackageTags>    
-    <PackageProjectUrl>https://github.com/SpinnerAlloc/Doc</PackageProjectUrl>    
+    <PackageProjectUrl>https://spinneralloc.github.io/Spinner/</PackageProjectUrl>    
     <Description />
   </PropertyGroup>
 
@@ -23,6 +23,13 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.CoreUtility" Version="17.0.487" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\assets\svgexport-6.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
