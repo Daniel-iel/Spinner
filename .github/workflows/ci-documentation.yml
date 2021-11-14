@@ -42,4 +42,7 @@ jobs:
         env:
           USE_SSH: true
           GIT_USER: git
-        run: npm run deploy
+        run: |
+          git config --global user.email  ${{secrets.OWNER_USER_EMAIL}}
+          git config --global user.name  ${{secrets.OWNER_USER}}
+          npm run deploy
