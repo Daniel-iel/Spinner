@@ -8,9 +8,10 @@
     <RepositoryUrl>https://github.com/SpinnerAlloc/Spinner</RepositoryUrl>    
     <PackageIcon>svgexport-6.png</PackageIcon>    
     <PackageIconUrl />    
-    <PackageTags>Integration; Integration by positional string; positional stringeLegacy comunication</PackageTags>    
+    <PackageTags>Integration; Integration by positional string; positional string and Legacy comunication; IMS comunication</PackageTags>    
     <PackageProjectUrl>https://spinneralloc.github.io/Spinner/</PackageProjectUrl>    
-    <Description />
+    <Description />    
+    <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -26,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\assets\svgexport-6.png">
+    <None Include="..\..\Assets\svgexport-6.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
