@@ -25,7 +25,7 @@ jobs:
 
       - name: Install Dependencies
         working-directory: "./docs"
-        run: npm install
+        run: npm install --force
 
       - name: Build
         working-directory: "./docs"
