@@ -15,7 +15,7 @@ jobs:
       APP: '.\app'      
       PROJECT_SLN: '.\app\Spinner.sln'
       PROJECT_SPINNER: '.\app\Spinner\'
-      PROJECT_TEST: '.\app\Spinner.Test\'
+      PROJECT_TEST: '.\app\Spinner.Test'
 
     runs-on: ubuntu-latest
     strategy:
