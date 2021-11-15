@@ -14,6 +14,8 @@ jobs:
     env:    
       APP: '.\app'      
       PROJECT_SLN: '.\app\Spinner.sln'
+      PROJECT_SPINNER: '.\app\Spinner\'
+      PROJECT_TEST: '.\app\Spinner.Test\'
 
     runs-on: ubuntu-latest
     strategy:
@@ -52,6 +54,19 @@ jobs:
     - name: Test 🧪
       run: dotnet test $PROJECT_SLN --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$GITHUB_WORKSPACE/Coverage
  
+    - name: Analyze with SonarCloud
+      uses: sonarsource/sonarcloud-github-action@master
+      with:
+        projectBaseDir: ${{env.PROJECT_SPINNER}}
+        args: >
+          -Dsonar.organization=SpinnerAlloc
+          -Dsonar.projectKey=${{ secrets.SONAR_TOKEN }}
+          -Dsonar.cs.opencover.reportsPaths=coverage.xml
+          -Dsonar.sources=${{ env.PROJECT_SPINNER}}
+          -Dsonar.test.exclusions= ${{env.PROJECT_TEST}}\**
+          -Dsonar.tests=${{env.PROJECT_TEST}}\
+          -Dsonar.verbose=true
+    
     - name: Publish Package ✉️     
       if: startsWith(github.ref, 'refs/tags/v')
       run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_TOKEN}}
