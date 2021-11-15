@@ -53,7 +53,11 @@ jobs:
     
     - name: Test 🧪
       run: dotnet test $PROJECT_SLN --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$GITHUB_WORKSPACE/Coverage
- 
+
+    - name: LS
+      run: ls -la
+      working-directory: ${{ github.workspace }}
+        
     - name: Analyze with SonarCloud
       uses: sonarsource/sonarcloud-github-action@master
       env:
