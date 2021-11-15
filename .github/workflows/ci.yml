@@ -64,13 +64,13 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with:
-        projectBaseDir: ${{ env.APP }}    
+        projectBaseDir: ${{ github.workspace }} 
         args: >
           -Dsonar.organization=SpinnerAlloc
           -Dsonar.projectKey=${{secrets.SONAR_PROJECT_KEY}}
           -Dsonar.cs.opencover.reportsPaths=coverage.xml
-          -Dsonar.sources=Spinner/
-          -Dsonar.tests=Spinner.Test/
+          -Dsonar.sources=app/Spinner/
+          -Dsonar.tests=app/Spinner.Test/
           -Dsonar.verbose=true
           -Dsonar.github.repository=SpinnerAlloc/Spinner
     
