@@ -12,7 +12,10 @@
 </a>  
 <a href="https://github.com/SpinnerAlloc/Spinner/actions/workflows/ci.yml">
     <img src="https://github.com/SpinnerAlloc/Spinner/actions/workflows/ci.yml/badge.svg" alt="build status">
-</a>             
+</a>
+<a href="https://github.com/SpinnerAlloc/Spinner/actions/workflows/ci.yml">
+    <img src="https://github.com/SpinnerAlloc/Spinner/actions/workflows/ci-documentation.yml/badge.svg" alt="build status">
+</a>
 <a href="https://lgtm.com/projects/g/SpinnerAlloc/Spinner/alerts/">
     <img src="https://img.shields.io/lgtm/alerts/g/badges/shields" alt="Total alerts"/>
 </a>  
@@ -26,10 +29,10 @@
   <img alt="views" title="Views" src="https://visitor-badge-reloaded.herokuapp.com/badge?page_id=https://github.com/SpinnerAlloc/Spinner&logo=github"/>
 </a>
 <a href="#">
-  <img alt="views" title="Views" src="https://img.shields.io/nuget/v/spinner"/>
+  <img alt="Release" title="Release" src="https://img.shields.io/nuget/v/spinner"/>
 </a>
 <a href="#">
-  <img alt="views" title="Views" src="https://img.shields.io/nuget/vpre/spinner"/>
+  <img alt="Repo Size" title="Repo Size" src="https://img.shields.io/github/repo-size/spinneralloc/spinner"/>
 </a>
 
 <br />
@@ -81,14 +84,8 @@ See Learn: Getting Started for setting up your project [here](https://spinnerall
 ## Contributors
 <a href="https://github.com/Daniel-iel"><img src="https://github.com/Daniel-iel.png?size=40" width="40" class="border-radius: 100%" /></a>
 
-## Donate
+## Support
 All donation are welcome, you can donate to the Spinner project, we gonna use to maintain spinner domain and ssl certificate only.
-
-[![Liberapay][liberapay-badge]][liberapay] <br />
-[![Ko-Fi][kofi-badge]][kofi]
-
-<!-- [PayPal](https://www.paypal.me/SpinnerAlloc)<br>
-[Open Collective](https://opencollective.com/spinneralloc) -->
 
 ## License
 Our code and framework are licensed under the MIT licence. Please see the licence file for more information. You can do whatever you want as long as you include the original copyright and license notice in any copy of the software/source.
