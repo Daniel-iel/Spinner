@@ -5,8 +5,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'Spinner',
   tagline: 'Spinner Documentation',
-  url: 'https://spinneralloc.github.io/',
-  baseUrl: '/Spinner/',
+  url: 'www.spinnerframework.com',
+  baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'assets/favicon.ico',
