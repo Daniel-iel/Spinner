@@ -69,7 +69,8 @@ jobs:
           -Dsonar.organization=SpinnerAlloc
           -Dsonar.projectKey=${{secrets.SONAR_PROJECT_KEY}}
           -Dsonar.cs.opencover.reportsPaths=coverage.xml
-          -Dsonar.sources= ${{ env.APP }}/Spinner
+          -Dsonar.sources=Spinner/
+          -Dsonar.tests=Spinner.Test/
           -Dsonar.verbose=true
     
     - name: Publish Package ✉️     
