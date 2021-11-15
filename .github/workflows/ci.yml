@@ -60,7 +60,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with:
-        projectBaseDir: /app/spinner      
+        projectBaseDir: .      
         args: >
           -Dsonar.organization=SpinnerAlloc
           -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
