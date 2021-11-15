@@ -22,6 +22,15 @@
 <a href="https://www.nuget.org/packages/Spinner">
     <img src="https://img.shields.io/nuget/dt/Spinner" alt="Nuget"/>
 </a>  
+<a href="#">
+  <img alt="views" title="Views" src="https://visitor-badge-reloaded.herokuapp.com/badge?page_id=https://github.com/SpinnerAlloc/Spinner&logo=github"/>
+</a>
+<a href="#">
+  <img alt="views" title="Views" src="https://img.shields.io/nuget/v/spinner"/>
+</a>
+<a href="#">
+  <img alt="views" title="Views" src="https://img.shields.io/nuget/vpre/spinner"/>
+</a>
 
 <br />
 
@@ -71,6 +80,15 @@ See Learn: Getting Started for setting up your project [here](https://spinnerall
 
 ## Contributors
 <a href="https://github.com/Daniel-iel"><img src="https://github.com/Daniel-iel.png?size=40" width="40" class="border-radius: 100%" /></a>
+
+## Donate
+All donation are welcome, you can donate to the Spinner project, we gonna use to maintain spinner domain and ssl certificate only.
+
+[![Liberapay][liberapay-badge]][liberapay] <br />
+[![Ko-Fi][kofi-badge]][kofi]
+
+<!-- [PayPal](https://www.paypal.me/SpinnerAlloc)<br>
+[Open Collective](https://opencollective.com/spinneralloc) -->
 
 ## License
 Our code and framework are licensed under the MIT licence. Please see the licence file for more information. You can do whatever you want as long as you include the original copyright and license notice in any copy of the software/source.
