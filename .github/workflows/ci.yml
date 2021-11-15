@@ -12,7 +12,7 @@ jobs:
   build:
 
     env:    
-      APP: '.\app'      
+      APP: ${{ github.workspace }}/app
       PROJECT_SLN: '.\app\Spinner.sln'
       PROJECT_SPINNER: '.\app\Spinner\'
       PROJECT_TEST: '.\app\Spinner.Test'
@@ -64,12 +64,12 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with:
-        projectBaseDir: .      
+        projectBaseDir: ${{ env.APP }}    
         args: >
           -Dsonar.organization=SpinnerAlloc
-          -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+          -Dsonar.projectKey=${{secrets.SONAR_PROJECT_KEY}}
           -Dsonar.cs.opencover.reportsPaths=coverage.xml
-          -Dsonar.sources=${{ env.PROJECT_SPINNER}}
+          -Dsonar.sources= ${{ env.APP }}/Spinner
           -Dsonar.verbose=true
     
     - name: Publish Package ✉️     
