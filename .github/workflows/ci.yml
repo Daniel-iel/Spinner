@@ -79,7 +79,7 @@ jobs:
       run: |
           ./.sonar/scanner/dotnet-sonarscanner begin /k:"SpinnerAlloc_Spinner" /o:"75a7e136-8734-4321-b0ed-b8fda8766c32" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           # dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -l trx
-          dotnet test ${{ env.PROJECT_TEST }} --configuration Release --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -l trx
+          dotnet test ${{ env.PROJECT_SLN }} --configuration Release --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -l trx
           ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
               
     - name: Publish Package ✉️     
