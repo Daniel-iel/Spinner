@@ -30,6 +30,8 @@ jobs:
       with:
         dotnet-version: ${{ matrix.dotnet-version }}
 
+    - name: Setup NuGet 🔧
+      uses: NuGet/setup-nuget@v1.0.5
     # - name: Three
     #   run: |
     #         sudo apt-get install tree && tree $GITHUB_WORKSPACE
@@ -61,8 +63,7 @@ jobs:
       if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
       run: dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
 
-    - name: Setup NuGet 🔧
-      uses: NuGet/setup-nuget@v1.0.5
+
     
     - name: Restore Dependencies 📦
       run: dotnet restore $PROJECT_SLN
