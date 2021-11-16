@@ -25,9 +25,16 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Three
-      run: |
-            sudo apt-get install tree && tree $GITHUB_WORKSPACE
+    - name: Setup .NET Core SDK ${{ matrix.dotnet-version }} 🔧
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ matrix.dotnet-version }}
+
+    - name: Setup NuGet 🔧
+      uses: NuGet/setup-nuget@v1.0.5
+    # - name: Three
+    #   run: |
+    #         sudo apt-get install tree && tree $GITHUB_WORKSPACE
 
     - name: Get Build Version 🏷️
       run: |
@@ -55,14 +62,6 @@ jobs:
     - name: Install SonarCloud scanner
       if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
       run: dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
-
-    - name: Setup NuGet 🔧
-      uses: NuGet/setup-nuget@v1.0.5
-
-    - name: Setup .NET Core SDK ${{ matrix.dotnet-version }} 🔧
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: ${{ matrix.dotnet-version }}
     
     - name: Restore Dependencies 📦
       run: dotnet restore $PROJECT_SLN
