@@ -59,10 +59,7 @@ jobs:
 
     - name: Install SonarCloud scanner
       if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
-      shell: powershell
-      run: |
-          New-Item -Path .\.sonar\scanner -ItemType Directory
-          dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+      run: dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
 
     - name: Setup NuGet 🔧
       uses: NuGet/setup-nuget@v1.0.5
@@ -79,29 +76,12 @@ jobs:
     - name: Test and analyze
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      shell: powershell
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}      
       run: |
        ./.sonar/scanner/dotnet-sonarscanner begin /k:"SpinnerAlloc_Spinner" /o:"75a7e136-8734-4321-b0ed-b8fda8766c32" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
        # dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -l trx
        dotnet test $PROJECT_SLN --configuration Release --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura -l trx
        ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-
-    # - name: LS
-    #   run: ls -la
-    #   working-directory: ${{ github.workspace }}
-        
-    # - name: Analyze with SonarCloud
-    #   uses: SonarSource/sonarcloud-github-action@v1.6
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-    #   with:
-    #     projectBaseDir: ${{ github.workspace }} 
-    #     args: >
-    #       -Dsonar.organization=SpinnerAlloc
-    #       -Dsonar.projectKey=${{secrets.SONAR_PROJECT_KEY}}
-    #       -Dsonar.verbose=true
               
     - name: Publish Package ✉️     
       if: startsWith(github.ref, 'refs/tags/v')
