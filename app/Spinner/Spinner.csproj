@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>    
+  <PropertyGroup>
+    <ProjectGuid>{31216AE6-002C-4627-8D91-3EDA673389CC}</ProjectGuid>
     <TargetFrameworks>netcoreapp3;netcoreapp3.1;net5.0</TargetFrameworks>    
     <Authors>Daniel Oliveira</Authors>    
     <PackageLicenseExpression>MIT</PackageLicenseExpression>    

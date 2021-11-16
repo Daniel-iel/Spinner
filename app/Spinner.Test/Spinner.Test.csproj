@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <ProjectGuid>{60B8D744-7638-4739-87B9-2AB683AE06B7}</ProjectGuid>
     <TargetFramework>net5.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
