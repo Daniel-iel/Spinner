@@ -4,9 +4,9 @@ on:
   push:
     tags:
     - v*
-    branches: [ main, feature/* ]
-  pull_request:
     branches: [ main ]
+  pull_request:
+    branches: [ main,  feature/* ]
    
 jobs:
   build:
@@ -59,7 +59,10 @@ jobs:
 
     - name: Install SonarCloud scanner
       if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
-      run: dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
+      shell: powershell
+      run: |
+          New-Item -Path .\.sonar\scanner -ItemType Directory
+          dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
 
     - name: Setup NuGet 🔧
       uses: NuGet/setup-nuget@v1.0.5
@@ -77,6 +80,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      shell: powershell
       run: |
        ./.sonar/scanner/dotnet-sonarscanner begin /k:"SpinnerAlloc_Spinner" /o:"75a7e136-8734-4321-b0ed-b8fda8766c32" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
        # dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -l trx
