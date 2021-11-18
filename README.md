@@ -37,6 +37,10 @@
 <a href="https://www.codefactor.io/repository/github/spinneralloc/spinner">
   <img alt="" title="" src="https://www.codefactor.io/repository/github/spinneralloc/spinner/badge"/>  
 </a>
+<a href="https://scan.coverity.com/projects/spinner">
+  <img alt="Coverity Scan Build Status"
+       src="https://img.shields.io/coverity/scan/24116.svg"/>
+</a>
 
 <br />
 
