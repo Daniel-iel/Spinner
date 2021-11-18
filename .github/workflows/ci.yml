@@ -4,9 +4,9 @@ on:
   push:
     tags:
     - v*
-    branches: [ main, feature/* ]
-  pull_request:
     branches: [ main ]
+  pull_request:
+    branches: [ main, feature/* ]
    
 jobs:
   build:
@@ -14,9 +14,7 @@ jobs:
     env:    
       APP: ${{ github.workspace }}/app
       PROJECT_SLN: '.\app\Spinner.sln'
-      PROJECT_SPINNER: '.\app\Spinner\'
-      PROJECT_TEST: '.\app\Spinner.Test'
-
+            
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -24,10 +22,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-
-    - name: Three
-      run: |
-            sudo apt-get install tree && tree $GITHUB_WORKSPACE
 
     - name: Get Build Version 🏷️
       run: |
@@ -54,26 +48,6 @@ jobs:
     - name: Test 🧪
       run: dotnet test $PROJECT_SLN --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$GITHUB_WORKSPACE/Coverage
 
-    - name: LS
-      run: ls -la
-      working-directory: ${{ github.workspace }}
-        
-    - name: Analyze with SonarCloud
-      uses: SonarSource/sonarcloud-github-action@v1.6
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      with:
-        projectBaseDir: ${{ github.workspace }} 
-        args: >
-          -Dsonar.organization=SpinnerAlloc
-          -Dsonar.projectKey=${{secrets.SONAR_PROJECT_KEY}}
-          -Dsonar.cs.opencover.reportsPaths=coverage.xml
-          -Dsonar.sources=app/Spinner/
-          -Dsonar.tests=app/Spinner.Test/
-          -Dsonar.verbose=true
-          -Dsonar.github.repository=SpinnerAlloc/Spinner
-    
     - name: Publish Package ✉️     
       if: startsWith(github.ref, 'refs/tags/v')
       run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_TOKEN}}

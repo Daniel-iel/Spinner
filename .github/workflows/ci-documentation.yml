@@ -4,9 +4,9 @@ on:
   push:
     tags:
       - v*
-    branches: [main, 'doc/*']
+    branches: [main ]
   pull_request:
-    branches: [main]
+    branches: [main, 'doc/*']
 
 jobs:
   gh-release:
