@@ -41,6 +41,9 @@
   <img alt="Coverity Scan Build Status"
        src="https://img.shields.io/coverity/scan/24116.svg"/>
 </a>
+<a href="">
+  <img alt="" src="https://api.meercode.io/badge/SpinnerAlloc/Spinner?type=ci-score&branch=main&lastDay=14"/>
+</a>
 
 <br />
 
