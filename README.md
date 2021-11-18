@@ -34,6 +34,9 @@
 <a href="#">
   <img alt="Repo Size" title="Repo Size" src="https://img.shields.io/github/repo-size/spinneralloc/spinner"/>
 </a>
+<a href="https://www.codefactor.io/repository/github/spinneralloc/spinner">
+  <img alt="" title="" src="https://www.codefactor.io/repository/github/spinneralloc/spinner/badge"/>  
+</a>
 
 <br />
 
