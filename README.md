@@ -9,7 +9,8 @@
 </a>
 <a href="https://github.com/SpinnerAlloc/Spinner/commits/main" alt="Total Commits">
     <img src="https://img.shields.io/github/commit-activity/m/SpinnerAlloc/Spinner/main" />
-</a>  
+</a> <a href="https://app.fossa.com/projects/git%2Bgithub.com%2FSpinnerAlloc%2FSpinner?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FSpinnerAlloc%2FSpinner.svg?type=shield"/></a>
+ 
 <a href="https://github.com/SpinnerAlloc/Spinner/actions/workflows/ci.yml">
     <img src="https://github.com/SpinnerAlloc/Spinner/actions/workflows/ci.yml/badge.svg" alt="build status">
 </a>
@@ -46,6 +47,9 @@
 </a>
 
 <br />
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSpinnerAlloc%2FSpinner.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FSpinnerAlloc%2FSpinner?ref=badge_large)
 
 ### Introduction 
 Spinner is a simple object mapper, it’s useful to communicate to any system that uses a positional string as communication, for example,  integrations with the mainframe.
