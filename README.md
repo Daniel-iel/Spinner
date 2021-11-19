@@ -44,9 +44,6 @@
 <a href="">
   <img alt="" src="https://api.meercode.io/badge/SpinnerAlloc/Spinner?type=ci-score&branch=main&lastDay=14"/>
 </a>
-<a href="https://app.fossa.com/projects/git%2Bgithub.com%2FSpinnerAlloc%2FSpinner?ref=badge_shield">
-  <img alt="" src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FSpinnerAlloc%2FSpinner.svg?type=shield"/>
-</a>
 
 <br />
 
