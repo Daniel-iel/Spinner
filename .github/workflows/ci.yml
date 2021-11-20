@@ -13,8 +13,11 @@ jobs:
 
     env:    
       APP: ${{ github.workspace }}/app
-      PROJECT_SLN: '.\app\Spinner.sln'
-            
+      PROJECT_SLN: ${{ env.APP }}/Spinner.sln
+      PROJECT_BIN3: ${{ env.app}}/bin/Release/netcoreapp3
+      PROJECT_BIN3.1: ${{ env.app}}/bin/Release/netcoreapp3.1
+      PROJECT_BIN5: ${{ env.app}}/bin/Release/net5.0
+
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -38,16 +41,28 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: ${{ matrix.dotnet-version }}
-    
+
     - name: Restore Dependencies 📦
       run: dotnet restore $PROJECT_SLN
-    
+
     - name: Build ⚙️
       run: dotnet build $PROJECT_SLN -c Release -p:Version=$BUILD_VERSION --no-restore
-    
-    - name: Test 🧪
-      run: dotnet test $PROJECT_SLN --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$GITHUB_WORKSPACE/Coverage
 
+    - name: Test 🧪
+      run: dotnet test $PROJECT_SLN --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=$GITHUB_WORKSPACE/Coverage
+
+    - name: Run Infer .Net 3.0
+      uses: microsoft/infersharpaction@v1.2
+      with:
+        binary-path: ${{ env.PROJECT_BIN3 }}
+
+    - name: Codecov      
+      uses: codecov/codecov-action@v2.1.0
+      with:        
+        token: ${{secrets.CODCOV_TOKEN}}        
+        directory: $GITHUB_WORKSPACE/Coverage        
+        file: coverage.opencover.xml
+        
     - name: Publish Package ✉️     
       if: startsWith(github.ref, 'refs/tags/v')
       run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_TOKEN}}
