@@ -15,7 +15,7 @@ jobs:
       APP: '${{ github.workspace }}/app'
       PROJECT_SLN: './app/Spinner.sln'
       PROJECT_BIN3: './app/Spinner/bin/Release/netcoreapp3'
-      PROJECT_BIN3.1: './app/Spinner/bin/Release/netcoreapp3.1'
+      PROJECT_BIN3_1: './app/Spinner/bin/Release/netcoreapp3.1'
       PROJECT_BIN5: './app/Spinner/bin/Release/net5.0'
 
     runs-on: ubuntu-latest
@@ -59,7 +59,7 @@ jobs:
     - name: Run Infer .Net 3.1 🔍
       uses: microsoft/infersharpaction@v1.2
       with:
-        binary-path: ${{ env.PROJECT_BIN3.1 }}
+        binary-path: ${{ env.PROJECT_BIN3_1 }}
 
     - name: Run Infer .Net 5.0 🔍
       uses: microsoft/infersharpaction@v1.2
