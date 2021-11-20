@@ -13,6 +13,7 @@ jobs:
 
     env:    
       APP: '${{ github.workspace }}/app'
+      PROJECT_TEST: '${{ github.workspace }}/app/Spinner.Test/'
       PROJECT_SLN: './app/Spinner.sln'
       PROJECT_BIN3: './app/Spinner/bin/Release/netcoreapp3'
       PROJECT_BIN3_1: './app/Spinner/bin/Release/netcoreapp3.1'
@@ -49,7 +50,7 @@ jobs:
       run: dotnet build ${{env.PROJECT_SLN }} -c Release -p:Version=$BUILD_VERSION --no-restore
 
     - name: Test 🧪
-      run: dotnet test ${{env.PROJECT_SLN }} --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput="./Coverage"
+      run: dotnet test ${{env.PROJECT_SLN }} --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 
     - name: Run Infer .Net 3.0 🔍
       uses: microsoft/infersharpaction@v1.2
@@ -73,8 +74,8 @@ jobs:
     - name: Codecov      
       uses: codecov/codecov-action@v2.1.0
       with:        
-        token: ${{secrets.CODECOV_TOKEN}}        
-        directory: "./Coverage"      
+        token: ${{secrets.CODECOV_TOKEN}}
+        directory: ${{ env.PROJECT_TEST }}
         file: coverage.opencover.xml
         
     - name: Publish Package ✉️     
