@@ -12,11 +12,11 @@ jobs:
   build:
 
     env:    
-      APP: ${{ github.workspace }}/app
-      PROJECT_SLN: $APP/Spinner.sln
-      PROJECT_BIN3: $APP/Spinner/bin/Release/netcoreapp3
-      PROJECT_BIN3.1: $APP/Spinner/bin/Release/netcoreapp3.1
-      PROJECT_BIN5: $APP/Spinner/bin/Release/net5.0
+      APP: '${{ github.workspace }}/app'
+      PROJECT_SLN: '${{env.APP}}/Spinner.sln'
+      PROJECT_BIN3: '${{env.APP}}/Spinner/bin/Release/netcoreapp3'
+      PROJECT_BIN3.1: '${{env.APP}}/Spinner/bin/Release/netcoreapp3.1'
+      PROJECT_BIN5: '${{env.APP}}/Spinner/bin/Release/net5.0'
 
     runs-on: ubuntu-latest
     strategy:
