@@ -67,10 +67,6 @@ jobs:
       with:
         binary-path: ${{ env.PROJECT_BIN5 }}
 
-    - name: Three
-      run: |
-            sudo apt-get install tree && tree $GITHUB_WORKSPACE
-
     - name: Codecov      
       uses: codecov/codecov-action@v2.1.0
       with:        
