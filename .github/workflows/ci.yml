@@ -51,10 +51,24 @@ jobs:
     - name: Test 🧪
       run: dotnet test ${{env.PROJECT_SLN }} --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput="./Coverage"
 
-    - name: Run Infer .Net 3.0
+    - name: Run Infer .Net 3.0 🔍
       uses: microsoft/infersharpaction@v1.2
       with:
         binary-path: ${{ env.PROJECT_BIN3 }}
+
+    - name: Run Infer .Net 3.1 🔍
+      uses: microsoft/infersharpaction@v1.2
+      with:
+        binary-path: ${{ env.PROJECT_BIN3.1 }}
+
+    - name: Run Infer .Net 5.0 🔍
+      uses: microsoft/infersharpaction@v1.2
+      with:
+        binary-path: ${{ env.PROJECT_BIN5 }}
+
+    - name: Three
+      run: |
+            sudo apt-get install tree && tree $GITHUB_WORKSPACE
 
     - name: Codecov      
       uses: codecov/codecov-action@v2.1.0
