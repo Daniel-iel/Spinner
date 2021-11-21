@@ -1,5 +1,6 @@
 using System;
 using Xunit;
+using System.Linq;
 
 namespace Spinner.Test
 {
@@ -30,7 +31,7 @@ namespace Spinner.Test
             var expected = "             spinner            www.spinner.com.br";
 
             // Act
-            var conf = spinner.GetConfigurationProperty;
+            var conf = spinner.GetObjectMapper;
             var stringResponse = spinner.WriteAsString();
 
             // Assert
@@ -63,7 +64,7 @@ namespace Spinner.Test
             var expected = new ReadOnlySpan<char>("             spinner            www.spinner.com.br".ToCharArray());
 
             // Act
-            var conf = spinner.GetConfigurationProperty;
+            var conf = spinner.GetObjectMapper;
             var stringResponseAsSpan = spinner.WriteAsSpan();
 
             // Assert
@@ -114,7 +115,7 @@ namespace Spinner.Test
             var expected = "spinner             www.spinner.com.br            ";
 
             // Act
-            var conf = spinner.GetConfigurationProperty;
+            var conf = spinner.GetObjectMapper;
             var stringResponse = spinner.WriteAsString();
 
             // Assert
@@ -147,7 +148,7 @@ namespace Spinner.Test
             var expected = new ReadOnlySpan<char>("spinner             www.spinner.com.br            ".ToCharArray());
 
             // Act
-            var conf = spinner.GetConfigurationProperty;
+            var conf = spinner.GetObjectMapper;
             var stringResponseAsSpan = spinner.WriteAsSpan();
 
             // Assert
@@ -171,6 +172,20 @@ namespace Spinner.Test
 
             // Assert
             Assert.True(stringResponseFirst != stringResponseSecond);
+        }
+
+        [Fact]
+        public void GetWriteProperties_WhenCaller_ShouldValidadeHowManyPropertiesWasMapped()
+        {
+            var nothing = new NothingRight("spinnerFirst", "www.spinner.com.br");
+
+            var spinnerFirst = new Spinner<NothingRight>(nothing);
+
+            var props = spinnerFirst.GetWriteProperties;
+
+            Assert.Equal(2, props.Count());
+            Assert.Equal("Name", props.First().Name);
+            Assert.Equal("Adress", props.Last().Name);
         }
     }
 }

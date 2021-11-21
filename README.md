@@ -3,7 +3,7 @@
 </div>
 
 # Spinner
-         
+
  <a href="https://github.com/SpinnerAlloc/Spinner/graphs/contributors" alt="Contributors">
     <img src="https://img.shields.io/github/contributors/SpinnerAlloc/Spinner" />
 </a>
@@ -69,7 +69,7 @@ dotnet add package Spinner
 ### Usage
 
 ```csharp
-[ContextProperty(lenght: 50)]
+[ObjectMapper(lenght: 50)]
 public struct Nothing
 {
   public Nothing(string name, string adress)

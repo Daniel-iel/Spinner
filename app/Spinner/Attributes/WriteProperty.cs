@@ -13,7 +13,6 @@ namespace Spinner.Attribute
 
         public WriteProperty(ushort lenght, ushort order, char paddingChar, PaddingType padding)
         {
-
             this.Lenght = lenght;
             this.Order = order;
             this.PaddingChar = paddingChar;
