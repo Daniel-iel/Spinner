@@ -3,11 +3,10 @@
 namespace Spinner.Attribute
 {
     [AttributeUsage(AttributeTargets.Struct | AttributeTargets.Class )]
-    public sealed class ContextProperty : System.Attribute
+    public sealed class ObjectMapper : System.Attribute
     {
-        public ContextProperty(ushort lenght)
+        public ObjectMapper(ushort lenght)
         {
-
             this.Lenght = lenght;
         }
 

@@ -20,10 +20,8 @@ dotnet add package Spinner
 
 ## Mapping your model
 
-Run the development server:
-
 ```csharp
-[ContextProperty(lenght: 50)]
+[ObjectMapper(lenght: 50)]
 public struct Nothing
 {
   public Nothing(string name, string site)
@@ -39,6 +37,8 @@ public struct Nothing
   public string Site { get; private set; }
 }
 ```
+
+obs: `length` is the maximum length of the property and should not more than ObjectMapper `length`.
 
 ## Using spinner
 

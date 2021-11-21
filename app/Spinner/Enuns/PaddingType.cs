@@ -5,6 +5,5 @@ namespace Spinner.Enuns
     {
         Left = 1,
         Right = 2
-
     }
 }

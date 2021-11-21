@@ -51,7 +51,6 @@ namespace Spinner.Extencions
                 continue;
             }
 
-
             for (int i = index; i < totalWidth; i++)
             {             
                 tmp[i] = paddingChar;

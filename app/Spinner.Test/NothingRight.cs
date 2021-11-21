@@ -3,7 +3,7 @@ using Spinner.Enuns;
 
 namespace Spinner.Test
 {
-    [ContextProperty(lenght: 50)]
+    [ObjectMapper(lenght: 50)]
     internal struct NothingRight
     {
         public NothingRight(string name, string adress)

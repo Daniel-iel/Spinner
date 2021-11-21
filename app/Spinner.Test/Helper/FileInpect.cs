@@ -5,9 +5,7 @@ namespace Spinner.Test.Helper
 {
     internal class FileInpect<T>
     {
-
         public static Type Type { get => typeof(T); }
-
 
         public static object[] GetAttributes(bool inherit = false)
         {

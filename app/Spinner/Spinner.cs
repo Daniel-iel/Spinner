@@ -25,9 +25,9 @@ namespace Spinner
         /// <summary>
         /// Get configuration property of T.
         /// </summary>
-        public ContextProperty GetConfigurationProperty
+        public ObjectMapper GetObjectMapper
         {
-            get => ReadConfigurationProperty;
+            get => ReadObjectMapper;
         }
 
         /// <summary>
@@ -57,8 +57,8 @@ namespace Spinner
                     ));
             }
 
-            return GetConfigurationProperty != null ?
-                sb.ToStringAndFree(0, GetConfigurationProperty.Lenght) :
+            return GetObjectMapper != null ?
+                sb.ToStringAndFree(0, GetObjectMapper.Lenght) :
                 sb.ToStringAndFree();
         }
 
@@ -82,8 +82,8 @@ namespace Spinner
             }
 
             return new ReadOnlySpan<char>(
-                    GetConfigurationProperty != null ?
-                    sb.ToStringAndFree(0, GetConfigurationProperty.Lenght).ToCharArray() :
+                    GetObjectMapper != null ?
+                    sb.ToStringAndFree(0, GetObjectMapper.Lenght).ToCharArray() :
                     sb.ToStringAndFree().ToCharArray()
                 );
         }
@@ -96,13 +96,12 @@ namespace Spinner
             }
 
             return value.PadRight(property.Lenght, property.PaddingChar).Slice(0, property.Lenght);
-
         }
 
-        private static readonly ContextProperty ReadConfigurationProperty =
+        private static readonly ObjectMapper ReadObjectMapper =
             typeof(T)
-            .GetCustomAttributes(typeof(ContextProperty), false)
-            .Cast<ContextProperty>()
+            .GetCustomAttributes(typeof(ObjectMapper), false)
+            .Cast<ObjectMapper>()
             .FirstOrDefault();
 
         private static WriteProperty GetWriteProperty(PropertyInfo info) =>

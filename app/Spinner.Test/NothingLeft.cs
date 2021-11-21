@@ -2,7 +2,7 @@
 
 namespace Spinner.Test
 {
-    [ContextProperty(lenght: 50)]
+    [ObjectMapper(lenght: 50)]
     internal struct NothingLeft
     {
         public NothingLeft(string name, string adress)
