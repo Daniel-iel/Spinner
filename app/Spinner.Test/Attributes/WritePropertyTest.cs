@@ -71,7 +71,6 @@ namespace Spinner.Test.Attributes
             // Assert
             Assert.Single(attibutes);
             Assert.Equal(AttributeTargets.Property, attributeUsage.ValidOn);
-
         }
     }
 }

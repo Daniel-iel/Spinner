@@ -32,8 +32,7 @@ namespace Spinner.Test.Attributes
             Assert.Equal("lenght", parameters[0].Name);
             Assert.Equal(typeof(ushort), parameters[0].ParameterType);           
         }
-
-       
+               
         [Fact]
         public void Should_ValidateHowManyAttributesExistsInWritePropertyFile()
         {
