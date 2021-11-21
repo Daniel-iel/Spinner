@@ -1,5 +1,4 @@
-﻿
-namespace Spinner.Enuns
+﻿namespace Spinner.Enuns
 {
     public enum PaddingType
     {

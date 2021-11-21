@@ -38,7 +38,7 @@ public struct Nothing
 }
 ```
 
-obs: `length` is the maximum length of the property and should not more than ObjectMapper `length`.
+The sum `length` of all mapped property should not be more than ObjectMapper `length`.
 
 ## Using spinner
 
