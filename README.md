@@ -50,10 +50,12 @@
 
 <br />
 
-### Introduction 
-Spinner is a simple object mapper, it’s useful to communicate to any system that uses a positional string as communication, for example,  integrations with the mainframe.
+### Introduction
 
-### Spinner provides features:
+Spinner is a simple object mapper, it’s useful to communicate to any system that uses a positional string as communication.
+
+### Spinner provides features
+
 * Fast write.
 * Convert object to a mapped string.
 * Convert string to a mapped object(commig soon).
@@ -92,13 +94,17 @@ public struct Nothing
 ```
 
 ## Documentation
+
 See Learn: Getting Started for setting up your project [here](https://spinneralloc.github.io/Spinner/).
 
 ## Contributors
+
 <a href="https://github.com/Daniel-iel"><img src="https://github.com/Daniel-iel.png?size=40" width="40" class="border-radius: 100%" /></a>
 
 ## Support
+
 All donation are welcome, you can donate to the Spinner project, we gonna use to maintain spinner domain and ssl certificate only.
 
 ## License
+
 Our code and framework are licensed under the MIT licence. Please see the licence file for more information. You can do whatever you want as long as you include the original copyright and license notice in any copy of the software/source.
