@@ -108,3 +108,7 @@ All donation are welcome, you can donate to the Spinner project, we gonna use to
 ## License
 
 Our code and framework are licensed under the MIT licence. Please see the licence file for more information. You can do whatever you want as long as you include the original copyright and license notice in any copy of the software/source.
+
+# Stats
+
+<img src="https://repobeats.axiom.co/api/embed/c3f5ed375e6e703c23a90745aaee5bca46ebd0fd.svg" alt="Repobeats analytics image" />
