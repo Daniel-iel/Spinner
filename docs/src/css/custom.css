@@ -17,6 +17,8 @@
 
   --ifm-navbar-link-color: #F5793B;
   --ifm-heading-color:#F5793B;
+  --ifm-navbar-link-hover-color:#F5793B;
+  --ifm-menu-color-active:#F5793B;
 }
 
 .docusaurus-highlight-code-line {

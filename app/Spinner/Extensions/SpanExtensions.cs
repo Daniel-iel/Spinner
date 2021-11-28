@@ -35,8 +35,7 @@ namespace Spinner.Extencions
         }
 
         internal static unsafe ReadOnlySpan<char> PadRight(this ReadOnlySpan<char> @this, int totalWidth, char paddingChar)
-        {
-            int totalPad = totalWidth - @this.Length;
+        {            
             bool shouldNotPad = totalWidth - @this.Length < 1;
             if (shouldNotPad) return @this;
 
