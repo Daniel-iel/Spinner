@@ -72,8 +72,8 @@ const config = {
                 href: 'https://stackoverflow.com/questions/tagged/spinnerframework',
               },
               {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
+                label: 'Issues',
+                href: 'https://github.com/SpinnerAlloc/Spinner/issues',
               },              
             ],
           },
