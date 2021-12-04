@@ -173,6 +173,5 @@ namespace Spinner
         {
             return (prop) => prop.GetCustomAttributes(typeof(ReadProperty), false).All(a => a.GetType() == typeof(ReadProperty));
         }
-
     }
 }
