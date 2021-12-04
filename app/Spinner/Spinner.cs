@@ -8,7 +8,7 @@ namespace Spinner
     using Spinner.Attribute;
     using Spinner.Extencions;
     using System.Linq;
-     
+
     public struct Spinner<T> where T : struct
     {
         private readonly T localObj;
@@ -88,6 +88,36 @@ namespace Spinner
                 );
         }
 
+        public T ReadFromString(string value)
+        {
+            ReadOnlySpan<char> valuesToSlice = new ReadOnlySpan<char>(value.ToCharArray());
+
+            foreach (PropertyInfo property in ReadProperties)
+            {
+                var atribuite = GetReaderProperty(property);
+
+                property.SetValue(
+                    this.localObj,
+                    new string(valuesToSlice.Slice(atribuite.Start, atribuite.Lenght).Trim()));
+            }
+
+            return this.localObj;
+        }
+
+        public T ReadFromSpan(ReadOnlySpan<char> value)
+        {
+            foreach (PropertyInfo property in ReadProperties)
+            {
+                var atribuite = GetReaderProperty(property);
+
+                property.SetValue(
+                    this.localObj,
+                    new string(value.Slice(atribuite.Start, atribuite.Lenght).Trim()));
+            }
+
+            return this.localObj;
+        }
+
         private static ReadOnlySpan<char> FormatValue(ReadOnlySpan<char> value, WriteProperty property)
         {
             if (property.Padding == Enuns.PaddingType.Left)
@@ -110,11 +140,22 @@ namespace Spinner
             .Cast<WriteProperty>()
             .FirstOrDefault();
 
+        private static ReadProperty GetReaderProperty(PropertyInfo info) =>
+          info
+            .GetCustomAttributes(typeof(ReadProperty), false)
+            .Cast<ReadProperty>()
+            .FirstOrDefault();
+
         private static readonly IEnumerable<PropertyInfo> WriteProperties =
             typeof(T)
             .GetProperties()
             .Where(PredicateForWriteProperty())
             .OrderBy(PrecicateForOrderByWriteProperty());
+
+        private static readonly IEnumerable<PropertyInfo> ReadProperties =
+            typeof(T)
+            .GetProperties()
+            .Where(PredicateForReadProperty());
 
         private static Func<PropertyInfo, bool> PredicateForWriteProperty()
         {
@@ -127,5 +168,11 @@ namespace Spinner
                                         .Where(x => x.GetType() == typeof(WriteProperty))
                                         .FirstOrDefault()).Order;
         }
+
+        private static Func<PropertyInfo, bool> PredicateForReadProperty()
+        {
+            return (prop) => prop.GetCustomAttributes(typeof(ReadProperty), false).All(a => a.GetType() == typeof(ReadProperty));
+        }
+
     }
 }
