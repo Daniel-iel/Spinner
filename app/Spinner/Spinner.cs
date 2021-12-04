@@ -5,6 +5,7 @@ using System.Reflection;
 
 namespace Spinner
 {
+    using Spinner.Enum;
     using Spinner.Attribute;
     using Spinner.Extencions;
     using System.Linq;
@@ -120,7 +121,7 @@ namespace Spinner
 
         private static ReadOnlySpan<char> FormatValue(ReadOnlySpan<char> value, WriteProperty property)
         {
-            if (property.Padding == Enuns.PaddingType.Left)
+            if (property.Padding == PaddingType.Left)
             {
                 return value.PadLeft(property.Lenght, property.PaddingChar).Slice(0, property.Lenght);
             }

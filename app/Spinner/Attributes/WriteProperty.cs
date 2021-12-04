@@ -1,4 +1,4 @@
-﻿using Spinner.Enuns;
+﻿using Spinner.Enum;
 using System;
 
 namespace Spinner.Attribute

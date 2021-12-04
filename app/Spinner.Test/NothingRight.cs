@@ -1,5 +1,5 @@
 ﻿using Spinner.Attribute;
-using Spinner.Enuns;
+using Spinner.Enum;
 
 namespace Spinner.Test
 {
