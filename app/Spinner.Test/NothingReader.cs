@@ -18,6 +18,13 @@ namespace Spinner.Test
                   this.Adress == other.Adress;
         }
 
+        public override bool Equals(object obj)
+        {
+            var other = (NothingReader)obj;
+
+            return other.Equals(this);
+        }
+
         public override int GetHashCode()
         {
             return HashCode.Combine(Name, Adress);
