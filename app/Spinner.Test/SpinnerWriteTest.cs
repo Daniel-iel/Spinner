@@ -91,6 +91,24 @@ namespace Spinner.Test
         }
 
         [Fact]
+        public void WriteAsSpan_WhenCalled_ShouldValidateIfTwoResponseIsDiferentWithPadLeft()
+        {
+            // Arrange
+            var nothingFirst = new NothingLeft("spinnerFirst", "www.spinner.com.br");
+            var nothingSecond = new NothingLeft("spinnerSecond", "www.spinner.com.br");
+
+            var spinnerFirst = new Spinner<NothingLeft>(nothingFirst);
+            var spinnerSecond = new Spinner<NothingLeft>(nothingSecond);
+
+            // Act            
+            var stringResponseFirst = spinnerFirst.WriteAsSpan();
+            var stringResponseSecond = spinnerSecond.WriteAsSpan();
+
+            // Assert
+            Assert.True(stringResponseFirst != stringResponseSecond);
+        }
+
+        [Fact]
         public void WriteAsString_WhenCalled_ShoudReturnObjectMappedAsStringWithPadRight()
         {
             // Arrange
@@ -169,6 +187,24 @@ namespace Spinner.Test
             // Act            
             var stringResponseFirst = spinnerFirst.WriteAsString();
             var stringResponseSecond = spinnerSecond.WriteAsString();
+
+            // Assert
+            Assert.True(stringResponseFirst != stringResponseSecond);
+        }
+
+        [Fact]
+        public void WriteAsSpan_WhenCalled_ShouldValidateIfTwoResponseIsDiferentWithPadRight()
+        {
+            // Arrange
+            var nothingFirst = new NothingRight("spinnerFirst", "www.spinner.com.br");
+            var nothingSecond = new NothingRight("spinnerSecond", "www.spinner.com.br");
+
+            var spinnerFirst = new Spinner<NothingRight>(nothingFirst);
+            var spinnerSecond = new Spinner<NothingRight>(nothingSecond);
+
+            // Act            
+            var stringResponseFirst = spinnerFirst.WriteAsSpan();
+            var stringResponseSecond = spinnerSecond.WriteAsSpan();
 
             // Assert
             Assert.True(stringResponseFirst != stringResponseSecond);

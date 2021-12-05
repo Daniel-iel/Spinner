@@ -1,9 +1,10 @@
 ﻿using Spinner.Attribute;
+using System;
 
 namespace Spinner.Test
 {
     [ObjectMapper(lenght: 50)]
-    internal struct NothingLeft
+    internal struct NothingLeft : IEquatable<NothingLeft>
     {
         public NothingLeft(string name, string adress)
         {
@@ -16,5 +17,16 @@ namespace Spinner.Test
 
         [WriteProperty(lenght: 30, order: 2, paddingChar: ' ')]
         public string Adress { get; private set; }
+
+        public bool Equals(NothingLeft other)
+        {
+            return this.Name == other.Name &&
+                   this.Adress == other.Adress;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Name, Adress);
+        }
     }
 }

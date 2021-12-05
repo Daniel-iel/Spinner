@@ -10,7 +10,7 @@ namespace Spinner
     using Spinner.Extencions;
     using System.Linq;
 
-    public struct Spinner<T> where T : struct
+    public ref struct Spinner<T> where T : new()
     {
         private readonly T localObj;
 
@@ -21,6 +21,11 @@ namespace Spinner
         public Spinner(T obj)
         {
             this.localObj = obj;
+        }
+
+        public Spinner()
+        {
+            this.localObj = new T();
         }
 
         /// <summary>
@@ -39,6 +44,13 @@ namespace Spinner
             get => WriteProperties;
         }
 
+
+        public IEnumerable<PropertyInfo> GetReadProperties
+        {
+            get => ReadProperties;
+        }
+
+
         /// <summary>
         /// Convert T in a positional string.
         /// </summary>
@@ -49,12 +61,12 @@ namespace Spinner
 
             foreach (PropertyInfo property in WriteProperties)
             {
-                var atribuite = GetWriteProperty(property);
+                var attribute = GetWriteProperty(property);
 
                 sb.Builder.Append(
                     FormatValue(
                         (property.GetValue(this.localObj) as string).AsSpan(),
-                        atribuite
+                        attribute
                     ));
             }
 
@@ -95,11 +107,11 @@ namespace Spinner
 
             foreach (PropertyInfo property in ReadProperties)
             {
-                var atribuite = GetReaderProperty(property);
+                var attribute = GetReaderProperty(property);
 
                 property.SetValue(
                     this.localObj,
-                    new string(valuesToSlice.Slice(atribuite.Start, atribuite.Lenght).Trim()));
+                    new string(valuesToSlice.Slice(attribute.Start, attribute.Lenght).Trim()));
             }
 
             return this.localObj;
@@ -109,11 +121,11 @@ namespace Spinner
         {
             foreach (PropertyInfo property in ReadProperties)
             {
-                var atribuite = GetReaderProperty(property);
+                var attribute = GetReaderProperty(property);
 
                 property.SetValue(
                     this.localObj,
-                    new string(value.Slice(atribuite.Start, atribuite.Lenght).Trim()));
+                    new string(value.Slice(attribute.Start, attribute.Lenght).Trim()));
             }
 
             return this.localObj;
