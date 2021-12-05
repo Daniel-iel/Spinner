@@ -73,7 +73,12 @@ jobs:
         token: ${{secrets.CODECOV_TOKEN}}
         directory: ${{ env.PROJECT_TEST }}
         file: coverage.opencover.xml
-        
+    
+    - name: LGTM
+      uses: beeceej/lgtm@v0.0.3
+      env:
+        GH_TOKEN: ${{ secrets.LGTM }}
+
     - name: Publish Package ✉️     
       if: startsWith(github.ref, 'refs/tags/v')
       run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_TOKEN}}
