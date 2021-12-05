@@ -12,7 +12,7 @@ namespace Spinner
 
     public ref struct Spinner<T> where T : new()
     {
-        private readonly T localObj;
+        private readonly T obj;
 
         /// <summary>
         /// T is the object that can be mapped using the attributes WriteProperty, ReadProperty and ContextProperty.
@@ -20,12 +20,15 @@ namespace Spinner
         /// <param name="obj">Object of T that will be used to map.</param>
         public Spinner(T obj)
         {
-            this.localObj = obj;
+            this.obj = obj;
         }
 
+        /// <summary>
+        /// Default constructor, should only use in ReadFromString or ReadFromSpan.
+        /// </summary>
         public Spinner()
         {
-            this.localObj = new T();
+            this.obj = new T();
         }
 
         /// <summary>
@@ -37,19 +40,20 @@ namespace Spinner
         }
 
         /// <summary>
-        /// Get all property present in T.
+        /// Get all properties with WriteProperty decoration present in T.
         /// </summary>
         public IEnumerable<PropertyInfo> GetWriteProperties
         {
             get => WriteProperties;
         }
 
-
+        /// <summary>
+        /// Get all properties with ReadProperty decoration present in T.
+        /// </summary>
         public IEnumerable<PropertyInfo> GetReadProperties
         {
             get => ReadProperties;
         }
-
 
         /// <summary>
         /// Convert T in a positional string.
@@ -65,7 +69,7 @@ namespace Spinner
 
                 sb.Builder.Append(
                     FormatValue(
-                        (property.GetValue(this.localObj) as string).AsSpan(),
+                        (property.GetValue(this.obj) as string).AsSpan(),
                         attribute
                     ));
             }
@@ -89,7 +93,7 @@ namespace Spinner
 
                 sb.Builder.Append(
                     FormatValue(
-                        (property.GetValue(this.localObj) as string).AsSpan(),
+                        (property.GetValue(this.obj) as string).AsSpan(),
                         atribuite
                     ));
             }
@@ -101,6 +105,11 @@ namespace Spinner
                 );
         }
 
+        /// <summary>
+        /// Convert string in an object.
+        /// </summary>
+        /// <param name="value">Positional string to map in an object.</param>
+        /// <returns></returns>
         public T ReadFromString(string value)
         {
             ReadOnlySpan<char> valuesToSlice = new ReadOnlySpan<char>(value.ToCharArray());
@@ -110,13 +119,18 @@ namespace Spinner
                 var attribute = GetReaderProperty(property);
 
                 property.SetValue(
-                    this.localObj,
+                    this.obj,
                     new string(valuesToSlice.Slice(attribute.Start, attribute.Lenght).Trim()));
             }
 
-            return this.localObj;
+            return this.obj;
         }
 
+        /// <summary>
+        /// Convert string in an object.
+        /// </summary>
+        /// <param name="value">Span with data to map an object.</param>
+        /// <returns></returns>
         public T ReadFromSpan(ReadOnlySpan<char> value)
         {
             foreach (PropertyInfo property in ReadProperties)
@@ -124,11 +138,11 @@ namespace Spinner
                 var attribute = GetReaderProperty(property);
 
                 property.SetValue(
-                    this.localObj,
+                    this.obj,
                     new string(value.Slice(attribute.Start, attribute.Lenght).Trim()));
             }
 
-            return this.localObj;
+            return this.obj;
         }
 
         private static ReadOnlySpan<char> FormatValue(ReadOnlySpan<char> value, WriteProperty property)
