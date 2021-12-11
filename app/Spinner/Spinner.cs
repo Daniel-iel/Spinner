@@ -65,7 +65,7 @@ namespace Spinner
 
             foreach (PropertyInfo property in WriteProperties)
             {
-                var attribute = GetWriteProperty(property);
+                WriteProperty attribute = GetWriteProperty(property);
 
                 sb.Builder.Append(
                     FormatValue(
@@ -89,7 +89,7 @@ namespace Spinner
 
             foreach (PropertyInfo property in WriteProperties)
             {
-                var atribuite = GetWriteProperty(property);
+                WriteProperty atribuite = GetWriteProperty(property);
 
                 sb.Builder.Append(
                     FormatValue(
@@ -116,7 +116,7 @@ namespace Spinner
 
             foreach (PropertyInfo property in ReadProperties)
             {
-                var attribute = GetReaderProperty(property);
+                ReadProperty attribute = GetReaderProperty(property);
 
                 property.SetValue(
                     this.obj,
@@ -135,7 +135,7 @@ namespace Spinner
         {
             foreach (PropertyInfo property in ReadProperties)
             {
-                var attribute = GetReaderProperty(property);
+                ReadProperty attribute = GetReaderProperty(property);
 
                 property.SetValue(
                     this.obj,
@@ -147,12 +147,9 @@ namespace Spinner
 
         private static ReadOnlySpan<char> FormatValue(ReadOnlySpan<char> value, WriteProperty property)
         {
-            if (property.Padding == PaddingType.Left)
-            {
-                return value.PadLeft(property.Lenght, property.PaddingChar).Slice(0, property.Lenght);
-            }
-
-            return value.PadRight(property.Lenght, property.PaddingChar).Slice(0, property.Lenght);
+            return property.Padding == PaddingType.Left
+                ? value.PadLeft(property.Lenght, property.PaddingChar)[..property.Lenght]
+                : value.PadRight(property.Lenght, property.PaddingChar)[..property.Lenght];
         }
 
         private static readonly ObjectMapper ReadObjectMapper =

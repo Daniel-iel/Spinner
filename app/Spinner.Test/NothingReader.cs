@@ -20,7 +20,7 @@ namespace Spinner.Test
 
         public override bool Equals(object obj)
         {
-            var other = (NothingReader)obj;
+            NothingReader other = (NothingReader)obj;
 
             return other.Equals(this);
         }

@@ -3,6 +3,7 @@ using Spinner.Test.Helper;
 using Xunit;
 using System;
 using System.Linq;
+using System.Reflection;
 
 namespace Spinner.Test.Attributes
 {
@@ -12,7 +13,7 @@ namespace Spinner.Test.Attributes
         public void Should_ValidateHowManyContructorsExistsInWritePropertyFile()
         {
             // Arrange & Act
-            var constructors = FileInpect<ReadProperty>.GetConstructors();
+            ConstructorInfo[] constructors = FileInpect<ReadProperty>.GetConstructors();
 
             // Assert
             Assert.Single(constructors);
@@ -22,9 +23,9 @@ namespace Spinner.Test.Attributes
         public void Should_ValidateParansTypeAndNameOfFirstConstructors()
         {
             // Arrange & Act
-            var constructors = FileInpect<ReadProperty>.GetConstructors();
-            var firstConstructor = constructors[0];
-            var parameters = firstConstructor.GetParameters();
+            ConstructorInfo[] constructors = FileInpect<ReadProperty>.GetConstructors();
+            ConstructorInfo firstConstructor = constructors[0];
+            ParameterInfo[] parameters = firstConstructor.GetParameters();
 
             // Assert
             Assert.Equal(2, parameters.Length);
@@ -40,9 +41,9 @@ namespace Spinner.Test.Attributes
         public void Should_ValidateHowManyAttributesExistsInWritePropertyFile()
         {
             // Arrange & Act
-            var attibutes = FileInpect<ReadProperty>.GetAttributes();
+            object[] attibutes = FileInpect<ReadProperty>.GetAttributes();
 
-            var attributeUsage = attibutes.First() as AttributeUsageAttribute;
+            AttributeUsageAttribute attributeUsage = attibutes.First() as AttributeUsageAttribute;
 
             // Assert
             Assert.Single(attibutes);

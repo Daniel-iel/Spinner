@@ -3,6 +3,7 @@ using Spinner.Test.Helper;
 using Xunit;
 using System;
 using System.Linq;
+using System.Reflection;
 
 namespace Spinner.Test.Attributes
 {
@@ -12,7 +13,7 @@ namespace Spinner.Test.Attributes
         public void Should_ValidateHowManyContructorsExistsInWritePropertyFile()
         {
             // Arrange & Act
-            var constructors = FileInpect<WriteProperty>.GetConstructors();
+            ConstructorInfo[] constructors = FileInpect<WriteProperty>.GetConstructors();
 
             // Assert
             Assert.Equal(2, constructors.Length);
@@ -22,9 +23,9 @@ namespace Spinner.Test.Attributes
         public void Should_ValidateParansTypeAndNameOfFirstConstructors()
         {
             // Arrange & Act
-            var constructors = FileInpect<WriteProperty>.GetConstructors();
-            var firstConstructor = constructors[0];
-            var parameters = firstConstructor.GetParameters();
+            System.Reflection.ConstructorInfo[] constructors = FileInpect<WriteProperty>.GetConstructors();
+            System.Reflection.ConstructorInfo firstConstructor = constructors[0];
+            System.Reflection.ParameterInfo[] parameters = firstConstructor.GetParameters();
 
             // Assert
             Assert.Equal(3, parameters.Length);
@@ -43,9 +44,9 @@ namespace Spinner.Test.Attributes
         public void Should_ValidateParansTypeAndNameOfSecondConstructors()
         {
             // Arrange & Act
-            var constructors = FileInpect<WriteProperty>.GetConstructors();
-            var secondConstructor = constructors[1];
-            var parameters = secondConstructor.GetParameters();
+            System.Reflection.ConstructorInfo[] constructors = FileInpect<WriteProperty>.GetConstructors();
+            System.Reflection.ConstructorInfo secondConstructor = constructors[1];
+            System.Reflection.ParameterInfo[] parameters = secondConstructor.GetParameters();
 
             // Assert
             Assert.Equal(4, parameters.Length);
@@ -64,9 +65,9 @@ namespace Spinner.Test.Attributes
         public void Should_ValidateHowManyAttributesExistsInWritePropertyFile()
         {
             // Arrange & Act
-            var attibutes = FileInpect<WriteProperty>.GetAttributes();
+            object[] attibutes = FileInpect<WriteProperty>.GetAttributes();
 
-            var attributeUsage = attibutes.First() as AttributeUsageAttribute;
+            AttributeUsageAttribute attributeUsage = attibutes.First() as AttributeUsageAttribute;
 
             // Assert
             Assert.Single(attibutes);

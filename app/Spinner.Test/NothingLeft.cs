@@ -26,7 +26,7 @@ namespace Spinner.Test
 
         public override bool Equals(object obj)
         {
-            var other = (NothingLeft)obj;
+            NothingLeft other = (NothingLeft)obj;
 
             return other.Equals(this);
         }
