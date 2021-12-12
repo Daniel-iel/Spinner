@@ -23,9 +23,9 @@ namespace Spinner.Test.Attributes
         public void Should_ValidateParansTypeAndNameOfFirstConstructors()
         {
             // Arrange & Act
-            System.Reflection.ConstructorInfo[] constructors = FileInpect<WriteProperty>.GetConstructors();
-            System.Reflection.ConstructorInfo firstConstructor = constructors[0];
-            System.Reflection.ParameterInfo[] parameters = firstConstructor.GetParameters();
+            ConstructorInfo[] constructors = FileInpect<WriteProperty>.GetConstructors();
+            ConstructorInfo firstConstructor = constructors[0];
+            ParameterInfo[] parameters = firstConstructor.GetParameters();
 
             // Assert
             Assert.Equal(3, parameters.Length);
@@ -44,9 +44,9 @@ namespace Spinner.Test.Attributes
         public void Should_ValidateParansTypeAndNameOfSecondConstructors()
         {
             // Arrange & Act
-            System.Reflection.ConstructorInfo[] constructors = FileInpect<WriteProperty>.GetConstructors();
-            System.Reflection.ConstructorInfo secondConstructor = constructors[1];
-            System.Reflection.ParameterInfo[] parameters = secondConstructor.GetParameters();
+            ConstructorInfo[] constructors = FileInpect<WriteProperty>.GetConstructors();
+            ConstructorInfo secondConstructor = constructors[1];
+            ParameterInfo[] parameters = secondConstructor.GetParameters();
 
             // Assert
             Assert.Equal(4, parameters.Length);
