@@ -20,7 +20,7 @@ function HomepageHeader() {
 
           <ButtonSpinner
             to={"/docs/intro"}
-            text={"Spinner Tutorial - 5min ⏱️"}
+            text={"Get Started Tutorial - 5min ⏱️"}
           />
     
         </div>
