@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# Write an object
+# Write Object
 
 ## Mapping object in string
 
@@ -25,7 +25,12 @@ public struct Nothing
   public string Adress { get; private set; }
 }
 ```
+
+:::info
+
 The sum `length` of all mapped property should not be more than ObjectMapper `length`.
+
+:::
 
 ## Instanciate
 
@@ -36,7 +41,7 @@ To map you object as string, you need instantiate ``` Spinner ``` passing the ob
   Spinner<Nothing> spinner = new Spinner<Nothing>(nothing);  
 ```
 
-## Write Object
+## Write an Object
 
 After configured the object, you can call the ` WriteAsString ` method to write the object in a string format.
 

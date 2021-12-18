@@ -42,7 +42,7 @@ const config = {
           {
             type: 'doc',
             docId: 'intro',
-            position: 'left',
+            position: 'right',
             label: 'Documentation',
           },          
           {
