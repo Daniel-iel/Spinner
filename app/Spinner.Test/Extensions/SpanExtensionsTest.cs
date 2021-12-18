@@ -16,7 +16,7 @@ namespace Spinner.Test.Extensions
             ReadOnlySpan<char> array = value.AsSpan();
 
             // Act
-            var result = array.PadLeft(numberOfPad, '*');
+            ReadOnlySpan<char> result = array.PadLeft(numberOfPad, '*');
 
             //Assert
             Assert.Equal(numberOfPad, result.Length);
@@ -33,7 +33,7 @@ namespace Spinner.Test.Extensions
             ReadOnlySpan<char> array = value.AsSpan();
 
             // Act
-            var result = array.PadRight(numberOfPad, '*');
+            ReadOnlySpan<char> result = array.PadRight(numberOfPad, '*');
 
             //Assert
             Assert.Equal(numberOfPad, result.Length);

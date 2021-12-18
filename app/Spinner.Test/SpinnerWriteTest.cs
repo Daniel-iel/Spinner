@@ -10,12 +10,12 @@ namespace Spinner.Test
         public void WriteAsString_WhenCalled_ShoudReturnObjectMappedAsStringWithPadLeft()
         {
             // Arrange
-            var nothing = new NothingLeft("spinner", "www.spinner.com.br");
-            var spinner = new Spinner<NothingLeft>(nothing);
-            var expected = "             spinner            www.spinner.com.br";
+            NothingLeft nothing = new NothingLeft("spinner", "www.spinner.com.br");
+            Spinner<NothingLeft> spinner = new Spinner<NothingLeft>(nothing);
+            string expected = "             spinner            www.spinner.com.br";
 
             // Act
-            var stringResponse = spinner.WriteAsString();
+            string stringResponse = spinner.WriteAsString();
 
             // Assert
             Assert.Equal(50, stringResponse.Length);
@@ -26,13 +26,13 @@ namespace Spinner.Test
         public void WriteAsString_WhenCalled_ShouldValidateIfConfigurationLengthIsEqualToLengthStringThatWasMappedWithPadLeft()
         {
             // Arrange
-            var nothing = new NothingLeft("spinner", "www.spinner.com.br");
-            var spinner = new Spinner<NothingLeft>(nothing);
-            var expected = "             spinner            www.spinner.com.br";
+            NothingLeft nothing = new NothingLeft("spinner", "www.spinner.com.br");
+            Spinner<NothingLeft> spinner = new Spinner<NothingLeft>(nothing);
+            string expected = "             spinner            www.spinner.com.br";
 
             // Act
-            var conf = spinner.GetObjectMapper;
-            var stringResponse = spinner.WriteAsString();
+            Attribute.ObjectMapper conf = spinner.GetObjectMapper;
+            string stringResponse = spinner.WriteAsString();
 
             // Assert
             Assert.Equal(conf.Lenght, stringResponse.Length);
@@ -43,12 +43,12 @@ namespace Spinner.Test
         public void WriteAsSpan_WhenCalled_ShoudReturnObjectMappedAsSpanWithPadLeft()
         {
             // Arrange
-            var nothing = new NothingLeft("spinner", "www.spinner.com.br");
-            var spinner = new Spinner<NothingLeft>(nothing);
-            var expected = new ReadOnlySpan<char>("             spinner            www.spinner.com.br".ToCharArray());
+            NothingLeft nothing = new NothingLeft("spinner", "www.spinner.com.br");
+            Spinner<NothingLeft> spinner = new Spinner<NothingLeft>(nothing);
+            ReadOnlySpan<char> expected = new ReadOnlySpan<char>("             spinner            www.spinner.com.br".ToCharArray());
 
             // Act
-            var stringResponseAsSpan = spinner.WriteAsSpan();
+            ReadOnlySpan<char> stringResponseAsSpan = spinner.WriteAsSpan();
 
             // Assert
             Assert.Equal(50, stringResponseAsSpan.Length);
@@ -59,13 +59,13 @@ namespace Spinner.Test
         public void WriteAsSpan_WhenCalled_ShouldValidateIfConfigurationLengthIsEqualToLengthSpanThatWasMappedWithPadLeft()
         {
             // Arrange
-            var nothing = new NothingLeft("spinner", "www.spinner.com.br");
-            var spinner = new Spinner<NothingLeft>(nothing);
-            var expected = new ReadOnlySpan<char>("             spinner            www.spinner.com.br".ToCharArray());
+            NothingLeft nothing = new NothingLeft("spinner", "www.spinner.com.br");
+            Spinner<NothingLeft> spinner = new Spinner<NothingLeft>(nothing);
+            ReadOnlySpan<char> expected = new ReadOnlySpan<char>("             spinner            www.spinner.com.br".ToCharArray());
 
             // Act
-            var conf = spinner.GetObjectMapper;
-            var stringResponseAsSpan = spinner.WriteAsSpan();
+            Attribute.ObjectMapper conf = spinner.GetObjectMapper;
+            ReadOnlySpan<char> stringResponseAsSpan = spinner.WriteAsSpan();
 
             // Assert
             Assert.Equal(conf.Lenght, stringResponseAsSpan.Length);
@@ -76,15 +76,33 @@ namespace Spinner.Test
         public void WriteAsString_WhenCalled_ShouldValidateIfTwoResponseIsDiferentWithPadLeft()
         {
             // Arrange
-            var nothingFirst = new NothingLeft("spinnerFirst", "www.spinner.com.br");
-            var nothingSecond = new NothingLeft("spinnerSecond", "www.spinner.com.br");
+            NothingLeft nothingFirst = new NothingLeft("spinnerFirst", "www.spinner.com.br");
+            NothingLeft nothingSecond = new NothingLeft("spinnerSecond", "www.spinner.com.br");
 
-            var spinnerFirst = new Spinner<NothingLeft>(nothingFirst);
-            var spinnerSecond = new Spinner<NothingLeft>(nothingSecond);
+            Spinner<NothingLeft> spinnerFirst = new Spinner<NothingLeft>(nothingFirst);
+            Spinner<NothingLeft> spinnerSecond = new Spinner<NothingLeft>(nothingSecond);
 
             // Act            
-            var stringResponseFirst = spinnerFirst.WriteAsString();
-            var stringResponseSecond = spinnerSecond.WriteAsString();
+            string stringResponseFirst = spinnerFirst.WriteAsString();
+            string stringResponseSecond = spinnerSecond.WriteAsString();
+
+            // Assert
+            Assert.True(stringResponseFirst != stringResponseSecond);
+        }
+
+        [Fact]
+        public void WriteAsSpan_WhenCalled_ShouldValidateIfTwoResponseIsDiferentWithPadLeft()
+        {
+            // Arrange
+            NothingLeft nothingFirst = new NothingLeft("spinnerFirst", "www.spinner.com.br");
+            NothingLeft nothingSecond = new NothingLeft("spinnerSecond", "www.spinner.com.br");
+
+            Spinner<NothingLeft> spinnerFirst = new Spinner<NothingLeft>(nothingFirst);
+            Spinner<NothingLeft> spinnerSecond = new Spinner<NothingLeft>(nothingSecond);
+
+            // Act            
+            ReadOnlySpan<char> stringResponseFirst = spinnerFirst.WriteAsSpan();
+            ReadOnlySpan<char> stringResponseSecond = spinnerSecond.WriteAsSpan();
 
             // Assert
             Assert.True(stringResponseFirst != stringResponseSecond);
@@ -94,12 +112,12 @@ namespace Spinner.Test
         public void WriteAsString_WhenCalled_ShoudReturnObjectMappedAsStringWithPadRight()
         {
             // Arrange
-            var nothing = new NothingRight("spinner", "www.spinner.com.br");
-            var spinner = new Spinner<NothingRight>(nothing);
-            var expected = "spinner             www.spinner.com.br            ";
+            NothingRight nothing = new NothingRight("spinner", "www.spinner.com.br");
+            Spinner<NothingRight> spinner = new Spinner<NothingRight>(nothing);
+            string expected = "spinner             www.spinner.com.br            ";
 
             // Act
-            var stringResponse = spinner.WriteAsString();
+            string stringResponse = spinner.WriteAsString();
 
             // Assert
             Assert.Equal(50, stringResponse.Length);
@@ -110,13 +128,13 @@ namespace Spinner.Test
         public void WriteAsString_WhenCalled_ShouldValidateIfConfigurationLengthIsEqualToLengthStringThatWasMappedWithPadRight()
         {
             // Arrange
-            var nothing = new NothingRight("spinner", "www.spinner.com.br");
-            var spinner = new Spinner<NothingRight>(nothing);
-            var expected = "spinner             www.spinner.com.br            ";
+            NothingRight nothing = new NothingRight("spinner", "www.spinner.com.br");
+            Spinner<NothingRight> spinner = new Spinner<NothingRight>(nothing);
+            string expected = "spinner             www.spinner.com.br            ";
 
             // Act
-            var conf = spinner.GetObjectMapper;
-            var stringResponse = spinner.WriteAsString();
+            Attribute.ObjectMapper conf = spinner.GetObjectMapper;
+            string stringResponse = spinner.WriteAsString();
 
             // Assert
             Assert.Equal(conf.Lenght, stringResponse.Length);
@@ -127,12 +145,12 @@ namespace Spinner.Test
         public void WriteAsSpan_WhenCalled_ShoudReturnObjectMappedAsSpanWithPadRight()
         {
             // Arrange
-            var nothing = new NothingRight("spinner", "www.spinner.com.br");
-            var spinner = new Spinner<NothingRight>(nothing);
-            var expected = new ReadOnlySpan<char>("spinner             www.spinner.com.br            ".ToCharArray());
+            NothingRight nothing = new NothingRight("spinner", "www.spinner.com.br");
+            Spinner<NothingRight> spinner = new Spinner<NothingRight>(nothing);
+            ReadOnlySpan<char> expected = new ReadOnlySpan<char>("spinner             www.spinner.com.br            ".ToCharArray());
 
             // Act
-            var stringResponseAsSpan = spinner.WriteAsSpan();
+            ReadOnlySpan<char> stringResponseAsSpan = spinner.WriteAsSpan();
 
             // Assert
             Assert.Equal(50, stringResponseAsSpan.Length);
@@ -143,13 +161,13 @@ namespace Spinner.Test
         public void WriteAsSpan_WhenCalled_ShouldValidateIfConfigurationLengthIsEqualToLengthSpanThatWasMappedWithPadRight()
         {
             // Arrange
-            var nothing = new NothingRight("spinner", "www.spinner.com.br");
-            var spinner = new Spinner<NothingRight>(nothing);
-            var expected = new ReadOnlySpan<char>("spinner             www.spinner.com.br            ".ToCharArray());
+            NothingRight nothing = new NothingRight("spinner", "www.spinner.com.br");
+            Spinner<NothingRight> spinner = new Spinner<NothingRight>(nothing);
+            ReadOnlySpan<char> expected = new ReadOnlySpan<char>("spinner             www.spinner.com.br            ".ToCharArray());
 
             // Act
-            var conf = spinner.GetObjectMapper;
-            var stringResponseAsSpan = spinner.WriteAsSpan();
+            Attribute.ObjectMapper conf = spinner.GetObjectMapper;
+            ReadOnlySpan<char> stringResponseAsSpan = spinner.WriteAsSpan();
 
             // Assert
             Assert.Equal(conf.Lenght, stringResponseAsSpan.Length);
@@ -160,15 +178,33 @@ namespace Spinner.Test
         public void WriteAsString_WhenCalled_ShouldValidateIfTwoResponseIsDiferentWithPadRight()
         {
             // Arrange
-            var nothingFirst = new NothingRight("spinnerFirst", "www.spinner.com.br");
-            var nothingSecond = new NothingRight("spinnerSecond", "www.spinner.com.br");
+            NothingRight nothingFirst = new NothingRight("spinnerFirst", "www.spinner.com.br");
+            NothingRight nothingSecond = new NothingRight("spinnerSecond", "www.spinner.com.br");
 
-            var spinnerFirst = new Spinner<NothingRight>(nothingFirst);
-            var spinnerSecond = new Spinner<NothingRight>(nothingSecond);
+            Spinner<NothingRight> spinnerFirst = new Spinner<NothingRight>(nothingFirst);
+            Spinner<NothingRight> spinnerSecond = new Spinner<NothingRight>(nothingSecond);
 
             // Act            
-            var stringResponseFirst = spinnerFirst.WriteAsString();
-            var stringResponseSecond = spinnerSecond.WriteAsString();
+            string stringResponseFirst = spinnerFirst.WriteAsString();
+            string stringResponseSecond = spinnerSecond.WriteAsString();
+
+            // Assert
+            Assert.True(stringResponseFirst != stringResponseSecond);
+        }
+
+        [Fact]
+        public void WriteAsSpan_WhenCalled_ShouldValidateIfTwoResponseIsDiferentWithPadRight()
+        {
+            // Arrange
+            NothingRight nothingFirst = new NothingRight("spinnerFirst", "www.spinner.com.br");
+            NothingRight nothingSecond = new NothingRight("spinnerSecond", "www.spinner.com.br");
+
+            Spinner<NothingRight> spinnerFirst = new Spinner<NothingRight>(nothingFirst);
+            Spinner<NothingRight> spinnerSecond = new Spinner<NothingRight>(nothingSecond);
+
+            // Act            
+            ReadOnlySpan<char> stringResponseFirst = spinnerFirst.WriteAsSpan();
+            ReadOnlySpan<char> stringResponseSecond = spinnerSecond.WriteAsSpan();
 
             // Assert
             Assert.True(stringResponseFirst != stringResponseSecond);
@@ -177,11 +213,11 @@ namespace Spinner.Test
         [Fact]
         public void GetWriteProperties_WhenCaller_ShouldValidadeHowManyPropertiesWasMapped()
         {
-            var nothing = new NothingRight("spinnerFirst", "www.spinner.com.br");
+            NothingRight nothing = new NothingRight("spinnerFirst", "www.spinner.com.br");
 
-            var spinnerFirst = new Spinner<NothingRight>(nothing);
+            Spinner<NothingRight> spinnerFirst = new Spinner<NothingRight>(nothing);
 
-            var props = spinnerFirst.GetWriteProperties;
+            System.Collections.Generic.IEnumerable<System.Reflection.PropertyInfo> props = spinnerFirst.GetWriteProperties;
 
             Assert.Equal(2, props.Count());
             Assert.Equal("Name", props.First().Name);

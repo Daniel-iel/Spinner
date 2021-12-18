@@ -11,7 +11,10 @@ namespace Spinner.Extencions
         {
             int totalPad = totalWidth - @this.Length;
             bool shouldNotPad = totalWidth - @this.Length < 1;
-            if (shouldNotPad) return @this;
+            if (shouldNotPad)
+            {
+                return @this;
+            }
 
             Span<char> tmp = stackalloc char[totalWidth];
 
@@ -23,11 +26,12 @@ namespace Spinner.Extencions
                     continue;
                 }
 
-                foreach (var item in @this)
+                foreach (char item in @this)
                 {
                     tmp[index] = item;
                     index++;
                 }
+
                 break;
             }
 
@@ -37,13 +41,16 @@ namespace Spinner.Extencions
         internal static unsafe ReadOnlySpan<char> PadRight(this ReadOnlySpan<char> @this, int totalWidth, char paddingChar)
         {            
             bool shouldNotPad = totalWidth - @this.Length < 1;
-            if (shouldNotPad) return @this;
+            if (shouldNotPad)
+            {
+                return @this;
+            }
 
             Span<char> tmp = stackalloc char[totalWidth];
 
             ushort index = 0;
 
-            foreach (var item in @this)
+            foreach (char item in @this)
             {
                 tmp[index] = item;
                 index++;

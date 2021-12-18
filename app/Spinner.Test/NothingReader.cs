@@ -4,29 +4,23 @@ using System;
 namespace Spinner.Test
 {
     [ObjectMapper(lenght: 50)]
-    internal struct NothingLeft : IEquatable<NothingLeft>
+    internal class NothingReader : IEquatable<NothingReader>
     {
-        public NothingLeft(string name, string adress)
-        {
-            this.Name = name;
-            this.Adress = adress;
-        }
-
-        [WriteProperty(lenght: 20, order: 1, paddingChar: ' ')]
+        [ReadProperty(start:1, lenght: 19 )]        
         public string Name { get; private set; }
 
-        [WriteProperty(lenght: 30, order: 2, paddingChar: ' ')]
+        [ReadProperty(start: 20, lenght: 30)]        
         public string Adress { get; private set; }
-
-        public bool Equals(NothingLeft other)
+              
+        public bool Equals(NothingReader other)
         {
             return this.Name == other.Name &&
-                   this.Adress == other.Adress;
+                  this.Adress == other.Adress;
         }
 
         public override bool Equals(object obj)
         {
-            NothingLeft other = (NothingLeft)obj;
+            NothingReader other = (NothingReader)obj;
 
             return other.Equals(this);
         }

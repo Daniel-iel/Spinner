@@ -2,45 +2,33 @@
 sidebar_position: 1
 ---
 
-# Tutorial Intro
+# Get started
 
-Let's discover **Spinner in less than 5 minutes**.
+## Prerequisites
 
-## Getting Started
+Spinner is only compatible with **dotnet core 3.0, 3.1** and  **dotnet 5.0, 6.0.**
 
-Get started by **configuring you project**.
+## Installation
 
-## Installing Spinner package
-
-To install spinner in your project using **Nuget Package**:
+Spinner is distributed as a NuGet package. See the **[spinner](https://www.nuget.org/packages/Spinner/)** for more information.
 
 ```shell
 dotnet add package Spinner
 ```
 
-## Mapping your model
+## Import Spinner
+
+After install the package, you need import Spinner class into your class.
 
 ```csharp
-[ObjectMapper(lenght: 50)]
-public struct Nothing
-{
-  public Nothing(string name, string site)
-  {
-    this.Name = name;
-    this.Site = site;
-  }
-  
-  [WriteProperty(lenght: 20, order: 1, paddingChar: ' ')]
-  public string Name { get; private set; }
-  
-  [WriteProperty(lenght: 30, order: 2, paddingChar: ' ')]
-  public string Site { get; private set; }
-}
+using Spinner;
 ```
 
-The sum `length` of all mapped property should not be more than ObjectMapper `length`.
+## Configuring an Object
 
-## Using spinner
+To have a good knowledge to how configure your object, you can see the **[example](/docs/mapping-object-in-string)**
+
+## Using Spinner
 
 Run **WriteAsString** to get mapped object as string or call **WriteAsSpan** to get the result as span:
 
