@@ -28,7 +28,7 @@ To map you object as string, you need instantiate ``` Spinner ``` passing the ob
   Spinner<NothingReader> spinnerReader = new Spinner<NothingReader>();
 ```
 
-## Read and String
+## Read from String
 
 After configured the object, you need call the ` ReadFromString ` method to read string and convert it to object.
 
