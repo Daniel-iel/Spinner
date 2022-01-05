@@ -75,7 +75,7 @@ namespace Spinner
             }
 
             return GetObjectMapper != null ?
-                sb.ToStringAndFree(0, GetObjectMapper.Lenght) :
+                sb.ToStringAndFree(0, GetObjectMapper.Length) :
                 sb.ToStringAndFree();
         }
 
@@ -100,7 +100,7 @@ namespace Spinner
 
             return new ReadOnlySpan<char>(
                     GetObjectMapper != null ?
-                    sb.ToStringAndFree(0, GetObjectMapper.Lenght).ToCharArray() :
+                    sb.ToStringAndFree(0, GetObjectMapper.Length).ToCharArray() :
                     sb.ToStringAndFree().ToCharArray()
                 );
         }
@@ -120,7 +120,7 @@ namespace Spinner
 
                 property.SetValue(
                     this.obj,
-                    new string(valuesToSlice.Slice(attribute.Start, attribute.Lenght).Trim()));
+                    new string(valuesToSlice.Slice(attribute.Start, attribute.Length).Trim()));
             }
 
             return this.obj;
@@ -139,7 +139,7 @@ namespace Spinner
 
                 property.SetValue(
                     this.obj,
-                    new string(value.Slice(attribute.Start, attribute.Lenght).Trim()));
+                    new string(value.Slice(attribute.Start, attribute.Length).Trim()));
             }
 
             return this.obj;
@@ -148,8 +148,8 @@ namespace Spinner
         private static ReadOnlySpan<char> FormatValue(ReadOnlySpan<char> value, WriteProperty property)
         {
             return property.Padding == PaddingType.Left
-                ? value.PadLeft(property.Lenght, property.PaddingChar)[..property.Lenght]
-                : value.PadRight(property.Lenght, property.PaddingChar)[..property.Lenght];
+                ? value.PadLeft(property.Length, property.PaddingChar)[..property.Length]
+                : value.PadRight(property.Length, property.PaddingChar)[..property.Length];
         }
 
         private static readonly ObjectMapper ReadObjectMapper =

@@ -9,7 +9,7 @@ sidebar_position: 2
 To configure an object, you should use ` ObjectMapper ` and ` WriteProperty ` properties to map string layout.
 
 ```csharp
-[ObjectMapper(lenght: 50)]
+[ObjectMapper(length: 50)]
 public struct Nothing
 {
   public Nothing(string name, string adress)
@@ -18,10 +18,10 @@ public struct Nothing
     this.Adress = adress;
   }
   
-  [WriteProperty(lenght: 20, order: 1, paddingChar: ' ')]
+  [WriteProperty(length: 20, order: 1, paddingChar: ' ')]
   public string Name { get; private set; }
   
-  [WriteProperty(lenght: 30, order: 2, paddingChar: ' ')]
+  [WriteProperty(length: 30, order: 2, paddingChar: ' ')]
   public string Adress { get; private set; }
 }
 ```

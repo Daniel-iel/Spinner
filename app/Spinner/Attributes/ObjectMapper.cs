@@ -2,14 +2,14 @@
 
 namespace Spinner.Attribute
 {
-    [AttributeUsage(AttributeTargets.Struct | AttributeTargets.Class )]
+    [AttributeUsage(AttributeTargets.Struct | AttributeTargets.Class)]
     public sealed class ObjectMapper : System.Attribute
     {
-        public ObjectMapper(ushort lenght)
+        public ObjectMapper(ushort length)
         {
-            this.Lenght = lenght;
+            this.Length = length;            
         }
 
-        public ushort Lenght { get; }
+        public ushort Length { get; }
     }
 }

@@ -5,13 +5,13 @@ namespace Spinner.Attribute
     [AttributeUsage(AttributeTargets.Property)]
     public sealed class ReadProperty : System.Attribute
     {
-        public ReadProperty(ushort start, ushort lenght)
+        public ReadProperty(ushort start, ushort length)
         {
             this.Start = start;
-            this.Lenght = lenght;
+            this.Length = length;
         }
 
         public ushort Start { get; }
-        public ushort Lenght { get; }
+        public ushort Length { get; }
     }
 }
