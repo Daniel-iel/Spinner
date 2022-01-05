@@ -9,13 +9,13 @@ sidebar_position: 3
 To configure an object, you should use ` ObjectMapper ` and ` ReadProperty ` properties to map string layout.
 
 ```csharp
-  [ObjectMapper(lenght: 50)]
+  [ObjectMapper(length: 50)]
   public class NothingReader
   {
-    [ReadProperty(start:1, lenght: 19 )]        
+    [ReadProperty(start:1, length: 19 )]        
     public string Name { get; private set; }
 
-    [ReadProperty(start: 20, lenght: 30)]        
+    [ReadProperty(start: 20, length: 30)]        
     public string Adress { get; private set; }
   }
 ```

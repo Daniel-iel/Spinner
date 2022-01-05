@@ -4,7 +4,7 @@ using System;
 
 namespace Spinner.Test
 {
-    [ObjectMapper(lenght: 50)]
+    [ObjectMapper(length: 50)]
     internal struct NothingRight : IEquatable<NothingRight>
     {
         public NothingRight(string name, string adress)
@@ -13,10 +13,10 @@ namespace Spinner.Test
             this.Adress = adress;
         }
 
-        [WriteProperty(lenght: 20, order: 1, paddingChar: ' ', PaddingType.Right)]
+        [WriteProperty(length: 20, order: 1, paddingChar: ' ', PaddingType.Right)]
         public string Name { get; private set; }
 
-        [WriteProperty(lenght: 30, order: 2, paddingChar: ' ', PaddingType.Right)]
+        [WriteProperty(length: 30, order: 2, paddingChar: ' ', PaddingType.Right)]
         public string Adress { get; private set; }
 
         public bool Equals(NothingRight other)

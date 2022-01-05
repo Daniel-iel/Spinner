@@ -33,7 +33,7 @@ namespace Spinner.Test.Attributes
             Assert.Equal("start", parameters[0].Name);
             Assert.Equal(typeof(ushort), parameters[0].ParameterType);
 
-            Assert.Equal("lenght", parameters[1].Name);
+            Assert.Equal("length", parameters[1].Name);
             Assert.Equal(typeof(ushort), parameters[1].ParameterType);
         }
          

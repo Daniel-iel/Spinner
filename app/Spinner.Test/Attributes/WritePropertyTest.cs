@@ -30,7 +30,7 @@ namespace Spinner.Test.Attributes
             // Assert
             Assert.Equal(3, parameters.Length);
 
-            Assert.Equal("lenght", parameters[0].Name);
+            Assert.Equal("length", parameters[0].Name);
             Assert.Equal(typeof(ushort), parameters[0].ParameterType);
 
             Assert.Equal("order", parameters[1].Name);
@@ -51,7 +51,7 @@ namespace Spinner.Test.Attributes
             // Assert
             Assert.Equal(4, parameters.Length);
 
-            Assert.Equal("lenght", parameters[0].Name);
+            Assert.Equal("length", parameters[0].Name);
             Assert.Equal(typeof(ushort), parameters[0].ParameterType);
 
             Assert.Equal("order", parameters[1].Name);

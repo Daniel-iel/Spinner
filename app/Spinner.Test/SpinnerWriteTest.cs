@@ -35,7 +35,7 @@ namespace Spinner.Test
             string stringResponse = spinner.WriteAsString();
 
             // Assert
-            Assert.Equal(conf.Lenght, stringResponse.Length);
+            Assert.Equal(conf.Length, stringResponse.Length);
             Assert.Equal(expected, stringResponse);
         }
 
@@ -68,7 +68,7 @@ namespace Spinner.Test
             ReadOnlySpan<char> stringResponseAsSpan = spinner.WriteAsSpan();
 
             // Assert
-            Assert.Equal(conf.Lenght, stringResponseAsSpan.Length);
+            Assert.Equal(conf.Length, stringResponseAsSpan.Length);
             Assert.Equal(expected.ToString(), stringResponseAsSpan.ToString());
         }
 
@@ -137,7 +137,7 @@ namespace Spinner.Test
             string stringResponse = spinner.WriteAsString();
 
             // Assert
-            Assert.Equal(conf.Lenght, stringResponse.Length);
+            Assert.Equal(conf.Length, stringResponse.Length);
             Assert.Equal(expected, stringResponse);
         }
 
@@ -170,7 +170,7 @@ namespace Spinner.Test
             ReadOnlySpan<char> stringResponseAsSpan = spinner.WriteAsSpan();
 
             // Assert
-            Assert.Equal(conf.Lenght, stringResponseAsSpan.Length);
+            Assert.Equal(conf.Length, stringResponseAsSpan.Length);
             Assert.Equal(expected.ToString(), stringResponseAsSpan.ToString());
         }
 
