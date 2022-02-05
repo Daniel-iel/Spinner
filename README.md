@@ -58,7 +58,7 @@ Spinner is a simple object mapper, it’s useful to communicate to any system th
 
 * Fast write.
 * Convert object to a mapped string.
-* Convert string to a mapped object(commig soon).
+* Convert string to a mapped object.
 
 ## Quick Start
 
