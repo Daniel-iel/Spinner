@@ -23,7 +23,7 @@ const config = {
         },     
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
-        },       
+        }      
       }),
     ],
   ],
@@ -96,10 +96,10 @@ const config = {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },
-      googleAnalytics: {
+      gtag: {
         trackingID: 'G-QK1XCXPTY5',
         anonymizeIP: true,
-      },
+      }      
     }),
 };
 
