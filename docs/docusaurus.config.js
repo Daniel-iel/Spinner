@@ -14,24 +14,16 @@ const config = {
   projectName: 'Spinner',
 
   presets: [
-    [
-      '@docusaurus/preset-classic',
-      {
-        googleAnalytics: {
-          trackingID: 'G-QK1XCXPTY5',
-          anonymizeIP: true,
-        },
-      },
-      '@docusaurus/preset-classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */
-      ({
+    [   
+      '@docusaurus/preset-classic',      
+      ({        
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),      
           editUrl: 'https://github.com/SpinnerAlloc/Spinner/',
         },     
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
-        },
+        },       
       }),
     ],
   ],
@@ -103,6 +95,10 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+      },
+      googleAnalytics: {
+        trackingID: 'G-QK1XCXPTY5',
+        anonymizeIP: true,
       },
     }),
 };
