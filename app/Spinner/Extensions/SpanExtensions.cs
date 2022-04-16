@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Spinner.Test")]
 
-namespace Spinner.Extencions
+namespace Spinner.Extensions
 {
     internal static class SpanExtensions
     {
@@ -39,7 +39,7 @@ namespace Spinner.Extencions
         }
 
         internal static unsafe ReadOnlySpan<char> PadRight(this ReadOnlySpan<char> @this, int totalWidth, char paddingChar)
-        {            
+        {
             bool shouldNotPad = totalWidth - @this.Length < 1;
             if (shouldNotPad)
             {
@@ -58,7 +58,7 @@ namespace Spinner.Extencions
             }
 
             for (int i = index; i < totalWidth; i++)
-            {             
+            {
                 tmp[i] = paddingChar;
             }
 

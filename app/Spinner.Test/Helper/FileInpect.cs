@@ -3,9 +3,9 @@ using System.Reflection;
 
 namespace Spinner.Test.Helper
 {
-    internal class FileInpect<T>
+    internal static class FileInpect<T>
     {
-        public static Type Type { get => typeof(T); }
+        public static Type Type => typeof(T);
 
         public static object[] GetAttributes(bool inherit = false)
         {

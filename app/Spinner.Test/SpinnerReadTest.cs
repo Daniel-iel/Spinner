@@ -4,7 +4,7 @@ using System.Linq;
 namespace Spinner.Test
 {
     public class SpinnerReadTest
-    {        
+    {
         [Fact]
         public void ReadFromString_WhenCalled_ShoudReturnObjectMappedFromString()
         {

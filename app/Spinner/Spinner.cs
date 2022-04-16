@@ -5,11 +5,15 @@ using System.Reflection;
 
 namespace Spinner
 {
-    using Spinner.Enum;
+    using Spinner.Enums;
     using Spinner.Attribute;
-    using Spinner.Extencions;
+    using Spinner.Extensions;
     using System.Linq;
 
+    /// <summary>
+    /// TODO
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public ref struct Spinner<T> where T : new()
     {
         private readonly T obj;
@@ -34,26 +38,17 @@ namespace Spinner
         /// <summary>
         /// Get configuration property of T.
         /// </summary>
-        public ObjectMapper GetObjectMapper
-        {
-            get => ReadObjectMapper;
-        }
+        public ObjectMapperAttribute GetObjectMapper => ReadObjectMapper;
 
         /// <summary>
         /// Get all properties with WriteProperty decoration present in T.
         /// </summary>
-        public IEnumerable<PropertyInfo> GetWriteProperties
-        {
-            get => WriteProperties;
-        }
+        public IEnumerable<PropertyInfo> GetWriteProperties => WriteProperties;
 
         /// <summary>
         /// Get all properties with ReadProperty decoration present in T.
         /// </summary>
-        public IEnumerable<PropertyInfo> GetReadProperties
-        {
-            get => ReadProperties;
-        }
+        public IEnumerable<PropertyInfo> GetReadProperties => ReadProperties;
 
         /// <summary>
         /// Convert T in a positional string.
@@ -65,7 +60,7 @@ namespace Spinner
 
             foreach (PropertyInfo property in WriteProperties)
             {
-                WriteProperty attribute = GetWriteProperty(property);
+                WritePropertyAttribute attribute = GetWriteProperty(property);
 
                 sb.Builder.Append(
                     FormatValue(
@@ -89,7 +84,7 @@ namespace Spinner
 
             foreach (PropertyInfo property in WriteProperties)
             {
-                WriteProperty atribuite = GetWriteProperty(property);
+                WritePropertyAttribute atribuite = GetWriteProperty(property);
 
                 sb.Builder.Append(
                     FormatValue(
@@ -116,7 +111,7 @@ namespace Spinner
 
             foreach (PropertyInfo property in ReadProperties)
             {
-                ReadProperty attribute = GetReaderProperty(property);
+                ReadPropertyAttribute attribute = GetReaderProperty(property);
 
                 property.SetValue(
                     this.obj,
@@ -135,7 +130,7 @@ namespace Spinner
         {
             foreach (PropertyInfo property in ReadProperties)
             {
-                ReadProperty attribute = GetReaderProperty(property);
+                ReadPropertyAttribute attribute = GetReaderProperty(property);
 
                 property.SetValue(
                     this.obj,
@@ -145,29 +140,29 @@ namespace Spinner
             return this.obj;
         }
 
-        private static ReadOnlySpan<char> FormatValue(ReadOnlySpan<char> value, WriteProperty property)
+        private static ReadOnlySpan<char> FormatValue(ReadOnlySpan<char> value, WritePropertyAttribute property)
         {
             return property.Padding == PaddingType.Left
                 ? value.PadLeft(property.Length, property.PaddingChar)[..property.Length]
                 : value.PadRight(property.Length, property.PaddingChar)[..property.Length];
         }
 
-        private static readonly ObjectMapper ReadObjectMapper =
+        private static readonly ObjectMapperAttribute ReadObjectMapper =
             typeof(T)
-            .GetCustomAttributes(typeof(ObjectMapper), false)
-            .Cast<ObjectMapper>()
+            .GetCustomAttributes(typeof(ObjectMapperAttribute), false)
+            .Cast<ObjectMapperAttribute>()
             .FirstOrDefault();
 
-        private static WriteProperty GetWriteProperty(PropertyInfo info) =>
+        private static WritePropertyAttribute GetWriteProperty(PropertyInfo info) =>
           info
-            .GetCustomAttributes(typeof(WriteProperty), false)
-            .Cast<WriteProperty>()
+            .GetCustomAttributes(typeof(WritePropertyAttribute), false)
+            .Cast<WritePropertyAttribute>()
             .FirstOrDefault();
 
-        private static ReadProperty GetReaderProperty(PropertyInfo info) =>
+        private static ReadPropertyAttribute GetReaderProperty(PropertyInfo info) =>
           info
-            .GetCustomAttributes(typeof(ReadProperty), false)
-            .Cast<ReadProperty>()
+            .GetCustomAttributes(typeof(ReadPropertyAttribute), false)
+            .Cast<ReadPropertyAttribute>()
             .FirstOrDefault();
 
         private static readonly IEnumerable<PropertyInfo> WriteProperties =
@@ -183,19 +178,19 @@ namespace Spinner
 
         private static Func<PropertyInfo, bool> PredicateForWriteProperty()
         {
-            return (prop) => prop.GetCustomAttributes(typeof(WriteProperty), false).All(a => a.GetType() == typeof(WriteProperty));
+            return (prop) => prop.GetCustomAttributes(typeof(WritePropertyAttribute), false).All(a => a.GetType() == typeof(WritePropertyAttribute));
         }
 
         private static Func<PropertyInfo, ushort> PrecicateForOrderByWriteProperty()
         {
-            return (prop) => ((WriteProperty)prop.GetCustomAttributes(true)
-                                        .Where(x => x.GetType() == typeof(WriteProperty))
+            return (prop) => ((WritePropertyAttribute)prop.GetCustomAttributes(true)
+                                        .Where(x => x.GetType() == typeof(WritePropertyAttribute))
                                         .FirstOrDefault()).Order;
         }
 
         private static Func<PropertyInfo, bool> PredicateForReadProperty()
         {
-            return (prop) => prop.GetCustomAttributes(typeof(ReadProperty), false).All(a => a.GetType() == typeof(ReadProperty));
+            return (prop) => prop.GetCustomAttributes(typeof(ReadPropertyAttribute), false).All(a => a.GetType() == typeof(ReadPropertyAttribute));
         }
     }
 }

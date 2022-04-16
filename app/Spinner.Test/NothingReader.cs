@@ -3,15 +3,15 @@ using System;
 
 namespace Spinner.Test
 {
-    [ObjectMapper(length: 50)]
+    [ObjectMapperAttribute(length: 50)]
     internal class NothingReader : IEquatable<NothingReader>
     {
-        [ReadProperty(start:1, length: 19 )]        
-        public string Name { get; private set; }
+        [ReadPropertyAttribute(start: 1, length: 19)]
+        public string Name { get; }
 
-        [ReadProperty(start: 20, length: 30)]        
-        public string Adress { get; private set; }
-              
+        [ReadPropertyAttribute(start: 20, length: 30)]
+        public string Adress { get; }
+
         public bool Equals(NothingReader other)
         {
             return this.Name == other.Name &&

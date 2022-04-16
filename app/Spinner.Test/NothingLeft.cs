@@ -3,7 +3,7 @@ using System;
 
 namespace Spinner.Test
 {
-    [ObjectMapper(length: 50)]
+    [ObjectMapperAttribute(length: 50)]
     internal struct NothingLeft : IEquatable<NothingLeft>
     {
         public NothingLeft(string name, string adress)
@@ -12,11 +12,11 @@ namespace Spinner.Test
             this.Adress = adress;
         }
 
-        [WriteProperty(length: 20, order: 1, paddingChar: ' ')]
-        public string Name { get; private set; }
+        [WritePropertyAttribute(length: 20, order: 1, paddingChar: ' ')]
+        public string Name { get; }
 
-        [WriteProperty(length: 30, order: 2, paddingChar: ' ')]
-        public string Adress { get; private set; }
+        [WritePropertyAttribute(length: 30, order: 2, paddingChar: ' ')]
+        public string Adress { get; }
 
         public bool Equals(NothingLeft other)
         {

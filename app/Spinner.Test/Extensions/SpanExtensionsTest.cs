@@ -1,6 +1,6 @@
 ﻿using System;
 using Xunit;
-using Spinner.Extencions;
+using Spinner.Extensions;
 
 namespace Spinner.Test.Extensions
 {

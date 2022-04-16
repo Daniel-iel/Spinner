@@ -5,14 +5,14 @@ using System.Linq;
 namespace Spinner.Test
 {
     public class SpinnerWriteTest
-    {        
+    {
         [Fact]
         public void WriteAsString_WhenCalled_ShoudReturnObjectMappedAsStringWithPadLeft()
         {
             // Arrange
             NothingLeft nothing = new NothingLeft("spinner", "www.spinner.com.br");
             Spinner<NothingLeft> spinner = new Spinner<NothingLeft>(nothing);
-            string expected = "             spinner            www.spinner.com.br";
+            const string expected = "             spinner            www.spinner.com.br";
 
             // Act
             string stringResponse = spinner.WriteAsString();
@@ -28,10 +28,10 @@ namespace Spinner.Test
             // Arrange
             NothingLeft nothing = new NothingLeft("spinner", "www.spinner.com.br");
             Spinner<NothingLeft> spinner = new Spinner<NothingLeft>(nothing);
-            string expected = "             spinner            www.spinner.com.br";
+            const string expected = "             spinner            www.spinner.com.br";
 
             // Act
-            Attribute.ObjectMapper conf = spinner.GetObjectMapper;
+            Attribute.ObjectMapperAttribute conf = spinner.GetObjectMapper;
             string stringResponse = spinner.WriteAsString();
 
             // Assert
@@ -64,7 +64,7 @@ namespace Spinner.Test
             ReadOnlySpan<char> expected = new ReadOnlySpan<char>("             spinner            www.spinner.com.br".ToCharArray());
 
             // Act
-            Attribute.ObjectMapper conf = spinner.GetObjectMapper;
+            Attribute.ObjectMapperAttribute conf = spinner.GetObjectMapper;
             ReadOnlySpan<char> stringResponseAsSpan = spinner.WriteAsSpan();
 
             // Assert
@@ -114,7 +114,7 @@ namespace Spinner.Test
             // Arrange
             NothingRight nothing = new NothingRight("spinner", "www.spinner.com.br");
             Spinner<NothingRight> spinner = new Spinner<NothingRight>(nothing);
-            string expected = "spinner             www.spinner.com.br            ";
+            const string expected = "spinner             www.spinner.com.br            ";
 
             // Act
             string stringResponse = spinner.WriteAsString();
@@ -130,10 +130,10 @@ namespace Spinner.Test
             // Arrange
             NothingRight nothing = new NothingRight("spinner", "www.spinner.com.br");
             Spinner<NothingRight> spinner = new Spinner<NothingRight>(nothing);
-            string expected = "spinner             www.spinner.com.br            ";
+            const string expected = "spinner             www.spinner.com.br            ";
 
             // Act
-            Attribute.ObjectMapper conf = spinner.GetObjectMapper;
+            Attribute.ObjectMapperAttribute conf = spinner.GetObjectMapper;
             string stringResponse = spinner.WriteAsString();
 
             // Assert
@@ -166,7 +166,7 @@ namespace Spinner.Test
             ReadOnlySpan<char> expected = new ReadOnlySpan<char>("spinner             www.spinner.com.br            ".ToCharArray());
 
             // Act
-            Attribute.ObjectMapper conf = spinner.GetObjectMapper;
+            Attribute.ObjectMapperAttribute conf = spinner.GetObjectMapper;
             ReadOnlySpan<char> stringResponseAsSpan = spinner.WriteAsSpan();
 
             // Assert

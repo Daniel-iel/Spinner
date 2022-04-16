@@ -13,7 +13,7 @@ namespace Spinner.Test.Attributes
         public void Should_ValidateHowManyContructorsExistsInWritePropertyFile()
         {
             // Arrange & Act
-            ConstructorInfo[] constructors = FileInpect<WriteProperty>.GetConstructors();
+            ConstructorInfo[] constructors = FileInpect<WritePropertyAttribute>.GetConstructors();
 
             // Assert
             Assert.Equal(2, constructors.Length);
@@ -23,7 +23,7 @@ namespace Spinner.Test.Attributes
         public void Should_ValidateParansTypeAndNameOfFirstConstructors()
         {
             // Arrange & Act
-            ConstructorInfo[] constructors = FileInpect<WriteProperty>.GetConstructors();
+            ConstructorInfo[] constructors = FileInpect<WritePropertyAttribute>.GetConstructors();
             ConstructorInfo firstConstructor = constructors[0];
             ParameterInfo[] parameters = firstConstructor.GetParameters();
 
@@ -44,7 +44,7 @@ namespace Spinner.Test.Attributes
         public void Should_ValidateParansTypeAndNameOfSecondConstructors()
         {
             // Arrange & Act
-            ConstructorInfo[] constructors = FileInpect<WriteProperty>.GetConstructors();
+            ConstructorInfo[] constructors = FileInpect<WritePropertyAttribute>.GetConstructors();
             ConstructorInfo secondConstructor = constructors[1];
             ParameterInfo[] parameters = secondConstructor.GetParameters();
 
@@ -65,9 +65,9 @@ namespace Spinner.Test.Attributes
         public void Should_ValidateHowManyAttributesExistsInWritePropertyFile()
         {
             // Arrange & Act
-            object[] attibutes = FileInpect<WriteProperty>.GetAttributes();
+            object[] attibutes = FileInpect<WritePropertyAttribute>.GetAttributes();
 
-            AttributeUsageAttribute attributeUsage = attibutes.First() as AttributeUsageAttribute;
+            AttributeUsageAttribute attributeUsage = attibutes[0] as AttributeUsageAttribute;
 
             // Assert
             Assert.Single(attibutes);
