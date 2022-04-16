@@ -7,10 +7,10 @@ namespace Spinner.Test
     internal class NothingReader : IEquatable<NothingReader>
     {
         [ReadPropertyAttribute(start: 1, length: 19)]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [ReadPropertyAttribute(start: 20, length: 30)]
-        public string Adress { get; }
+        public string Adress { get; set; }
 
         public bool Equals(NothingReader other)
         {

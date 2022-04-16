@@ -13,10 +13,10 @@ namespace Spinner.Test
         }
 
         [WritePropertyAttribute(length: 20, order: 1, paddingChar: ' ')]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [WritePropertyAttribute(length: 30, order: 2, paddingChar: ' ')]
-        public string Adress { get; }
+        public string Adress { get; set; }
 
         public bool Equals(NothingLeft other)
         {
