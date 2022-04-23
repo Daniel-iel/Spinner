@@ -36,9 +36,10 @@ jobs:
 
       - name: Print 🏷️
         run: |  
-          echo ${{github.head_ref}}
-          echo ${{github.head_ref}} 
-          echo ${{github.event.pull_request.head.ref}}          
+          echo ${{github.head_ref}}          
+          echo ${{github.event.pull_request.head.ref}}
+          echo ${{ github.event.pull_request.base.ref }} 
+                 
         shell: pwsh
 
       # - name: Setup NuGet 🔧
