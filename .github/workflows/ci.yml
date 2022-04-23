@@ -42,6 +42,9 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
 
+      - name: Setup Stryker 📦
+        run: dotnet tool install -g
+
       - name: Restore Dependencies 📦
         run: dotnet restore ${{env.PROJECT_SLN }}
 
@@ -50,6 +53,9 @@ jobs:
 
       - name: Test 🧪
         run: dotnet test ${{env.PROJECT_SLN }} --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+
+      - name: Mutant Test 🧪👾
+        run: dotnet stryker --reporter "dashboard" --dashboard-api-key ${{secrets.STRYKER_KEY}}
 
       - name: Run Infer .Net 3.0 🔍
         uses: microsoft/infersharpaction@v1.2

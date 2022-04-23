@@ -47,6 +47,9 @@
 <a href="">
   <img alt="" src="https://api.meercode.io/badge/SpinnerAlloc/Spinner?type=ci-score&branch=main&lastDay=14"/>
 </a>
+<a href="https://dashboard.stryker-mutator.io/reports/github.com/SpinnerAlloc/Spinner/main">
+  <img alt="" src="https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2FSpinnerAlloc%2FSpinner%2Fmain"/>
+</a>
 
 <br />
 
