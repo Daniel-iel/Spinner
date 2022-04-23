@@ -56,7 +56,7 @@ jobs:
 
       - name: Mutant Test 🧪👾
         if: github.event_name == 'pull_request'
-        run: dotnet stryker -p ${{env.PROJECT_TEST }} --with-baseline:${{ github.event.pull_request.base.ref }} --dashboard-api-key ${{secrets.STRYKER_KEY}} --version ${{ github.ref_name }}
+        run: dotnet stryker -p ${{env.PROJECT_TEST }}/Spinner.Test.csproj --with-baseline:${{ github.event.pull_request.base.ref }} --dashboard-api-key ${{secrets.STRYKER_KEY}} --version ${{ github.ref_name }}
    
       - name: Run Infer .Net 3.0 🔍
         uses: microsoft/infersharpaction@v1.2
