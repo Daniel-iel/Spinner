@@ -40,7 +40,7 @@ jobs:
           echo ${{github.event}}
           echo ${{github.head_ref}}
           echo ${{github.head_ref}} 
-          echo ${{github.event.pull_request.head.ref}}}}          
+          echo ${{github.event.pull_request.head.ref}}          
         shell: pwsh
       # - name: Setup NuGet 🔧
       #   uses: NuGet/setup-nuget@v1.0.5
@@ -66,7 +66,7 @@ jobs:
       #   if: github.event_name == 'pull_request'
       #   run: |
       #     cd ${{ env.PROJECT_TEST}}
-      #     dotnet stryker --dashboard-api-key ${{secrets.STRYKER_KEY}}
+      #     dotnet stryker --with-baseline:${{github.head_ref}} --dashboard-api-key ${{secrets.STRYKER_KEY}} --version ${{github.head_ref}}
 
       # - name: Run Infer .Net 3.0 🔍
       #   uses: microsoft/infersharpaction@v1.2
