@@ -12,7 +12,7 @@ jobs:
   build:
     env:
       APP: "${{ github.workspace }}/app"
-      PROJECT_TEST: "${{ github.workspace }}/app/Spinner.Test/"
+      PROJECT_TEST: "${{ github.workspace }}/app/Spinner.Test"
       PROJECT_SLN: "./app/Spinner.sln"
       PROJECT_BIN3: "./app/Spinner/bin/Release/netcoreapp3"
       PROJECT_BIN3_1: "./app/Spinner/bin/Release/netcoreapp3.1"
