@@ -58,7 +58,7 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           cd ${{ env.PROJECT_TEST}}
-          dotnet stryker --with-baseline:${{github.event.pull_request.base.ref}} --dashboard-api-key ${{secrets.STRYKER_KEY}} --version ${{github.event.pull_request.head.ref}}
+          dotnet stryker --reporter "progress"
 
       - name: Run Infer .Net 3.0 🔍
         uses: microsoft/infersharpaction@v1.2
