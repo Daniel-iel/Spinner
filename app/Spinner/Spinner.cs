@@ -9,6 +9,7 @@ namespace Spinner
     using Spinner.Attribute;
     using Spinner.Extensions;
     using System.Linq;
+    using Spinner.Exceptions;
 
     /// <summary>
     /// TODO
@@ -62,6 +63,11 @@ namespace Spinner
             {
                 WritePropertyAttribute attribute = GetWriteProperty(property);
 
+                if (attribute == null)
+                {
+                    throw new PropertyNotMappedException($"Property {property.Name} should have WriteProperty configured.");
+                }
+
                 sb.Builder.Append(
                     FormatValue(
                         (property.GetValue(this.obj) as string).AsSpan(),
@@ -84,12 +90,17 @@ namespace Spinner
 
             foreach (PropertyInfo property in WriteProperties)
             {
-                WritePropertyAttribute atribuite = GetWriteProperty(property);
+                WritePropertyAttribute attribute = GetWriteProperty(property);
+
+                if (attribute == null)
+                {
+                    throw new PropertyNotMappedException($"Property {property.Name} should have WriteProperty configured.");
+                }
 
                 sb.Builder.Append(
                     FormatValue(
                         (property.GetValue(this.obj) as string).AsSpan(),
-                        atribuite
+                        attribute
                     ));
             }
 
@@ -113,6 +124,11 @@ namespace Spinner
             {
                 ReadPropertyAttribute attribute = GetReaderProperty(property);
 
+                if (attribute == null)
+                {
+                    throw new PropertyNotMappedException($"Property {property.Name} should have ReadProperty configured.");
+                }
+
                 property.SetValue(
                     this.obj,
                     new string(valuesToSlice.Slice(attribute.Start, attribute.Length).Trim()));
@@ -131,6 +147,11 @@ namespace Spinner
             foreach (PropertyInfo property in ReadProperties)
             {
                 ReadPropertyAttribute attribute = GetReaderProperty(property);
+
+                if (attribute == null)
+                {
+                    throw new PropertyNotMappedException($"Property {property.Name} should have ReadProperty configured.");
+                }
 
                 property.SetValue(
                     this.obj,
@@ -178,19 +199,27 @@ namespace Spinner
 
         private static Func<PropertyInfo, bool> PredicateForWriteProperty()
         {
-            return (prop) => prop.GetCustomAttributes(typeof(WritePropertyAttribute), false).All(a => a.GetType() == typeof(WritePropertyAttribute));
+            return (prop) =>
+            {
+                return prop.GetCustomAttributes(typeof(WritePropertyAttribute), false)
+                           .All(a => a.GetType() == typeof(WritePropertyAttribute));
+            };
         }
 
         private static Func<PropertyInfo, ushort> PrecicateForOrderByWriteProperty()
         {
-            return (prop) => ((WritePropertyAttribute)prop.GetCustomAttributes(true)
-                                        .Where(x => x.GetType() == typeof(WritePropertyAttribute))
-                                        .FirstOrDefault()).Order;
+            return (prop) => ((WritePropertyAttribute)prop.GetCustomAttributes(false)
+                                         .Where(x => x.GetType() == typeof(WritePropertyAttribute))
+                                         .FirstOrDefault())?.Order ?? default;
         }
 
         private static Func<PropertyInfo, bool> PredicateForReadProperty()
         {
-            return (prop) => prop.GetCustomAttributes(typeof(ReadPropertyAttribute), false).All(a => a.GetType() == typeof(ReadPropertyAttribute));
+            return (prop) =>
+            {
+                return prop.GetCustomAttributes(typeof(ReadPropertyAttribute), false)
+                           .All(a => a.GetType() == typeof(ReadPropertyAttribute));
+            };
         }
     }
 }

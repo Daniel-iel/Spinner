@@ -1,27 +1,26 @@
 ﻿using Spinner.Attribute;
 using System;
 
-namespace Spinner.Test
+namespace Spinner.Test.Models
 {
-    [ObjectMapperAttribute(length: 50)]
-    internal struct NothingLeft : IEquatable<NothingLeft>
+    internal struct NothingLeftNoObjectMapper : IEquatable<NothingLeft>
     {
-        public NothingLeft(string name, string adress)
+        public NothingLeftNoObjectMapper(string name, string adress)
         {
-            this.Name = name;
-            this.Adress = adress;
+            Name = name;
+            Adress = adress;
         }
 
-        [WritePropertyAttribute(length: 20, order: 1, paddingChar: ' ')]
+        [WriteProperty(length: 20, order: 1, paddingChar: ' ')]
         public string Name { get; set; }
 
-        [WritePropertyAttribute(length: 30, order: 2, paddingChar: ' ')]
+        [WriteProperty(length: 30, order: 2, paddingChar: ' ')]
         public string Adress { get; set; }
 
         public bool Equals(NothingLeft other)
         {
-            return this.Name == other.Name &&
-                   this.Adress == other.Adress;
+            return Name == other.Name &&
+                   Adress == other.Adress;
         }
 
         public override bool Equals(object obj)

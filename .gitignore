@@ -31,3 +31,7 @@ node_modules
 
 *.lock
 *.lock*
+
+BenchmarkDotNet.Artifacts
+BenchmarkDotNet.Artifacts/*
+*/BenchmarkDotNet.Artifacts/*

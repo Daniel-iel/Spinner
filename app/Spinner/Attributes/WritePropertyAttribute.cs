@@ -6,7 +6,7 @@ namespace Spinner.Attribute
     /// <summary>
     /// TODO
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Property, Inherited = false)]
     public sealed class WritePropertyAttribute : System.Attribute
     {
         /// <summary>
