@@ -52,16 +52,16 @@ jobs:
       - name: Build ⚙️
         run: dotnet build ${{env.PROJECT_BENCH_WRITER }} -c Release -p:Version=$BUILD_VERSION --no-restore
 
-      - name: Publish
+      - name: Publish 📮
         run: dotnet publish ${{env.PROJECT_BENCH_WRITER }} -c Release --verbosity normal -o ./publish.benchmarks/
       
-      - name: Run
+      - name: Run 🏋️‍♂️
         if: github.event_name == 'pull_request'
         run: dotnet ./publish.benchmarks/Writer.Benchmark.dll -f "Writer.Benchmark.*"
 
-      - name: Upload Benchmarks Results
+      - name: Upload Results 📂
         if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v2
         with:
           name: Benchmark_Results
-          path: ${{env.PROJECT_BENCH_WRITER }}/BenchmarkDotNet.Artifacts/results/*
+          path: ./BenchmarkDotNet.Artifacts/results/*
