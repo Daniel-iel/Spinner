@@ -16,10 +16,7 @@ jobs:
       PROJECT_BENCH_WRITER: "./bench/Writer.Benchmark"
 
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        dotnet-version: ["6.0.x", "5.0.x", "3.1.x"]
-
+   
     steps:
       - uses: actions/checkout@v2
 
@@ -34,10 +31,20 @@ jobs:
       - name: Setup NuGet 🔧
         uses: NuGet/setup-nuget@v1.0.5
 
-      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }} 🔧
+      - name: Setup .NET Core SDK 3.1 🔧
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: ${{ matrix.dotnet-version }}
+          dotnet-version: 3.1.x
+
+      - name: Setup .NET Core SDK 5.0 🔧
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
+
+      - name: Setup .NET Core SDK 6.0 🔧
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
 
       - name: Restore Dependencies 📦
         run: dotnet restore ${{env.PROJECT_BENCH_WRITER }}
