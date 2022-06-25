@@ -40,7 +40,7 @@ jobs:
           dotnet-version: ${{ matrix.dotnet-version }}
 
       - name: Restore Dependencies 📦
-        run: dotnet restore ${{env.PROJECT_SLN }}
+        run: dotnet restore ${{env.PROJECT_BENCH_WRITER }}
      
       - name: Build ⚙️
         run: dotnet build ${{env.PROJECT_BENCH_WRITER }} -c Release -p:Version=$BUILD_VERSION --no-restore
