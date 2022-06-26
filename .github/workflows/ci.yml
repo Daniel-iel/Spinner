@@ -66,7 +66,7 @@ jobs:
 
       - name: Publish Benchmarks
         run: dotnet publish ${{env.PROJECT_BENCH_WRITER }} -c Release --verbosity normal -o ./publish.benchmarks/
-      
+
       - name: Run Benchmarks
         if: github.event_name == 'pull_request'
         run: dotnet ./publish.benchmarks/Writer.Benchmark.dll -f "Writer.Benchmark.*"
