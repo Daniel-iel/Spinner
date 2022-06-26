@@ -1,0 +1,10 @@
+extraction:
+  csharp:
+    index:
+      solution: "Spinner.sln"
+      nuget_restore: true
+      dotnet:
+        version: "6.0.301"
+      build_command:
+      - "export PB_MODE=release"
+      - "dotnet build ./app/Spinner.sln"
