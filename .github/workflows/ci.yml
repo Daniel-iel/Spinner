@@ -17,8 +17,7 @@ jobs:
       PROJECT_BIN3: "./app/Spinner/bin/Release/netcoreapp3"
       PROJECT_BIN3_1: "./app/Spinner/bin/Release/netcoreapp3.1"
       PROJECT_BIN5: "./app/Spinner/bin/Release/net5.0"
-      PROJECT_BENCH_WRITER: "./bench/Writer.Benchmark"
-
+      
     runs-on: ubuntu-latest
     strategy:
       matrix:

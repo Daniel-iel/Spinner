@@ -7,8 +7,7 @@ namespace Writer.Benchmark
     {
         static void Main(string[] args)
         {
-            BenchmarkRunner.Run<WriterBench>();
-            //BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args);
+            BenchmarkRunner.Run<WriterBench>();            
         }
     }
 }

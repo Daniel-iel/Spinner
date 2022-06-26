@@ -25,14 +25,14 @@ namespace Writer.Benchmark
         public void WriteAsString()
         {
             Spinner<ObjectBench> spinner = new Spinner<ObjectBench>(instance);
-            string result = spinner.WriteAsString();
+            spinner.WriteAsString();
         }
 
         [Benchmark]
         public void WriteAsSpan()
         {
             Spinner<ObjectBench> spinner = new Spinner<ObjectBench>(instance);
-            ReadOnlySpan<char> result = spinner.WriteAsSpan();
+            spinner.WriteAsSpan();
         }
     }
 }
