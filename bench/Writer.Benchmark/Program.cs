@@ -1,5 +1,4 @@
 ﻿using BenchmarkDotNet.Running;
-using System;
 
 namespace Writer.Benchmark
 {
@@ -7,7 +6,7 @@ namespace Writer.Benchmark
     {
         static void Main(string[] args)
         {
-            BenchmarkRunner.Run<WriterBench>();            
+            BenchmarkRunner.Run<WriterBench>();
         }
     }
 }

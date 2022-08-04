@@ -2,7 +2,6 @@
 using Spinner.Test.Helper;
 using Xunit;
 using System;
-using System.Linq;
 using System.Reflection;
 
 namespace Spinner.Test.Attributes

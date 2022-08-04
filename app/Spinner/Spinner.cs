@@ -59,18 +59,18 @@ namespace Spinner
         {
             PooledStringBuilder sb = PooledStringBuilder.GetInstance();
 
-            foreach (PropertyInfo property in WriteProperties)
+            for (int i = 0; i < WriteProperties.Length; i++)
             {
-                WritePropertyAttribute attribute = GetWriteProperty(property);
+                WritePropertyAttribute attribute = GetWriteProperty(WriteProperties[i]);
 
                 if (attribute == null)
                 {
-                    throw new PropertyNotMappedException($"Property {property.Name} should have WriteProperty configured.");
+                    throw new PropertyNotMappedException($"Property {WriteProperties[i].Name} should have WriteProperty configured.");
                 }
 
                 sb.Builder.Append(
                     FormatValue(
-                        (property.GetValue(this.obj) as string).AsSpan(),
+                        (WriteProperties[i].GetValue(this.obj) as string).AsSpan(),
                         attribute
                     ));
             }
@@ -88,18 +88,18 @@ namespace Spinner
         {
             PooledStringBuilder sb = PooledStringBuilder.GetInstance();
 
-            foreach (PropertyInfo property in WriteProperties)
+            for (int i = 0; i < WriteProperties.Length; i++)
             {
-                WritePropertyAttribute attribute = GetWriteProperty(property);
+                WritePropertyAttribute attribute = GetWriteProperty(WriteProperties[i]);
 
                 if (attribute == null)
                 {
-                    throw new PropertyNotMappedException($"Property {property.Name} should have WriteProperty configured.");
+                    throw new PropertyNotMappedException($"Property {WriteProperties[i].Name} should have WriteProperty configured.");
                 }
 
                 sb.Builder.Append(
                     FormatValue(
-                        (property.GetValue(this.obj) as string).AsSpan(),
+                        (WriteProperties[i].GetValue(this.obj) as string).AsSpan(),
                         attribute
                     ));
             }
@@ -120,16 +120,16 @@ namespace Spinner
         {
             ReadOnlySpan<char> valuesToSlice = new ReadOnlySpan<char>(value.ToCharArray());
 
-            foreach (PropertyInfo property in ReadProperties)
+            for (int i = 0; i < ReadProperties.Length; i++)
             {
-                ReadPropertyAttribute attribute = GetReaderProperty(property);
+                ReadPropertyAttribute attribute = GetReaderProperty(ReadProperties[i]);
 
                 if (attribute == null)
                 {
-                    throw new PropertyNotMappedException($"Property {property.Name} should have ReadProperty configured.");
+                    throw new PropertyNotMappedException($"Property {ReadProperties[i].Name} should have ReadProperty configured.");
                 }
 
-                property.SetValue(
+                ReadProperties[i].SetValue(
                     this.obj,
                     new string(valuesToSlice.Slice(attribute.Start, attribute.Length).Trim()));
             }
@@ -144,16 +144,16 @@ namespace Spinner
         /// <returns></returns>
         public T ReadFromSpan(ReadOnlySpan<char> value)
         {
-            foreach (PropertyInfo property in ReadProperties)
+            for (int i = 0; i < ReadProperties.Length; i++)
             {
-                ReadPropertyAttribute attribute = GetReaderProperty(property);
+                ReadPropertyAttribute attribute = GetReaderProperty(ReadProperties[i]);
 
                 if (attribute == null)
                 {
-                    throw new PropertyNotMappedException($"Property {property.Name} should have ReadProperty configured.");
+                    throw new PropertyNotMappedException($"Property {ReadProperties[i].Name} should have ReadProperty configured.");
                 }
 
-                property.SetValue(
+                ReadProperties[i].SetValue(
                     this.obj,
                     new string(value.Slice(attribute.Start, attribute.Length).Trim()));
             }
@@ -186,16 +186,18 @@ namespace Spinner
             .Cast<ReadPropertyAttribute>()
             .FirstOrDefault();
 
-        private static readonly IEnumerable<PropertyInfo> WriteProperties =
+        private static readonly PropertyInfo[] WriteProperties =
             typeof(T)
             .GetProperties()
             .Where(PredicateForWriteProperty())
-            .OrderBy(PrecicateForOrderByWriteProperty());
+            .OrderBy(PrecicateForOrderByWriteProperty())
+            .ToArray();
 
-        private static readonly IEnumerable<PropertyInfo> ReadProperties =
+        private static readonly PropertyInfo[] ReadProperties =
             typeof(T)
             .GetProperties()
-            .Where(PredicateForReadProperty());
+            .Where(PredicateForReadProperty())
+            .ToArray();
 
         private static Func<PropertyInfo, bool> PredicateForWriteProperty()
         {
