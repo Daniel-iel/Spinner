@@ -1,7 +1,7 @@
 extraction:
   csharp:
     index:
-      solution: "Spinner.sln"
+      solution: "app/Spinner.sln"
       nuget_restore: true
       dotnet:
         version: "6.0.301"
