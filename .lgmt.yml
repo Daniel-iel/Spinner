@@ -1,10 +1,11 @@
 extraction:
   csharp:
     index:
-      solution: "./app/Spinner.sln"
+      solution:
+        - ./app/Spinner.sln
       nuget_restore: false
       all_solutions: true
       dotnet:
-        arguments: ""
+        arguments: "-f 6.0.302"
         version: "6.0.302"
       buildless: true
