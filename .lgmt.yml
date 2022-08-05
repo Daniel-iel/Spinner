@@ -3,7 +3,8 @@ extraction:
     index:
       solution: "./app/Spinner.sln"
       nuget_restore: true
-      dotnet: Auto
+      dotnet:
+        version: 6.0.301
       build_command:
       - "export PB_MODE=release"
       - "dotnet build ./app/Spinner.sln"
