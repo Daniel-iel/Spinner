@@ -4,7 +4,7 @@ extraction:
       solution: "app/Spinner.sln"
       nuget_restore: true
       dotnet:
-        version: "6.0.301"
+        version: "5.0.100"
       build_command:
       - "export PB_MODE=release"
-      - "dotnet build ./app/Spinner.sln -f net6.0.301"
+      - "dotnet build ./app/Spinner.sln -f net5.0"
