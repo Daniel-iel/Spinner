@@ -1,4 +1,4 @@
-restore: 
+restore:
 	dotnet restore
 
 build:
