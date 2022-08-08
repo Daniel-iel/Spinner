@@ -14,11 +14,8 @@ extraction:
       solution:
         - "./app/Spinner.sln"
       nuget_restore: true
-      all_solutions: true
-      dotnet:
-        arguments: "-f net6.0"
-        version: "6.0.302"
+      all_solutions: true  
       build_command:  
         - dotnet clean ./app/Spinner.sln
-        - dotnet restore ./app/Spinner.sln
+        - dotnet restore ./app/Spinner.sln --force
         - dotnet build ./app/Spinner.sln -f net6.0
