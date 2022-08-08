@@ -16,4 +16,4 @@ extraction:
       #   arguments: -f net6.0 --force
       #   version: 6.0.302      
       build_command:
-       - .\build.sh
+       - ./build.sh
