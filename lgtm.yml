@@ -7,13 +7,13 @@ path_classifiers:
     - "ci-documentation.yml"
     - "ci.yml"
     - ".github"
-    - ".lgtm.yml"  
+    - "lgtm.yml"
 extraction:
   csharp:
-    index:      
+    index:
       # solution: ./app/Spinner.sln
       # dotnet:
       #   arguments: -f net6.0 --force
-      #   version: 6.0.302      
+      #   version: 6.0.302
       build_command:
-       - ./build.sh
+        - ./build.sh
