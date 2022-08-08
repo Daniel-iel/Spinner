@@ -11,6 +11,7 @@ path_classifiers:
 extraction:
   csharp:
     index:      
+      solution: ./app/Spinner.sln
       dotnet:
-        arguments: ./app/Spinner.sln -f net6.0 --force
+        arguments: -f net6.0 --force
         version: 6.0.302
