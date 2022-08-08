@@ -6,5 +6,5 @@ extraction:
       nuget_restore: true
       all_solutions: true
       dotnet:
-        arguments: ""
+        arguments: "-f net6.0"
         version: "6.0.302"
