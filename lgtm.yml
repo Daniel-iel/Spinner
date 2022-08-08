@@ -1,29 +1,23 @@
-# path_classifiers:
-#   docs:
-#     - "LICENSE*"
-#     - "*.md"
-#   ci:
-#     - "ci-benchmark.yml"
-#     - "ci-documentation.yml"
-#     - "ci.yml"
-#     - ".github"
-#     - ".lgtm.yml"  
-# extraction:
-#   csharp:
-#     index:
-#       solution:
-#         - "./app/Spinner.sln"
-#       nuget_restore: true
-#       all_solutions: true
-#       dotnet:
-#         arguments: "-f net6.0"
-#         version: "6.0.302"
+path_classifiers:
+  docs:
+    - "LICENSE*"
+    - "*.md"
+  ci:
+    - "ci-benchmark.yml"
+    - "ci-documentation.yml"
+    - "ci.yml"
+    - ".github"
+    - ".lgtm.yml"  
 extraction:
   csharp:
     index:
-      nuget_restore: false
       solution:
-         - "./app/Spinner.sln"
+        - "./app/Spinner.sln"
+      nuget_restore: true
+      all_solutions: true
       dotnet:
-        version: 6.0.3
-        arguments: "-c Release"
+        arguments: "-f net6.0"
+        version: "6.0.302"
+      build_command:
+        - dotnet restore
+        - dotnet build ./app/Spinner.sln -f net6.0
