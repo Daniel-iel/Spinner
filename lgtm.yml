@@ -12,5 +12,5 @@ extraction:
   csharp:
     index:      
       dotnet:
-        arguments: "./app/Spinner.sln -f net6.0"
+        arguments: "-f net6.0"
         version: 6.0.302
