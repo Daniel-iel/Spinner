@@ -1,3 +1,13 @@
+path_classifiers:
+  docs:
+    - "LICENSE*"
+    - "*.md"
+  ci:
+    - "ci-benchmark.yml"
+    - "ci-documentation.yml"
+    - "ci.yml"
+    - ".github"
+    - ".lgtm.yml"  
 extraction:
   csharp:
     index:
