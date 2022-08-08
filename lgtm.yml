@@ -19,5 +19,5 @@ extraction:
         arguments: "-f net6.0"
         version: "6.0.302"
       build_command:
-        - dotnet restore
+        - dotnet restore ./app/Spinner.sln
         - dotnet build ./app/Spinner.sln -f net6.0
