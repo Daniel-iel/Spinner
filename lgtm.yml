@@ -19,5 +19,8 @@ extraction:
         arguments: "-f net6.0"
         version: "6.0.302"
       build_command:
+        - "rm -d ./app/Spinner/obj"
+        - "rm -d ./app/Spinner.Test/obj"
+        - dotnet clean ./app/Spinner.sln
         - dotnet restore ./app/Spinner.sln
         - dotnet build ./app/Spinner.sln -f net6.0
