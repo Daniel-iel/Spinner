@@ -13,15 +13,6 @@ extraction:
     index:
       solution:
         - "./app/Spinner.sln"
-      nuget_restore: true
-      all_solutions: true     
-      msbuild:
-        configuration: release   
-        platform: x64
       dotnet:
-        arguments: "-f net6.0"
-        version: "6.0.302"
-      build_command:  
-        - dotnet clean ./app/Spinner.sln
-        - dotnet restore ./app/Spinner.sln --force
-        - dotnet build ./app/Spinner.sln -f net6.0
+        arguments: "./app/Spinner.sln -f net6.0 --force"
+        version: "6.0.302" 
