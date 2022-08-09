@@ -5,11 +5,10 @@ using System;
 
 namespace Writer.Benchmark
 {
-    [MemoryDiagnoser]
+    [MemoryDiagnoser(true)]
     [SimpleJob(RuntimeMoniker.NetCoreApp31, baseline: true)]
     [SimpleJob(RuntimeMoniker.Net50)]
     [SimpleJob(RuntimeMoniker.Net60)]
-    [RPlotExporter]
     [GcServer(true)]
     public class WriterBench
     {

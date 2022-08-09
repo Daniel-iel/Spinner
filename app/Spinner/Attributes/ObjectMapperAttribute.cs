@@ -3,22 +3,22 @@
 namespace Spinner.Attribute
 {
     /// <summary>
-    /// TODO
+    /// Configuration attribute to not allow wrong configuration of ReadPropertyAttribute and WritePropertyAttribute attributes.
     /// </summary>
     [AttributeUsage(AttributeTargets.Struct | AttributeTargets.Class)]
     public sealed class ObjectMapperAttribute : System.Attribute
     {
         /// <summary>
-        /// TODO
+        /// Constructor for configuration parameterization to lock the maximum size of all fields.
         /// </summary>
-        /// <param name="length"></param>
+        /// <param name="length">Length of all field.</param>
         public ObjectMapperAttribute(ushort length)
         {
             this.Length = length;
         }
 
         /// <summary>
-        /// TODO
+        /// Length of all field.
         /// </summary>
         public ushort Length { get; }
     }

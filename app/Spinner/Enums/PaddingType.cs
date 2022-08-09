@@ -1,17 +1,17 @@
 ﻿namespace Spinner.Enums
 {
     /// <summary>
-    /// TODO
+    /// Enum responsible for determining whether the padding is on the right or left side
     /// </summary>
     public enum PaddingType
     {
         /// <summary>
-        /// TODO
+        /// Left side
         /// </summary>
         Left = 1,
 
         /// <summary>
-        /// TODO
+        /// Right side
         /// </summary>
         Right = 2
     }

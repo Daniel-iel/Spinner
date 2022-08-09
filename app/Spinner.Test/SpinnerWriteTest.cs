@@ -110,7 +110,7 @@ namespace Spinner.Test
         [Fact]
         public void WriteAsSpan_WhenCalled_ShouldValidateIfNoObjectMapperIsUsedWithPadLeft()
         {
-            // Arrange            
+            // Arrange
             NothingLeftNoObjectMapper nothing = new NothingLeftNoObjectMapper("             spinner", "            www.spinner.com.br");
             Spinner<NothingLeftNoObjectMapper> spinner = new Spinner<NothingLeftNoObjectMapper>(nothing);
             ReadOnlySpan<char> expected = new ReadOnlySpan<char>("             spinner            www.spinner.com.br".ToCharArray());
@@ -134,7 +134,7 @@ namespace Spinner.Test
             Spinner<NothingLeft> spinnerFirst = new Spinner<NothingLeft>(nothingFirst);
             Spinner<NothingLeft> spinnerSecond = new Spinner<NothingLeft>(nothingSecond);
 
-            // Act            
+            // Act
             string stringResponseFirst = spinnerFirst.WriteAsString();
             string stringResponseSecond = spinnerSecond.WriteAsString();
 
@@ -152,7 +152,7 @@ namespace Spinner.Test
             Spinner<NothingLeft> spinnerFirst = new Spinner<NothingLeft>(nothingFirst);
             Spinner<NothingLeft> spinnerSecond = new Spinner<NothingLeft>(nothingSecond);
 
-            // Act            
+            // Act
             ReadOnlySpan<char> stringResponseFirst = spinnerFirst.WriteAsSpan();
             ReadOnlySpan<char> stringResponseSecond = spinnerSecond.WriteAsSpan();
 
@@ -236,7 +236,7 @@ namespace Spinner.Test
             Spinner<NothingRight> spinnerFirst = new Spinner<NothingRight>(nothingFirst);
             Spinner<NothingRight> spinnerSecond = new Spinner<NothingRight>(nothingSecond);
 
-            // Act            
+            // Act
             string stringResponseFirst = spinnerFirst.WriteAsString();
             string stringResponseSecond = spinnerSecond.WriteAsString();
 
@@ -254,7 +254,7 @@ namespace Spinner.Test
             Spinner<NothingRight> spinnerFirst = new Spinner<NothingRight>(nothingFirst);
             Spinner<NothingRight> spinnerSecond = new Spinner<NothingRight>(nothingSecond);
 
-            // Act            
+            // Act
             ReadOnlySpan<char> stringResponseFirst = spinnerFirst.WriteAsSpan();
             ReadOnlySpan<char> stringResponseSecond = spinnerSecond.WriteAsSpan();
 
@@ -279,12 +279,12 @@ namespace Spinner.Test
         [Fact]
         public void WriteAsString_WhenCalled_ShouldNotThrowExceptionIfNotExistsAnyPropertiesWithWritePropertyAttribute()
         {
-            // Arrange
-            NothingNoAttibute nothing = new NothingNoAttibute("spinnerFirst", "www.spinner.com.br");
-
-            // Act            
+            // Act
             Action act = () =>
             {
+                // Arrange
+                NothingNoAttibute nothing = new NothingNoAttibute("spinnerFirst", "www.spinner.com.br");
+
                 Spinner<NothingNoAttibute> spinnerFirst = new Spinner<NothingNoAttibute>(nothing);
 
                 spinnerFirst.WriteAsString();
@@ -298,12 +298,12 @@ namespace Spinner.Test
         [Fact]
         public void WriteAsSpan_WhenCalled_ShouldNotThrowExceptionIfNotExistsAnyPropertiesWithWritePropertyAttribute()
         {
-            // Arrange
-            NothingNoAttibute nothing = new NothingNoAttibute("spinnerFirst", "www.spinner.com.br");
-
-            // Act            
+            // Act
             Action act = () =>
             {
+                // Arrange
+                NothingNoAttibute nothing = new NothingNoAttibute("spinnerFirst", "www.spinner.com.br");
+
                 Spinner<NothingNoAttibute> spinnerFirst = new Spinner<NothingNoAttibute>(nothing);
 
                 spinnerFirst.WriteAsSpan();

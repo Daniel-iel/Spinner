@@ -3,7 +3,7 @@ using System;
 
 namespace Spinner.Test.Models
 {
-    internal struct NothingLeftNoObjectMapper : IEquatable<NothingLeft>
+    internal struct NothingLeftNoObjectMapper : IEquatable<NothingLeftNoObjectMapper>
     {
         public NothingLeftNoObjectMapper(string name, string adress)
         {
@@ -17,22 +17,30 @@ namespace Spinner.Test.Models
         [WriteProperty(length: 30, order: 2, paddingChar: ' ')]
         public string Adress { get; set; }
 
-        public bool Equals(NothingLeft other)
+        public bool Equals(NothingLeftNoObjectMapper other)
         {
             return Name == other.Name &&
                    Adress == other.Adress;
         }
 
-        public override bool Equals(object obj)
-        {
-            NothingLeft other = (NothingLeft)obj;
-
-            return other.Equals(this);
-        }
-
         public override int GetHashCode()
         {
             return HashCode.Combine(Name, Adress);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is NothingLeftNoObjectMapper nothingLeftNoObjectMapper && Equals(nothingLeftNoObjectMapper);
+        }
+
+        public static bool operator ==(NothingLeftNoObjectMapper left, NothingLeftNoObjectMapper right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(NothingLeftNoObjectMapper left, NothingLeftNoObjectMapper right)
+        {
+            return !(left == right);
         }
     }
 }

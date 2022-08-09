@@ -12,9 +12,9 @@ namespace Spinner
     using Spinner.Exceptions;
 
     /// <summary>
-    /// TODO
+    /// Spinner object that abstract all rule to read or write an string.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">The type of object to write or read.</typeparam>
     public ref struct Spinner<T> where T : new()
     {
         private readonly T obj;

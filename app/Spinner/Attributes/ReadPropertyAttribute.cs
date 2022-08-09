@@ -1,16 +1,19 @@
-﻿using System;
+﻿using Sigil;
+using System;
 
 namespace Spinner.Attribute
 {
     /// <summary>
-    /// TODO
+    /// Attribute responsible for configuring reading a field.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public sealed class ReadPropertyAttribute : System.Attribute
     {
         /// <summary>
-        /// TODO
+        /// Constructor to configure the initial position and total characters of a field.
         /// </summary>
+        /// <param name="start">Inicial position.</param>
+        /// <param name="length">Total characters.</param>
         public ReadPropertyAttribute(ushort start, ushort length)
         {
             this.Start = start;
@@ -18,12 +21,12 @@ namespace Spinner.Attribute
         }
 
         /// <summary>
-        /// TODO
+        /// Inicial position.
         /// </summary>
         public ushort Start { get; }
 
         /// <summary>
-        /// TODO
+        /// Total characters.
         /// </summary>
         public ushort Length { get; }
     }

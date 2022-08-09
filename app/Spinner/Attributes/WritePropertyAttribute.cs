@@ -1,25 +1,33 @@
-﻿using Spinner.Enums;
+﻿using Sigil;
+using Spinner.Enums;
 using System;
 
 namespace Spinner.Attribute
 {
     /// <summary>
-    /// TODO
+    /// Attribute responsible for configuring writing a field.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, Inherited = false)]
     public sealed class WritePropertyAttribute : System.Attribute
     {
         /// <summary>
-        /// TODO
+        /// Constructor to configure the lenght, order and char padding of a field.
         /// </summary>
+        /// <param name="length">Total characters.</param>
+        /// <param name="order">Field order within string.</param>
+        /// <param name="paddingChar">Type of characters to padding.</param>
         public WritePropertyAttribute(ushort length, ushort order, char paddingChar)
             : this(length: length, order: order, paddingChar: paddingChar, padding: PaddingType.Left)
         {
         }
 
         /// <summary>
-        /// TODO
+        /// Constructor to configure the lenght, order and char padding of a field.
         /// </summary>
+        /// <param name="length">Total characters.</param>
+        /// <param name="order">Field order within string.</param>
+        /// <param name="paddingChar">Type of characters to padding.</param>
+        /// <param name="padding">Type of pading Left or Right.</param>
         public WritePropertyAttribute(ushort length, ushort order, char paddingChar, PaddingType padding)
         {
             this.Length = length;
@@ -29,22 +37,22 @@ namespace Spinner.Attribute
         }
 
         /// <summary>
-        /// TODO
+        /// Total characters.
         /// </summary>
         public ushort Length { get; }
 
         /// <summary>
-        /// TODO
+        /// Field order within string.
         /// </summary>
         public ushort Order { get; }
 
         /// <summary>
-        /// TODO
+        /// Type of characters to padding.
         /// </summary>
         public char PaddingChar { get; }
 
         /// <summary>
-        /// TODO
+        /// Type of pading Left or Right.
         /// </summary>
         public PaddingType Padding { get; }
     }
