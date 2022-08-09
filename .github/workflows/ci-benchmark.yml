@@ -44,7 +44,10 @@ jobs:
       - name: Setup .NET Core SDK 6.0 🔧
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 6.0.x
+          dotnet-version: 6.0.400
+
+      - name: Clean Dependencies 📦
+        run: dotnet clean ${{env.PROJECT_BENCH_WRITER }}
 
       - name: Restore Dependencies 📦
         run: dotnet restore ${{env.PROJECT_BENCH_WRITER }}
