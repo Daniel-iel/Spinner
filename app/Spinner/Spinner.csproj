@@ -5,21 +5,13 @@
     <LangVersion>10.0</LangVersion>
     <Authors>Daniel Oliveira</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <RepositoryUrl>https://github.com/SpinnerAlloc/Spinner</RepositoryUrl>
-    <PackageIcon>svgexport-6.png</PackageIcon>
-    <PackageIconUrl />
     <PackageTags>Integration; Positional-String; Comunication</PackageTags>
-    <PackageProjectUrl>https://spinnerframework.com/</PackageProjectUrl>
+    <PackageProjectUrl>https://spinneralloc.github.io/Spinner/</PackageProjectUrl>
+    <PackageIcon>svgexport-6.png</PackageIcon>
+    <Title>Spinner Framework</Title>
     <Description>Spinner is a simple object mapper, it’s useful to communicate to any system that uses a positional string as communication.</Description>
     <NeutralLanguage>en</NeutralLanguage>
-    <EnableNETAnalyzers>True</EnableNETAnalyzers>
-    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
-    <AnalysisLevel>latest-recommended</AnalysisLevel>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Title>Spinner Framework</Title>
-    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -117,7 +109,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Sigil" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>

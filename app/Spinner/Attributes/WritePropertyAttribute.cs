@@ -1,5 +1,4 @@
-﻿using Sigil;
-using Spinner.Enums;
+﻿using Spinner.Enums;
 using System;
 
 namespace Spinner.Attribute
