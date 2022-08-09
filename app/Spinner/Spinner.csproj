@@ -5,14 +5,14 @@
     <LangVersion>10.0</LangVersion>
     <Authors>Daniel Oliveira</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageTags>Integration; Positional-String; Comunication</PackageTags>
-    <PackageProjectUrl>https://spinneralloc.github.io/Spinner/</PackageProjectUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RepositoryUrl>https://github.com/SpinnerAlloc/Spinner</RepositoryUrl>
     <PackageIcon>svgexport-6.png</PackageIcon>
-    <Title>Spinner Framework</Title>
-    <Description>Spinner is a simple object mapper, it’s useful to communicate to any system that uses a positional string as communication.</Description>
+    <PackageIconUrl />
+    <PackageTags>Integration; Positional string; Comunication</PackageTags>
+    <PackageProjectUrl>https://spinneralloc.github.io/Spinner/</PackageProjectUrl>
+    <Description />
     <NeutralLanguage>en</NeutralLanguage>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -24,17 +24,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ClrHeapAllocationAnalyzer" Version="3.0.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis" Version="4.2.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.2.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.2.0" />
-    <PackageReference Include="Microsoft.VisualStudio.CoreUtility" Version="17.2.3194" />
-    <PackageReference Include="NoAlloq" Version="0.1.0" />
-    <PackageReference Include="ReflectionAnalyzers" Version="0.3.1">
+    <PackageReference Include="Microsoft.VisualStudio.CoreUtility" Version="17.0.487" />
+    <PackageReference Include="ReflectionAnalyzers" Version="0.3.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -44,6 +35,7 @@
     <None Include="..\..\Assets\svgexport-6.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
-    </None>   
+    </None>
   </ItemGroup>
+
 </Project>
