@@ -25,24 +25,19 @@
 
   <ItemGroup>
     <PackageReference Include="ClrHeapAllocationAnalyzer" Version="3.0.0" />
-    <!-- <PackageReference Include="Microsoft.CodeAnalysis" Version="4.2.0" />
+     <PackageReference Include="Microsoft.CodeAnalysis" Version="4.2.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference> -->
-    <!-- <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.2.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.2.0" /> -->
+    </PackageReference>
+     <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.2.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.CoreUtility" Version="17.0.487" />
     <PackageReference Include="NoAlloq" Version="0.1.0" />
     <PackageReference Include="ReflectionAnalyzers" Version="0.3.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <!--<PackageReference Include="Microsoft.VisualStudio.CoreUtility" Version="17.0.487" />
-    <PackageReference Include="ReflectionAnalyzers" Version="0.3.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>-->
   </ItemGroup>
 
   <ItemGroup>
