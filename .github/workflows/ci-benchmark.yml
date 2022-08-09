@@ -1,4 +1,4 @@
-name: .NET
+name: benchmark
 
 on:
   push:
@@ -44,7 +44,7 @@ jobs:
       - name: Setup .NET Core SDK 6.0 🔧
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 6.0.400
+          dotnet-version: 6.0.x
 
       - name: Clean Dependencies 📦
         run: dotnet clean ${{env.PROJECT_BENCH_WRITER }}

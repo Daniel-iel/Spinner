@@ -1,4 +1,4 @@
-name: .NET
+name: ci
 
 on:
   push:
@@ -13,7 +13,7 @@ jobs:
     env:
       APP: "${{ github.workspace }}/app"
       PROJECT_TEST: "${{ github.workspace }}/app/Spinner.Test"
-      PROJECT_SLN: "./app/Spinner.sln"      
+      PROJECT_SLN: "./app/Spinner.sln"
       PROJECT_BIN3_1: "./app/Spinner/bin/Release/netcoreapp3.1"
       PROJECT_BIN5: "./app/Spinner/bin/Release/net5.0"
       PROJECT_BIN6: "./app/Spinner/bin/Release/net6.0"
@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        dotnet-version: ["6.0.400"]
+        dotnet-version: ["6.0.301"]
 
     steps:
       - uses: actions/checkout@v2
