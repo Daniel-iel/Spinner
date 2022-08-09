@@ -2,7 +2,7 @@
   <img src="/Assets/svgexport-6.png?raw=true">
 </div>
 
-# 
+#
 
  <a href="https://github.com/SpinnerAlloc/Spinner/graphs/contributors" alt="Contributors">
     <img src="https://img.shields.io/github/contributors/SpinnerAlloc/Spinner" />
@@ -16,9 +16,6 @@
 <a href="https://github.com/SpinnerAlloc/Spinner/actions/workflows/ci.yml">
     <img src="https://github.com/SpinnerAlloc/Spinner/actions/workflows/ci-documentation.yml/badge.svg" alt="build status">
 </a>
-<a href="https://lgtm.com/projects/g/SpinnerAlloc/Spinner/alerts/">
-    <img src="https://img.shields.io/lgtm/alerts/g/badges/shields" alt="Total alerts"/>
-</a>  
 <a href="https://github.com/SpinnerAlloc/Spinner/blob/main/LICENSE">
     <img src="https://img.shields.io/github/license/SpinnerAlloc/Spinner" alt="License"/>
 </a>
@@ -45,7 +42,7 @@
        src="https://img.shields.io/coverity/scan/24116.svg"/>
 </a>
 <a href="">
-  <img alt="" src="https://api.meercode.io/badge/SpinnerAlloc/Spinner?type=ci-score&branch=main&lastDay=14"/>
+  <img alt="" src="https://api.meercode.io/badge/SpinnerAlloc/Spinner?type=ci-score&lastDay=31"/>
 </a>
 
 <br />
@@ -99,7 +96,7 @@ See Learn: Getting Started for setting up your project [here](https://spinnerall
 
 ## Contributors
 
-<a href="https://github.com/Daniel-iel"><img src="https://github.com/Daniel-iel.png?size=40" width="40" class="border-radius: 100%" /></a>
+<a href="https://github.com/Daniel-iel"><img src="https://github.com/Daniel-iel.png?size=40" width="40" style="border-radius: 100%" /></a>
 
 ## Support
 
