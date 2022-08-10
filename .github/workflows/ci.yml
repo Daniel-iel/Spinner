@@ -78,7 +78,7 @@ jobs:
         with:
           binary-path: ${{ env.PROJECT_BIN5 }}
 
-      - name: Codecov
+      - name: Codecov 📊
         uses: codecov/codecov-action@v2.1.0
         with:
           token: ${{secrets.CODECOV_TOKEN}}

@@ -13,6 +13,7 @@
     <NeutralLanguage>en</NeutralLanguage>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
