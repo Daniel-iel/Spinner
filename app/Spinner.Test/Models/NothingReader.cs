@@ -15,19 +15,17 @@ namespace Spinner.Test.Models
         public bool Equals(NothingReader other)
         {
             return Name == other.Name &&
-                  Adress == other.Adress;
-        }
-
-        public override bool Equals(object obj)
-        {
-            NothingReader other = (NothingReader)obj;
-
-            return other.Equals(this);
+                   Adress == other.Adress;
         }
 
         public override int GetHashCode()
         {
             return HashCode.Combine(Name, Adress);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is NothingReader nothingReader && Equals(nothingReader);
         }
     }
 }

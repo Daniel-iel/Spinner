@@ -3,6 +3,8 @@ using System.Linq;
 using Spinner.Test.Models;
 using System;
 using Spinner.Exceptions;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace Spinner.Test
 {
@@ -93,7 +95,7 @@ namespace Spinner.Test
         {
             Spinner<NothingReader> spinnerFirst = new Spinner<NothingReader>();
 
-            System.Collections.Generic.IEnumerable<System.Reflection.PropertyInfo> props = spinnerFirst.GetReadProperties;
+            IEnumerable<PropertyInfo> props = spinnerFirst.GetReadProperties;
 
             Assert.Equal(2, props.Count());
             Assert.Equal("Name", props.First().Name);
@@ -108,7 +110,7 @@ namespace Spinner.Test
                 // Arrange
                 Spinner<NothingNoAttibute> spinnerReader = new Spinner<NothingNoAttibute>();
 
-                // Act                    
+                // Act
                 spinnerReader.ReadFromString("");
             };
 
@@ -125,7 +127,7 @@ namespace Spinner.Test
                 // Arrange
                 Spinner<NothingNoAttibute> spinnerReader = new Spinner<NothingNoAttibute>();
 
-                // Act                    
+                // Act
                 spinnerReader.ReadFromSpan("");
             };
 

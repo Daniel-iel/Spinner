@@ -25,16 +25,14 @@ namespace Spinner.Test.Models
                    Adress == other.Adress;
         }
 
-        public override bool Equals(object obj)
-        {
-            NothingRight other = (NothingRight)obj;
-
-            return other.Equals(this);
-        }
-
         public override int GetHashCode()
         {
             return HashCode.Combine(Name, Adress);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is NothingRight nothingRight && Equals(nothingRight);
         }
     }
 }

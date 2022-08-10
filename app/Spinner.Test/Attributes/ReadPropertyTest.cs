@@ -9,21 +9,23 @@ namespace Spinner.Test.Attributes
     public class ReadPropertyTest
     {
         [Fact]
-        public void Should_ValidateHowManyContructorsExistsInWritePropertyFile()
+        public void Should_ValidateHowManyContructorsExistsInReadPropertyAttributeFile()
         {
             // Arrange & Act
-            ConstructorInfo[] constructors = FileInpect<ReadPropertyAttribute>.GetConstructors();
+            ConstructorInfo[] constructors = FileInspect<ReadPropertyAttribute>.GetConstructors();
 
             // Assert
             Assert.Single(constructors);
         }
 
         [Fact]
-        public void Should_ValidateParansTypeAndNameOfFirstConstructors()
+        public void Should_ValidateParamsTypeAndNameOfFirstConstructors()
         {
-            // Arrange & Act
-            ConstructorInfo[] constructors = FileInpect<ReadPropertyAttribute>.GetConstructors();
+            // Arrange
+            ConstructorInfo[] constructors = FileInspect<ReadPropertyAttribute>.GetConstructors();
             ConstructorInfo firstConstructor = constructors[0];
+
+            // Act
             ParameterInfo[] parameters = firstConstructor.GetParameters();
 
             // Assert
@@ -37,10 +39,10 @@ namespace Spinner.Test.Attributes
         }
 
         [Fact]
-        public void Should_ValidateHowManyAttributesExistsInWritePropertyFile()
+        public void Should_ValidateHowManyAttributesExistsInReadPropertyAttributeFile()
         {
             // Arrange & Act
-            object[] attibutes = FileInpect<ReadPropertyAttribute>.GetAttributes();
+            object[] attibutes = FileInspect<ReadPropertyAttribute>.GetAttributes();
 
             AttributeUsageAttribute attributeUsage = attibutes[0] as AttributeUsageAttribute;
 

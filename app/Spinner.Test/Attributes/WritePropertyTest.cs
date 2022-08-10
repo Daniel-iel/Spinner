@@ -12,18 +12,20 @@ namespace Spinner.Test.Attributes
         public void Should_ValidateHowManyContructorsExistsInWritePropertyFile()
         {
             // Arrange & Act
-            ConstructorInfo[] constructors = FileInpect<WritePropertyAttribute>.GetConstructors();
+            ConstructorInfo[] constructors = FileInspect<WritePropertyAttribute>.GetConstructors();
 
             // Assert
             Assert.Equal(2, constructors.Length);
         }
 
         [Fact]
-        public void Should_ValidateParansTypeAndNameOfFirstConstructors()
+        public void Should_ValidateParamsTypeAndNameOfFirstConstructors()
         {
-            // Arrange & Act
-            ConstructorInfo[] constructors = FileInpect<WritePropertyAttribute>.GetConstructors();
+            // Arrange
+            ConstructorInfo[] constructors = FileInspect<WritePropertyAttribute>.GetConstructors();
             ConstructorInfo firstConstructor = constructors[0];
+
+            // Act
             ParameterInfo[] parameters = firstConstructor.GetParameters();
 
             // Assert
@@ -42,9 +44,11 @@ namespace Spinner.Test.Attributes
         [Fact]
         public void Should_ValidateParansTypeAndNameOfSecondConstructors()
         {
-            // Arrange & Act
-            ConstructorInfo[] constructors = FileInpect<WritePropertyAttribute>.GetConstructors();
+            // Arrange
+            ConstructorInfo[] constructors = FileInspect<WritePropertyAttribute>.GetConstructors();
             ConstructorInfo secondConstructor = constructors[1];
+
+            // Act
             ParameterInfo[] parameters = secondConstructor.GetParameters();
 
             // Assert
@@ -64,7 +68,7 @@ namespace Spinner.Test.Attributes
         public void Should_ValidateHowManyAttributesExistsInWritePropertyFile()
         {
             // Arrange & Act
-            object[] attibutes = FileInpect<WritePropertyAttribute>.GetAttributes();
+            object[] attibutes = FileInspect<WritePropertyAttribute>.GetAttributes();
 
             AttributeUsageAttribute attributeUsage = attibutes[0] as AttributeUsageAttribute;
 

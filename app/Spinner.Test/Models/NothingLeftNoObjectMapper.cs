@@ -32,15 +32,5 @@ namespace Spinner.Test.Models
         {
             return obj is NothingLeftNoObjectMapper nothingLeftNoObjectMapper && Equals(nothingLeftNoObjectMapper);
         }
-
-        public static bool operator ==(NothingLeftNoObjectMapper left, NothingLeftNoObjectMapper right)
-        {
-            return left.Equals(right);
-        }
-
-        public static bool operator !=(NothingLeftNoObjectMapper left, NothingLeftNoObjectMapper right)
-        {
-            return !(left == right);
-        }
     }
 }

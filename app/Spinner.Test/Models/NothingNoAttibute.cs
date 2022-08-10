@@ -22,16 +22,14 @@ namespace Spinner.Test.Models
                    Adress == other.Adress;
         }
 
-        public override bool Equals(object obj)
-        {
-            NothingNoAttibute other = (NothingNoAttibute)obj;
-
-            return other.Equals(this);
-        }
-
         public override int GetHashCode()
         {
             return HashCode.Combine(Name, Adress);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is NothingNoAttibute nothingLeft && Equals(nothingLeft);
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Spinner.Test.Helper
 {
-    internal static class FileInpect<T>
+    internal static class FileInspect<T>
     {
         public static Type Type => typeof(T);
 

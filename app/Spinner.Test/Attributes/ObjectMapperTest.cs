@@ -9,21 +9,23 @@ namespace Spinner.Test.Attributes
     public class ObjectMapperTest
     {
         [Fact]
-        public void Should_ValidateHowManyContructorsExistsInObjectMapper()
+        public void Should_ValidateHowManyContructorsExistsInObjectMapperAttributeFile()
         {
             // Arrange & Act
-            ConstructorInfo[] constructors = FileInpect<ObjectMapperAttribute>.GetConstructors();
+            ConstructorInfo[] constructors = FileInspect<ObjectMapperAttribute>.GetConstructors();
 
             // Assert
             Assert.Single(constructors);
         }
 
         [Fact]
-        public void Should_ValidateParansTypeAndNameOnConstructor()
+        public void Should_ValidateParamsTypeAndNameOnConstructor()
         {
-            // Arrange & Act
-            ConstructorInfo[] constructors = FileInpect<ObjectMapperAttribute>.GetConstructors();
+            // Arrange
+            ConstructorInfo[] constructors = FileInspect<ObjectMapperAttribute>.GetConstructors();
             ConstructorInfo firstConstructor = constructors[0];
+
+            // Act
             ParameterInfo[] parameters = firstConstructor.GetParameters();
 
             // Assert
@@ -34,10 +36,10 @@ namespace Spinner.Test.Attributes
         }
 
         [Fact]
-        public void Should_ValidateHowManyAttributesExistsInWritePropertyFile()
+        public void Should_ValidateHowManyAttributesExistsInObjectMapperAttributeFile()
         {
             // Arrange & Act
-            object[] attibutes = FileInpect<ObjectMapperAttribute>.GetAttributes();
+            object[] attibutes = FileInspect<ObjectMapperAttribute>.GetAttributes();
 
             AttributeUsageAttribute attributeUsage = attibutes[0] as AttributeUsageAttribute;
 
