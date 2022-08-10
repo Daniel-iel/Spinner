@@ -6,7 +6,7 @@
     <Authors>Daniel Oliveira</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>Integration; Positional-String; Comunication</PackageTags>
-    <PackageProjectUrl>https://spinneralloc.github.io/Spinner/</PackageProjectUrl>
+    <PackageProjectUrl>https://spinnerframework.com/</PackageProjectUrl>
     <PackageIcon>svgexport-6.png</PackageIcon>
     <Title>Spinner Framework</Title>
     <Description>Spinner is a simple object mapper, it’s useful to communicate to any system that uses a positional string as communication.</Description>
@@ -45,6 +45,10 @@
     <None Include="..\..\Assets\svgexport-6.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
 
