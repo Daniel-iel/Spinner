@@ -19,7 +19,7 @@ namespace Spinner.Test.Attributes
         }
 
         [Fact]
-        public void Should_ValidateParamsTypeAndNameOfFirstConstructors()
+        public void Should_ValidateParamsTypeAndNameOfFirstConstructor()
         {
             // Arrange
             ConstructorInfo[] constructors = FileInspect<WritePropertyAttribute>.GetConstructors();

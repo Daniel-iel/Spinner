@@ -3,6 +3,8 @@ using Xunit;
 using System.Linq;
 using Spinner.Test.Models;
 using Spinner.Exceptions;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace Spinner.Test
 {
@@ -265,19 +267,22 @@ namespace Spinner.Test
         [Fact]
         public void GetWriteProperties_WhenCaller_ShouldValidadeHowManyPropertiesWasMapped()
         {
+            // Arrange
             NothingRight nothing = new NothingRight("spinnerFirst", "www.spinner.com.br");
 
             Spinner<NothingRight> spinnerFirst = new Spinner<NothingRight>(nothing);
 
-            System.Collections.Generic.IEnumerable<System.Reflection.PropertyInfo> props = spinnerFirst.GetWriteProperties;
+            // Act
+           IEnumerable<PropertyInfo> props = spinnerFirst.GetWriteProperties;
 
+            // Assert
             Assert.Equal(2, props.Count());
             Assert.Equal("Name", props.First().Name);
             Assert.Equal("Adress", props.Last().Name);
         }
 
         [Fact]
-        public void WriteAsString_WhenCalled_ShouldNotThrowExceptionIfNotExistsAnyPropertiesWithWritePropertyAttribute()
+        public void WriteAsString_WhenCalled_ShouldThrowExceptionIfNotExistsAnyPropertiesWithWritePropertyAttribute()
         {
             // Act
             Action act = () =>
@@ -296,7 +301,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void WriteAsSpan_WhenCalled_ShouldNotThrowExceptionIfNotExistsAnyPropertiesWithWritePropertyAttribute()
+        public void WriteAsSpan_WhenCalled_ShouldThrowExceptionIfNotExistsAnyPropertiesWithWritePropertyAttribute()
         {
             // Act
             Action act = () =>

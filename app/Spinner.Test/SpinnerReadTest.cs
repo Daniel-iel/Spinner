@@ -43,7 +43,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void ReadFromString_WhenCalled_ShouldValidateIfTwoResponseIsDiferent()
+        public void ReadFromString_WhenCalled_ShouldValidateIfTwoResponsesAreDiferents()
         {
             // Arrange
             NothingLeft nothingLeftFirst = new NothingLeft("spinnerFirst", "www.spinner.com.br");
@@ -67,7 +67,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void ReadFromSpan_WhenCalled_ShouldValidateIfTwoResponseIsDiferent()
+        public void ReadFromSpan_WhenCalled_ShouldValidateIfTwoResponsesAreDiferents()
         {
             // Arrange
             NothingLeft nothingLeftFirst = new NothingLeft("spinnerFirst", "www.spinner.com.br");
@@ -103,7 +103,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void ReadFromString_WhenCalled_ShouldNotThrowExceptionIfNotExistsAnyPropertiesWithReadPropertyAttribute()
+        public void ReadFromString_WhenCalled_ShouldThrowExceptionIfNotExistsAnyPropertiesWithReadPropertyAttribute()
         {
             Action act = () =>
             {
@@ -120,7 +120,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void ReadFromSpan_WhenCalled_ShouldNotThrowExceptionIfNotExistsAnyPropertiesWithReadPropertyAttribute()
+        public void ReadFromSpan_WhenCalled_ShouldThrowExceptionIfNotExistsAnyPropertiesWithReadPropertyAttribute()
         {
             Action act = () =>
             {
