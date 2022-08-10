@@ -18,6 +18,11 @@ obj
 */obj/*
 */obj/
 
+StrykerOutput
+*/StrykerOutput*
+*/StrykerOutput/*
+*/StrykerOutput/
+
 .user
 *.user*
 
@@ -26,3 +31,7 @@ node_modules
 
 *.lock
 *.lock*
+
+BenchmarkDotNet.Artifacts
+BenchmarkDotNet.Artifacts/*
+*/BenchmarkDotNet.Artifacts/*

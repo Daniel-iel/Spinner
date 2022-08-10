@@ -2,7 +2,6 @@
 using Spinner.Test.Helper;
 using Xunit;
 using System;
-using System.Linq;
 using System.Reflection;
 
 namespace Spinner.Test.Attributes
@@ -10,21 +9,23 @@ namespace Spinner.Test.Attributes
     public class ReadPropertyTest
     {
         [Fact]
-        public void Should_ValidateHowManyContructorsExistsInWritePropertyFile()
+        public void Should_ValidateHowManyContructorsExistsInReadPropertyAttributeFile()
         {
             // Arrange & Act
-            ConstructorInfo[] constructors = FileInpect<ReadProperty>.GetConstructors();
+            ConstructorInfo[] constructors = FileInspect<ReadPropertyAttribute>.GetConstructors();
 
             // Assert
             Assert.Single(constructors);
         }
 
         [Fact]
-        public void Should_ValidateParansTypeAndNameOfFirstConstructors()
+        public void Should_ValidateParamsTypeAndNameOfFirstConstructor()
         {
-            // Arrange & Act
-            ConstructorInfo[] constructors = FileInpect<ReadProperty>.GetConstructors();
+            // Arrange
+            ConstructorInfo[] constructors = FileInspect<ReadPropertyAttribute>.GetConstructors();
             ConstructorInfo firstConstructor = constructors[0];
+
+            // Act
             ParameterInfo[] parameters = firstConstructor.GetParameters();
 
             // Assert
@@ -36,14 +37,14 @@ namespace Spinner.Test.Attributes
             Assert.Equal("length", parameters[1].Name);
             Assert.Equal(typeof(ushort), parameters[1].ParameterType);
         }
-         
+
         [Fact]
-        public void Should_ValidateHowManyAttributesExistsInWritePropertyFile()
+        public void Should_ValidateHowManyAttributesExistsInReadPropertyAttributeFile()
         {
             // Arrange & Act
-            object[] attibutes = FileInpect<ReadProperty>.GetAttributes();
+            object[] attibutes = FileInspect<ReadPropertyAttribute>.GetAttributes();
 
-            AttributeUsageAttribute attributeUsage = attibutes.First() as AttributeUsageAttribute;
+            AttributeUsageAttribute attributeUsage = attibutes[0] as AttributeUsageAttribute;
 
             // Assert
             Assert.Single(attibutes);

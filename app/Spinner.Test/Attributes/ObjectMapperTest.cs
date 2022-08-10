@@ -2,7 +2,6 @@
 using Spinner.Test.Helper;
 using Xunit;
 using System;
-using System.Linq;
 using System.Reflection;
 
 namespace Spinner.Test.Attributes
@@ -10,37 +9,39 @@ namespace Spinner.Test.Attributes
     public class ObjectMapperTest
     {
         [Fact]
-        public void Should_ValidateHowManyContructorsExistsInObjectMapper()
+        public void Should_ValidateHowManyContructorsExistsInObjectMapperAttributeFile()
         {
             // Arrange & Act
-            ConstructorInfo[] constructors = FileInpect<ObjectMapper>.GetConstructors();
+            ConstructorInfo[] constructors = FileInspect<ObjectMapperAttribute>.GetConstructors();
 
             // Assert
             Assert.Single(constructors);
         }
 
         [Fact]
-        public void Should_ValidateParansTypeAndNameOnConstructor()
+        public void Should_ValidateParamsTypeAndNameOnConstructor()
         {
-            // Arrange & Act
-            ConstructorInfo[] constructors = FileInpect<ObjectMapper>.GetConstructors();
+            // Arrange
+            ConstructorInfo[] constructors = FileInspect<ObjectMapperAttribute>.GetConstructors();
             ConstructorInfo firstConstructor = constructors[0];
+
+            // Act
             ParameterInfo[] parameters = firstConstructor.GetParameters();
 
             // Assert
             Assert.Single(parameters);
 
             Assert.Equal("length", parameters[0].Name);
-            Assert.Equal(typeof(ushort), parameters[0].ParameterType);           
+            Assert.Equal(typeof(ushort), parameters[0].ParameterType);
         }
-               
+
         [Fact]
-        public void Should_ValidateHowManyAttributesExistsInWritePropertyFile()
+        public void Should_ValidateHowManyAttributesExistsInObjectMapperAttributeFile()
         {
             // Arrange & Act
-            object[] attibutes = FileInpect<ObjectMapper>.GetAttributes();
+            object[] attibutes = FileInspect<ObjectMapperAttribute>.GetAttributes();
 
-            AttributeUsageAttribute attributeUsage = attibutes.First() as AttributeUsageAttribute;
+            AttributeUsageAttribute attributeUsage = attibutes[0] as AttributeUsageAttribute;
 
             // Assert
             Assert.Single(attibutes);

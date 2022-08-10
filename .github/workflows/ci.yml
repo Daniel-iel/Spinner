@@ -1,4 +1,4 @@
-name: .NET
+name: ci
 
 on:
   push:
@@ -12,16 +12,16 @@ jobs:
   build:
     env:
       APP: "${{ github.workspace }}/app"
-      PROJECT_TEST: "${{ github.workspace }}/app/Spinner.Test/"
+      PROJECT_TEST: "${{ github.workspace }}/app/Spinner.Test"
       PROJECT_SLN: "./app/Spinner.sln"
-      PROJECT_BIN3: "./app/Spinner/bin/Release/netcoreapp3"
       PROJECT_BIN3_1: "./app/Spinner/bin/Release/netcoreapp3.1"
       PROJECT_BIN5: "./app/Spinner/bin/Release/net5.0"
+      PROJECT_BIN6: "./app/Spinner/bin/Release/net6.0"
 
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        dotnet-version: ["6.0.x"]
+        dotnet-version: ["6.0.400"]
 
     steps:
       - uses: actions/checkout@v2
@@ -42,6 +42,12 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
 
+      - name: Setup Stryker 📦
+        run: dotnet tool install -g dotnet-stryker
+
+      - name: Clean Dependencies 📦
+        run: dotnet clean ${{env.PROJECT_SLN }}
+
       - name: Restore Dependencies 📦
         run: dotnet restore ${{env.PROJECT_SLN }}
 
@@ -51,10 +57,11 @@ jobs:
       - name: Test 🧪
         run: dotnet test ${{env.PROJECT_SLN }} --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 
-      - name: Run Infer .Net 3.0 🔍
-        uses: microsoft/infersharpaction@v1.2
-        with:
-          binary-path: ${{ env.PROJECT_BIN3 }}
+      - name: Mutant Test 🧪👾
+        if: github.event_name == 'pull_request'
+        run: |
+          cd ${{ env.PROJECT_TEST}}
+          dotnet stryker --reporter "progress"
 
       - name: Run Infer .Net 3.1 🔍
         uses: microsoft/infersharpaction@v1.2
@@ -62,6 +69,11 @@ jobs:
           binary-path: ${{ env.PROJECT_BIN3_1 }}
 
       - name: Run Infer .Net 5.0 🔍
+        uses: microsoft/infersharpaction@v1.2
+        with:
+          binary-path: ${{ env.PROJECT_BIN5 }}
+
+      - name: Run Infer .Net 6.0 🔍
         uses: microsoft/infersharpaction@v1.2
         with:
           binary-path: ${{ env.PROJECT_BIN5 }}

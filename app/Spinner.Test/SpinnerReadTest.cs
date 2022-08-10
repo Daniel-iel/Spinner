@@ -1,10 +1,15 @@
 using Xunit;
 using System.Linq;
+using Spinner.Test.Models;
+using System;
+using Spinner.Exceptions;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace Spinner.Test
 {
     public class SpinnerReadTest
-    {        
+    {
         [Fact]
         public void ReadFromString_WhenCalled_ShoudReturnObjectMappedFromString()
         {
@@ -38,7 +43,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void ReadFromString_WhenCalled_ShouldValidateIfTwoResponseIsDiferent()
+        public void ReadFromString_WhenCalled_ShouldValidateIfTwoResponsesAreDiferents()
         {
             // Arrange
             NothingLeft nothingLeftFirst = new NothingLeft("spinnerFirst", "www.spinner.com.br");
@@ -62,7 +67,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void ReadFromSpan_WhenCalled_ShouldValidateIfTwoResponseIsDiferent()
+        public void ReadFromSpan_WhenCalled_ShouldValidateIfTwoResponsesAreDiferents()
         {
             // Arrange
             NothingLeft nothingLeftFirst = new NothingLeft("spinnerFirst", "www.spinner.com.br");
@@ -90,11 +95,45 @@ namespace Spinner.Test
         {
             Spinner<NothingReader> spinnerFirst = new Spinner<NothingReader>();
 
-            System.Collections.Generic.IEnumerable<System.Reflection.PropertyInfo> props = spinnerFirst.GetReadProperties;
+            IEnumerable<PropertyInfo> props = spinnerFirst.GetReadProperties;
 
             Assert.Equal(2, props.Count());
             Assert.Equal("Name", props.First().Name);
             Assert.Equal("Adress", props.Last().Name);
+        }
+
+        [Fact]
+        public void ReadFromString_WhenCalled_ShouldThrowExceptionIfNotExistsAnyPropertiesWithReadPropertyAttribute()
+        {
+            Action act = () =>
+            {
+                // Arrange
+                Spinner<NothingNoAttibute> spinnerReader = new Spinner<NothingNoAttibute>();
+
+                // Act
+                spinnerReader.ReadFromString("");
+            };
+
+            // Assert
+            var ex = Assert.Throws<PropertyNotMappedException>(act);
+            Assert.Equal("Property Name should have ReadProperty configured.", ex.Message);
+        }
+
+        [Fact]
+        public void ReadFromSpan_WhenCalled_ShouldThrowExceptionIfNotExistsAnyPropertiesWithReadPropertyAttribute()
+        {
+            Action act = () =>
+            {
+                // Arrange
+                Spinner<NothingNoAttibute> spinnerReader = new Spinner<NothingNoAttibute>();
+
+                // Act
+                spinnerReader.ReadFromSpan("");
+            };
+
+            // Assert
+            var ex = Assert.Throws<PropertyNotMappedException>(act);
+            Assert.Equal("Property Name should have ReadProperty configured.", ex.Message);
         }
     }
 }
