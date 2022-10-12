@@ -92,7 +92,7 @@ public struct Nothing
 
 ## Documentation
 
-See Learn: Getting Started for setting up your project [here](https://spinneralloc.github.io/Spinner/).
+See Learn: Getting Started for setting up your project [here](https://spinnerframework.com/).
 
 ## Contributors
 
