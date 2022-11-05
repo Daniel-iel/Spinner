@@ -10,7 +10,7 @@ const config = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'assets/favicon.ico',
-  organizationName: 'SpinnerAlloc',
+  organizationName: 'Daniel-iel',
   projectName: 'Spinner',
 
   presets: [
@@ -19,7 +19,7 @@ const config = {
       ({        
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),      
-          editUrl: 'https://github.com/SpinnerAlloc/Spinner/',
+          editUrl: 'https://github.com/Daniel-iel/Spinner/',
         },     
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -45,7 +45,7 @@ const config = {
             label: 'Documentation',
           },          
           {
-            href: 'https://github.com/SpinnerAlloc/Spinner',
+            href: 'https://github.com/Daniel-iel/Spinner',
             label: 'GitHub',
             position: 'right',
           },
@@ -72,7 +72,7 @@ const config = {
               },
               {
                 label: 'Issues',
-                href: 'https://github.com/SpinnerAlloc/Spinner/issues',
+                href: 'https://github.com/Daniel-iel/Spinner/issues',
               },              
             ],
           },
@@ -81,7 +81,7 @@ const config = {
             items: [           
               {
                 label: 'GitHub',
-                href: 'https://github.com/SpinnerAlloc/Spinner',
+                href: 'https://github.com/Daniel-iel/Spinner',
               },
               {
                 label: 'Nuget Package',
