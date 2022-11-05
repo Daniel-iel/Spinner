@@ -7,7 +7,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>Integration; Positional String; Comunication; String Reader; String Writer </PackageTags>
     <PackageProjectUrl>https://spinnerframework.com/</PackageProjectUrl>
-    <PackageIcon>svgexport-6.png</PackageIcon>
+    <PackageIcon>logo.png</PackageIcon>
     <Title>Spinner Framework</Title>
     <Description>Spinner is a simple object mapper, it’s useful to communicate to any system that uses a positional string as communication.</Description>
     <NeutralLanguage>en</NeutralLanguage>
@@ -46,9 +46,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\Assets\svgexport-6.png">
+    <None Include="..\..\assets\logo.png">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath>\</PackagePath>
     </None>
     <None Include="..\..\README.md">
       <Pack>True</Pack>

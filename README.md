@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="/Assets/svgexport-6.png?raw=true">
+  <img src="/assets/logo.png?raw=true">
 </div>
 
 #
@@ -96,7 +96,9 @@ See Learn: Getting Started for setting up your project [here](https://spinnerfra
 
 ## Contributors
 
-<a href="https://github.com/Daniel-iel"><img src="https://github.com/Daniel-iel.png?size=40" width="40" style="border-radius: 100%" /></a>
+<a href="https://github.com/Daniel-iel">
+  <img src="https://github.com/Daniel-iel.png?size=40" width="40" style="border-radius: 100%" />
+</a>
 
 ## Support
 
