@@ -5,7 +5,7 @@
     <LangVersion>10.0</LangVersion>
     <Authors>Daniel Oliveira</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageTags>Integration; Positional-String; Comunication</PackageTags>
+    <PackageTags>Integration; Positional String; Comunication; String Reader; String Writer </PackageTags>
     <PackageProjectUrl>https://spinnerframework.com/</PackageProjectUrl>
     <PackageIcon>svgexport-6.png</PackageIcon>
     <Title>Spinner Framework</Title>
@@ -14,6 +14,10 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <RepositoryUrl>https://github.com/Daniel-iel/Spinner</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackAsTool>False</PackAsTool>
+    <EnableNETAnalyzers>True</EnableNETAnalyzers>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

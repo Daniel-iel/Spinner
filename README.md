@@ -4,45 +4,45 @@
 
 #
 
- <a href="https://github.com/SpinnerAlloc/Spinner/graphs/contributors" alt="Contributors">
-    <img src="https://img.shields.io/github/contributors/SpinnerAlloc/Spinner" />
+ <a href="https://github.com/Daniel-iel/Spinner/graphs/contributors" alt="Contributors">
+    <img src="https://img.shields.io/github/contributors/Daniel-iel/Spinner" />
 </a>
-<a href="https://github.com/SpinnerAlloc/Spinner/commits/main" alt="Total Commits">
-    <img src="https://img.shields.io/github/commit-activity/m/SpinnerAlloc/Spinner/main" />
+<a href="https://github.com/Daniel-iel/Spinner/commits/main" alt="Total Commits">
+    <img src="https://img.shields.io/github/commit-activity/m/Daniel-iel/Spinner/main" />
 </a>  
-<a href="https://github.com/SpinnerAlloc/Spinner/actions/workflows/ci.yml">
-    <img src="https://github.com/SpinnerAlloc/Spinner/actions/workflows/ci.yml/badge.svg" alt="build status">
+<a href="https://github.com/Daniel-iel/Spinner/actions/workflows/ci.yml">
+    <img src="https://github.com/Daniel-iel/Spinner/actions/workflows/ci.yml/badge.svg" alt="build status">
 </a>
-<a href="https://github.com/SpinnerAlloc/Spinner/actions/workflows/ci.yml">
-    <img src="https://github.com/SpinnerAlloc/Spinner/actions/workflows/ci-documentation.yml/badge.svg" alt="build status">
+<a href="https://github.com/Daniel-iel/Spinner/actions/workflows/ci.yml">
+    <img src="https://github.com/Daniel-iel/Spinner/actions/workflows/ci-documentation.yml/badge.svg" alt="build status">
 </a>
-<a href="https://github.com/SpinnerAlloc/Spinner/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/SpinnerAlloc/Spinner" alt="License"/>
+<a href="https://github.com/Daniel-iel/Spinner/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/Daniel-iel/Spinner" alt="License"/>
 </a>
 <a href="https://www.nuget.org/packages/Spinner">
     <img src="https://img.shields.io/nuget/dt/Spinner" alt="Nuget"/>
 </a>  
 <a href="#">
-  <img alt="views" title="Views" src="https://visitor-badge-reloaded.herokuapp.com/badge?page_id=https://github.com/SpinnerAlloc/Spinner&logo=github"/>
+  <img alt="views" title="Views" src="https://visitor-badge-reloaded.herokuapp.com/badge?page_id=https://github.com/Daniel-iel/Spinner&logo=github"/>
 </a>
 <a href="#">
   <img alt="Release" title="Release" src="https://img.shields.io/nuget/v/spinner"/>
 </a>
 <a href="#">
-  <img alt="Repo Size" title="Repo Size" src="https://img.shields.io/github/repo-size/spinneralloc/spinner"/>
+  <img alt="Repo Size" title="Repo Size" src="https://img.shields.io/github/repo-size/Daniel-iel/spinner"/>
 </a>
-<a href="https://www.codefactor.io/repository/github/spinneralloc/spinner">
-  <img alt="" title="" src="https://www.codefactor.io/repository/github/spinneralloc/spinner/badge"/>  
+<a href="https://www.codefactor.io/repository/github/Daniel-iel/spinner">
+  <img alt="" title="" src="https://www.codefactor.io/repository/github/Daniel-iel/spinner/badge"/>  
 </a>
-<a href="https://codecov.io/gh/SpinnerAlloc/Spinner">
-  <img alt="Coverity Scan Build Status" src="https://codecov.io/gh/SpinnerAlloc/Spinner/branch/main/graph/badge.svg?token=0DO0Z5CA6N/">
+<a href="https://codecov.io/gh/Daniel-iel/Spinner">
+  <img alt="Coverity Scan Build Status" src="https://codecov.io/gh/Daniel-iel/Spinner/branch/main/graph/badge.svg?token=0DO0Z5CA6N/">
 </a>
 <a href="https://scan.coverity.com/projects/spinner">
   <img alt="Coverity Scan Build Status"
        src="https://img.shields.io/coverity/scan/24116.svg"/>
 </a>
 <a href="">
-  <img alt="" src="https://api.meercode.io/badge/SpinnerAlloc/Spinner?type=ci-score&lastDay=31"/>
+  <img alt="" src="https://api.meercode.io/badge/Daniel-iel/Spinner?type=ci-score&lastDay=31"/>
 </a>
 
 <br />
