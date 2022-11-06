@@ -1,10 +1,10 @@
-using Xunit;
-using System.Linq;
+using Spinner.Exceptions;
 using Spinner.Test.Models;
 using System;
-using Spinner.Exceptions;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using Xunit;
 
 namespace Spinner.Test
 {
@@ -20,7 +20,7 @@ namespace Spinner.Test
 
             // Act
             string stringResponse = spinnerWriter.WriteAsString();
-            NothingReader nothingReader = spinnerReader.ReadFromString(stringResponse);
+            NothingReader nothingReader = spinnerReader.ReadFromStringToType(stringResponse);
 
             // Assert
             Assert.True(nothingLeft.GetHashCode() == nothingReader.GetHashCode());
@@ -91,7 +91,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void GetWriteProperties_WhenCaller_ShouldValidadeHowManyPropertiesWasMapped()
+        public void GetReadProperties_WhenCaller_ShouldValidadeHowManyPropertiesWasMapped()
         {
             Spinner<NothingReader> spinnerFirst = new Spinner<NothingReader>();
 

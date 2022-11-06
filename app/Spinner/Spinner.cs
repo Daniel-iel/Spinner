@@ -5,11 +5,13 @@ using System.Reflection;
 
 namespace Spinner
 {
-    using Spinner.Enums;
     using Spinner.Attribute;
-    using Spinner.Extensions;
-    using System.Linq;
+    using Spinner.Cache;
+    using Spinner.Enums;
     using Spinner.Exceptions;
+    using Spinner.Extensions;
+    using Spinner.Parsers;
+    using System.Linq;
 
     /// <summary>
     /// Spinner object that abstract all rule to read or write an string.
@@ -138,6 +140,52 @@ namespace Spinner
         }
 
         /// <summary>
+        /// Convert string in an object intercepting the string slice and converting or formating the type.
+        /// </summary>
+        /// <param name="value">Positional string to map in an object.</param>
+        /// <returns></returns>
+        public T ReadFromStringToType(string value)
+        {
+            ReadOnlySpan<char> valuesToSlice = new ReadOnlySpan<char>(value.ToCharArray());
+
+            for (int i = 0; i < ReadProperties.Length; i++)
+            {
+                ReadPropertyAttribute attribute = GetReaderProperty(ReadProperties[i]);
+
+                if (attribute == null)
+                {
+                    throw new PropertyNotMappedException($"Property {ReadProperties[i].Name} should have ReadProperty configured.");
+                }
+
+                if (attribute.Type is not null)
+                {
+                    if (!ParserTypeCache.TryGet(attribute.Type.Name, out ITypeParse parser))
+                    {
+                        parser = (ITypeParse)Activator.CreateInstance(attribute.Type);
+                        ParserTypeCache.Add(attribute.Type.Name, parser);
+                    }
+
+                    ReadProperties[i].SetValue(
+                        this.obj,
+                        parser.Parser(
+                            new string(valuesToSlice.Slice(attribute.Start, attribute.Length).Trim()
+                       ))
+                     );
+
+                    continue;
+                }
+
+                ReadProperties[i].SetValue(
+                        this.obj,
+                                new string(valuesToSlice.Slice(attribute.Start, attribute.Length).Trim()
+                            )
+                        );
+            }
+
+            return this.obj;
+        }
+
+        /// <summary>
         /// Convert string in an object.
         /// </summary>
         /// <param name="value">Span with data to map an object.</param>
@@ -199,20 +247,23 @@ namespace Spinner
             .Where(PredicateForReadProperty())
             .ToArray();
 
+        private static readonly Func<object, bool> AttributePredicate
+           = (attribute) => attribute.GetType() == typeof(WritePropertyAttribute);
+
         private static Func<PropertyInfo, bool> PredicateForWriteProperty()
         {
             return (prop) =>
             {
                 return prop.GetCustomAttributes(typeof(WritePropertyAttribute), false)
-                           .All(a => a.GetType() == typeof(WritePropertyAttribute));
+                           .All(attribute => attribute.GetType() == typeof(WritePropertyAttribute));
             };
         }
 
         private static Func<PropertyInfo, ushort> PrecicateForOrderByWriteProperty()
         {
-            return (prop) => ((WritePropertyAttribute)prop.GetCustomAttributes(false)
-                                         .Where(x => x.GetType() == typeof(WritePropertyAttribute))
-                                         .FirstOrDefault())?.Order ?? default;
+            return (prop) => ((WritePropertyAttribute)prop
+                .GetCustomAttributes(typeof(WritePropertyAttribute), false)
+                .FirstOrDefault())?.Order ?? default;
         }
 
         private static Func<PropertyInfo, bool> PredicateForReadProperty()
@@ -220,7 +271,7 @@ namespace Spinner
             return (prop) =>
             {
                 return prop.GetCustomAttributes(typeof(ReadPropertyAttribute), false)
-                           .All(a => a.GetType() == typeof(ReadPropertyAttribute));
+                           .All(attribute => attribute.GetType() == typeof(ReadPropertyAttribute));
             };
         }
     }

@@ -1,8 +1,8 @@
 ﻿using Spinner.Attribute;
 using Spinner.Test.Helper;
-using Xunit;
 using System;
 using System.Reflection;
+using Xunit;
 
 namespace Spinner.Test.Attributes
 {
@@ -15,7 +15,7 @@ namespace Spinner.Test.Attributes
             ConstructorInfo[] constructors = FileInspect<ReadPropertyAttribute>.GetConstructors();
 
             // Assert
-            Assert.Single(constructors);
+            Assert.Equal(2, constructors.Length);
         }
 
         [Fact]

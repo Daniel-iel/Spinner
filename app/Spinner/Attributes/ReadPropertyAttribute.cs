@@ -19,6 +19,13 @@ namespace Spinner.Attribute
             this.Length = length;
         }
 
+        public ReadPropertyAttribute(ushort start, ushort length, Type type)
+        {
+            this.Start = start;
+            this.Length = length;
+            this.Type = type;
+        }
+
         /// <summary>
         /// Inicial position.
         /// </summary>
@@ -28,5 +35,10 @@ namespace Spinner.Attribute
         /// Total characters.
         /// </summary>
         public ushort Length { get; }
+
+        /// <summary>
+        /// Parser property type
+        /// </summary>
+        public Type Type { get; }
     }
 }

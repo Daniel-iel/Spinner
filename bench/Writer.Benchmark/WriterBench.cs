@@ -1,6 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
-using Spinner;
 using BenchmarkDotNet.Jobs;
+using Spinner;
 using System;
 
 namespace Writer.Benchmark
@@ -32,6 +32,13 @@ namespace Writer.Benchmark
         {
             Spinner<ObjectBench> spinner = new Spinner<ObjectBench>(instance);
             spinner.WriteAsSpan();
+        }
+
+        [Benchmark]
+        public void ReadFromStringToType()
+        {
+            Spinner<ObjectBench> spinner = new Spinner<ObjectBench>(instance);
+            spinner.ReadFromStringToType("                                                  ");
         }
 
         [Benchmark]

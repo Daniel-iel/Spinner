@@ -1,4 +1,5 @@
 ﻿using Spinner.Attribute;
+using Spinner.Parsers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -19,7 +20,7 @@ namespace Writer.Benchmark
         public string Name { get; set; }
 
         [WriteProperty(length: 30, order: 2, paddingChar: ' ')]
-        [ReadProperty(start: 19, length: 30)]
+        [ReadProperty(start: 19, length: 30, type: typeof(ParserAdress))]
         public string Adress { get; set; }
 
         public bool Equals(ObjectBench other)
