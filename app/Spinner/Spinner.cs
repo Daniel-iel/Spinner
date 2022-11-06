@@ -19,7 +19,8 @@ namespace Spinner
     /// <typeparam name="T">The type of object to write or read.</typeparam>
     public ref struct Spinner<T> where T : new()
     {
-        private readonly T obj;
+        private readonly PooledStringBuilder sb = PooledStringBuilder.GetInstance();
+        private readonly T _obj;
 
         /// <summary>
         /// T is the object that can be mapped using the attributes WriteProperty, ReadProperty and ContextProperty.
@@ -27,7 +28,7 @@ namespace Spinner
         /// <param name="obj">Object of T that will be used to map.</param>
         public Spinner(T obj)
         {
-            this.obj = obj;
+            _obj = obj;
         }
 
         /// <summary>
@@ -35,7 +36,7 @@ namespace Spinner
         /// </summary>
         public Spinner()
         {
-            this.obj = new T();
+            _obj = new T();
         }
 
         /// <summary>
@@ -59,25 +60,23 @@ namespace Spinner
         /// <returns>Return a string mapped of T.</returns>
         public string WriteAsString()
         {
-            PooledStringBuilder sb = PooledStringBuilder.GetInstance();
-
             for (int i = 0; i < WriteProperties.Length; i++)
             {
                 WritePropertyAttribute attribute = GetWriteProperty(WriteProperties[i]);
 
-                if (attribute == null)
+                if (attribute is null)
                 {
                     throw new PropertyNotMappedException($"Property {WriteProperties[i].Name} should have WriteProperty configured.");
                 }
 
                 sb.Builder.Append(
                     FormatValue(
-                        (WriteProperties[i].GetValue(this.obj) as string).AsSpan(),
+                        (WriteProperties[i].GetValue(_obj) as string).AsSpan(),
                         attribute
                     ));
             }
 
-            return GetObjectMapper != null ?
+            return GetObjectMapper is not null ?
                 sb.ToStringAndFree(0, GetObjectMapper.Length) :
                 sb.ToStringAndFree();
         }
@@ -88,26 +87,24 @@ namespace Spinner
         /// <returns>Return an string mapped of T as span.</returns>
         public ReadOnlySpan<char> WriteAsSpan()
         {
-            PooledStringBuilder sb = PooledStringBuilder.GetInstance();
-
             for (int i = 0; i < WriteProperties.Length; i++)
             {
                 WritePropertyAttribute attribute = GetWriteProperty(WriteProperties[i]);
 
-                if (attribute == null)
+                if (attribute is null)
                 {
                     throw new PropertyNotMappedException($"Property {WriteProperties[i].Name} should have WriteProperty configured.");
                 }
 
                 sb.Builder.Append(
                     FormatValue(
-                        (WriteProperties[i].GetValue(this.obj) as string).AsSpan(),
+                        (WriteProperties[i].GetValue(_obj) as string).AsSpan(),
                         attribute
                     ));
             }
 
             return new ReadOnlySpan<char>(
-                    GetObjectMapper != null ?
+                    GetObjectMapper is not null ?
                     sb.ToStringAndFree(0, GetObjectMapper.Length).ToCharArray() :
                     sb.ToStringAndFree().ToCharArray()
                 );
@@ -126,17 +123,17 @@ namespace Spinner
             {
                 ReadPropertyAttribute attribute = GetReaderProperty(ReadProperties[i]);
 
-                if (attribute == null)
+                if (attribute is null)
                 {
                     throw new PropertyNotMappedException($"Property {ReadProperties[i].Name} should have ReadProperty configured.");
                 }
 
                 ReadProperties[i].SetValue(
-                    this.obj,
+                    _obj,
                     new string(valuesToSlice.Slice(attribute.Start, attribute.Length).Trim()));
             }
 
-            return this.obj;
+            return _obj;
         }
 
         /// <summary>
@@ -152,22 +149,22 @@ namespace Spinner
             {
                 ReadPropertyAttribute attribute = GetReaderProperty(ReadProperties[i]);
 
-                if (attribute == null)
+                if (attribute is null)
                 {
                     throw new PropertyNotMappedException($"Property {ReadProperties[i].Name} should have ReadProperty configured.");
                 }
 
                 if (attribute.Type is not null)
                 {
-                    if (!ParserTypeCache.TryGet(attribute.Type.Name, out ITypeParse parser))
+                    if (!ParserTypeCache.TryGet(attribute.Type.Name, out ITypeParse typeParser))
                     {
-                        parser = (ITypeParse)Activator.CreateInstance(attribute.Type);
-                        ParserTypeCache.Add(attribute.Type.Name, parser);
+                        typeParser = (ITypeParse)Activator.CreateInstance(attribute.Type);
+                        ParserTypeCache.Add(attribute.Type.Name, typeParser);
                     }
 
                     ReadProperties[i].SetValue(
-                        this.obj,
-                        parser.Parser(
+                        _obj,
+                        typeParser.Parser(
                             new string(valuesToSlice.Slice(attribute.Start, attribute.Length).Trim()
                        ))
                      );
@@ -176,13 +173,13 @@ namespace Spinner
                 }
 
                 ReadProperties[i].SetValue(
-                        this.obj,
+                        _obj,
                                 new string(valuesToSlice.Slice(attribute.Start, attribute.Length).Trim()
                             )
                         );
             }
 
-            return this.obj;
+            return _obj;
         }
 
         /// <summary>
@@ -196,17 +193,17 @@ namespace Spinner
             {
                 ReadPropertyAttribute attribute = GetReaderProperty(ReadProperties[i]);
 
-                if (attribute == null)
+                if (attribute is null)
                 {
                     throw new PropertyNotMappedException($"Property {ReadProperties[i].Name} should have ReadProperty configured.");
                 }
 
                 ReadProperties[i].SetValue(
-                    this.obj,
+                    _obj,
                     new string(value.Slice(attribute.Start, attribute.Length).Trim()));
             }
 
-            return this.obj;
+            return _obj;
         }
 
         private static ReadOnlySpan<char> FormatValue(ReadOnlySpan<char> value, WritePropertyAttribute property)
@@ -246,9 +243,6 @@ namespace Spinner
             .GetProperties()
             .Where(PredicateForReadProperty())
             .ToArray();
-
-        private static readonly Func<object, bool> AttributePredicate
-           = (attribute) => attribute.GetType() == typeof(WritePropertyAttribute);
 
         private static Func<PropertyInfo, bool> PredicateForWriteProperty()
         {
