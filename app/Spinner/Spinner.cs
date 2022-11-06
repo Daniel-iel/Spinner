@@ -62,16 +62,17 @@ namespace Spinner
         {
             for (int i = 0; i < WriteProperties.Length; i++)
             {
-                WritePropertyAttribute attribute = GetWriteProperty(WriteProperties[i]);
+                ref PropertyInfo property = ref WriteProperties[i];
+                WritePropertyAttribute attribute = GetWriteProperty(property);
 
                 if (attribute is null)
                 {
-                    throw new PropertyNotMappedException($"Property {WriteProperties[i].Name} should have WriteProperty configured.");
+                    throw new PropertyNotMappedException($"Property {property.Name} should have WriteProperty configured.");
                 }
 
                 sb.Builder.Append(
                     FormatValue(
-                        (WriteProperties[i].GetValue(_obj) as string).AsSpan(),
+                        (property.GetValue(_obj) as string).AsSpan(),
                         attribute
                     ));
             }
@@ -89,16 +90,17 @@ namespace Spinner
         {
             for (int i = 0; i < WriteProperties.Length; i++)
             {
-                WritePropertyAttribute attribute = GetWriteProperty(WriteProperties[i]);
+                ref PropertyInfo property = ref WriteProperties[i];
+                WritePropertyAttribute attribute = GetWriteProperty(property);
 
                 if (attribute is null)
                 {
-                    throw new PropertyNotMappedException($"Property {WriteProperties[i].Name} should have WriteProperty configured.");
+                    throw new PropertyNotMappedException($"Property {property.Name} should have WriteProperty configured.");
                 }
 
                 sb.Builder.Append(
                     FormatValue(
-                        (WriteProperties[i].GetValue(_obj) as string).AsSpan(),
+                        (property.GetValue(_obj) as string).AsSpan(),
                         attribute
                     ));
             }
@@ -121,16 +123,15 @@ namespace Spinner
 
             for (int i = 0; i < ReadProperties.Length; i++)
             {
-                ReadPropertyAttribute attribute = GetReaderProperty(ReadProperties[i]);
+                ref PropertyInfo property = ref ReadProperties[i];
+                ReadPropertyAttribute attribute = GetReaderProperty(property);
 
                 if (attribute is null)
                 {
-                    throw new PropertyNotMappedException($"Property {ReadProperties[i].Name} should have ReadProperty configured.");
+                    throw new PropertyNotMappedException($"Property {property.Name} should have ReadProperty configured.");
                 }
 
-                ReadProperties[i].SetValue(
-                    _obj,
-                    new string(valuesToSlice.Slice(attribute.Start, attribute.Length).Trim()));
+                property.SetValue(_obj, new string(valuesToSlice.Slice(attribute.Start, attribute.Length).Trim()));
             }
 
             return _obj;
@@ -141,17 +142,18 @@ namespace Spinner
         /// </summary>
         /// <param name="value">Positional string to map in an object.</param>
         /// <returns></returns>
-        public T ReadFromStringToType(string value)
+        public T ReadFromStringTyped(string value)
         {
             ReadOnlySpan<char> valuesToSlice = new ReadOnlySpan<char>(value.ToCharArray());
 
             for (int i = 0; i < ReadProperties.Length; i++)
             {
-                ReadPropertyAttribute attribute = GetReaderProperty(ReadProperties[i]);
+                ref PropertyInfo property = ref ReadProperties[i];
+                ReadPropertyAttribute attribute = GetReaderProperty(property);
 
                 if (attribute is null)
                 {
-                    throw new PropertyNotMappedException($"Property {ReadProperties[i].Name} should have ReadProperty configured.");
+                    throw new PropertyNotMappedException($"Property {property.Name} should have ReadProperty configured.");
                 }
 
                 if (attribute.Type is not null)
@@ -162,21 +164,12 @@ namespace Spinner
                         ParserTypeCache.Add(attribute.Type.Name, typeParser);
                     }
 
-                    ReadProperties[i].SetValue(
-                        _obj,
-                        typeParser.Parser(
-                            new string(valuesToSlice.Slice(attribute.Start, attribute.Length).Trim()
-                       ))
-                     );
+                    property.SetValue(_obj, typeParser.Parser(new string(valuesToSlice.Slice(attribute.Start, attribute.Length).Trim())));
 
                     continue;
                 }
 
-                ReadProperties[i].SetValue(
-                        _obj,
-                                new string(valuesToSlice.Slice(attribute.Start, attribute.Length).Trim()
-                            )
-                        );
+                property.SetValue(_obj, new string(valuesToSlice.Slice(attribute.Start, attribute.Length).Trim()));
             }
 
             return _obj;
@@ -191,16 +184,15 @@ namespace Spinner
         {
             for (int i = 0; i < ReadProperties.Length; i++)
             {
-                ReadPropertyAttribute attribute = GetReaderProperty(ReadProperties[i]);
+                ref PropertyInfo property = ref ReadProperties[i];
+                ReadPropertyAttribute attribute = GetReaderProperty(property);
 
                 if (attribute is null)
                 {
-                    throw new PropertyNotMappedException($"Property {ReadProperties[i].Name} should have ReadProperty configured.");
+                    throw new PropertyNotMappedException($"Property {property.Name} should have ReadProperty configured.");
                 }
 
-                ReadProperties[i].SetValue(
-                    _obj,
-                    new string(value.Slice(attribute.Start, attribute.Length).Trim()));
+                property.SetValue(_obj, new string(value.Slice(attribute.Start, attribute.Length).Trim()));
             }
 
             return _obj;

@@ -20,7 +20,7 @@ namespace Spinner.Test
 
             // Act
             string stringResponse = spinnerWriter.WriteAsString();
-            NothingReader nothingReader = spinnerReader.ReadFromStringToType(stringResponse);
+            NothingReader nothingReader = spinnerReader.ReadFromStringTyped(stringResponse);
 
             // Assert
             Assert.True(nothingLeft.GetHashCode() == nothingReader.GetHashCode());

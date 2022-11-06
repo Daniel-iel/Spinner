@@ -35,10 +35,10 @@ namespace Writer.Benchmark
         }
 
         [Benchmark]
-        public void ReadFromStringToType()
+        public void ReadFromStringTyped()
         {
             Spinner<ObjectBench> spinner = new Spinner<ObjectBench>(instance);
-            spinner.ReadFromStringToType("                                                  ");
+            spinner.ReadFromStringTyped("                                                  ");
         }
 
         [Benchmark]
