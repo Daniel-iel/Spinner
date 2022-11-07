@@ -71,17 +71,17 @@ dotnet add package Spinner
 [ObjectMapper(length: 50)]
 public struct Nothing
 {
-  public Nothing(string name, string adress)
+  public Nothing(string name, string webSite)
   {
     this.Name = name;
-    this.Adress = adress;
+    this.WebSite = webSite;
   }
   
   [WriteProperty(length: 20, order: 1, paddingChar: ' ')]
   public string Name { get; private set; }
   
   [WriteProperty(length: 30, order: 2, paddingChar: ' ')]
-  public string Adress { get; private set; }
+  public string WebSite { get; private set; }
 }
     
  var nothing = new Nothing("spinner", "www.spinner.com.br");
@@ -106,7 +106,7 @@ All donation are welcome, you can donate to the Spinner project, we gonna use to
 
 ## License
 
-Our code and framework are licensed under the MIT licence. Please see the licence file for more information. You can do whatever you want as long as you include the original copyright and license notice in any copy of the software/source.
+Our code and framework are licensed under the MIT license. Please see the license file for more information. You can do whatever you want as long as you include the original copyright and license notice in any copy of the software/source.
 
 # Stats
 

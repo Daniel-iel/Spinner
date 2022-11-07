@@ -2,11 +2,11 @@
 
 namespace Writer.Benchmark
 {
-    internal class ParserAdress : ITypeParse
+    internal class ParserWebSite : ITypeParse
     {
         public object Parser(object propertyValue)
         {
-            return $"Adress: {propertyValue.ToString()}";
+            return $"WebSite: {propertyValue.ToString()}";
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Spinner.Test.Cache
         public void TryGet_WhenCalled_ShoudReturnParsedTypeFromCache()
         {
             // Arrange
-            const string key = "chave";
+            const string key = "key";
             ITypeParse parser = new CacheParser();
 
             ParserTypeCache.Add(key, parser);

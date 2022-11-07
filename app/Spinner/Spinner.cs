@@ -19,7 +19,7 @@ namespace Spinner
     /// <typeparam name="T">The type of object to write or read.</typeparam>
     public ref struct Spinner<T> where T : new()
     {
-        private readonly PooledStringBuilder sb = PooledStringBuilder.GetInstance();
+        private readonly PooledStringBuilder _sb = PooledStringBuilder.GetInstance();
         private readonly T _obj;
 
         /// <summary>
@@ -63,8 +63,8 @@ namespace Spinner
             WritePositionaString();
 
             return GetObjectMapper is not null ?
-                sb.ToStringAndFree(0, GetObjectMapper.Length) :
-                sb.ToStringAndFree();
+                _sb.ToStringAndFree(0, GetObjectMapper.Length) :
+                _sb.ToStringAndFree();
         }
 
         /// <summary>
@@ -77,15 +77,15 @@ namespace Spinner
 
             return new ReadOnlySpan<char>(
                     GetObjectMapper is not null ?
-                    sb.ToStringAndFree(0, GetObjectMapper.Length).ToCharArray() :
-                    sb.ToStringAndFree().ToCharArray());
+                    _sb.ToStringAndFree(0, GetObjectMapper.Length).ToCharArray() :
+                    _sb.ToStringAndFree().ToCharArray());
         }
 
         /// <summary>
         /// Convert string in an object.
         /// </summary>
         /// <param name="value">Positional string to map in an object.</param>
-        /// <returns>returns instanciate of T.</returns>
+        /// <returns>returns instance of T.</returns>
         public T ReadFromString(string value)
         {
             ReadPositionalString(value);
@@ -97,7 +97,7 @@ namespace Spinner
         /// Convert string in an object.
         /// </summary>
         /// <param name="value">Span with data to map an object.</param>
-        /// <returns>returns instanciate of T.</returns>
+        /// <returns>returns instance of T.</returns>
         public T ReadFromSpan(ReadOnlySpan<char> value)
         {
             ReadPositionalString(value);
@@ -146,7 +146,7 @@ namespace Spinner
                     throw new PropertyNotMappedException($"Property {property.Name} should have WriteProperty configured.");
                 }
 
-                sb.Builder.Append(FormatValue((property.GetValue(_obj) as string).AsSpan(), attribute));
+                _sb.Builder.Append(FormatValue((property.GetValue(_obj) as string).AsSpan(), attribute));
             }
         }
 

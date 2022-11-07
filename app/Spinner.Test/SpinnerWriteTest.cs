@@ -1,10 +1,10 @@
-using System;
-using Xunit;
-using System.Linq;
-using Spinner.Test.Models;
 using Spinner.Exceptions;
+using Spinner.Test.Models;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using Xunit;
 
 namespace Spinner.Test
 {
@@ -14,8 +14,8 @@ namespace Spinner.Test
         public void WriteAsString_WhenCalled_ShoudReturnObjectMappedAsStringWithPadLeft()
         {
             // Arrange
-            NothingLeft nothing = new NothingLeft("spinner", "www.spinner.com.br");
-            Spinner<NothingLeft> spinner = new Spinner<NothingLeft>(nothing);
+            NothingPadLeft nothing = new NothingPadLeft("spinner", "www.spinner.com.br");
+            Spinner<NothingPadLeft> spinner = new Spinner<NothingPadLeft>(nothing);
             const string expected = "             spinner            www.spinner.com.br";
 
             // Act
@@ -30,8 +30,8 @@ namespace Spinner.Test
         public void WriteAsString_WhenCalled_ShoudReturnObjectMappedAsStringInOrderOfConfiguratedProperty()
         {
             // Arrange
-            NothingLeft nothing = new NothingLeft("spinner", "www.spinner.com.br");
-            Spinner<NothingLeft> spinner = new Spinner<NothingLeft>(nothing);
+            NothingPadLeft nothing = new NothingPadLeft("spinner", "www.spinner.com.br");
+            Spinner<NothingPadLeft> spinner = new Spinner<NothingPadLeft>(nothing);
             const string expected = "            www.spinner.com.br             spinner";
 
             // Act
@@ -46,8 +46,8 @@ namespace Spinner.Test
         public void WriteAsString_WhenCalled_ShouldValidateIfConfigurationLengthIsEqualToLengthStringThatWasMappedWithPadLeft()
         {
             // Arrange
-            NothingLeft nothing = new NothingLeft("             spinner", "             www.spinner.com.br");
-            Spinner<NothingLeft> spinner = new Spinner<NothingLeft>(nothing);
+            NothingPadLeft nothing = new NothingPadLeft("             spinner", "             www.spinner.com.br");
+            Spinner<NothingPadLeft> spinner = new Spinner<NothingPadLeft>(nothing);
             const string expected = "             spinner             www.spinner.com.b";
 
             // Act
@@ -80,8 +80,8 @@ namespace Spinner.Test
         public void WriteAsSpan_WhenCalled_ShoudReturnObjectMappedAsSpanWithPadLeft()
         {
             // Arrange
-            NothingLeft nothing = new NothingLeft("spinner", "www.spinner.com.br");
-            Spinner<NothingLeft> spinner = new Spinner<NothingLeft>(nothing);
+            NothingPadLeft nothing = new NothingPadLeft("spinner", "www.spinner.com.br");
+            Spinner<NothingPadLeft> spinner = new Spinner<NothingPadLeft>(nothing);
             ReadOnlySpan<char> expected = new ReadOnlySpan<char>("             spinner            www.spinner.com.br".ToCharArray());
 
             // Act
@@ -96,8 +96,8 @@ namespace Spinner.Test
         public void WriteAsSpan_WhenCalled_ShouldValidateIfConfigurationLengthIsEqualToLengthSpanThatWasMappedWithPadLeft()
         {
             // Arrange
-            NothingLeft nothing = new NothingLeft("spinner", "www.spinner.com.br");
-            Spinner<NothingLeft> spinner = new Spinner<NothingLeft>(nothing);
+            NothingPadLeft nothing = new NothingPadLeft("spinner", "www.spinner.com.br");
+            Spinner<NothingPadLeft> spinner = new Spinner<NothingPadLeft>(nothing);
             ReadOnlySpan<char> expected = new ReadOnlySpan<char>("             spinner            www.spinner.com.br".ToCharArray());
 
             // Act
@@ -130,11 +130,11 @@ namespace Spinner.Test
         public void WriteAsString_WhenCalled_ShouldValidateIfTwoResponseIsDiferentWithPadLeft()
         {
             // Arrange
-            NothingLeft nothingFirst = new NothingLeft("spinnerFirst", "www.spinner.com.br");
-            NothingLeft nothingSecond = new NothingLeft("spinnerSecond", "www.spinner.com.br");
+            NothingPadLeft nothingFirst = new NothingPadLeft("spinnerFirst", "www.spinner.com.br");
+            NothingPadLeft nothingSecond = new NothingPadLeft("spinnerSecond", "www.spinner.com.br");
 
-            Spinner<NothingLeft> spinnerFirst = new Spinner<NothingLeft>(nothingFirst);
-            Spinner<NothingLeft> spinnerSecond = new Spinner<NothingLeft>(nothingSecond);
+            Spinner<NothingPadLeft> spinnerFirst = new Spinner<NothingPadLeft>(nothingFirst);
+            Spinner<NothingPadLeft> spinnerSecond = new Spinner<NothingPadLeft>(nothingSecond);
 
             // Act
             string stringResponseFirst = spinnerFirst.WriteAsString();
@@ -148,11 +148,11 @@ namespace Spinner.Test
         public void WriteAsSpan_WhenCalled_ShouldValidateIfTwoResponseIsDiferentWithPadLeft()
         {
             // Arrange
-            NothingLeft nothingFirst = new NothingLeft("spinnerFirst", "www.spinner.com.br");
-            NothingLeft nothingSecond = new NothingLeft("spinnerSecond", "www.spinner.com.br");
+            NothingPadLeft nothingFirst = new NothingPadLeft("spinnerFirst", "www.spinner.com.br");
+            NothingPadLeft nothingSecond = new NothingPadLeft("spinnerSecond", "www.spinner.com.br");
 
-            Spinner<NothingLeft> spinnerFirst = new Spinner<NothingLeft>(nothingFirst);
-            Spinner<NothingLeft> spinnerSecond = new Spinner<NothingLeft>(nothingSecond);
+            Spinner<NothingPadLeft> spinnerFirst = new Spinner<NothingPadLeft>(nothingFirst);
+            Spinner<NothingPadLeft> spinnerSecond = new Spinner<NothingPadLeft>(nothingSecond);
 
             // Act
             ReadOnlySpan<char> stringResponseFirst = spinnerFirst.WriteAsSpan();
@@ -166,8 +166,8 @@ namespace Spinner.Test
         public void WriteAsString_WhenCalled_ShoudReturnObjectMappedAsStringWithPadRight()
         {
             // Arrange
-            NothingRight nothing = new NothingRight("spinner", "www.spinner.com.br");
-            Spinner<NothingRight> spinner = new Spinner<NothingRight>(nothing);
+            NothingPadRight nothing = new NothingPadRight("spinner", "www.spinner.com.br");
+            Spinner<NothingPadRight> spinner = new Spinner<NothingPadRight>(nothing);
             const string expected = "spinner             www.spinner.com.br            ";
 
             // Act
@@ -182,8 +182,8 @@ namespace Spinner.Test
         public void WriteAsString_WhenCalled_ShouldValidateIfConfigurationLengthIsEqualToLengthStringThatWasMappedWithPadRight()
         {
             // Arrange
-            NothingRight nothing = new NothingRight("spinner", "www.spinner.com.br");
-            Spinner<NothingRight> spinner = new Spinner<NothingRight>(nothing);
+            NothingPadRight nothing = new NothingPadRight("spinner", "www.spinner.com.br");
+            Spinner<NothingPadRight> spinner = new Spinner<NothingPadRight>(nothing);
             const string expected = "spinner             www.spinner.com.br            ";
 
             // Act
@@ -199,8 +199,8 @@ namespace Spinner.Test
         public void WriteAsSpan_WhenCalled_ShoudReturnObjectMappedAsSpanWithPadRight()
         {
             // Arrange
-            NothingRight nothing = new NothingRight("spinner", "www.spinner.com.br");
-            Spinner<NothingRight> spinner = new Spinner<NothingRight>(nothing);
+            NothingPadRight nothing = new NothingPadRight("spinner", "www.spinner.com.br");
+            Spinner<NothingPadRight> spinner = new Spinner<NothingPadRight>(nothing);
             ReadOnlySpan<char> expected = new ReadOnlySpan<char>("spinner             www.spinner.com.br            ".ToCharArray());
 
             // Act
@@ -215,8 +215,8 @@ namespace Spinner.Test
         public void WriteAsSpan_WhenCalled_ShouldValidateIfConfigurationLengthIsEqualToLengthSpanThatWasMappedWithPadRight()
         {
             // Arrange
-            NothingRight nothing = new NothingRight("spinner", "www.spinner.com.br");
-            Spinner<NothingRight> spinner = new Spinner<NothingRight>(nothing);
+            NothingPadRight nothing = new NothingPadRight("spinner", "www.spinner.com.br");
+            Spinner<NothingPadRight> spinner = new Spinner<NothingPadRight>(nothing);
             ReadOnlySpan<char> expected = new ReadOnlySpan<char>("spinner             www.spinner.com.br            ".ToCharArray());
 
             // Act
@@ -232,11 +232,11 @@ namespace Spinner.Test
         public void WriteAsString_WhenCalled_ShouldValidateIfTwoResponseIsDiferentWithPadRight()
         {
             // Arrange
-            NothingRight nothingFirst = new NothingRight("spinnerFirst", "www.spinner.com.br");
-            NothingRight nothingSecond = new NothingRight("spinnerSecond", "www.spinner.com.br");
+            NothingPadRight nothingFirst = new NothingPadRight("spinnerFirst", "www.spinner.com.br");
+            NothingPadRight nothingSecond = new NothingPadRight("spinnerSecond", "www.spinner.com.br");
 
-            Spinner<NothingRight> spinnerFirst = new Spinner<NothingRight>(nothingFirst);
-            Spinner<NothingRight> spinnerSecond = new Spinner<NothingRight>(nothingSecond);
+            Spinner<NothingPadRight> spinnerFirst = new Spinner<NothingPadRight>(nothingFirst);
+            Spinner<NothingPadRight> spinnerSecond = new Spinner<NothingPadRight>(nothingSecond);
 
             // Act
             string stringResponseFirst = spinnerFirst.WriteAsString();
@@ -250,11 +250,11 @@ namespace Spinner.Test
         public void WriteAsSpan_WhenCalled_ShouldValidateIfTwoResponseIsDiferentWithPadRight()
         {
             // Arrange
-            NothingRight nothingFirst = new NothingRight("spinnerFirst", "www.spinner.com.br");
-            NothingRight nothingSecond = new NothingRight("spinnerSecond", "www.spinner.com.br");
+            NothingPadRight nothingFirst = new NothingPadRight("spinnerFirst", "www.spinner.com.br");
+            NothingPadRight nothingSecond = new NothingPadRight("spinnerSecond", "www.spinner.com.br");
 
-            Spinner<NothingRight> spinnerFirst = new Spinner<NothingRight>(nothingFirst);
-            Spinner<NothingRight> spinnerSecond = new Spinner<NothingRight>(nothingSecond);
+            Spinner<NothingPadRight> spinnerFirst = new Spinner<NothingPadRight>(nothingFirst);
+            Spinner<NothingPadRight> spinnerSecond = new Spinner<NothingPadRight>(nothingSecond);
 
             // Act
             ReadOnlySpan<char> stringResponseFirst = spinnerFirst.WriteAsSpan();
@@ -268,17 +268,17 @@ namespace Spinner.Test
         public void GetWriteProperties_WhenCaller_ShouldValidadeHowManyPropertiesWasMapped()
         {
             // Arrange
-            NothingRight nothing = new NothingRight("spinnerFirst", "www.spinner.com.br");
+            NothingPadRight nothing = new NothingPadRight("spinnerFirst", "www.spinner.com.br");
 
-            Spinner<NothingRight> spinnerFirst = new Spinner<NothingRight>(nothing);
+            Spinner<NothingPadRight> spinnerFirst = new Spinner<NothingPadRight>(nothing);
 
             // Act
-           IEnumerable<PropertyInfo> props = spinnerFirst.GetWriteProperties;
+            IEnumerable<PropertyInfo> props = spinnerFirst.GetWriteProperties;
 
             // Assert
             Assert.Equal(2, props.Count());
             Assert.Equal("Name", props.First().Name);
-            Assert.Equal("Adress", props.Last().Name);
+            Assert.Equal("WebSite", props.Last().Name);
         }
 
         [Fact]

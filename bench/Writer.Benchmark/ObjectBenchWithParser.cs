@@ -19,7 +19,7 @@ namespace Writer.Benchmark
         public string Name { get; set; }
 
         [WriteProperty(length: 30, order: 2, paddingChar: ' ')]
-        [ReadProperty(start: 19, length: 30, type: typeof(ParserAdress))]
+        [ReadProperty(start: 19, length: 30, type: typeof(ParserWebSite))]
         public string Adress { get; set; }
 
         public bool Equals(ObjectBenchWithParser other)

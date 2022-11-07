@@ -16,8 +16,8 @@ namespace Spinner.Test
         public void ReadFromString_WhenCalled_ShoudReturnObjectMappedFromString()
         {
             // Arrange
-            NothingLeft nothingLeft = new NothingLeft("spinner", "www.spinner.com.br");
-            Spinner<NothingLeft> spinnerWriter = new Spinner<NothingLeft>(nothingLeft);
+            NothingPadLeft nothingLeft = new NothingPadLeft("spinner", "www.spinner.com.br");
+            Spinner<NothingPadLeft> spinnerWriter = new Spinner<NothingPadLeft>(nothingLeft);
             Spinner<NothingReader> spinnerReader = new Spinner<NothingReader>();
 
             // Act
@@ -51,8 +51,8 @@ namespace Spinner.Test
         public void ReadFromSpan_WhenCalled_ShoudReturnObjectMappedAsSpan()
         {
             // Arrange
-            NothingLeft nothingLeft = new NothingLeft("spinner", "www.spinner.com.br");
-            Spinner<NothingLeft> spinnerWriter = new Spinner<NothingLeft>(nothingLeft);
+            NothingPadLeft nothingLeft = new NothingPadLeft("spinner", "www.spinner.com.br");
+            Spinner<NothingPadLeft> spinnerWriter = new Spinner<NothingPadLeft>(nothingLeft);
             Spinner<NothingReader> spinnerReader = new Spinner<NothingReader>();
 
             // Act
@@ -67,11 +67,11 @@ namespace Spinner.Test
         public void ReadFromString_WhenCalled_ShouldValidateIfTwoResponsesAreDiferents()
         {
             // Arrange
-            NothingLeft nothingLeftFirst = new NothingLeft("spinnerFirst", "www.spinner.com.br");
-            NothingLeft nothingLeftSecond = new NothingLeft("spinnerSecond", "www.spinner.com.br");
+            NothingPadLeft nothingLeftFirst = new NothingPadLeft("spinnerFirst", "www.spinner.com.br");
+            NothingPadLeft nothingLeftSecond = new NothingPadLeft("spinnerSecond", "www.spinner.com.br");
 
-            Spinner<NothingLeft> spinnerWriterFirst = new Spinner<NothingLeft>(nothingLeftFirst);
-            Spinner<NothingLeft> spinnerWriterSecond = new Spinner<NothingLeft>(nothingLeftSecond);
+            Spinner<NothingPadLeft> spinnerWriterFirst = new Spinner<NothingPadLeft>(nothingLeftFirst);
+            Spinner<NothingPadLeft> spinnerWriterSecond = new Spinner<NothingPadLeft>(nothingLeftSecond);
 
             Spinner<NothingReader> spinnerReaderFirst = new Spinner<NothingReader>();
             Spinner<NothingReader> spinnerReaderSecond = new Spinner<NothingReader>();
@@ -91,11 +91,11 @@ namespace Spinner.Test
         public void ReadFromSpan_WhenCalled_ShouldValidateIfTwoResponsesAreDiferents()
         {
             // Arrange
-            NothingLeft nothingLeftFirst = new NothingLeft("spinnerFirst", "www.spinner.com.br");
-            NothingLeft nothingLeftSecond = new NothingLeft("spinnerSecond", "www.spinner.com.br");
+            NothingPadLeft nothingLeftFirst = new NothingPadLeft("spinnerFirst", "www.spinner.com.br");
+            NothingPadLeft nothingLeftSecond = new NothingPadLeft("spinnerSecond", "www.spinner.com.br");
 
-            Spinner<NothingLeft> spinnerWriterFirst = new Spinner<NothingLeft>(nothingLeftFirst);
-            Spinner<NothingLeft> spinnerWriterSecond = new Spinner<NothingLeft>(nothingLeftSecond);
+            Spinner<NothingPadLeft> spinnerWriterFirst = new Spinner<NothingPadLeft>(nothingLeftFirst);
+            Spinner<NothingPadLeft> spinnerWriterSecond = new Spinner<NothingPadLeft>(nothingLeftSecond);
 
             Spinner<NothingReader> spinnerReaderFirst = new Spinner<NothingReader>();
             Spinner<NothingReader> spinnerReaderSecond = new Spinner<NothingReader>();
@@ -120,7 +120,7 @@ namespace Spinner.Test
 
             Assert.Equal(2, props.Count());
             Assert.Equal("Name", props.First().Name);
-            Assert.Equal("Adress", props.Last().Name);
+            Assert.Equal("WebSite", props.Last().Name);
         }
 
         [Fact]

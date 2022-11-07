@@ -5,27 +5,27 @@ namespace Spinner.Test.Models
 {
     internal struct NothingLeftNoObjectMapper : IEquatable<NothingLeftNoObjectMapper>
     {
-        public NothingLeftNoObjectMapper(string name, string adress)
+        public NothingLeftNoObjectMapper(string name, string webSite)
         {
             Name = name;
-            Adress = adress;
+            WebSite = webSite;
         }
 
         [WriteProperty(length: 20, order: 1, paddingChar: ' ')]
         public string Name { get; set; }
 
         [WriteProperty(length: 30, order: 2, paddingChar: ' ')]
-        public string Adress { get; set; }
+        public string WebSite { get; set; }
 
         public bool Equals(NothingLeftNoObjectMapper other)
         {
             return Name == other.Name &&
-                   Adress == other.Adress;
+                   WebSite == other.WebSite;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Name, Adress);
+            return HashCode.Combine(Name, WebSite);
         }
 
         public override bool Equals(object obj)
