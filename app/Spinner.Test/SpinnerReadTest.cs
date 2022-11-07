@@ -16,72 +16,87 @@ namespace Spinner.Test
         public void ReadFromString_WhenCalled_ShoudReturnObjectMappedFromString()
         {
             // Arrange
-            NothingPadLeft nothingLeft = new NothingPadLeft("spinner", "www.spinner.com.br");
-            Spinner<NothingPadLeft> spinnerWriter = new Spinner<NothingPadLeft>(nothingLeft);
+            NothingPadLeft nothing = new NothingPadLeft("spinner", "www.spinner.com.br");
+            Spinner<NothingPadLeft> spinnerWriter = new Spinner<NothingPadLeft>(nothing);
             Spinner<NothingReader> spinnerReader = new Spinner<NothingReader>();
 
             // Act
-            string stringResponse = spinnerWriter.WriteAsString();
-            NothingReader nothingReader = spinnerReader.ReadFromString(stringResponse);
+            string positionalString = spinnerWriter.WriteAsString();
+            NothingReader nothingReader = spinnerReader.ReadFromString(positionalString);
 
             // Assert
-            Assert.True(nothingLeft.GetHashCode() == nothingReader.GetHashCode());
+            Assert.True(nothing.GetHashCode() == nothingReader.GetHashCode());
         }
 
         [Fact]
-        public void ReadFromString_WhenCalled_ShoudShouldParseToDecimalAnProperty()
+        public void ReadFromString_WhenCalled_ShoudParsePropertyToDecimal()
         {
             // Arrange
-            NothingDecimal nothingDecimal = new NothingDecimal("0001");
-            Spinner<NothingDecimal> spinnerWriter = new Spinner<NothingDecimal>(nothingDecimal);
+            NothingDecimal nothing = new NothingDecimal("0001");
+            Spinner<NothingDecimal> spinnerWriter = new Spinner<NothingDecimal>(nothing);
             Spinner<NothingDecimalReader> spinnerReader = new Spinner<NothingDecimalReader>();
 
             // Act
-            string stringResponse = spinnerWriter.WriteAsString();
-            NothingDecimalReader nothingReader = spinnerReader.ReadFromString(stringResponse);
-
-            bool parserPropertyWasCached = ParserTypeCache.Parses.Any(c => c.GetType() == typeof(DecimalParser));
+            string positionalString = spinnerWriter.WriteAsString();
+            NothingDecimalReader nothingReader = spinnerReader.ReadFromString(positionalString);
 
             // Assert
             Assert.Equal(00.01M, nothingReader.Value);
-            Assert.True(parserPropertyWasCached);
+        }
+
+        [Fact]
+        public void ReadFromString_WhenCalled_ShoudValidateIfPropertyParseIsChached()
+        {
+            // Arrange
+            NothingDecimal nothing = new NothingDecimal("0001");
+            Spinner<NothingDecimal> spinnerWriter = new Spinner<NothingDecimal>(nothing);
+            Spinner<NothingDecimalReader> spinnerReader = new Spinner<NothingDecimalReader>();
+
+            string positionalString = spinnerWriter.WriteAsString();
+            NothingDecimalReader nothingDecimalReader = spinnerReader.ReadFromString(positionalString);
+
+            // Act
+            bool decimalParserWasCached = ParserTypeCache.Parses.Any(c => c.GetType() == typeof(DecimalParser));
+
+            // Assert
+            Assert.True(decimalParserWasCached);
         }
 
         [Fact]
         public void ReadFromSpan_WhenCalled_ShoudReturnObjectMappedAsSpan()
         {
             // Arrange
-            NothingPadLeft nothingLeft = new NothingPadLeft("spinner", "www.spinner.com.br");
-            Spinner<NothingPadLeft> spinnerWriter = new Spinner<NothingPadLeft>(nothingLeft);
+            NothingPadLeft nothing = new NothingPadLeft("spinner", "www.spinner.com.br");
+            Spinner<NothingPadLeft> spinnerWriter = new Spinner<NothingPadLeft>(nothing);
             Spinner<NothingReader> spinnerReader = new Spinner<NothingReader>();
 
             // Act
-            System.ReadOnlySpan<char> stringResponse = spinnerWriter.WriteAsSpan();
-            NothingReader nothingReader = spinnerReader.ReadFromSpan(stringResponse);
+            ReadOnlySpan<char> positionalString = spinnerWriter.WriteAsSpan();
+            NothingReader nothingReader = spinnerReader.ReadFromSpan(positionalString);
 
             // Assert
-            Assert.True(nothingLeft.GetHashCode() == nothingReader.GetHashCode());
+            Assert.True(nothing.GetHashCode() == nothingReader.GetHashCode());
         }
 
         [Fact]
         public void ReadFromString_WhenCalled_ShouldValidateIfTwoResponsesAreDiferents()
         {
             // Arrange
-            NothingPadLeft nothingLeftFirst = new NothingPadLeft("spinnerFirst", "www.spinner.com.br");
-            NothingPadLeft nothingLeftSecond = new NothingPadLeft("spinnerSecond", "www.spinner.com.br");
+            NothingPadLeft nothingFirst = new NothingPadLeft("spinnerFirst", "www.spinner.com.br");
+            NothingPadLeft nothingSecond = new NothingPadLeft("spinnerSecond", "www.spinner.com.br");
 
-            Spinner<NothingPadLeft> spinnerWriterFirst = new Spinner<NothingPadLeft>(nothingLeftFirst);
-            Spinner<NothingPadLeft> spinnerWriterSecond = new Spinner<NothingPadLeft>(nothingLeftSecond);
+            Spinner<NothingPadLeft> spinnerWriterFirst = new Spinner<NothingPadLeft>(nothingFirst);
+            Spinner<NothingPadLeft> spinnerWriterSecond = new Spinner<NothingPadLeft>(nothingSecond);
 
             Spinner<NothingReader> spinnerReaderFirst = new Spinner<NothingReader>();
             Spinner<NothingReader> spinnerReaderSecond = new Spinner<NothingReader>();
 
             // Act
-            string stringResponseFirst = spinnerWriterFirst.WriteAsString();
-            string stringResponseSecond = spinnerWriterSecond.WriteAsString();
+            string positionalStringFirst = spinnerWriterFirst.WriteAsString();
+            string positionalStringSecond = spinnerWriterSecond.WriteAsString();
 
-            NothingReader nothingReaderFirst = spinnerReaderFirst.ReadFromString(stringResponseFirst);
-            NothingReader nothingReaderSecond = spinnerReaderSecond.ReadFromString(stringResponseSecond);
+            NothingReader nothingReaderFirst = spinnerReaderFirst.ReadFromString(positionalStringFirst);
+            NothingReader nothingReaderSecond = spinnerReaderSecond.ReadFromString(positionalStringSecond);
 
             // Assert
             Assert.True(nothingReaderFirst.GetHashCode() != nothingReaderSecond.GetHashCode());
@@ -91,21 +106,21 @@ namespace Spinner.Test
         public void ReadFromSpan_WhenCalled_ShouldValidateIfTwoResponsesAreDiferents()
         {
             // Arrange
-            NothingPadLeft nothingLeftFirst = new NothingPadLeft("spinnerFirst", "www.spinner.com.br");
-            NothingPadLeft nothingLeftSecond = new NothingPadLeft("spinnerSecond", "www.spinner.com.br");
+            NothingPadLeft nothingFirst = new NothingPadLeft("spinnerFirst", "www.spinner.com.br");
+            NothingPadLeft nothingSecond = new NothingPadLeft("spinnerSecond", "www.spinner.com.br");
 
-            Spinner<NothingPadLeft> spinnerWriterFirst = new Spinner<NothingPadLeft>(nothingLeftFirst);
-            Spinner<NothingPadLeft> spinnerWriterSecond = new Spinner<NothingPadLeft>(nothingLeftSecond);
+            Spinner<NothingPadLeft> spinnerWriterFirst = new Spinner<NothingPadLeft>(nothingFirst);
+            Spinner<NothingPadLeft> spinnerWriterSecond = new Spinner<NothingPadLeft>(nothingSecond);
 
             Spinner<NothingReader> spinnerReaderFirst = new Spinner<NothingReader>();
             Spinner<NothingReader> spinnerReaderSecond = new Spinner<NothingReader>();
 
             // Act
-            System.ReadOnlySpan<char> stringResponseFirst = spinnerWriterFirst.WriteAsSpan();
-            System.ReadOnlySpan<char> stringResponseSecond = spinnerWriterSecond.WriteAsSpan();
+            ReadOnlySpan<char> positionalStringFirst = spinnerWriterFirst.WriteAsSpan();
+            ReadOnlySpan<char> positionalStringSecond = spinnerWriterSecond.WriteAsSpan();
 
-            NothingReader nothingReaderFirst = spinnerReaderFirst.ReadFromSpan(stringResponseFirst);
-            NothingReader nothingReaderSecond = spinnerReaderSecond.ReadFromSpan(stringResponseSecond);
+            NothingReader nothingReaderFirst = spinnerReaderFirst.ReadFromSpan(positionalStringFirst);
+            NothingReader nothingReaderSecond = spinnerReaderSecond.ReadFromSpan(positionalStringSecond);
 
             // Assert
             Assert.True(nothingReaderFirst.GetHashCode() != nothingReaderSecond.GetHashCode());
@@ -114,9 +129,9 @@ namespace Spinner.Test
         [Fact]
         public void GetReadProperties_WhenCaller_ShouldValidadeHowManyPropertiesWasMapped()
         {
-            Spinner<NothingReader> spinnerFirst = new Spinner<NothingReader>();
+            Spinner<NothingReader> spinner = new Spinner<NothingReader>();
 
-            IEnumerable<PropertyInfo> props = spinnerFirst.GetReadProperties;
+            IEnumerable<PropertyInfo> props = spinner.GetReadProperties;
 
             Assert.Equal(2, props.Count());
             Assert.Equal("Name", props.First().Name);

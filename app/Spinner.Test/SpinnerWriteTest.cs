@@ -1,3 +1,4 @@
+using Spinner.Attribute;
 using Spinner.Exceptions;
 using Spinner.Test.Models;
 using System;
@@ -19,11 +20,11 @@ namespace Spinner.Test
             const string expected = "             spinner            www.spinner.com.br";
 
             // Act
-            string stringResponse = spinner.WriteAsString();
+            string positionalString = spinner.WriteAsString();
 
             // Assert
-            Assert.Equal(50, stringResponse.Length);
-            Assert.Equal(expected, stringResponse);
+            Assert.Equal(50, positionalString.Length);
+            Assert.Equal(expected, positionalString);
         }
 
         [Fact]
@@ -35,11 +36,11 @@ namespace Spinner.Test
             const string expected = "            www.spinner.com.br             spinner";
 
             // Act
-            string stringResponse = spinner.WriteAsString();
+            string positionalString = spinner.WriteAsString();
 
             // Assert
-            Assert.Equal(50, stringResponse.Length);
-            Assert.NotEqual(expected, stringResponse);
+            Assert.Equal(50, positionalString.Length);
+            Assert.NotEqual(expected, positionalString);
         }
 
         [Fact]
@@ -51,12 +52,12 @@ namespace Spinner.Test
             const string expected = "             spinner             www.spinner.com.b";
 
             // Act
-            Attribute.ObjectMapperAttribute conf = spinner.GetObjectMapper;
-            string stringResponse = spinner.WriteAsString();
+            ObjectMapperAttribute conf = spinner.GetObjectMapper;
+            string positionalString = spinner.WriteAsString();
 
             // Assert
-            Assert.Equal(conf.Length, stringResponse.Length);
-            Assert.Equal(expected, stringResponse);
+            Assert.Equal(conf.Length, positionalString.Length);
+            Assert.Equal(expected, positionalString);
         }
 
         [Fact]
@@ -68,12 +69,12 @@ namespace Spinner.Test
             const string expected = "             spinner            www.spinner.com.br";
 
             // Act
-            Attribute.ObjectMapperAttribute conf = spinner.GetObjectMapper;
-            string stringResponse = spinner.WriteAsString();
+            ObjectMapperAttribute conf = spinner.GetObjectMapper;
+            string positionalString = spinner.WriteAsString();
 
             // Assert
             Assert.Null(conf);
-            Assert.Equal(expected, stringResponse);
+            Assert.Equal(expected, positionalString);
         }
 
         [Fact]
@@ -85,11 +86,11 @@ namespace Spinner.Test
             ReadOnlySpan<char> expected = new ReadOnlySpan<char>("             spinner            www.spinner.com.br".ToCharArray());
 
             // Act
-            ReadOnlySpan<char> stringResponseAsSpan = spinner.WriteAsSpan();
+            ReadOnlySpan<char> positionalString = spinner.WriteAsSpan();
 
             // Assert
-            Assert.Equal(50, stringResponseAsSpan.Length);
-            Assert.Equal(expected.ToString(), stringResponseAsSpan.ToString());
+            Assert.Equal(50, positionalString.Length);
+            Assert.Equal(expected.ToString(), positionalString.ToString());
         }
 
         [Fact]
@@ -101,12 +102,12 @@ namespace Spinner.Test
             ReadOnlySpan<char> expected = new ReadOnlySpan<char>("             spinner            www.spinner.com.br".ToCharArray());
 
             // Act
-            Attribute.ObjectMapperAttribute conf = spinner.GetObjectMapper;
-            ReadOnlySpan<char> stringResponseAsSpan = spinner.WriteAsSpan();
+            ObjectMapperAttribute objectMapper = spinner.GetObjectMapper;
+            ReadOnlySpan<char> positionalString = spinner.WriteAsSpan();
 
             // Assert
-            Assert.Equal(conf.Length, stringResponseAsSpan.Length);
-            Assert.Equal(expected.ToString(), stringResponseAsSpan.ToString());
+            Assert.Equal(objectMapper.Length, positionalString.Length);
+            Assert.Equal(expected.ToString(), positionalString.ToString());
         }
 
         [Fact]
@@ -118,12 +119,12 @@ namespace Spinner.Test
             ReadOnlySpan<char> expected = new ReadOnlySpan<char>("             spinner            www.spinner.com.br".ToCharArray());
 
             // Act
-            Attribute.ObjectMapperAttribute conf = spinner.GetObjectMapper;
-            ReadOnlySpan<char> stringResponseAsSpan = spinner.WriteAsSpan();
+            ObjectMapperAttribute objectMapper = spinner.GetObjectMapper;
+            ReadOnlySpan<char> positionalString = spinner.WriteAsSpan();
 
             // Assert
-            Assert.Null(conf);
-            Assert.Equal(expected.ToString(), stringResponseAsSpan.ToString());
+            Assert.Null(objectMapper);
+            Assert.Equal(expected.ToString(), positionalString.ToString());
         }
 
         [Fact]
@@ -137,11 +138,11 @@ namespace Spinner.Test
             Spinner<NothingPadLeft> spinnerSecond = new Spinner<NothingPadLeft>(nothingSecond);
 
             // Act
-            string stringResponseFirst = spinnerFirst.WriteAsString();
-            string stringResponseSecond = spinnerSecond.WriteAsString();
+            string positionalStringFirst = spinnerFirst.WriteAsString();
+            string positionalStringSecond = spinnerSecond.WriteAsString();
 
             // Assert
-            Assert.True(stringResponseFirst != stringResponseSecond);
+            Assert.True(positionalStringFirst != positionalStringSecond);
         }
 
         [Fact]
@@ -155,11 +156,11 @@ namespace Spinner.Test
             Spinner<NothingPadLeft> spinnerSecond = new Spinner<NothingPadLeft>(nothingSecond);
 
             // Act
-            ReadOnlySpan<char> stringResponseFirst = spinnerFirst.WriteAsSpan();
-            ReadOnlySpan<char> stringResponseSecond = spinnerSecond.WriteAsSpan();
+            ReadOnlySpan<char> positionalStringFirst = spinnerFirst.WriteAsSpan();
+            ReadOnlySpan<char> positionalStringSecond = spinnerSecond.WriteAsSpan();
 
             // Assert
-            Assert.True(stringResponseFirst != stringResponseSecond);
+            Assert.True(positionalStringFirst != positionalStringSecond);
         }
 
         [Fact]
@@ -171,11 +172,11 @@ namespace Spinner.Test
             const string expected = "spinner             www.spinner.com.br            ";
 
             // Act
-            string stringResponse = spinner.WriteAsString();
+            string positionalString = spinner.WriteAsString();
 
             // Assert
-            Assert.Equal(50, stringResponse.Length);
-            Assert.Equal(expected, stringResponse);
+            Assert.Equal(50, positionalString.Length);
+            Assert.Equal(expected, positionalString);
         }
 
         [Fact]
@@ -187,12 +188,12 @@ namespace Spinner.Test
             const string expected = "spinner             www.spinner.com.br            ";
 
             // Act
-            Attribute.ObjectMapperAttribute conf = spinner.GetObjectMapper;
-            string stringResponse = spinner.WriteAsString();
+            ObjectMapperAttribute objectMapper = spinner.GetObjectMapper;
+            string positionalString = spinner.WriteAsString();
 
             // Assert
-            Assert.Equal(conf.Length, stringResponse.Length);
-            Assert.Equal(expected, stringResponse);
+            Assert.Equal(objectMapper.Length, positionalString.Length);
+            Assert.Equal(expected, positionalString);
         }
 
         [Fact]
@@ -204,11 +205,11 @@ namespace Spinner.Test
             ReadOnlySpan<char> expected = new ReadOnlySpan<char>("spinner             www.spinner.com.br            ".ToCharArray());
 
             // Act
-            ReadOnlySpan<char> stringResponseAsSpan = spinner.WriteAsSpan();
+            ReadOnlySpan<char> positionalString = spinner.WriteAsSpan();
 
             // Assert
-            Assert.Equal(50, stringResponseAsSpan.Length);
-            Assert.Equal(expected.ToString(), stringResponseAsSpan.ToString());
+            Assert.Equal(50, positionalString.Length);
+            Assert.Equal(expected.ToString(), positionalString.ToString());
         }
 
         [Fact]
@@ -220,12 +221,12 @@ namespace Spinner.Test
             ReadOnlySpan<char> expected = new ReadOnlySpan<char>("spinner             www.spinner.com.br            ".ToCharArray());
 
             // Act
-            Attribute.ObjectMapperAttribute conf = spinner.GetObjectMapper;
-            ReadOnlySpan<char> stringResponseAsSpan = spinner.WriteAsSpan();
+            ObjectMapperAttribute objectMapper = spinner.GetObjectMapper;
+            ReadOnlySpan<char> positionalString = spinner.WriteAsSpan();
 
             // Assert
-            Assert.Equal(conf.Length, stringResponseAsSpan.Length);
-            Assert.Equal(expected.ToString(), stringResponseAsSpan.ToString());
+            Assert.Equal(objectMapper.Length, positionalString.Length);
+            Assert.Equal(expected.ToString(), positionalString.ToString());
         }
 
         [Fact]
@@ -239,11 +240,11 @@ namespace Spinner.Test
             Spinner<NothingPadRight> spinnerSecond = new Spinner<NothingPadRight>(nothingSecond);
 
             // Act
-            string stringResponseFirst = spinnerFirst.WriteAsString();
-            string stringResponseSecond = spinnerSecond.WriteAsString();
+            string positionalStringFirst = spinnerFirst.WriteAsString();
+            string positionalStringSecond = spinnerSecond.WriteAsString();
 
             // Assert
-            Assert.True(stringResponseFirst != stringResponseSecond);
+            Assert.True(positionalStringFirst != positionalStringSecond);
         }
 
         [Fact]
@@ -257,11 +258,11 @@ namespace Spinner.Test
             Spinner<NothingPadRight> spinnerSecond = new Spinner<NothingPadRight>(nothingSecond);
 
             // Act
-            ReadOnlySpan<char> stringResponseFirst = spinnerFirst.WriteAsSpan();
-            ReadOnlySpan<char> stringResponseSecond = spinnerSecond.WriteAsSpan();
+            ReadOnlySpan<char> positionalStringFirst = spinnerFirst.WriteAsSpan();
+            ReadOnlySpan<char> positionalStringSecond = spinnerSecond.WriteAsSpan();
 
             // Assert
-            Assert.True(stringResponseFirst != stringResponseSecond);
+            Assert.True(positionalStringFirst != positionalStringSecond);
         }
 
         [Fact]
