@@ -58,7 +58,7 @@ jobs:
         run: dotnet build ${{env.PROJECT_SLN }} -c Release -p:Version=$BUILD_VERSION --no-restore
 
       - name: Format ♻️
-        run: dotnet format -v diag --severity error --verify-no-changes --no-restore ${{env.PROJECT_SLN }}
+        run: dotnet format ${{env.APP }} -v diag --severity error --verbosity --no-restore
 
       - name: Test 🧪
         run: dotnet test ${{env.PROJECT_SLN }} --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
