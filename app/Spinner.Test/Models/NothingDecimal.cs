@@ -3,7 +3,6 @@ using System;
 
 namespace Spinner.Test.Models
 {
-
     [ObjectMapper(length: 4)]
     internal struct NothingDecimal : IEquatable<NothingDecimal>
     {

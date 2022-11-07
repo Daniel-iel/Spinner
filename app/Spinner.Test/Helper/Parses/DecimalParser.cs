@@ -1,17 +1,9 @@
 ﻿using Spinner.Parsers;
 using System.Globalization;
 
-namespace Spinner.Test.Helper
+namespace Spinner.Test.Helper.Parses
 {
-    internal class CacheParser : ITypeParse
-    {
-        public object Parser(object obj)
-        {
-            return obj;
-        }
-    }
-
-    internal class DecimalParser : ITypeParse
+    internal sealed class DecimalParser : ITypeParse
     {
         public object Parser(object obj)
         {
