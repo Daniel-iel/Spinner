@@ -1,4 +1,6 @@
+using Spinner.Cache;
 using Spinner.Exceptions;
+using Spinner.Test.Helper;
 using Spinner.Test.Models;
 using System;
 using System.Collections.Generic;
@@ -20,10 +22,29 @@ namespace Spinner.Test
 
             // Act
             string stringResponse = spinnerWriter.WriteAsString();
-            NothingReader nothingReader = spinnerReader.ReadFromStringTyped(stringResponse);
+            NothingReader nothingReader = spinnerReader.ReadFromString(stringResponse);
 
             // Assert
             Assert.True(nothingLeft.GetHashCode() == nothingReader.GetHashCode());
+        }
+
+        [Fact]
+        public void ReadFromString_WhenCalled_ShoudShouldParseToDecimalAnProperty()
+        {
+            // Arrange
+            NothingDecimal nothingDecimal = new NothingDecimal("0001");
+            Spinner<NothingDecimal> spinnerWriter = new Spinner<NothingDecimal>(nothingDecimal);
+            Spinner<NothingDecimalReader> spinnerReader = new Spinner<NothingDecimalReader>();
+
+            // Act
+            string stringResponse = spinnerWriter.WriteAsString();
+            NothingDecimalReader nothingReader = spinnerReader.ReadFromString(stringResponse);
+
+            bool parserPropertyWasCached = ParserTypeCache.Parses.Any(c => c.GetType() == typeof(DecimalParser));
+
+            // Assert
+            Assert.Equal(00.01M, nothingReader.Value);
+            Assert.True(parserPropertyWasCached);
         }
 
         [Fact]

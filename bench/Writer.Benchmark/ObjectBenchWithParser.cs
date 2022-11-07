@@ -6,9 +6,9 @@ using System.Diagnostics.CodeAnalysis;
 namespace Writer.Benchmark
 {
     [ObjectMapper(length: 50)]
-    internal struct ObjectBench : IEquatable<ObjectBench>, IEqualityComparer<ObjectBench>
+    internal struct ObjectBenchWithParser : IEquatable<ObjectBenchWithParser>, IEqualityComparer<ObjectBenchWithParser>
     {
-        public ObjectBench(string name, string adress)
+        public ObjectBenchWithParser(string name, string adress)
         {
             Name = name;
             Adress = adress;
@@ -19,10 +19,10 @@ namespace Writer.Benchmark
         public string Name { get; set; }
 
         [WriteProperty(length: 30, order: 2, paddingChar: ' ')]
-        [ReadProperty(start: 19, length: 30)]
+        [ReadProperty(start: 19, length: 30, type: typeof(ParserAdress))]
         public string Adress { get; set; }
 
-        public bool Equals(ObjectBench other)
+        public bool Equals(ObjectBenchWithParser other)
         {
             return Name == other.Name &&
                    Adress == other.Adress;
@@ -30,12 +30,12 @@ namespace Writer.Benchmark
 
         public override bool Equals(object obj)
         {
-            ObjectBench other = (ObjectBench)obj;
+            ObjectBenchWithParser other = (ObjectBenchWithParser)obj;
 
             return other.Equals(this);
         }
 
-        public bool Equals(ObjectBench x, ObjectBench y)
+        public bool Equals(ObjectBenchWithParser x, ObjectBenchWithParser y)
         {
             return x.Equals(y);
         }
@@ -45,7 +45,7 @@ namespace Writer.Benchmark
             return HashCode.Combine(Name, Adress);
         }
 
-        public int GetHashCode([DisallowNull] ObjectBench obj)
+        public int GetHashCode([DisallowNull] ObjectBenchWithParser obj)
         {
             return HashCode.Combine(obj.Name, obj.Adress);
         }

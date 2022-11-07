@@ -60,22 +60,7 @@ namespace Spinner
         /// <returns>Return a string mapped of T.</returns>
         public string WriteAsString()
         {
-            for (int i = 0; i < WriteProperties.Length; i++)
-            {
-                ref PropertyInfo property = ref WriteProperties[i];
-                WritePropertyAttribute attribute = GetWriteProperty(property);
-
-                if (attribute is null)
-                {
-                    throw new PropertyNotMappedException($"Property {property.Name} should have WriteProperty configured.");
-                }
-
-                sb.Builder.Append(
-                    FormatValue(
-                        (property.GetValue(_obj) as string).AsSpan(),
-                        attribute
-                    ));
-            }
+            WritePositionaString();
 
             return GetObjectMapper is not null ?
                 sb.ToStringAndFree(0, GetObjectMapper.Length) :
@@ -88,64 +73,40 @@ namespace Spinner
         /// <returns>Return an string mapped of T as span.</returns>
         public ReadOnlySpan<char> WriteAsSpan()
         {
-            for (int i = 0; i < WriteProperties.Length; i++)
-            {
-                ref PropertyInfo property = ref WriteProperties[i];
-                WritePropertyAttribute attribute = GetWriteProperty(property);
-
-                if (attribute is null)
-                {
-                    throw new PropertyNotMappedException($"Property {property.Name} should have WriteProperty configured.");
-                }
-
-                sb.Builder.Append(
-                    FormatValue(
-                        (property.GetValue(_obj) as string).AsSpan(),
-                        attribute
-                    ));
-            }
+            WritePositionaString();
 
             return new ReadOnlySpan<char>(
                     GetObjectMapper is not null ?
                     sb.ToStringAndFree(0, GetObjectMapper.Length).ToCharArray() :
-                    sb.ToStringAndFree().ToCharArray()
-                );
+                    sb.ToStringAndFree().ToCharArray());
         }
 
         /// <summary>
         /// Convert string in an object.
         /// </summary>
         /// <param name="value">Positional string to map in an object.</param>
-        /// <returns></returns>
+        /// <returns>returns instanciate of T.</returns>
         public T ReadFromString(string value)
         {
-            ReadOnlySpan<char> valuesToSlice = new ReadOnlySpan<char>(value.ToCharArray());
-
-            for (int i = 0; i < ReadProperties.Length; i++)
-            {
-                ref PropertyInfo property = ref ReadProperties[i];
-                ReadPropertyAttribute attribute = GetReaderProperty(property);
-
-                if (attribute is null)
-                {
-                    throw new PropertyNotMappedException($"Property {property.Name} should have ReadProperty configured.");
-                }
-
-                property.SetValue(_obj, new string(valuesToSlice.Slice(attribute.Start, attribute.Length).Trim()));
-            }
+            ReadPositionalString(value);
 
             return _obj;
         }
 
         /// <summary>
-        /// Convert string in an object intercepting the string slice and converting or formating the type.
+        /// Convert string in an object.
         /// </summary>
-        /// <param name="value">Positional string to map in an object.</param>
-        /// <returns></returns>
-        public T ReadFromStringTyped(string value)
+        /// <param name="value">Span with data to map an object.</param>
+        /// <returns>returns instanciate of T.</returns>
+        public T ReadFromSpan(ReadOnlySpan<char> value)
         {
-            ReadOnlySpan<char> valuesToSlice = new ReadOnlySpan<char>(value.ToCharArray());
+            ReadPositionalString(value);
 
+            return _obj;
+        }
+
+        private void ReadPositionalString(ReadOnlySpan<char> text)
+        {
             for (int i = 0; i < ReadProperties.Length; i++)
             {
                 ref PropertyInfo property = ref ReadProperties[i];
@@ -164,38 +125,29 @@ namespace Spinner
                         ParserTypeCache.Add(attribute.Type.Name, typeParser);
                     }
 
-                    property.SetValue(_obj, typeParser.Parser(new string(valuesToSlice.Slice(attribute.Start, attribute.Length).Trim())));
+                    property.SetValue(_obj, typeParser.Parser(new string(text.Slice(attribute.Start, attribute.Length).Trim())));
 
                     continue;
                 }
 
-                property.SetValue(_obj, new string(valuesToSlice.Slice(attribute.Start, attribute.Length).Trim()));
+                property.SetValue(_obj, new string(text.Slice(attribute.Start, attribute.Length).Trim()));
             }
-
-            return _obj;
         }
 
-        /// <summary>
-        /// Convert string in an object.
-        /// </summary>
-        /// <param name="value">Span with data to map an object.</param>
-        /// <returns></returns>
-        public T ReadFromSpan(ReadOnlySpan<char> value)
+        private void WritePositionaString()
         {
-            for (int i = 0; i < ReadProperties.Length; i++)
+            for (int i = 0; i < WriteProperties.Length; i++)
             {
-                ref PropertyInfo property = ref ReadProperties[i];
-                ReadPropertyAttribute attribute = GetReaderProperty(property);
+                ref PropertyInfo property = ref WriteProperties[i];
+                WritePropertyAttribute attribute = GetWriteProperty(property);
 
                 if (attribute is null)
                 {
-                    throw new PropertyNotMappedException($"Property {property.Name} should have ReadProperty configured.");
+                    throw new PropertyNotMappedException($"Property {property.Name} should have WriteProperty configured.");
                 }
 
-                property.SetValue(_obj, new string(value.Slice(attribute.Start, attribute.Length).Trim()));
+                sb.Builder.Append(FormatValue((property.GetValue(_obj) as string).AsSpan(), attribute));
             }
-
-            return _obj;
         }
 
         private static ReadOnlySpan<char> FormatValue(ReadOnlySpan<char> value, WritePropertyAttribute property)
