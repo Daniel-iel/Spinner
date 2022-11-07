@@ -1,6 +1,6 @@
 ﻿using Spinner.Cache;
 using Spinner.Parsers;
-using Spinner.Test.Helper;
+using Spinner.Test.Helper.Parses;
 using Xunit;
 
 namespace Spinner.Test.Cache

@@ -1,6 +1,6 @@
 using Spinner.Cache;
 using Spinner.Exceptions;
-using Spinner.Test.Helper;
+using Spinner.Test.Helper.Parses;
 using Spinner.Test.Models;
 using System;
 using System.Collections.Generic;
