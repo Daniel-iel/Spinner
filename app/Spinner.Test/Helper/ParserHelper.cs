@@ -1,4 +1,5 @@
 ﻿using Spinner.Parsers;
+using System.Globalization;
 
 namespace Spinner.Test.Helper
 {
@@ -14,8 +15,8 @@ namespace Spinner.Test.Helper
     {
         public object Parser(object obj)
         {
-            string value = obj.ToString().Insert(2, ",");
-            return decimal.Parse(value);
+            string value = obj.ToString().Insert(2, ".");
+            return decimal.Parse(value, new CultureInfo("en-US"));
         }
     }
 }
