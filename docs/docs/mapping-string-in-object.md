@@ -16,11 +16,11 @@ To configure an object, you should use ` ObjectMapper ` and ` ReadProperty ` pro
     public string Name { get; private set; }
 
     [ReadProperty(start: 20, length: 30)]        
-    public string Adress { get; private set; }
+    public string WebSite { get; private set; }
   }
 ```
 
-## Instanciate
+## Instantiate
 
 To map you object as string, you need instantiate ``` Spinner ``` passing the object type in T.
 
