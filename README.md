@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="/assets/logo.png?raw=true">
+  <img src="./assets/logo.png?raw=true">
 </div>
 
 #
@@ -13,8 +13,11 @@
 <a href="https://github.com/Daniel-iel/Spinner/actions/workflows/ci.yml">
     <img src="https://github.com/Daniel-iel/Spinner/actions/workflows/ci.yml/badge.svg" alt="build status">
 </a>
-<a href="https://github.com/Daniel-iel/Spinner/actions/workflows/ci.yml">
+<a href="https://github.com/Daniel-iel/Spinner/actions/workflows/ci-documentation.yml">
     <img src="https://github.com/Daniel-iel/Spinner/actions/workflows/ci-documentation.yml/badge.svg" alt="build status">
+</a>
+<a href="https://github.com/Daniel-iel/Spinner/actions/workflows/ci-benchmark.yml">
+    <img src="https://github.com/Daniel-iel/Spinner/actions/workflows/ci-benchmark.yml/badge.svg" alt="build status">
 </a>
 <a href="https://github.com/Daniel-iel/Spinner/blob/main/LICENSE">
     <img src="https://img.shields.io/github/license/Daniel-iel/Spinner" alt="License"/>
