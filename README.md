@@ -106,7 +106,7 @@ All donation are welcome, you can donate to the Spinner project, we gonna use to
 
 ## License
 
-Our code and framework are licensed under the MIT licence. Please see the licence file for more information. You can do whatever you want as long as you include the original copyright and license notice in any copy of the software/source.
+Our code and framework are licensed under the MIT license. Please see the license file for more information. You can do whatever you want as long as you include the original copyright and license notice in any copy of the software/source.
 
 # Stats
 

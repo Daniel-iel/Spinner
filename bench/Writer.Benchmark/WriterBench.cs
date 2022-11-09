@@ -1,6 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
-using Spinner;
 using BenchmarkDotNet.Jobs;
+using Spinner;
 using System;
 
 namespace Writer.Benchmark
@@ -9,6 +9,7 @@ namespace Writer.Benchmark
     [SimpleJob(RuntimeMoniker.NetCoreApp31, baseline: true)]
     [SimpleJob(RuntimeMoniker.Net50)]
     [SimpleJob(RuntimeMoniker.Net60)]
+    [SimpleJob(RuntimeMoniker.Net70)]
     [GcServer(true)]
     public class WriterBench
     {
