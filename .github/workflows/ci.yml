@@ -78,7 +78,7 @@ jobs:
         uses: microsoft/infersharpaction@v1.2
         with:
           binary-path: ${{ env.PROJECT_BIN6 }}
-      
+
       - name: Run Infer .Net 7.0 🔍
         uses: microsoft/infersharpaction@v1.2
         with:
