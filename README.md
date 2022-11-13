@@ -4,53 +4,22 @@
 
 #
 
- <a href="https://github.com/Daniel-iel/Spinner/graphs/contributors" alt="Contributors">
-    <img src="https://img.shields.io/github/contributors/Daniel-iel/Spinner" />
-</a>
-<a href="https://github.com/Daniel-iel/Spinner/commits/main" alt="Total Commits">
-    <img src="https://img.shields.io/github/commit-activity/m/Daniel-iel/Spinner/main" />
-</a>  
-<a href="https://github.com/Daniel-iel/Spinner/actions/workflows/ci.yml">
-    <img src="https://github.com/Daniel-iel/Spinner/actions/workflows/ci.yml/badge.svg" alt="build status">
-</a>
-<a href="https://github.com/Daniel-iel/Spinner/actions/workflows/ci-documentation.yml">
-    <img src="https://github.com/Daniel-iel/Spinner/actions/workflows/ci-documentation.yml/badge.svg" alt="build status">
-</a>
-<a href="https://github.com/Daniel-iel/Spinner/actions/workflows/ci-benchmark.yml">
-    <img src="https://github.com/Daniel-iel/Spinner/actions/workflows/ci-benchmark.yml/badge.svg" alt="build status">
-</a>
-<a href="https://github.com/Daniel-iel/Spinner/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/Daniel-iel/Spinner" alt="License"/>
-</a>
-<a href="https://www.nuget.org/packages/Spinner">
-    <img src="https://img.shields.io/nuget/dt/Spinner" alt="Nuget"/>
-</a>  
-<a href="#">
-  <img alt="views" title="Views" src="https://visitor-badge-reloaded.herokuapp.com/badge?page_id=https://github.com/Daniel-iel/Spinner&logo=github"/>
-</a>
-<a href="#">
-  <img alt="Release" title="Release" src="https://img.shields.io/nuget/v/spinner"/>
-</a>
-<a href="#">
-  <img alt="Repo Size" title="Repo Size" src="https://img.shields.io/github/repo-size/Daniel-iel/spinner"/>
-</a>
-<a href="https://www.codefactor.io/repository/github/Daniel-iel/spinner">
-  <img alt="" title="" src="https://www.codefactor.io/repository/github/Daniel-iel/spinner/badge"/>  
-</a>
-<a href="https://codecov.io/gh/Daniel-iel/Spinner">
-  <img alt="Coverity Scan Build Status" src="https://codecov.io/gh/Daniel-iel/Spinner/branch/main/graph/badge.svg?token=0DO0Z5CA6N/">
-</a>
-<a href="https://scan.coverity.com/projects/spinner">
-  <img alt="Coverity Scan Build Status"
-       src="https://img.shields.io/coverity/scan/24116.svg"/>
-</a>
-<a href="">
-  <img alt="" src="https://api.meercode.io/badge/Daniel-iel/Spinner?type=ci-score&lastDay=31"/>
-</a>
+[![Contributors](https://img.shields.io/github/contributors/Daniel-iel/Spinner)](https://www.nuget.org/packages/Spinner/)
+[![Activity](https://img.shields.io/github/commit-activity/m/Daniel-iel/Spinner)](https://www.nuget.org/packages/Spinner/)
+[![ci](https://github.com/Daniel-iel/Spinner/actions/workflows/ci.yml/badge.svg)](https://github.com/Daniel-iel/Spinner/actions/workflows/ci.yml/badge.svg/)
+[![documentation](https://github.com/Daniel-iel/Spinner/actions/workflows/ci-documentation.yml/badge.svg)](https://github.com/Daniel-iel/Spinner/actions/workflows/ci-documentation.yml/badge.svg/)
+[![ci](https://github.com/Daniel-iel/Spinner/actions/workflows/ci-benchmark.yml/badge.svg)](https://github.com/Daniel-iel/Spinner/actions/workflows/ci-benchmark.yml/badge.svg/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
+[![Downloads](https://img.shields.io/nuget/dt/Spinner)](https://www.nuget.org/packages/Spinner/)
+[![Visitors](https://visitor-badge-reloaded.herokuapp.com/badge?page_id=https://github.com/Daniel-iel/Spinner&logo=github)
+[![Release](https://img.shields.io/nuget/v/spinner)](https://www.nuget.org/packages/Spinner/)
+[![Repo Size](https://img.shields.io/github/repo-size/Daniel-iel/spinner)](https://www.nuget.org/packages/Spinner/)
+[![Code Factor](https://www.codefactor.io/repository/github/Daniel-iel/spinner/badge)](https://www.codefactor.io/repository/github/Daniel-iel/spinner)
+[![coverity](https://img.shields.io/coverity/scan/24116.svg)](https://scan.coverity.com/projects/spinner)
+[![Code Factor](https://api.meercode.io/badge/Daniel-iel/Spinner?type=ci-score&lastDay=31)](https://scan.coverity.com/projects/spinner)
+[![Snyk](https://img.shields.io/snyk/vulnerabilities/github/Daniel-iel/Spinner)](https://scan.coverity.com/projects/spinner)
 
-<br />
-
-### Introduction
+## Introduction
 
 Spinner is a simple object mapper, it’s useful to communicate to any system that uses a positional string as communication.
 
@@ -99,9 +68,7 @@ See Learn: Getting Started for setting up your project [here](https://spinnerfra
 
 ## Contributors
 
-<a href="https://github.com/Daniel-iel">
-  <img src="https://github.com/Daniel-iel.png?size=40" width="40" style="border-radius: 100%" />
-</a>
+[![Daniel-Profile](https://github.com/Daniel-iel.png?size=40)](https://github.com/Daniel-iel)
 
 ## Support
 
@@ -113,4 +80,4 @@ Our code and framework are licensed under the MIT license. Please see the licens
 
 # Stats
 
-<img src="https://repobeats.axiom.co/api/embed/c3f5ed375e6e703c23a90745aaee5bca46ebd0fd.svg" alt="Repobeats analytics image" />
+[![Repobeats analytics image](https://repobeats.axiom.co/api/embed/c3f5ed375e6e703c23a90745aaee5bca46ebd0fd.svg)]
