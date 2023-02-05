@@ -2,7 +2,7 @@
 
 namespace Spinner.Test.Helper.Parses
 {
-    internal class CacheParser : ITypeParse
+    internal sealed class CacheParser : ITypeParse
     {
         public object Parser(object obj)
         {

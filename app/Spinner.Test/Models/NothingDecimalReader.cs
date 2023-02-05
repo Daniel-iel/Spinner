@@ -5,7 +5,7 @@ using System;
 namespace Spinner.Test.Models
 {
     [ObjectMapper(length: 4)]
-    internal class NothingDecimalReader : IEquatable<NothingDecimalReader>
+    internal sealed class NothingDecimalReader : IEquatable<NothingDecimalReader>
     {
         [ReadProperty(start: 0, length: 4, type: typeof(DecimalParser))]
         public decimal Value { get; set; }

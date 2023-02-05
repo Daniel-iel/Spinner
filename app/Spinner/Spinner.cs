@@ -1,18 +1,17 @@
 ﻿using Microsoft.VisualStudio.Utilities;
+using Spinner.Attribute;
+using Spinner.Cache;
+using Spinner.Enums;
+using Spinner.Exceptions;
+using Spinner.Extensions;
+using Spinner.Parsers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace Spinner
 {
-    using Spinner.Attribute;
-    using Spinner.Cache;
-    using Spinner.Enums;
-    using Spinner.Exceptions;
-    using Spinner.Extensions;
-    using Spinner.Parsers;
-    using System.Linq;
-
     /// <summary>
     /// Spinner object that abstract all rule to read or write an string.
     /// </summary>
@@ -60,7 +59,7 @@ namespace Spinner
         /// <returns>Return a string mapped of T.</returns>
         public string WriteAsString()
         {
-            WritePositionaString();
+            WritePositionalString();
 
             return GetObjectMapper is not null ?
                 _sb.ToStringAndFree(0, GetObjectMapper.Length) :
@@ -73,7 +72,7 @@ namespace Spinner
         /// <returns>Return an string mapped of T as span.</returns>
         public ReadOnlySpan<char> WriteAsSpan()
         {
-            WritePositionaString();
+            WritePositionalString();
 
             return new ReadOnlySpan<char>(
                     GetObjectMapper is not null ?
@@ -134,7 +133,7 @@ namespace Spinner
             }
         }
 
-        private void WritePositionaString()
+        private void WritePositionalString()
         {
             for (int i = 0; i < WriteProperties.Length; i++)
             {
@@ -179,7 +178,7 @@ namespace Spinner
             typeof(T)
             .GetProperties()
             .Where(PredicateForWriteProperty())
-            .OrderBy(PrecicateForOrderByWriteProperty())
+            .OrderBy(PredicateForOrderByWriteProperty())
             .ToArray();
 
         private static readonly PropertyInfo[] ReadProperties =
@@ -197,7 +196,7 @@ namespace Spinner
             };
         }
 
-        private static Func<PropertyInfo, ushort> PrecicateForOrderByWriteProperty()
+        private static Func<PropertyInfo, ushort> PredicateForOrderByWriteProperty()
         {
             return (prop) => ((WritePropertyAttribute)prop
                 .GetCustomAttributes(typeof(WritePropertyAttribute), false)

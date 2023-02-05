@@ -15,3 +15,12 @@ test-mutant:
 
 format:
 	dotnet format '.\' -v diag --severity error --verbosity --no-restore
+
+dependense-diagram:
+	dependensee -S "src"  -O  "src/diagram.html"
+
+analyze-package-usage:
+	snitch
+
+run-ci:
+	act "on: pull_request"  -C ../

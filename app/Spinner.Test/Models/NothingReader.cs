@@ -4,7 +4,7 @@ using System;
 namespace Spinner.Test.Models
 {
     [ObjectMapper(length: 50)]
-    internal class NothingReader : IEquatable<NothingReader>
+    internal sealed class NothingReader : IEquatable<NothingReader>
     {
         [ReadProperty(start: 1, length: 19)]
         public string Name { get; set; }
