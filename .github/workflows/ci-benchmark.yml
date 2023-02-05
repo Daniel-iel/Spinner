@@ -65,7 +65,7 @@ jobs:
 
       - name: Run 🏋️‍♂️
         if: github.event_name == 'pull_request'
-        run: dotnet ./publish.benchmarks/Writer.Benchmark.dll -f "Writer.Benchmark.*"
+        run: dotnet ./publish.benchmarks/Spinner.Benchmark.dll -f "Spinner.Benchmark.*"
 
       - name: Upload Results 📂
         if: github.event_name == 'pull_request'
