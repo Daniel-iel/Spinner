@@ -5,7 +5,7 @@
     <LangVersion>11.0</LangVersion>
     <Authors>Daniel Oliveira</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageTags>Integration; Positional String; Communication; String Reader; String Writer </PackageTags>
+    <PackageTags>integration;string-mapper;string-protocol;convert-string-object</PackageTags>
     <PackageProjectUrl>https://spinnerframework.com/</PackageProjectUrl>
     <PackageIcon>logo.png</PackageIcon>
     <Title>Spinner Framework</Title>
