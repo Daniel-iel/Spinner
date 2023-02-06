@@ -12,17 +12,17 @@ To configure an object, you should use ` ObjectMapper ` and ` WriteProperty ` pr
 [ObjectMapper(length: 50)]
 public struct Nothing
 {
-  public Nothing(string name, string adress)
+  public Nothing(string name, string webSite)
   {
     this.Name = name;
-    this.Adress = adress;
+    this.WebSite = webSite;
   }
   
   [WriteProperty(length: 20, order: 1, paddingChar: ' ')]
   public string Name { get; private set; }
   
   [WriteProperty(length: 30, order: 2, paddingChar: ' ')]
-  public string Adress { get; private set; }
+  public string WebSite { get; private set; }
 }
 ```
 
@@ -32,7 +32,7 @@ The sum `length` of all mapped property should not be more than ObjectMapper `le
 
 :::
 
-## Instanciate
+## Instantiate
 
 To map you object as string, you need instantiate ``` Spinner ``` passing the object type in T and an instance of the object in the constructor.
 

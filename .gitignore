@@ -35,3 +35,13 @@ node_modules
 BenchmarkDotNet.Artifacts
 BenchmarkDotNet.Artifacts/*
 */BenchmarkDotNet.Artifacts/*
+
+.sarif
+.sarif/*
+*/.sarif
+*/.sarif/*
+
+infer-out/*
+*/infer-out
+
+diagram.html

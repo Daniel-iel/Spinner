@@ -11,7 +11,7 @@ namespace Spinner.Attribute
         /// <summary>
         /// Constructor to configure the initial position and total characters of a field.
         /// </summary>
-        /// <param name="start">Inicial position.</param>
+        /// <param name="start">Initial position.</param>
         /// <param name="length">Total characters.</param>
         public ReadPropertyAttribute(ushort start, ushort length)
         {
@@ -19,8 +19,15 @@ namespace Spinner.Attribute
             this.Length = length;
         }
 
+        public ReadPropertyAttribute(ushort start, ushort length, Type type)
+        {
+            this.Start = start;
+            this.Length = length;
+            this.Type = type;
+        }
+
         /// <summary>
-        /// Inicial position.
+        /// Initial position.
         /// </summary>
         public ushort Start { get; }
 
@@ -28,5 +35,10 @@ namespace Spinner.Attribute
         /// Total characters.
         /// </summary>
         public ushort Length { get; }
+
+        /// <summary>
+        /// Parser property type
+        /// </summary>
+        public Type Type { get; }
     }
 }

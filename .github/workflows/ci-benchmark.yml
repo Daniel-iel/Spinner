@@ -13,7 +13,7 @@ jobs:
     env:
       APP: "${{ github.workspace }}/app"
       PROJECT_BIN5: "./app/Spinner/bin/Release/net5.0"
-      PROJECT_BENCH_WRITER: "./bench/Writer.Benchmark"
+      PROJECT_BENCH: "./bench/Spinner.Benchmark"
 
     runs-on: ubuntu-latest
 
@@ -52,20 +52,20 @@ jobs:
           dotnet-version: 7.0.100
 
       - name: Clean Dependencies 📦
-        run: dotnet clean ${{env.PROJECT_BENCH_WRITER }}
+        run: dotnet clean ${{env.PROJECT_BENCH }}
 
       - name: Restore Dependencies 📦
-        run: dotnet restore ${{env.PROJECT_BENCH_WRITER }}
+        run: dotnet restore ${{env.PROJECT_BENCH }}
 
       - name: Build ⚙️
-        run: dotnet build ${{env.PROJECT_BENCH_WRITER }} -c Release -p:Version=$BUILD_VERSION --no-restore
+        run: dotnet build ${{env.PROJECT_BENCH }} -c Release -p:Version=$BUILD_VERSION --no-restore
 
       - name: Publish 📮
-        run: dotnet publish ${{env.PROJECT_BENCH_WRITER }} -f net7.0 -c Release --verbosity normal -o ./publish.benchmarks/
+        run: dotnet publish ${{env.PROJECT_BENCH }} -f net6.0 -c Release --verbosity normal -o ./publish.benchmarks/
 
       - name: Run 🏋️‍♂️
         if: github.event_name == 'pull_request'
-        run: dotnet ./publish.benchmarks/Writer.Benchmark.dll -f "Writer.Benchmark.*"
+        run: dotnet ./publish.benchmarks/Spinner.Benchmark.dll -f "Spinner.Benchmark.*"
 
       - name: Upload Results 📂
         if: github.event_name == 'pull_request'

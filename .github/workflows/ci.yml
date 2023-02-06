@@ -43,8 +43,11 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
 
-      - name: Setup Stryker 📦
+      - name: Setup Stryker 🔧
         run: dotnet tool install -g dotnet-stryker
+
+      - name: Install dotnet-format tool 🔧
+        run: dotnet tool install -g dotnet-format
 
       - name: Clean Dependencies 📦
         run: dotnet clean ${{env.PROJECT_SLN }}
@@ -54,6 +57,9 @@ jobs:
 
       - name: Build ⚙️
         run: dotnet build ${{env.PROJECT_SLN }} -c Release -p:Version=$BUILD_VERSION --no-restore
+
+      - name: Format ♻️
+        run: dotnet format ${{env.APP }} -v diag --severity error --no-restore
 
       - name: Test 🧪
         run: dotnet test ${{env.PROJECT_SLN }} --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover

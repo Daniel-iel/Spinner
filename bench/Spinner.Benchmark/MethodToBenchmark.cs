@@ -14,11 +14,13 @@ namespace Writer.Benchmark
     public class WriterBench
     {
         private ObjectBench instance;
+        private ObjectBenchWithParser instanceWithParser;
 
         [GlobalSetup]
         public void Setup()
         {
             instance = new ObjectBench("Bench Test", "www.bench.com");
+            instanceWithParser = new ObjectBenchWithParser("Bench Test", "www.bench.com");
         }
 
         [Benchmark]
@@ -33,6 +35,13 @@ namespace Writer.Benchmark
         {
             Spinner<ObjectBench> spinner = new Spinner<ObjectBench>(instance);
             spinner.WriteAsSpan();
+        }
+
+        [Benchmark]
+        public void ReadFromStringWithParser()
+        {
+            Spinner<ObjectBenchWithParser> spinner = new Spinner<ObjectBenchWithParser>(instanceWithParser);
+            spinner.ReadFromString("                                                  ");
         }
 
         [Benchmark]

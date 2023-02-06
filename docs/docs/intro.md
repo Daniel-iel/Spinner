@@ -41,12 +41,12 @@ Run **WriteAsString** to get mapped object as string or call **WriteAsSpan** to 
  var nothing = new Nothing("spinner", "www.spinner.com.br");
  var spinner = new Spinner<Nothing>(nothing);
  var stringResponse = spinner.WriteAsString();   
- //stringresponse = "              spinner            www.spinner.com.br"
+ //output: "              spinner            www.spinner.com.br"
 ```
 
 ```csharp
  var nothing = new Nothing("spinner", "www.spinner.com.br");
  var spinner = new Spinner<Nothing>(nothing);
  var spanResponse = spinner.WriteAsSpan();   
- //spanResponse = "              spinner            www.spinner.com.br"
+ //output: "              spinner            www.spinner.com.br"
 ```

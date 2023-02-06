@@ -1,8 +1,8 @@
 ﻿using Spinner.Attribute;
 using Spinner.Test.Helper;
-using Xunit;
 using System;
 using System.Reflection;
+using Xunit;
 
 namespace Spinner.Test.Attributes
 {
