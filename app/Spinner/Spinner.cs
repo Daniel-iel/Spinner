@@ -2,8 +2,8 @@
 using Spinner.Attribute;
 using Spinner.Cache;
 using Spinner.Enums;
-using Spinner.Exceptions;
 using Spinner.Extensions;
+using Spinner.Guards;
 using Spinner.Parsers;
 using System;
 using System.Collections.Generic;
@@ -111,10 +111,7 @@ namespace Spinner
                 ref PropertyInfo property = ref ReadProperties[i];
                 ReadPropertyAttribute attribute = GetReaderProperty(property);
 
-                if (attribute is null)
-                {
-                    throw new PropertyNotMappedException($"Property {property.Name} should have ReadProperty configured.");
-                }
+                Guard.ReadProperty.NotMapped(property, attribute);
 
                 if (attribute.Type is not null)
                 {
@@ -140,10 +137,7 @@ namespace Spinner
                 ref PropertyInfo property = ref WriteProperties[i];
                 WritePropertyAttribute attribute = GetWriteProperty(property);
 
-                if (attribute is null)
-                {
-                    throw new PropertyNotMappedException($"Property {property.Name} should have WriteProperty configured.");
-                }
+                Guard.WriteProperty.NotMapped(property, attribute);
 
                 _sb.Builder.Append(FormatValue((property.GetValue(_obj) as string).AsSpan(), attribute));
             }
