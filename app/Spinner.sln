@@ -10,7 +10,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EEC9F328-3E41-4446-9DE0-41352A5320C1}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
-		..\.lgmt.yml = ..\.lgmt.yml
 		global.json = global.json
 		makefile = makefile
 		..\README.md = ..\README.md
