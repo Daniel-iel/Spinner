@@ -9,7 +9,7 @@ namespace Spinner.Test.Attributes
     public class WritePropertyTest
     {
         [Fact]
-        public void Should_ValidateHowManyContructorsExistsInWritePropertyFile()
+        public void Should_ValidateHowManyConstructorsExistsInWritePropertyFile()
         {
             // Arrange & Act
             ConstructorInfo[] constructors = FileInspect<WritePropertyAttribute>.GetConstructors();
@@ -42,7 +42,7 @@ namespace Spinner.Test.Attributes
         }
 
         [Fact]
-        public void Should_ValidateParansTypeAndNameOfSecondConstructors()
+        public void Should_ValidateParamsTypeAndNameOfSecondConstructors()
         {
             // Arrange
             ConstructorInfo[] constructors = FileInspect<WritePropertyAttribute>.GetConstructors();
@@ -68,12 +68,12 @@ namespace Spinner.Test.Attributes
         public void Should_ValidateHowManyAttributesExistsInWritePropertyFile()
         {
             // Arrange & Act
-            object[] attibutes = FileInspect<WritePropertyAttribute>.GetAttributes();
+            object[] attributes = FileInspect<WritePropertyAttribute>.GetAttributes();
 
-            AttributeUsageAttribute attributeUsage = attibutes[0] as AttributeUsageAttribute;
+            AttributeUsageAttribute attributeUsage = attributes[0] as AttributeUsageAttribute;
 
             // Assert
-            Assert.Single(attibutes);
+            Assert.Single(attributes);
             Assert.Equal(AttributeTargets.Property, attributeUsage.ValidOn);
         }
     }

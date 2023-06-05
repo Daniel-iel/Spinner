@@ -61,9 +61,9 @@ namespace Spinner
         {
             WritePositionalString();
 
-            return GetObjectMapper is not null ?
-                _sb.ToStringAndFree(0, GetObjectMapper.Length) :
-                _sb.ToStringAndFree();
+            return GetObjectMapper is not null
+                    ? _sb.ToStringAndFree(0, GetObjectMapper.Length)
+                    : _sb.ToStringAndFree();
         }
 
         /// <summary>
@@ -75,9 +75,9 @@ namespace Spinner
             WritePositionalString();
 
             return new ReadOnlySpan<char>(
-                    GetObjectMapper is not null ?
-                    _sb.ToStringAndFree(0, GetObjectMapper.Length).ToCharArray() :
-                    _sb.ToStringAndFree().ToCharArray());
+                GetObjectMapper is not null
+                    ? _sb.ToStringAndFree(0, GetObjectMapper.Length).ToCharArray()
+                    : _sb.ToStringAndFree().ToCharArray());
         }
 
         /// <summary>
@@ -152,41 +152,41 @@ namespace Spinner
 
         private static readonly ObjectMapperAttribute ReadObjectMapper =
             typeof(T)
-            .GetCustomAttributes(typeof(ObjectMapperAttribute), false)
-            .Cast<ObjectMapperAttribute>()
-            .FirstOrDefault();
+                .GetCustomAttributes(typeof(ObjectMapperAttribute), false)
+                .Cast<ObjectMapperAttribute>()
+                .FirstOrDefault();
 
         private static WritePropertyAttribute GetWriteProperty(PropertyInfo info) =>
-          info
-            .GetCustomAttributes(typeof(WritePropertyAttribute), false)
-            .Cast<WritePropertyAttribute>()
-            .FirstOrDefault();
+            info
+                .GetCustomAttributes(typeof(WritePropertyAttribute), false)
+                .Cast<WritePropertyAttribute>()
+                .FirstOrDefault();
 
         private static ReadPropertyAttribute GetReaderProperty(PropertyInfo info) =>
-          info
-            .GetCustomAttributes(typeof(ReadPropertyAttribute), false)
-            .Cast<ReadPropertyAttribute>()
-            .FirstOrDefault();
+            info
+                .GetCustomAttributes(typeof(ReadPropertyAttribute), false)
+                .Cast<ReadPropertyAttribute>()
+                .FirstOrDefault();
 
         private static readonly PropertyInfo[] WriteProperties =
             typeof(T)
-            .GetProperties()
-            .Where(PredicateForWriteProperty())
-            .OrderBy(PredicateForOrderByWriteProperty())
-            .ToArray();
+                .GetProperties()
+                .Where(PredicateForWriteProperty())
+                .OrderBy(PredicateForOrderByWriteProperty())
+                .ToArray();
 
         private static readonly PropertyInfo[] ReadProperties =
             typeof(T)
-            .GetProperties()
-            .Where(PredicateForReadProperty())
-            .ToArray();
+                .GetProperties()
+                .Where(PredicateForReadProperty())
+                .ToArray();
 
         private static Func<PropertyInfo, bool> PredicateForWriteProperty()
         {
             return (prop) =>
             {
                 return prop.GetCustomAttributes(typeof(WritePropertyAttribute), false)
-                           .All(attribute => attribute.GetType() == typeof(WritePropertyAttribute));
+                    .All(attribute => attribute is WritePropertyAttribute);
             };
         }
 
@@ -202,7 +202,7 @@ namespace Spinner
             return (prop) =>
             {
                 return prop.GetCustomAttributes(typeof(ReadPropertyAttribute), false)
-                           .All(attribute => attribute.GetType() == typeof(ReadPropertyAttribute));
+                    .All(attribute => attribute is ReadPropertyAttribute);
             };
         }
     }

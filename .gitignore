@@ -8,6 +8,8 @@
 */.vscode/
 */.vscode/*
 
+.idea/
+
 bin
 */bin*
 */bin/*

@@ -7,62 +7,36 @@ namespace Spinner.Extensions
 {
     internal static class SpanExtensions
     {
-        internal static unsafe ReadOnlySpan<char> PadLeft(this ReadOnlySpan<char> @this, int totalWidth, char paddingChar)
+        internal static unsafe ReadOnlySpan<char> PadLeft(this ReadOnlySpan<char> @this, int totalWidth,
+            char paddingChar)
         {
-            int totalPad = totalWidth - @this.Length;
-            bool shouldNotPad = (totalWidth - @this.Length) < 1;
-            if (shouldNotPad)
+            if (@this.Length >= totalWidth)
             {
                 return @this;
             }
 
-            Span<char> tmp = stackalloc char[totalWidth];
-
-            for (int index = 0; index <= totalWidth; index++)
-            {
-                if (totalPad > index)
-                {
-                    tmp[index] = paddingChar;
-                    continue;
-                }
-
-                foreach (char item in @this)
-                {
-                    tmp[index] = item;
-                    index++;
-                }
-
-                break;
-            }
-
-            return new ReadOnlySpan<char>(tmp.ToArray());
+            Span<char> newString = stackalloc char[totalWidth];
+            newString[..(totalWidth - @this.Length)].Fill(paddingChar);
+            @this.CopyTo(newString[(totalWidth - @this.Length)..]);
+            return newString.ToArray();
         }
 
         internal static unsafe ReadOnlySpan<char> PadRight(this ReadOnlySpan<char> @this, int totalWidth, char paddingChar)
         {
-            bool shouldNotPad = totalWidth - @this.Length < 1;
-            if (shouldNotPad)
+            if (@this.Length >= totalWidth)
             {
                 return @this;
             }
 
-            Span<char> tmp = stackalloc char[totalWidth];
+            Span<char> newString = stackalloc char[totalWidth];
+            @this.CopyTo(newString);
 
-            ushort index = 0;
-
-            foreach (char item in @this)
+            for (int i = @this.Length; i < totalWidth; i++)
             {
-                tmp[index] = item;
-                index++;
-                continue;
+                newString[i] = paddingChar;
             }
 
-            for (int i = index; i < totalWidth; i++)
-            {
-                tmp[i] = paddingChar;
-            }
-
-            return new ReadOnlySpan<char>(tmp.ToArray());
+            return newString.ToArray();
         }
     }
 }

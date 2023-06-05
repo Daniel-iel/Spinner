@@ -8,7 +8,7 @@ namespace Spinner.Test.Cache
     public class ParserTypeCacheTest
     {
         [Fact]
-        public void TryGet_WhenCalled_ShoudReturnParsedTypeFromCache()
+        public void TryGet_WhenCalled_ShouldReturnParsedTypeFromCache()
         {
             // Arrange
             const string key = "key";
@@ -16,7 +16,7 @@ namespace Spinner.Test.Cache
 
             ParserTypeCache.Add(key, parser);
             // Act
-            var typeCached = ParserTypeCache.TryGet(key, out var typeInCache);
+            bool typeCached = ParserTypeCache.TryGet(key, out ITypeParse typeInCache);
 
             // Assert
             Assert.True(typeCached);

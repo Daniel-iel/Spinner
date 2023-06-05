@@ -2,7 +2,7 @@ using Spinner.Attribute;
 using Spinner.Exceptions;
 using Spinner.Test.Models;
 using System;
-using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
 using Xunit;
@@ -12,7 +12,7 @@ namespace Spinner.Test
     public class SpinnerWriteTest
     {
         [Fact]
-        public void WriteAsString_WhenCalled_ShoudReturnObjectMappedAsStringWithPadLeft()
+        public void WriteAsString_WhenCalled_ShouldReturnObjectMappedAsStringWithPadLeft()
         {
             // Arrange
             NothingPadLeft nothing = new NothingPadLeft("spinner", "www.spinner.com.br");
@@ -28,7 +28,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void WriteAsString_WhenCalled_ShoudReturnObjectMappedAsStringInOrderOfConfiguratedProperty()
+        public void WriteAsString_WhenCalled_ShouldReturnObjectMappedAsStringInOrderOfConfiguredProperty()
         {
             // Arrange
             NothingPadLeft nothing = new NothingPadLeft("spinner", "www.spinner.com.br");
@@ -78,7 +78,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void WriteAsSpan_WhenCalled_ShoudReturnObjectMappedAsSpanWithPadLeft()
+        public void WriteAsSpan_WhenCalled_ShouldReturnObjectMappedAsSpanWithPadLeft()
         {
             // Arrange
             NothingPadLeft nothing = new NothingPadLeft("spinner", "www.spinner.com.br");
@@ -128,7 +128,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void WriteAsString_WhenCalled_ShouldValidateIfTwoResponseIsDiferentWithPadLeft()
+        public void WriteAsString_WhenCalled_ShouldValidateIfTwoResponseIsDifferentWithPadLeft()
         {
             // Arrange
             NothingPadLeft nothingFirst = new NothingPadLeft("spinnerFirst", "www.spinner.com.br");
@@ -146,7 +146,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void WriteAsSpan_WhenCalled_ShouldValidateIfTwoResponseIsDiferentWithPadLeft()
+        public void WriteAsSpan_WhenCalled_ShouldValidateIfTwoResponseIsDifferentWithPadLeft()
         {
             // Arrange
             NothingPadLeft nothingFirst = new NothingPadLeft("spinnerFirst", "www.spinner.com.br");
@@ -164,7 +164,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void WriteAsString_WhenCalled_ShoudReturnObjectMappedAsStringWithPadRight()
+        public void WriteAsString_WhenCalled_ShouldReturnObjectMappedAsStringWithPadRight()
         {
             // Arrange
             NothingPadRight nothing = new NothingPadRight("spinner", "www.spinner.com.br");
@@ -197,7 +197,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void WriteAsSpan_WhenCalled_ShoudReturnObjectMappedAsSpanWithPadRight()
+        public void WriteAsSpan_WhenCalled_ShouldReturnObjectMappedAsSpanWithPadRight()
         {
             // Arrange
             NothingPadRight nothing = new NothingPadRight("spinner", "www.spinner.com.br");
@@ -230,7 +230,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void WriteAsString_WhenCalled_ShouldValidateIfTwoResponseIsDiferentWithPadRight()
+        public void WriteAsString_WhenCalled_ShouldValidateIfTwoResponseIsDifferentWithPadRight()
         {
             // Arrange
             NothingPadRight nothingFirst = new NothingPadRight("spinnerFirst", "www.spinner.com.br");
@@ -248,7 +248,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void WriteAsSpan_WhenCalled_ShouldValidateIfTwoResponseIsDiferentWithPadRight()
+        public void WriteAsSpan_WhenCalled_ShouldValidateIfTwoResponseIsDifferentWithPadRight()
         {
             // Arrange
             NothingPadRight nothingFirst = new NothingPadRight("spinnerFirst", "www.spinner.com.br");
@@ -266,7 +266,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void GetWriteProperties_WhenCaller_ShouldValidadeHowManyPropertiesWasMapped()
+        public void GetWriteProperties_WhenCaller_ShouldValidateHowManyPropertiesWasMapped()
         {
             // Arrange
             NothingPadRight nothing = new NothingPadRight("spinnerFirst", "www.spinner.com.br");
@@ -274,10 +274,10 @@ namespace Spinner.Test
             Spinner<NothingPadRight> spinnerFirst = new Spinner<NothingPadRight>(nothing);
 
             // Act
-            IEnumerable<PropertyInfo> props = spinnerFirst.GetWriteProperties;
+            ImmutableList<PropertyInfo> props = spinnerFirst.GetWriteProperties.ToImmutableList();
 
             // Assert
-            Assert.Equal(2, props.Count());
+            Assert.Equal(2, props.Count);
             Assert.Equal("Name", props.First().Name);
             Assert.Equal("WebSite", props.Last().Name);
         }
@@ -297,7 +297,7 @@ namespace Spinner.Test
             };
 
             // Assert
-            var ex = Assert.Throws<PropertyNotMappedException>(act);
+            PropertyNotMappedException ex = Assert.Throws<PropertyNotMappedException>(act);
             Assert.Equal("Property Name should have WriteProperty configured.", ex.Message);
         }
 
@@ -316,7 +316,7 @@ namespace Spinner.Test
             };
 
             // Assert
-            var ex = Assert.Throws<PropertyNotMappedException>(act);
+            PropertyNotMappedException ex = Assert.Throws<PropertyNotMappedException>(act);
             Assert.Equal("Property Name should have WriteProperty configured.", ex.Message);
         }
     }
