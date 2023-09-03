@@ -289,9 +289,9 @@ namespace Spinner.Test
             Action act = () =>
             {
                 // Arrange
-                NothingNoAttibute nothing = new NothingNoAttibute("spinnerFirst", "www.spinner.com.br");
+                NothingNoAttribute nothing = new NothingNoAttribute("spinnerFirst", "www.spinner.com.br");
 
-                Spinner<NothingNoAttibute> spinnerFirst = new Spinner<NothingNoAttibute>(nothing);
+                Spinner<NothingNoAttribute> spinnerFirst = new Spinner<NothingNoAttribute>(nothing);
 
                 spinnerFirst.WriteAsString();
             };
@@ -308,9 +308,9 @@ namespace Spinner.Test
             Action act = () =>
             {
                 // Arrange
-                NothingNoAttibute nothing = new NothingNoAttibute("spinnerFirst", "www.spinner.com.br");
+                NothingNoAttribute nothing = new NothingNoAttribute("spinnerFirst", "www.spinner.com.br");
 
-                Spinner<NothingNoAttibute> spinnerFirst = new Spinner<NothingNoAttibute>(nothing);
+                Spinner<NothingNoAttribute> spinnerFirst = new Spinner<NothingNoAttribute>(nothing);
 
                 spinnerFirst.WriteAsSpan();
             };

@@ -20,6 +20,9 @@ obj
 */obj/*
 */obj/
 
+.idea/
+.easyTdd/
+
 StrykerOutput
 */StrykerOutput*
 */StrykerOutput/*

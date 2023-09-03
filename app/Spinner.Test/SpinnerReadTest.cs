@@ -144,7 +144,7 @@ namespace Spinner.Test
             Action act = () =>
             {
                 // Arrange
-                Spinner<NothingNoAttibute> spinnerReader = new Spinner<NothingNoAttibute>();
+                Spinner<NothingNoAttribute> spinnerReader = new Spinner<NothingNoAttribute>();
 
                 // Act
                 spinnerReader.ReadFromString("");
@@ -161,7 +161,7 @@ namespace Spinner.Test
             Action act = () =>
             {
                 // Arrange
-                Spinner<NothingNoAttibute> spinnerReader = new Spinner<NothingNoAttibute>();
+                Spinner<NothingNoAttribute> spinnerReader = new Spinner<NothingNoAttribute>();
 
                 // Act
                 spinnerReader.ReadFromSpan("");

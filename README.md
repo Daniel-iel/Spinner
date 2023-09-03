@@ -11,13 +11,11 @@
 [![ci](https://github.com/Daniel-iel/Spinner/actions/workflows/ci-benchmark.yml/badge.svg)](https://github.com/Daniel-iel/Spinner/actions/workflows/ci-benchmark.yml/badge.svg/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
 [![Downloads](https://img.shields.io/nuget/dt/Spinner)](https://www.nuget.org/packages/Spinner/)
-[![Visitors](https://visitor-badge-reloaded.herokuapp.com/badge?page_id=https://github.com/Daniel-iel/Spinner&logo=github)
 [![Release](https://img.shields.io/nuget/v/spinner)](https://www.nuget.org/packages/Spinner/)
 [![Repo Size](https://img.shields.io/github/repo-size/Daniel-iel/spinner)](https://www.nuget.org/packages/Spinner/)
 [![Code Factor](https://www.codefactor.io/repository/github/Daniel-iel/spinner/badge)](https://www.codefactor.io/repository/github/Daniel-iel/spinner)
-[![coverity](https://img.shields.io/coverity/scan/24116.svg)](https://scan.coverity.com/projects/spinner)
-[![Code Factor](https://api.meercode.io/badge/Daniel-iel/Spinner?type=ci-score&lastDay=31)](https://scan.coverity.com/projects/spinner)
-[![Snyk](https://img.shields.io/snyk/vulnerabilities/github/Daniel-iel/Spinner)](https://scan.coverity.com/projects/spinner)
+![Meercode](https://api.meercode.io/badge//?type=ci-score&lastDay=14)
+![Snyk](https://img.shields.io/snyk/vulnerabilities/github/Daniel-iel/Spinner)
 
 ## Introduction
 
@@ -80,4 +78,4 @@ Our code and framework are licensed under the MIT license. Please see the licens
 
 # Stats
 
-[![Repobeats analytics image](https://repobeats.axiom.co/api/embed/c3f5ed375e6e703c23a90745aaee5bca46ebd0fd.svg)]
+![Repobeats analytics image](https://repobeats.axiom.co/api/embed/c3f5ed375e6e703c23a90745aaee5bca46ebd0fd.svg)
