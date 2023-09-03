@@ -15,6 +15,7 @@ namespace Spinner.Test.Cache
             ITypeParse parser = new CacheParser();
 
             ParserTypeCache.Add(key, parser);
+            
             // Act
             bool typeCached = ParserTypeCache.TryGet(key, out ITypeParse typeInCache);
 

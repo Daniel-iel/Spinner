@@ -53,7 +53,7 @@ namespace Spinner.Test
             Spinner<NothingDecimalReader> spinnerReader = new Spinner<NothingDecimalReader>();
 
             string positionalString = spinnerWriter.WriteAsString();
-            spinnerReader.ReadFromString(positionalString);
+            NothingDecimalReader nothingDecimalReader = spinnerReader.ReadFromString(positionalString);
 
             // Act
             bool decimalParserWasCached = ParserTypeCache.Parses.Any(c => c is DecimalParser);
