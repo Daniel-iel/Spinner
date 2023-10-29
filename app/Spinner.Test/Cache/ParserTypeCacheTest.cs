@@ -1,4 +1,4 @@
-﻿using Spinner.Cache;
+﻿using Spinner.Internals.Cache;
 using Spinner.Parsers;
 using Spinner.Test.Helper.Parses;
 using Xunit;
@@ -8,16 +8,16 @@ namespace Spinner.Test.Cache
     public class ParserTypeCacheTest
     {
         [Fact]
-        public void TryGet_WhenCalled_ShouldReturnParsedTypeFromCache()
+        public void TryGet_WhenCalled_ShouldReturnTypeParserFromCache()
         {
             // Arrange
             const string key = "key";
-            ITypeParse parser = new CacheParser();
+            ITypeParser parser = new CacheParser();
 
-            ParserTypeCache.Add(key, parser);
-            
+            TypeParserCache.Add(key, parser);
+
             // Act
-            bool typeCached = ParserTypeCache.TryGet(key, out ITypeParse typeInCache);
+            bool typeCached = TypeParserCache.TryGet(key, out ITypeParser typeInCache);
 
             // Assert
             Assert.True(typeCached);

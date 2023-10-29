@@ -1,7 +1,7 @@
 ﻿using Spinner.Exceptions;
 using System.Reflection;
 
-namespace Spinner.Guards
+namespace Spinner.Internals.Guards
 {
     internal static class Guard
     {

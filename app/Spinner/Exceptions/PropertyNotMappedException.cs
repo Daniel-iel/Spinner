@@ -14,5 +14,13 @@ namespace Spinner.Exceptions
         public PropertyNotMappedException(string message) : base(message)
         {
         }
+
+        public PropertyNotMappedException() : base()
+        {
+        }
+
+        public PropertyNotMappedException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
     }
 }

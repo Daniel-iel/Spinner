@@ -3,10 +3,11 @@ using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Spinner.Test")]
 
-namespace Spinner.Extensions
+namespace Spinner.Internals.Extensions
 {
     internal static class SpanExtensions
     {
+        [MethodImpl(MethodImplOptions.AggressiveOptimization)]
         internal static unsafe ReadOnlySpan<char> PadLeft(this ReadOnlySpan<char> @this, int totalWidth,
             char paddingChar)
         {
@@ -21,6 +22,7 @@ namespace Spinner.Extensions
             return newString.ToArray();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveOptimization)]
         internal static unsafe ReadOnlySpan<char> PadRight(this ReadOnlySpan<char> @this, int totalWidth, char paddingChar)
         {
             if (@this.Length >= totalWidth)

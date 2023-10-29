@@ -1,5 +1,5 @@
-using Spinner.Cache;
 using Spinner.Exceptions;
+using Spinner.Internals.Cache;
 using Spinner.Test.Helper.Parses;
 using Spinner.Test.Models;
 using System;
@@ -56,7 +56,7 @@ namespace Spinner.Test
             NothingDecimalReader nothingDecimalReader = spinnerReader.ReadFromString(positionalString);
 
             // Act
-            bool decimalParserWasCached = ParserTypeCache.Parses.Any(c => c is DecimalParser);
+            bool decimalParserWasCached = TypeParserCache.Parses.Any(c => c is DecimalParser);
 
             // Assert
             Assert.True(decimalParserWasCached);
