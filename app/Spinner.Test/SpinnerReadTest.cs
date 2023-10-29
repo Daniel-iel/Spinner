@@ -131,7 +131,7 @@ namespace Spinner.Test
         {
             Spinner<NothingReader> spinner = new Spinner<NothingReader>();
 
-            ImmutableList<PropertyInfo> props = spinner.GetReadProperties.ToImmutableList();
+            IImmutableList<PropertyInfo> props = spinner.GetReadProperties;
 
             Assert.Equal(2, props.Count);
             Assert.Equal("Name", props.First().Name);

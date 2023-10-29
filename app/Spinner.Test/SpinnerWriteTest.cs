@@ -274,7 +274,7 @@ namespace Spinner.Test
             Spinner<NothingPadRight> spinnerFirst = new Spinner<NothingPadRight>(nothing);
 
             // Act
-            ImmutableList<PropertyInfo> props = spinnerFirst.GetWriteProperties.ToImmutableList();
+            IImmutableList<PropertyInfo> props = spinnerFirst.GetWriteProperties;
 
             // Assert
             Assert.Equal(2, props.Count);

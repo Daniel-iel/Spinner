@@ -7,6 +7,7 @@ using Spinner.Internals.Guards;
 using Spinner.Parsers;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -47,12 +48,12 @@ namespace Spinner
         /// <summary>
         /// Get all properties with WriteProperty decoration present in T.
         /// </summary>
-        public IEnumerable<PropertyInfo> GetWriteProperties => WriteProperties;
+        public readonly IImmutableList<PropertyInfo> GetWriteProperties => WriteProperties.ToImmutableList();
 
         /// <summary>
         /// Get all properties with ReadProperty decoration present in T.
         /// </summary>
-        public IEnumerable<PropertyInfo> GetReadProperties => ReadProperties;
+        public readonly IImmutableList<PropertyInfo> GetReadProperties => ReadProperties.ToImmutableList();
 
         /// <summary>
         /// Convert T in a positional string.
