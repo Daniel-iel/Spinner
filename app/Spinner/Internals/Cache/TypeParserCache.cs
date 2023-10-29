@@ -1,5 +1,6 @@
 ﻿using Spinner.Parsers;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
@@ -11,9 +12,9 @@ namespace Spinner.Internals.Cache
     {
         private static readonly Dictionary<string, ITypeParser> _cache = new Dictionary<string, ITypeParser>();
 
-        public static IEnumerable<ITypeParser> Parses
+        public static IReadOnlyList<ITypeParser> Parses
         {
-            get => _cache.Values.ToList();
+            get => _cache.Values.ToImmutableList();
         }
 
         public static bool Add(string key, ITypeParser value)

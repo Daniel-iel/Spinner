@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Spinner.Exceptions
 {
     /// <summary>
     /// The exception that is thrown when a property has no configuration attributes.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class PropertyNotMappedException : Exception
     {
         /// <summary>
@@ -15,7 +17,7 @@ namespace Spinner.Exceptions
         {
         }
 
-        public PropertyNotMappedException() : base()
+        public PropertyNotMappedException() : base(string.Empty)
         {
         }
 

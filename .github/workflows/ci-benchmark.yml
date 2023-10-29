@@ -3,10 +3,9 @@ name: benchmark
 on:
   push:
     tags:
-      - v*
-    branches: [main]
+      - v*    
   pull_request:
-    branches: [main, feature/*]
+    branches: [feature/*]
 
 jobs:
   build:
