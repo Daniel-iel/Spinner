@@ -1,9 +1,9 @@
-using Spinner.Cache;
 using Spinner.Exceptions;
+using Spinner.Internals.Cache;
 using Spinner.Test.Helper.Parses;
 using Spinner.Test.Models;
 using System;
-using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
 using Xunit;
@@ -13,7 +13,7 @@ namespace Spinner.Test
     public class SpinnerReadTest
     {
         [Fact]
-        public void ReadFromString_WhenCalled_ShoudReturnObjectMappedFromString()
+        public void ReadFromString_WhenCalled_ShouldReturnObjectMappedFromString()
         {
             // Arrange
             NothingPadLeft nothing = new NothingPadLeft("spinner", "www.spinner.com.br");
@@ -29,7 +29,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void ReadFromString_WhenCalled_ShoudParsePropertyToDecimal()
+        public void ReadFromString_WhenCalled_ShouldParsePropertyToDecimal()
         {
             // Arrange
             NothingDecimal nothing = new NothingDecimal("0001");
@@ -45,7 +45,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void ReadFromString_WhenCalled_ShoudValidateIfPropertyParseIsChached()
+        public void ReadFromString_WhenCalled_ShouldValidateIfPropertyParseIsCached()
         {
             // Arrange
             NothingDecimal nothing = new NothingDecimal("0001");
@@ -56,14 +56,14 @@ namespace Spinner.Test
             NothingDecimalReader nothingDecimalReader = spinnerReader.ReadFromString(positionalString);
 
             // Act
-            bool decimalParserWasCached = ParserTypeCache.Parses.Any(c => c.GetType() == typeof(DecimalParser));
+            bool decimalParserWasCached = TypeParserCache.Parses.Any(c => c is DecimalParser);
 
             // Assert
             Assert.True(decimalParserWasCached);
         }
 
         [Fact]
-        public void ReadFromSpan_WhenCalled_ShoudReturnObjectMappedAsSpan()
+        public void ReadFromSpan_WhenCalled_ShouldReturnObjectMappedAsSpan()
         {
             // Arrange
             NothingPadLeft nothing = new NothingPadLeft("spinner", "www.spinner.com.br");
@@ -79,7 +79,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void ReadFromString_WhenCalled_ShouldValidateIfTwoResponsesAreDiferents()
+        public void ReadFromString_WhenCalled_ShouldValidateIfTwoResponsesAreManyDifferent()
         {
             // Arrange
             NothingPadLeft nothingFirst = new NothingPadLeft("spinnerFirst", "www.spinner.com.br");
@@ -103,7 +103,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void ReadFromSpan_WhenCalled_ShouldValidateIfTwoResponsesAreDiferents()
+        public void ReadFromSpan_WhenCalled_ShouldValidateIfTwoResponsesAreManyDifferent()
         {
             // Arrange
             NothingPadLeft nothingFirst = new NothingPadLeft("spinnerFirst", "www.spinner.com.br");
@@ -127,13 +127,13 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void GetReadProperties_WhenCaller_ShouldValidadeHowManyPropertiesWasMapped()
+        public void GetReadProperties_WhenCaller_ShouldValidateHowManyPropertiesWasMapped()
         {
             Spinner<NothingReader> spinner = new Spinner<NothingReader>();
 
-            IEnumerable<PropertyInfo> props = spinner.GetReadProperties;
+            IImmutableList<PropertyInfo> props = spinner.GetReadProperties;
 
-            Assert.Equal(2, props.Count());
+            Assert.Equal(2, props.Count);
             Assert.Equal("Name", props.First().Name);
             Assert.Equal("WebSite", props.Last().Name);
         }
@@ -144,14 +144,14 @@ namespace Spinner.Test
             Action act = () =>
             {
                 // Arrange
-                Spinner<NothingNoAttibute> spinnerReader = new Spinner<NothingNoAttibute>();
+                Spinner<NothingNoAttribute> spinnerReader = new Spinner<NothingNoAttribute>();
 
                 // Act
                 spinnerReader.ReadFromString("");
             };
 
             // Assert
-            var ex = Assert.Throws<PropertyNotMappedException>(act);
+            PropertyNotMappedException ex = Assert.Throws<PropertyNotMappedException>(act);
             Assert.Equal("Property Name should have ReadProperty configured.", ex.Message);
         }
 
@@ -161,14 +161,14 @@ namespace Spinner.Test
             Action act = () =>
             {
                 // Arrange
-                Spinner<NothingNoAttibute> spinnerReader = new Spinner<NothingNoAttibute>();
+                Spinner<NothingNoAttribute> spinnerReader = new Spinner<NothingNoAttribute>();
 
                 // Act
                 spinnerReader.ReadFromSpan("");
             };
 
             // Assert
-            var ex = Assert.Throws<PropertyNotMappedException>(act);
+            PropertyNotMappedException ex = Assert.Throws<PropertyNotMappedException>(act);
             Assert.Equal("Property Name should have ReadProperty configured.", ex.Message);
         }
     }

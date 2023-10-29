@@ -1,4 +1,4 @@
-﻿using Spinner.Extensions;
+﻿using Spinner.Internals.Extensions;
 using System;
 using Xunit;
 
@@ -12,7 +12,7 @@ namespace Spinner.Test.Extensions
         [InlineData("Spinner", "Spinner", 7)]
         [InlineData("", "", 0)]
         [InlineData("Spinne", "*Spinne", 7)]
-        public void Should_PadLeft(string value, string expected, ushort numberOfPad)
+        public void PadLeft_WhenTheStringLengthIsLessThanMaximumStringLength_ShouldPadLeft(string value, string expected, ushort numberOfPad)
         {
             // Arrange
             ReadOnlySpan<char> array = value.AsSpan();
@@ -28,7 +28,7 @@ namespace Spinner.Test.Extensions
         [Theory]
         [InlineData("Spinner", "Spinner", 6)]
         [InlineData("Spinner", "Spinner", 5)]
-        public void ShouldNot_PadLeft(string value, string expected, ushort numberOfPad)
+        public void PadLeft_WhenTheStringIsEqualOfMaximumStringLength_ShouldNotPadLeft(string value, string expected, ushort numberOfPad)
         {
             // Arrange
             ReadOnlySpan<char> array = value.AsSpan();
@@ -45,7 +45,7 @@ namespace Spinner.Test.Extensions
         [InlineData("Spinner", "Spinner***", 10)]
         [InlineData("Spinner", "Spinner********", 15)]
         [InlineData("Spinner", "Spinner", 7)]
-        public void Should_PadRight(string value, string expected, ushort numberOfPad)
+        public void PadRight_WhenTheStringLengthIsLessThanMaximumStringLength_PadRight(string value, string expected, ushort numberOfPad)
         {
             // Arrange
             ReadOnlySpan<char> array = value.AsSpan();
@@ -61,7 +61,7 @@ namespace Spinner.Test.Extensions
         [Theory]
         [InlineData("Spinner", "Spinner", 6)]
         [InlineData("Spinner", "Spinner", 5)]
-        public void ShouldNot_PadRight(string value, string expected, ushort numberOfPad)
+        public void PadRight_WhenTheStringIsEqualOfMaximumStringLength_ShouldNotPadRight(string value, string expected, ushort numberOfPad)
         {
             // Arrange
             ReadOnlySpan<char> array = value.AsSpan();

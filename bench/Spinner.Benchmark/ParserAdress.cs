@@ -2,7 +2,7 @@
 
 namespace Writer.Benchmark
 {
-    internal class ParserWebSite : ITypeParse
+    internal class ParserWebSite : ITypeParser
     {
         public object Parser(object propertyValue)
         {

@@ -8,6 +8,8 @@
 */.vscode/
 */.vscode/*
 
+.idea/
+
 bin
 */bin*
 */bin/*
@@ -17,6 +19,9 @@ obj
 */obj*
 */obj/*
 */obj/
+
+.idea/
+.easyTdd/
 
 StrykerOutput
 */StrykerOutput*

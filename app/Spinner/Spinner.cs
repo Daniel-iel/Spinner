@@ -1,14 +1,16 @@
 ﻿using Microsoft.VisualStudio.Utilities;
 using Spinner.Attribute;
-using Spinner.Cache;
 using Spinner.Enums;
-using Spinner.Extensions;
-using Spinner.Guards;
+using Spinner.Internals.Cache;
+using Spinner.Internals.Extensions;
+using Spinner.Internals.Guards;
 using Spinner.Parsers;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace Spinner
 {
@@ -46,12 +48,12 @@ namespace Spinner
         /// <summary>
         /// Get all properties with WriteProperty decoration present in T.
         /// </summary>
-        public IEnumerable<PropertyInfo> GetWriteProperties => WriteProperties;
+        public readonly IImmutableList<PropertyInfo> GetWriteProperties => WriteProperties.ToImmutableList();
 
         /// <summary>
         /// Get all properties with ReadProperty decoration present in T.
         /// </summary>
-        public IEnumerable<PropertyInfo> GetReadProperties => ReadProperties;
+        public readonly IImmutableList<PropertyInfo> GetReadProperties => ReadProperties.ToImmutableList();
 
         /// <summary>
         /// Convert T in a positional string.
@@ -61,9 +63,9 @@ namespace Spinner
         {
             WritePositionalString();
 
-            return GetObjectMapper is not null ?
-                _sb.ToStringAndFree(0, GetObjectMapper.Length) :
-                _sb.ToStringAndFree();
+            return GetObjectMapper is not null
+                    ? _sb.ToStringAndFree(0, GetObjectMapper.Length)
+                    : _sb.ToStringAndFree();
         }
 
         /// <summary>
@@ -75,9 +77,9 @@ namespace Spinner
             WritePositionalString();
 
             return new ReadOnlySpan<char>(
-                    GetObjectMapper is not null ?
-                    _sb.ToStringAndFree(0, GetObjectMapper.Length).ToCharArray() :
-                    _sb.ToStringAndFree().ToCharArray());
+                GetObjectMapper is not null
+                    ? _sb.ToStringAndFree(0, GetObjectMapper.Length).ToCharArray()
+                    : _sb.ToStringAndFree().ToCharArray());
         }
 
         /// <summary>
@@ -104,6 +106,7 @@ namespace Spinner
             return _obj;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveOptimization)]
         private void ReadPositionalString(ReadOnlySpan<char> text)
         {
             for (int i = 0; i < ReadProperties.Length; i++)
@@ -115,10 +118,10 @@ namespace Spinner
 
                 if (attribute.Type is not null)
                 {
-                    if (!ParserTypeCache.TryGet(attribute.Type.Name, out ITypeParse typeParser))
+                    if (!TypeParserCache.TryGet(attribute.Type.Name, out ITypeParser typeParser))
                     {
-                        typeParser = (ITypeParse)Activator.CreateInstance(attribute.Type);
-                        ParserTypeCache.Add(attribute.Type.Name, typeParser);
+                        typeParser = (ITypeParser)Activator.CreateInstance(attribute.Type);
+                        TypeParserCache.Add(attribute.Type.Name, typeParser);
                     }
 
                     property.SetValue(_obj, typeParser.Parser(new string(text.Slice(attribute.Start, attribute.Length).Trim())));
@@ -130,6 +133,7 @@ namespace Spinner
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveOptimization)]
         private void WritePositionalString()
         {
             for (int i = 0; i < WriteProperties.Length; i++)
@@ -152,44 +156,46 @@ namespace Spinner
 
         private static readonly ObjectMapperAttribute ReadObjectMapper =
             typeof(T)
-            .GetCustomAttributes(typeof(ObjectMapperAttribute), false)
-            .Cast<ObjectMapperAttribute>()
-            .FirstOrDefault();
+                .GetCustomAttributes(typeof(ObjectMapperAttribute), false)
+                .Cast<ObjectMapperAttribute>()
+                .FirstOrDefault();
 
         private static WritePropertyAttribute GetWriteProperty(PropertyInfo info) =>
-          info
-            .GetCustomAttributes(typeof(WritePropertyAttribute), false)
-            .Cast<WritePropertyAttribute>()
-            .FirstOrDefault();
+            info
+                .GetCustomAttributes(typeof(WritePropertyAttribute), false)
+                .Cast<WritePropertyAttribute>()
+                .FirstOrDefault();
 
         private static ReadPropertyAttribute GetReaderProperty(PropertyInfo info) =>
-          info
-            .GetCustomAttributes(typeof(ReadPropertyAttribute), false)
-            .Cast<ReadPropertyAttribute>()
-            .FirstOrDefault();
+            info
+                .GetCustomAttributes(typeof(ReadPropertyAttribute), false)
+                .Cast<ReadPropertyAttribute>()
+                .FirstOrDefault();
 
         private static readonly PropertyInfo[] WriteProperties =
             typeof(T)
-            .GetProperties()
-            .Where(PredicateForWriteProperty())
-            .OrderBy(PredicateForOrderByWriteProperty())
-            .ToArray();
+                .GetProperties()
+                .Where(PredicateForWriteProperty())
+                .OrderBy(PredicateForOrderByWriteProperty())
+                .ToArray();
 
         private static readonly PropertyInfo[] ReadProperties =
             typeof(T)
-            .GetProperties()
-            .Where(PredicateForReadProperty())
-            .ToArray();
+                .GetProperties()
+                .Where(PredicateForReadProperty())
+                .ToArray();
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Func<PropertyInfo, bool> PredicateForWriteProperty()
         {
             return (prop) =>
             {
                 return prop.GetCustomAttributes(typeof(WritePropertyAttribute), false)
-                           .All(attribute => attribute.GetType() == typeof(WritePropertyAttribute));
+                    .All(attribute => attribute is WritePropertyAttribute);
             };
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Func<PropertyInfo, ushort> PredicateForOrderByWriteProperty()
         {
             return (prop) => ((WritePropertyAttribute)prop
@@ -197,12 +203,13 @@ namespace Spinner
                 .FirstOrDefault())?.Order ?? default;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Func<PropertyInfo, bool> PredicateForReadProperty()
         {
             return (prop) =>
             {
                 return prop.GetCustomAttributes(typeof(ReadPropertyAttribute), false)
-                           .All(attribute => attribute.GetType() == typeof(ReadPropertyAttribute));
+                    .All(attribute => attribute is ReadPropertyAttribute);
             };
         }
     }

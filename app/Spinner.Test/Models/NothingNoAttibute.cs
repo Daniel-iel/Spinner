@@ -4,9 +4,9 @@ using System;
 namespace Spinner.Test.Models
 {
     [ObjectMapper(length: 50)]
-    internal struct NothingNoAttibute : IEquatable<NothingNoAttibute>
+    internal struct NothingNoAttribute : IEquatable<NothingNoAttribute>
     {
-        public NothingNoAttibute(string name, string webSite)
+        public NothingNoAttribute(string name, string webSite)
         {
             Name = name;
             WebSite = webSite;
@@ -16,7 +16,7 @@ namespace Spinner.Test.Models
 
         public string WebSite { get; set; }
 
-        public bool Equals(NothingNoAttibute other)
+        public bool Equals(NothingNoAttribute other)
         {
             return Name == other.Name &&
                    WebSite == other.WebSite;
@@ -29,7 +29,7 @@ namespace Spinner.Test.Models
 
         public override bool Equals(object obj)
         {
-            return obj is NothingNoAttibute nothingNoAttibute && Equals(nothingNoAttibute);
+            return obj is NothingNoAttribute nothingNoAttibute && Equals(nothingNoAttibute);
         }
     }
 }

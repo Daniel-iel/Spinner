@@ -1,6 +1,6 @@
 ﻿namespace Spinner.Parsers
 {
-    public interface ITypeParse
+    public interface ITypeParser
     {
         object Parser(object obj);
     }

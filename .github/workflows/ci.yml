@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        dotnet-version: ["7.0.100"]
+        dotnet-version: ["7.0.305"]
 
     steps:
       - uses: actions/checkout@v2
@@ -100,5 +100,3 @@ jobs:
       - name: Publish Package ✉️
         if: startsWith(github.ref, 'refs/tags/v')
         run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_TOKEN}}
-        
-        

@@ -8,10 +8,10 @@ namespace Writer.Benchmark
     [ObjectMapper(length: 50)]
     internal struct ObjectBench : IEquatable<ObjectBench>, IEqualityComparer<ObjectBench>
     {
-        public ObjectBench(string name, string adress)
+        public ObjectBench(string name, string address)
         {
             Name = name;
-            Adress = adress;
+            Address = address;
         }
 
         [WriteProperty(length: 20, order: 1, paddingChar: ' ')]
@@ -20,12 +20,12 @@ namespace Writer.Benchmark
 
         [WriteProperty(length: 30, order: 2, paddingChar: ' ')]
         [ReadProperty(start: 19, length: 30)]
-        public string Adress { get; set; }
+        public string Address { get; set; }
 
         public bool Equals(ObjectBench other)
         {
             return Name == other.Name &&
-                   Adress == other.Adress;
+                   Address == other.Address;
         }
 
         public override bool Equals(object obj)
@@ -42,12 +42,12 @@ namespace Writer.Benchmark
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Name, Adress);
+            return HashCode.Combine(Name, Address);
         }
 
         public int GetHashCode([DisallowNull] ObjectBench obj)
         {
-            return HashCode.Combine(obj.Name, obj.Adress);
+            return HashCode.Combine(obj.Name, obj.Address);
         }
     }
 }
