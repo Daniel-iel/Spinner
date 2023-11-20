@@ -14,7 +14,7 @@
 [![Release](https://img.shields.io/nuget/v/spinner)](https://www.nuget.org/packages/Spinner/)
 [![Repo Size](https://img.shields.io/github/repo-size/Daniel-iel/spinner)](https://www.nuget.org/packages/Spinner/)
 [![Code Factor](https://www.codefactor.io/repository/github/Daniel-iel/spinner/badge)](https://www.codefactor.io/repository/github/Daniel-iel/spinner)
-![Meercode](https://api.meercode.io/badge//?type=ci-score&lastDay=14)
+![Meercode](https://api.meercode.io/badge//?type=ci-score&lastDay=90)
 ![Snyk](https://img.shields.io/snyk/vulnerabilities/github/Daniel-iel/Spinner)
 
 ## Introduction
