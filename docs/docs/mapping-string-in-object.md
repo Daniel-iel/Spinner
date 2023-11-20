@@ -6,7 +6,7 @@ sidebar_position: 3
 
 ## Mapping object in string
 
-To configure an object, you should use ` ObjectMapper ` and ` ReadProperty ` properties to map string layout.
+To configure an object, utilize the `ObjectMapper` and `ReadProperty` properties for mapping the string layout.
 
 ```csharp
   [ObjectMapper(length: 50)]
@@ -22,7 +22,7 @@ To configure an object, you should use ` ObjectMapper ` and ` ReadProperty ` pro
 
 ## Instantiate
 
-To map you object as string, you need instantiate ``` Spinner ``` passing the object type in T.
+To map your object as a string, instantiate the `Spinner` class, specifying the object type with T
 
 ```csharp
   Spinner<NothingReader> spinnerReader = new Spinner<NothingReader>();
@@ -30,7 +30,7 @@ To map you object as string, you need instantiate ``` Spinner ``` passing the ob
 
 ## Read from String
 
-After configured the object, you need call the ` ReadFromString ` method to read string and convert it to object.
+After configuring the object, you need to call the `ReadFromString` method to read a string and convert it to an object.
 
 ```csharp
   var obj = spinnerReader.ReadFromString("             spinner            www.spinner.com.br");

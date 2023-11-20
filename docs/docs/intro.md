@@ -2,17 +2,18 @@
 sidebar_position: 1
 ---
 
-# Get started
+# Getting Started
 
 ## Prerequisites
 
-Spinner is compatibilities with:
+Spinner is compatible with the following versions of .NET: `.NET 7`, `.NET 6`, `.NET 5`.
 
-* Net 7.
-* Net 6.
-* Net 5.
-* Net Core 3.1.
-  
+:::info
+
+dotnet version 3.1 support was discontinued in spinner version 2.
+
+:::
+   
 ## Installation
 
 Spinner is distributed as a NuGet package. See the **[spinner](https://www.nuget.org/packages/Spinner/)** for more information.
@@ -23,7 +24,7 @@ dotnet add package Spinner
 
 ## Import Spinner
 
-After install the package, you need import Spinner class into your class.
+After installing the package, you'll need to import the Spinner class into your code.
 
 ```csharp
 using Spinner;
@@ -31,11 +32,11 @@ using Spinner;
 
 ## Configuring an Object
 
-To have a good knowledge to how configure your object, you can see the **[example](/docs/mapping-object-in-string)**
+For a comprehensive understanding of how to configure your object, refer to the **[example](/docs/mapping-object-in-string)**
 
 ## Using Spinner
 
-Run **WriteAsString** to get mapped object as string or call **WriteAsSpan** to get the result as span:
+Execute **WriteAsString** to obtain the mapped object as a string, or use **WriteAsSpan** to retrieve the result as a span.
 
 ```csharp
  var nothing = new Nothing("spinner", "www.spinner.com.br");
