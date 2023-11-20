@@ -6,7 +6,7 @@ const config = {
   title: 'Spinner',
   tagline: 'Spinner Documentation',
   url: 'https://daniel-iel.github.io/',
-  baseUrl: 'Spinner/',
+  baseUrl: '/Spinner/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'assets/favicon.ico',
