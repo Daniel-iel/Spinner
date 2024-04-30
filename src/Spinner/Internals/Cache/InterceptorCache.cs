@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Spinner.Cache
+namespace Spinner.Internals.Cache
 {
     internal static class InterceptorCache
     {

@@ -1,4 +1,4 @@
-﻿using Spinner.Cache;
+﻿using Spinner.Internals.Cache;
 using Spinner.Interceptors;
 using Spinner.Test.Helper.Interceptors;
 using Xunit;

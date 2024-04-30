@@ -1,11 +1,11 @@
 ﻿using Microsoft.VisualStudio.Utilities;
 using Spinner.Attribute;
 using Spinner.Enums;
-using Spinner.Extensions;
-using Spinner.Guards;
+using Spinner.Internals.Guards;
+using Spinner.Internals.Extensions;
+using Spinner.Internals.Cache;
 using Spinner.Interceptors;
 using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;

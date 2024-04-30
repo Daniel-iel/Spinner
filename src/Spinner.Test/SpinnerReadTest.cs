@@ -1,4 +1,5 @@
 using Spinner.Exceptions;
+using Spinner.Internals.Cache;
 using Spinner.Test.Helper.Interceptors;
 using Spinner.Test.Models;
 using System;
