@@ -1,6 +1,6 @@
 ﻿namespace Spinner.Interceptors
 {
-    public interface IInterceptors
+    public interface IInterceptor
     {
         object Parse(object obj);
     }

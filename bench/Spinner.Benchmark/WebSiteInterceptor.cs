@@ -2,7 +2,7 @@
 
 namespace Writer.Benchmark
 {
-    internal class WebSiteInterceptor : IInterceptors
+    internal class WebSiteInterceptor : IInterceptor
     {
         public object Parse(object propertyValue)
         {

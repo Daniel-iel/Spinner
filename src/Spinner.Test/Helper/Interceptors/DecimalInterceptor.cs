@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace Spinner.Test.Helper.Interceptors
 {
-    internal sealed class DecimalInterceptor : IInterceptors
+    internal sealed class DecimalInterceptor : IInterceptor
     {
         public object Parse(object obj)
         {

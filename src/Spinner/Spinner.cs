@@ -120,9 +120,9 @@ namespace Spinner
 
                 if (attribute.Type is not null)
                 {
-                    if (!InterceptorCache.TryGet(attribute.Type.Name, out IInterceptors interceptor))
+                    if (!InterceptorCache.TryGet(attribute.Type.Name, out IInterceptor interceptor))
                     {
-                        interceptor = (IInterceptors)Activator.CreateInstance(attribute.Type);
+                        interceptor = (IInterceptor)Activator.CreateInstance(attribute.Type);
                         InterceptorCache.Add(attribute.Type.Name, interceptor);
                     }
 
@@ -190,11 +190,9 @@ namespace Spinner
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Func<PropertyInfo, bool> PredicateForWriteProperty()
         {
-            return (prop) =>
-            {
-                return prop.GetCustomAttributes(typeof(WritePropertyAttribute), false)
-                    .All(attribute => attribute is WritePropertyAttribute);
-            };
+            return (prop) => prop
+                .GetCustomAttributes(typeof(WritePropertyAttribute), false)
+                .All(attribute => attribute is WritePropertyAttribute);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -208,11 +206,9 @@ namespace Spinner
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Func<PropertyInfo, bool> PredicateForReadProperty()
         {
-            return (prop) =>
-            {
-                return prop.GetCustomAttributes(typeof(ReadPropertyAttribute), false)
-                    .All(attribute => attribute is ReadPropertyAttribute);
-            };
+            return (prop) => prop
+                .GetCustomAttributes(typeof(ReadPropertyAttribute), false)
+                .All(attribute => attribute is ReadPropertyAttribute);
         }
     }
 }

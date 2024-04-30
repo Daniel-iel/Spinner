@@ -12,7 +12,7 @@ namespace Spinner.Test.Cache
         {
             // Arrange
             const string key = "key";
-            IInterceptors interceptor = new CacheInterceptor();
+            IInterceptor interceptor = new CacheInterceptor();
 
             InterceptorCache.Add(key, interceptor);
             // Act
