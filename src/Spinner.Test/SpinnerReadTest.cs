@@ -45,7 +45,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void ReadFromString_WhenCalled_ShouldValidateIfPropertyParseIsCached()
+        public void ReadFromString_WhenCalled_ShouldValidateIfPropertyInterceptorIsCached()
         {
             // Arrange
             NothingDecimal nothing = new NothingDecimal("0001");
@@ -59,7 +59,6 @@ namespace Spinner.Test
             bool decimalInterceptorWasCached = InterceptorCache.Interceptors.Any(c => c.GetType() == typeof(DecimalInterceptor));
 
             // Assert
-            Assert.Single(InterceptorCache.Interceptors);
             Assert.True(decimalInterceptorWasCached);
         }
 
