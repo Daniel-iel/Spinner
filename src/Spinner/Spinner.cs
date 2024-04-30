@@ -57,10 +57,7 @@ namespace Spinner
         /// <summary>
         /// Convert T in a positional string.
         /// </summary>
-        /// <returns>
-        /// Returns a string mapped of T.
-        /// If the attribute ObjectMapper has a length property, the string will be truncated to that length.
-        /// </returns>
+        /// <returns> Returns a string mapped of T.</returns>
         public string WriteAsString()
         {
             WritePositionalString();
