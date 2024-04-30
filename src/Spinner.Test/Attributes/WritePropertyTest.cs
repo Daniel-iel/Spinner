@@ -68,12 +68,12 @@ namespace Spinner.Test.Attributes
         public void Should_ValidateHowManyAttributesExistsInWritePropertyFile()
         {
             // Arrange & Act
-            object[] attibutes = FileInspect<WritePropertyAttribute>.GetAttributes();
+            object[] attributes = FileInspect<WritePropertyAttribute>.GetAttributes();
 
-            AttributeUsageAttribute attributeUsage = attibutes[0] as AttributeUsageAttribute;
+            AttributeUsageAttribute attributeUsage = attributes[0] as AttributeUsageAttribute;
 
             // Assert
-            Assert.Single(attibutes);
+            Assert.Single(attributes);
             Assert.Equal(AttributeTargets.Property, attributeUsage.ValidOn);
         }
     }

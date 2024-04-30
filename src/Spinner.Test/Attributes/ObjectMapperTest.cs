@@ -39,12 +39,12 @@ namespace Spinner.Test.Attributes
         public void Should_ValidateHowManyAttributesExistsInObjectMapperAttributeFile()
         {
             // Arrange & Act
-            object[] attibutes = FileInspect<ObjectMapperAttribute>.GetAttributes();
+            object[] attributes = FileInspect<ObjectMapperAttribute>.GetAttributes();
 
-            AttributeUsageAttribute attributeUsage = attibutes[0] as AttributeUsageAttribute;
+            AttributeUsageAttribute attributeUsage = attributes[0] as AttributeUsageAttribute;
 
             // Assert
-            Assert.Single(attibutes);
+            Assert.Single(attributes);
             Assert.Equal(AttributeTargets.Struct | AttributeTargets.Class, attributeUsage.ValidOn);
         }
     }

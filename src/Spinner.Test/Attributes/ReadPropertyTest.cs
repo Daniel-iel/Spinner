@@ -39,15 +39,38 @@ namespace Spinner.Test.Attributes
         }
 
         [Fact]
+        public void Should_ValidateParamsTypeAndNameOfSecondConstructor()
+        {
+            // Arrange
+            ConstructorInfo[] constructors = FileInspect<ReadPropertyAttribute>.GetConstructors();
+            ConstructorInfo firstConstructor = constructors[1];
+
+            // Act
+            ParameterInfo[] parameters = firstConstructor.GetParameters();
+
+            // Assert
+            Assert.Equal(3, parameters.Length);
+
+            Assert.Equal("start", parameters[0].Name);
+            Assert.Equal(typeof(ushort), parameters[0].ParameterType);
+
+            Assert.Equal("length", parameters[1].Name);
+            Assert.Equal(typeof(ushort), parameters[1].ParameterType);
+
+            Assert.Equal("type", parameters[2].Name);
+            Assert.Equal(typeof(Type), parameters[2].ParameterType);
+        }
+
+        [Fact]
         public void Should_ValidateHowManyAttributesExistsInReadPropertyAttributeFile()
         {
             // Arrange & Act
-            object[] attibutes = FileInspect<ReadPropertyAttribute>.GetAttributes();
+            object[] attributes = FileInspect<ReadPropertyAttribute>.GetAttributes();
 
-            AttributeUsageAttribute attributeUsage = attibutes[0] as AttributeUsageAttribute;
+            AttributeUsageAttribute attributeUsage = attributes[0] as AttributeUsageAttribute;
 
             // Assert
-            Assert.Single(attibutes);
+            Assert.Single(attributes);
             Assert.Equal(AttributeTargets.Property, attributeUsage.ValidOn);
         }
     }

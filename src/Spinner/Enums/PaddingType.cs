@@ -1,4 +1,6 @@
-﻿namespace Spinner.Enums
+﻿// Ignore Spelling: Enums
+
+namespace Spinner.Enums
 {
     /// <summary>
     /// Enum responsible for determining whether the padding is on the right or left side

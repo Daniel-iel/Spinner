@@ -11,7 +11,7 @@ namespace Writer.Benchmark
     [SimpleJob(RuntimeMoniker.Net60)]
     [SimpleJob(RuntimeMoniker.Net70)]
     [GcServer(true)]
-    public class WriterBench
+    public class ReadBench
     {
         private Nothing instance;
         private NothingWithInterceptor instanceWithInterceptor;

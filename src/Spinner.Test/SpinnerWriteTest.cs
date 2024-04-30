@@ -2,7 +2,7 @@ using Spinner.Attribute;
 using Spinner.Exceptions;
 using Spinner.Test.Models;
 using System;
-using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
 using Xunit;
@@ -274,10 +274,10 @@ namespace Spinner.Test
             Spinner<NothingPadRight> spinnerFirst = new Spinner<NothingPadRight>(nothing);
 
             // Act
-            IEnumerable<PropertyInfo> props = spinnerFirst.GetWriteProperties;
+            IImmutableList<PropertyInfo> props = spinnerFirst.GetWriteProperties;
 
             // Assert
-            Assert.Equal(2, props.Count());
+            Assert.Equal(2, props.Count);
             Assert.Equal("Name", props.First().Name);
             Assert.Equal("WebSite", props.Last().Name);
         }
@@ -289,15 +289,15 @@ namespace Spinner.Test
             Action act = () =>
             {
                 // Arrange
-                NothingNoAttibute nothing = new NothingNoAttibute("spinnerFirst", "www.spinner.com.br");
+                NothingNoAttribute nothing = new NothingNoAttribute("spinnerFirst", "www.spinner.com.br");
 
-                Spinner<NothingNoAttibute> spinnerFirst = new Spinner<NothingNoAttibute>(nothing);
+                Spinner<NothingNoAttribute> spinnerFirst = new Spinner<NothingNoAttribute>(nothing);
 
                 spinnerFirst.WriteAsString();
             };
 
             // Assert
-            var ex = Assert.Throws<PropertyNotMappedException>(act);
+            PropertyNotMappedException ex = Assert.Throws<PropertyNotMappedException>(act);
             Assert.Equal("Property Name should have WriteProperty configured.", ex.Message);
         }
 
@@ -308,15 +308,15 @@ namespace Spinner.Test
             Action act = () =>
             {
                 // Arrange
-                NothingNoAttibute nothing = new NothingNoAttibute("spinnerFirst", "www.spinner.com.br");
+                NothingNoAttribute nothing = new NothingNoAttribute("spinnerFirst", "www.spinner.com.br");
 
-                Spinner<NothingNoAttibute> spinnerFirst = new Spinner<NothingNoAttibute>(nothing);
+                Spinner<NothingNoAttribute> spinnerFirst = new Spinner<NothingNoAttribute>(nothing);
 
                 spinnerFirst.WriteAsSpan();
             };
 
             // Assert
-            var ex = Assert.Throws<PropertyNotMappedException>(act);
+            PropertyNotMappedException ex = Assert.Throws<PropertyNotMappedException>(act);
             Assert.Equal("Property Name should have WriteProperty configured.", ex.Message);
         }
     }

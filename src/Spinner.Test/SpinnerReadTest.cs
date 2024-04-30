@@ -1,9 +1,8 @@
-using Spinner.Cache;
 using Spinner.Exceptions;
 using Spinner.Test.Helper.Interceptors;
 using Spinner.Test.Models;
 using System;
-using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
 using Xunit;
@@ -132,9 +131,9 @@ namespace Spinner.Test
         {
             Spinner<NothingReader> spinner = new Spinner<NothingReader>();
 
-            IEnumerable<PropertyInfo> props = spinner.GetReadProperties;
+            IImmutableList<PropertyInfo> props = spinner.GetReadProperties;
 
-            Assert.Equal(2, props.Count());
+            Assert.Equal(2, props.Count);
             Assert.Equal("Name", props.First().Name);
             Assert.Equal("WebSite", props.Last().Name);
         }
@@ -145,14 +144,14 @@ namespace Spinner.Test
             Action act = () =>
             {
                 // Arrange
-                Spinner<NothingNoAttibute> spinnerReader = new Spinner<NothingNoAttibute>();
+                Spinner<NothingNoAttribute> spinnerReader = new Spinner<NothingNoAttribute>();
 
                 // Act
                 spinnerReader.ReadFromString("");
             };
 
             // Assert
-            var ex = Assert.Throws<PropertyNotMappedException>(act);
+            PropertyNotMappedException ex = Assert.Throws<PropertyNotMappedException>(act);
             Assert.Equal("Property Name should have ReadProperty configured.", ex.Message);
         }
 
@@ -162,14 +161,14 @@ namespace Spinner.Test
             Action act = () =>
             {
                 // Arrange
-                Spinner<NothingNoAttibute> spinnerReader = new Spinner<NothingNoAttibute>();
+                Spinner<NothingNoAttribute> spinnerReader = new Spinner<NothingNoAttribute>();
 
                 // Act
                 spinnerReader.ReadFromSpan("");
             };
 
             // Assert
-            var ex = Assert.Throws<PropertyNotMappedException>(act);
+            PropertyNotMappedException ex = Assert.Throws<PropertyNotMappedException>(act);
             Assert.Equal("Property Name should have ReadProperty configured.", ex.Message);
         }
     }

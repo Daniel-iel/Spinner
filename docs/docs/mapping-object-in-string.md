@@ -6,7 +6,7 @@ sidebar_position: 2
 
 ## Mapping object in string
 
-To configure an object, you should use ` ObjectMapper ` and ` WriteProperty ` properties to map string layout.
+To configure an object, utilize the `ObjectMapper` and `WriteProperty` properties for mapping the string layout.
 
 ```csharp
 [ObjectMapper(length: 50)]
@@ -34,7 +34,7 @@ The sum `length` of all mapped property should not be more than ObjectMapper `le
 
 ## Instantiate
 
-To map you object as string, you need instantiate ``` Spinner ``` passing the object type in T and an instance of the object in the constructor.
+To map your object as a string, instantiate the `Spinner` class by providing the object type as 'T' and an instance of the object in the constructor.
 
 ```csharp
   Nothing nothing = new Nothing("spinner", "www.spinner.com.br");
@@ -43,7 +43,7 @@ To map you object as string, you need instantiate ``` Spinner ``` passing the ob
 
 ## Write an Object
 
-After configured the object, you can call the ` WriteAsString ` method to write the object in a string format.
+Once the object is configured, you can call the `WriteAsString` method to write the object in string format.
 
 ```csharp
   string stringResponse = spinner.WriteAsString();

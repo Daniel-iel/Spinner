@@ -42,7 +42,7 @@ jobs:
           dotnet-version: ${{ matrix.dotnet-version }}
 
       - name: Setup Stryker 🔧
-        run: dotnet tool install -g dotnet-stryker
+        run: dotnet tool install -g dotnet-stryker --version 3.13.2
 
       - name: Install dotnet-format tool 🔧
         run: dotnet tool install -g dotnet-format
@@ -88,5 +88,3 @@ jobs:
       - name: Publish Package ✉️
         if: startsWith(github.ref, 'refs/tags/v')
         run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_TOKEN}}
-        
-        
