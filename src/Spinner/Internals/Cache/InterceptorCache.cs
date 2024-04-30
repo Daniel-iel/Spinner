@@ -8,11 +8,6 @@ namespace Spinner.Internals.Cache
     {
         private static readonly Dictionary<string, IInterceptor> cache = new Dictionary<string, IInterceptor>();
 
-        public static IEnumerable<IInterceptor> Interceptors
-        {
-            get => cache.Values.ToList();
-        }
-
         public static bool Add(string key, IInterceptor value)
         {
             return cache.TryAdd(key, value);

@@ -1,4 +1,5 @@
 using Spinner.Exceptions;
+using Spinner.Interceptors;
 using Spinner.Internals.Cache;
 using Spinner.Test.Helper.Interceptors;
 using Spinner.Test.Models;
@@ -56,10 +57,11 @@ namespace Spinner.Test
             NothingDecimalReader nothingDecimalReader = spinnerReader.ReadFromString(positionalString);
 
             // Act
-            bool decimalInterceptorWasCached = InterceptorCache.Interceptors.Any(c => c.GetType() == typeof(DecimalInterceptor));
+            bool decimalInterceptorWasCached = InterceptorCache.TryGet(typeof(DecimalInterceptor).Name, out IInterceptor interceptor);
 
             // Assert
             Assert.True(decimalInterceptorWasCached);
+            Assert.IsType<DecimalInterceptor>(interceptor);
         }
 
         [Fact]
