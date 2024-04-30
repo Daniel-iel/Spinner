@@ -11,18 +11,16 @@ on:
 jobs:
   build:
     env:
-      APP: "${{ github.workspace }}/app"
-      PROJECT_TEST: "${{ github.workspace }}/app/Spinner.Test"
-      PROJECT_SLN: "./app/Spinner.sln"
-      PROJECT_BIN3_1: "./app/Spinner/bin/Release/netcoreapp3.1"
-      PROJECT_BIN5: "./app/Spinner/bin/Release/net5.0"
-      PROJECT_BIN6: "./app/Spinner/bin/Release/net6.0"
-      PROJECT_BIN7: "./app/Spinner/bin/Release/net7.0"
+      APP: "${{ github.workspace }}/src"
+      PROJECT_TEST: "${{ github.workspace }}/src/Spinner.Test"
+      PROJECT_SLN: "./src/Spinner.sln"      
+      PROJECT_BIN6: "./src/Spinner/bin/Release/net6.0"
+      PROJECT_BIN8: "./src/Spinner/bin/Release/net8.0"
 
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        dotnet-version: ["7.0.100"]
+        dotnet-version: ["8.0.204"]
 
     steps:
       - uses: actions/checkout@v2
@@ -70,25 +68,15 @@ jobs:
           cd ${{ env.PROJECT_TEST}}
           dotnet stryker --reporter "progress"
 
-      - name: Run Infer .Net 3.1 🔍
-        uses: microsoft/infersharpaction@v1.2
-        with:
-          binary-path: ${{ env.PROJECT_BIN3_1 }}
-
-      - name: Run Infer .Net 5.0 🔍
-        uses: microsoft/infersharpaction@v1.2
-        with:
-          binary-path: ${{ env.PROJECT_BIN5 }}
-
       - name: Run Infer .Net 6.0 🔍
         uses: microsoft/infersharpaction@v1.2
         with:
           binary-path: ${{ env.PROJECT_BIN6 }}
 
-      - name: Run Infer .Net 7.0 🔍
+      - name: Run Infer .Net 8.0 🔍
         uses: microsoft/infersharpaction@v1.2
         with:
-          binary-path: ${{ env.PROJECT_BIN7 }}
+          binary-path: ${{ env.PROJECT_BIN8 }}
 
       - name: Codecov 📊
         uses: codecov/codecov-action@v2.1.0
