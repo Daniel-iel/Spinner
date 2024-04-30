@@ -37,7 +37,7 @@ namespace Spinner.Attribute
         public ushort Length { get; }
 
         /// <summary>
-        /// Parser property type
+        /// Interceptor property type
         /// </summary>
         public Type Type { get; }
     }

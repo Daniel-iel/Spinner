@@ -9,7 +9,7 @@ namespace Spinner.Test.Attributes
     public class ObjectMapperTest
     {
         [Fact]
-        public void Should_ValidateHowManyConstructorExistsInObjectMapperAttributeFile()
+        public void Should_ValidateHowManyConstructorsExistsInObjectMapperAttributeFile()
         {
             // Arrange & Act
             ConstructorInfo[] constructors = FileInspect<ObjectMapperAttribute>.GetConstructors();

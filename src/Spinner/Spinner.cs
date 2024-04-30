@@ -1,12 +1,11 @@
 ﻿using Microsoft.VisualStudio.Utilities;
 using Spinner.Attribute;
 using Spinner.Enums;
-using Spinner.Internals.Cache;
-using Spinner.Internals.Extensions;
 using Spinner.Internals.Guards;
-using Spinner.Parsers;
+using Spinner.Internals.Extensions;
+using Spinner.Internals.Cache;
+using Spinner.Interceptors;
 using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
@@ -58,7 +57,7 @@ namespace Spinner
         /// <summary>
         /// Convert T in a positional string.
         /// </summary>
-        /// <returns>Return a string mapped of T.</returns>
+        /// <returns> Returns a string mapped of T.</returns>
         public string WriteAsString()
         {
             WritePositionalString();
@@ -118,13 +117,13 @@ namespace Spinner
 
                 if (attribute.Type is not null)
                 {
-                    if (!TypeParserCache.TryGet(attribute.Type.Name, out ITypeParser typeParser))
+                    if (!InterceptorCache.TryGet(attribute.Type.Name, out IInterceptor interceptor))
                     {
-                        typeParser = (ITypeParser)Activator.CreateInstance(attribute.Type);
-                        TypeParserCache.Add(attribute.Type.Name, typeParser);
+                        interceptor = (IInterceptor)Activator.CreateInstance(attribute.Type);
+                        InterceptorCache.Add(attribute.Type.Name, interceptor);
                     }
 
-                    property.SetValue(_obj, typeParser.Parser(new string(text.Slice(attribute.Start, attribute.Length).Trim())));
+                    property.SetValue(_obj, interceptor.Parse(new string(text.Slice(attribute.Start, attribute.Length).Trim())));
 
                     continue;
                 }
@@ -188,11 +187,9 @@ namespace Spinner
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Func<PropertyInfo, bool> PredicateForWriteProperty()
         {
-            return (prop) =>
-            {
-                return prop.GetCustomAttributes(typeof(WritePropertyAttribute), false)
-                    .All(attribute => attribute is WritePropertyAttribute);
-            };
+            return (prop) => prop
+                .GetCustomAttributes(typeof(WritePropertyAttribute), false)
+                .All(attribute => attribute is WritePropertyAttribute);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -206,11 +203,9 @@ namespace Spinner
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Func<PropertyInfo, bool> PredicateForReadProperty()
         {
-            return (prop) =>
-            {
-                return prop.GetCustomAttributes(typeof(ReadPropertyAttribute), false)
-                    .All(attribute => attribute is ReadPropertyAttribute);
-            };
+            return (prop) => prop
+                .GetCustomAttributes(typeof(ReadPropertyAttribute), false)
+                .All(attribute => attribute is ReadPropertyAttribute);
         }
     }
 }

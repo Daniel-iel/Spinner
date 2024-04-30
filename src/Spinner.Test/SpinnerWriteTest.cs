@@ -28,7 +28,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void WriteAsString_WhenCalled_ShouldReturnObjectMappedAsStringInOrderOfConfiguredProperty()
+        public void WriteAsString_WhenCalled_ShouldReturnObjectMappedAsStringInOrderOfConfigurationProperty()
         {
             // Arrange
             NothingPadLeft nothing = new NothingPadLeft("spinner", "www.spinner.com.br");
@@ -128,7 +128,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void WriteAsString_WhenCalled_ShouldValidateIfTwoResponseIsDifferentWithPadLeft()
+        public void WriteAsString_WhenCalled_ShouldValidateIfTwoResponseAreDifferentWithPadLeft()
         {
             // Arrange
             NothingPadLeft nothingFirst = new NothingPadLeft("spinnerFirst", "www.spinner.com.br");
@@ -146,7 +146,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void WriteAsSpan_WhenCalled_ShouldValidateIfTwoResponseIsDifferentWithPadLeft()
+        public void WriteAsSpan_WhenCalled_ShouldValidateIfTwoResponsesAreDifferent_WithPadLeft()
         {
             // Arrange
             NothingPadLeft nothingFirst = new NothingPadLeft("spinnerFirst", "www.spinner.com.br");
@@ -197,7 +197,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void WriteAsSpan_WhenCalled_ShouldReturnObjectMappedAsSpanWithPadRight()
+        public void WriteAsSpan_WhenCalled_ShouldValidateIfTwoResponsesAreDifferentPadRight()
         {
             // Arrange
             NothingPadRight nothing = new NothingPadRight("spinner", "www.spinner.com.br");
@@ -230,7 +230,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void WriteAsString_WhenCalled_ShouldValidateIfTwoResponseIsDifferentWithPadRight()
+        public void WriteAsString_WhenCalled_ShouldValidateIfTwoResponseAreDifferentWithPadRight()
         {
             // Arrange
             NothingPadRight nothingFirst = new NothingPadRight("spinnerFirst", "www.spinner.com.br");
@@ -248,7 +248,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void WriteAsSpan_WhenCalled_ShouldValidateIfTwoResponseIsDifferentWithPadRight()
+        public void WriteAsSpan_WhenCalled_ShouldValidateIfTwoResponsesAreDifferentWithPadRight()
         {
             // Arrange
             NothingPadRight nothingFirst = new NothingPadRight("spinnerFirst", "www.spinner.com.br");

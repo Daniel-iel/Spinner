@@ -1,5 +1,5 @@
 ﻿using Spinner.Attribute;
-using Spinner.Test.Helper.Parses;
+using Spinner.Test.Helper.Interceptors;
 using System;
 
 namespace Spinner.Test.Models
@@ -7,7 +7,7 @@ namespace Spinner.Test.Models
     [ObjectMapper(length: 4)]
     internal sealed class NothingDecimalReader : IEquatable<NothingDecimalReader>
     {
-        [ReadProperty(start: 0, length: 4, type: typeof(DecimalParser))]
+        [ReadProperty(start: 0, length: 4, type: typeof(DecimalInterceptor))]
         public decimal Value { get; set; }
 
         public bool Equals(NothingDecimalReader other)

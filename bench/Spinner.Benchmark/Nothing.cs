@@ -6,12 +6,12 @@ using System.Diagnostics.CodeAnalysis;
 namespace Writer.Benchmark
 {
     [ObjectMapper(length: 50)]
-    internal struct ObjectBench : IEquatable<ObjectBench>, IEqualityComparer<ObjectBench>
+    internal struct Nothing : IEquatable<Nothing>, IEqualityComparer<Nothing>
     {
-        public ObjectBench(string name, string address)
+        public Nothing(string name, string webSite)
         {
             Name = name;
-            Address = address;
+            WebSite = webSite;
         }
 
         [WriteProperty(length: 20, order: 1, paddingChar: ' ')]
@@ -20,34 +20,34 @@ namespace Writer.Benchmark
 
         [WriteProperty(length: 30, order: 2, paddingChar: ' ')]
         [ReadProperty(start: 19, length: 30)]
-        public string Address { get; set; }
+        public string WebSite { get; set; }
 
-        public bool Equals(ObjectBench other)
+        public bool Equals(Nothing other)
         {
             return Name == other.Name &&
-                   Address == other.Address;
+                   WebSite == other.WebSite;
         }
 
         public override bool Equals(object obj)
         {
-            ObjectBench other = (ObjectBench)obj;
+            Nothing other = (Nothing)obj;
 
             return other.Equals(this);
         }
 
-        public bool Equals(ObjectBench x, ObjectBench y)
+        public bool Equals(Nothing x, Nothing y)
         {
             return x.Equals(y);
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Name, Address);
+            return HashCode.Combine(Name, WebSite);
         }
 
-        public int GetHashCode([DisallowNull] ObjectBench obj)
+        public int GetHashCode([DisallowNull] Nothing obj)
         {
-            return HashCode.Combine(obj.Name, obj.Address);
+            return HashCode.Combine(obj.Name, obj.WebSite);
         }
     }
 }

@@ -1,6 +1,7 @@
 using Spinner.Exceptions;
+using Spinner.Interceptors;
 using Spinner.Internals.Cache;
-using Spinner.Test.Helper.Parses;
+using Spinner.Test.Helper.Interceptors;
 using Spinner.Test.Models;
 using System;
 using System.Collections.Immutable;
@@ -45,7 +46,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void ReadFromString_WhenCalled_ShouldValidateIfPropertyParseIsCached()
+        public void ReadFromString_WhenCalled_ShouldValidateIfPropertyInterceptorIsCached()
         {
             // Arrange
             NothingDecimal nothing = new NothingDecimal("0001");
@@ -56,10 +57,11 @@ namespace Spinner.Test
             NothingDecimalReader nothingDecimalReader = spinnerReader.ReadFromString(positionalString);
 
             // Act
-            bool decimalParserWasCached = TypeParserCache.Parses.Any(c => c is DecimalParser);
+            bool decimalInterceptorWasCached = InterceptorCache.TryGet(typeof(DecimalInterceptor).Name, out IInterceptor interceptor);
 
             // Assert
-            Assert.True(decimalParserWasCached);
+            Assert.True(decimalInterceptorWasCached);
+            Assert.IsType<DecimalInterceptor>(interceptor);
         }
 
         [Fact]
@@ -79,7 +81,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void ReadFromString_WhenCalled_ShouldValidateIfTwoResponsesAreManyDifferent()
+        public void ReadFromString_WhenCalled_ShouldValidateIfTwoResponsesAreDifferent()
         {
             // Arrange
             NothingPadLeft nothingFirst = new NothingPadLeft("spinnerFirst", "www.spinner.com.br");
@@ -103,7 +105,7 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void ReadFromSpan_WhenCalled_ShouldValidateIfTwoResponsesAreManyDifferent()
+        public void ReadFromSpan_WhenCalled_ShouldValidateIfTwoResponsesAreDifferent()
         {
             // Arrange
             NothingPadLeft nothingFirst = new NothingPadLeft("spinnerFirst", "www.spinner.com.br");
