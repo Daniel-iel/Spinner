@@ -57,7 +57,7 @@ jobs:
 
       - name: Upload Results 📂
         if: github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: Benchmark_Results
           path: ./BenchmarkDotNet.Artifacts/results/*
