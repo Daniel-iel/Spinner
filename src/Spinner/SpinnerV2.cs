@@ -17,7 +17,7 @@ namespace Spinner
     /// Spinner object that abstract all rule to read or write an string.
     /// </summary>
     /// <typeparam name="T">The type of object to write or read.</typeparam>
-    public struct Spinner<T> where T : new()
+    public sealed class SpinnerV2<T> where T : new()
     {
         private readonly PooledStringBuilder _sb = PooledStringBuilder.GetInstance();
         private readonly T _obj;
@@ -26,7 +26,7 @@ namespace Spinner
         /// T is the object that can be mapped using the attributes WriteProperty, ReadProperty and ContextProperty.
         /// </summary>
         /// <param name="obj">Object of T that will be used to map.</param>
-        public Spinner(T obj)
+        public SpinnerV2(T obj)
         {
             _obj = obj;
         }
@@ -34,7 +34,7 @@ namespace Spinner
         /// <summary>
         /// Default constructor, should only use in ReadFromString or ReadFromSpan.
         /// </summary>
-        public Spinner()
+        public SpinnerV2()
         {
             _obj = new T();
         }
@@ -47,12 +47,12 @@ namespace Spinner
         /// <summary>
         /// Get all properties with WriteProperty decoration present in T.
         /// </summary>
-        public readonly IImmutableList<PropertyInfo> GetWriteProperties => WriteProperties.ToImmutableList();
+        public IImmutableList<PropertyInfo> GetWriteProperties => WriteProperties.ToImmutableList();
 
         /// <summary>
         /// Get all properties with ReadProperty decoration present in T.
         /// </summary>
-        public readonly IImmutableList<PropertyInfo> GetReadProperties => ReadProperties.ToImmutableList();
+        public IImmutableList<PropertyInfo> GetReadProperties => ReadProperties.ToImmutableList();
 
         /// <summary>
         /// Convert T in a positional string.

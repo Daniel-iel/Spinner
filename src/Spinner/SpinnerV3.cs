@@ -17,16 +17,15 @@ namespace Spinner
     /// Spinner object that abstract all rule to read or write an string.
     /// </summary>
     /// <typeparam name="T">The type of object to write or read.</typeparam>
-    public struct Spinner<T> where T : new()
+    public sealed class SpinnerV3<T> where T : new()
     {
-        private readonly PooledStringBuilder _sb = PooledStringBuilder.GetInstance();
         private readonly T _obj;
 
         /// <summary>
         /// T is the object that can be mapped using the attributes WriteProperty, ReadProperty and ContextProperty.
         /// </summary>
         /// <param name="obj">Object of T that will be used to map.</param>
-        public Spinner(T obj)
+        public SpinnerV3(T obj)
         {
             _obj = obj;
         }
@@ -34,7 +33,7 @@ namespace Spinner
         /// <summary>
         /// Default constructor, should only use in ReadFromString or ReadFromSpan.
         /// </summary>
-        public Spinner()
+        public SpinnerV3()
         {
             _obj = new T();
         }
@@ -47,12 +46,12 @@ namespace Spinner
         /// <summary>
         /// Get all properties with WriteProperty decoration present in T.
         /// </summary>
-        public readonly IImmutableList<PropertyInfo> GetWriteProperties => WriteProperties.ToImmutableList();
+        public IImmutableList<PropertyInfo> GetWriteProperties => WriteProperties.ToImmutableList();
 
         /// <summary>
         /// Get all properties with ReadProperty decoration present in T.
         /// </summary>
-        public readonly IImmutableList<PropertyInfo> GetReadProperties => ReadProperties.ToImmutableList();
+        public IImmutableList<PropertyInfo> GetReadProperties => ReadProperties.ToImmutableList();
 
         /// <summary>
         /// Convert T in a positional string.
@@ -62,11 +61,13 @@ namespace Spinner
         [MethodImpl(MethodImplOptions.NoInlining)]
         public string WriteAsString()
         {
-            WritePositionalString();
+            PooledStringBuilder sb = PooledStringBuilder.GetInstance();
+
+            WritePositionalString(ref sb);
 
             return GetObjectMapper is not null
-                    ? _sb.ToStringAndFree(0, GetObjectMapper.Length)
-                    : _sb.ToStringAndFree();
+                    ? sb.ToStringAndFree(0, GetObjectMapper.Length)
+                    : sb.ToStringAndFree();
         }
 
         /// <summary>
@@ -75,12 +76,14 @@ namespace Spinner
         /// <returns>Return an string mapped of T as span.</returns>
         public ReadOnlySpan<char> WriteAsSpan()
         {
-            WritePositionalString();
+            PooledStringBuilder sb = PooledStringBuilder.GetInstance();
+
+            WritePositionalString(ref sb);
 
             return new ReadOnlySpan<char>(
                 GetObjectMapper is not null
-                    ? _sb.ToStringAndFree(0, GetObjectMapper.Length).ToCharArray()
-                    : _sb.ToStringAndFree().ToCharArray());
+                    ? sb.ToStringAndFree(0, GetObjectMapper.Length).ToCharArray()
+                    : sb.ToStringAndFree().ToCharArray());
         }
 
         /// <summary>
@@ -135,7 +138,7 @@ namespace Spinner
         }
 
         [MethodImpl(MethodImplOptions.AggressiveOptimization)]
-        private void WritePositionalString()
+        private void WritePositionalString(ref PooledStringBuilder sb)
         {
             for (int i = 0; i < WriteProperties.Length; i++)
             {
@@ -144,7 +147,7 @@ namespace Spinner
 
                 Guard.WriteProperty.NotMapped(property, attribute);
 
-                _sb.Builder.Append(FormatValue((property.GetValue(_obj) as string).AsSpan(), attribute));
+                sb.Builder.Append(FormatValue((property.GetValue(_obj) as string).AsSpan(), attribute));
             }
         }
 
