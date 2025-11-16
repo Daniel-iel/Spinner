@@ -1,14 +1,19 @@
 ﻿using Spinner.Attribute;
+using Spinner.Benchmark.Interceptors;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Writer.Benchmark
+namespace Spinner.Benchmark.Models
 {
     [ObjectMapper(length: 50)]
-    internal struct Nothing : IEquatable<Nothing>, IEqualityComparer<Nothing>
+    public class PersonWithInterceptor : IEquatable<PersonWithInterceptor>, IEqualityComparer<PersonWithInterceptor>
     {
-        public Nothing(string name, string webSite)
+        public PersonWithInterceptor()
+        {
+
+        }
+        public PersonWithInterceptor(string name, string webSite)
         {
             Name = name;
             WebSite = webSite;
@@ -19,10 +24,10 @@ namespace Writer.Benchmark
         public string Name { get; set; }
 
         [WriteProperty(length: 30, order: 2, paddingChar: ' ')]
-        [ReadProperty(start: 19, length: 30)]
+        [ReadProperty(start: 19, length: 30, type: typeof(WebSiteInterceptor))]
         public string WebSite { get; set; }
 
-        public bool Equals(Nothing other)
+        public bool Equals(PersonWithInterceptor other)
         {
             return Name == other.Name &&
                    WebSite == other.WebSite;
@@ -30,12 +35,12 @@ namespace Writer.Benchmark
 
         public override bool Equals(object obj)
         {
-            Nothing other = (Nothing)obj;
+            PersonWithInterceptor other = (PersonWithInterceptor)obj;
 
             return other.Equals(this);
         }
 
-        public bool Equals(Nothing x, Nothing y)
+        public bool Equals(PersonWithInterceptor x, PersonWithInterceptor y)
         {
             return x.Equals(y);
         }
@@ -45,7 +50,7 @@ namespace Writer.Benchmark
             return HashCode.Combine(Name, WebSite);
         }
 
-        public int GetHashCode([DisallowNull] Nothing obj)
+        public int GetHashCode([DisallowNull] PersonWithInterceptor obj)
         {
             return HashCode.Combine(obj.Name, obj.WebSite);
         }

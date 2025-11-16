@@ -1,21 +1,26 @@
 ﻿using Spinner.Interceptors;
-using System.Collections.Generic;
-using System.Linq;
+using System;
+using System.Collections.Concurrent;
 
 namespace Spinner.Internals.Cache
 {
     internal static class InterceptorCache
     {
-        private static readonly Dictionary<string, IInterceptor> cache = new Dictionary<string, IInterceptor>();
+        private static readonly ConcurrentDictionary<Type, IInterceptor> cache = new ConcurrentDictionary<Type, IInterceptor>();
+
+        public static IInterceptor GetOrAdd(Type type)
+        {
+            return cache.GetOrAdd(type, static t => (IInterceptor)Activator.CreateInstance(t));
+        }
 
         public static bool Add(string key, IInterceptor value)
         {
-            return cache.TryAdd(key, value);
+            return cache.TryAdd(value.GetType(), value);
         }
 
-        public static bool TryGet(string key, out IInterceptor output)
+        public static bool TryGet(Type key, out IInterceptor output)
         {
-            if (cache.TryGetValue(key, out IInterceptor value))
+             if (cache.TryGetValue(key, out IInterceptor value))
             {
                 output = value;
                 return true;

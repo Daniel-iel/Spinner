@@ -1,14 +1,19 @@
 ﻿using Spinner.Attribute;
+using Spinner.Benchmark.Interceptors;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Writer.Benchmark
+namespace Spinner.Benchmark.Models
 {
     [ObjectMapper(length: 50)]
-    internal struct NothingWithInterceptor : IEquatable<NothingWithInterceptor>, IEqualityComparer<NothingWithInterceptor>
+    internal class PearsonWithSpanInterceptor : IEquatable<PearsonWithSpanInterceptor>, IEqualityComparer<PearsonWithSpanInterceptor>
     {
-        public NothingWithInterceptor(string name, string webSite)
+        public PearsonWithSpanInterceptor()
+        {
+
+        }
+        public PearsonWithSpanInterceptor(string name, string webSite)
         {
             Name = name;
             WebSite = webSite;
@@ -19,10 +24,10 @@ namespace Writer.Benchmark
         public string Name { get; set; }
 
         [WriteProperty(length: 30, order: 2, paddingChar: ' ')]
-        [ReadProperty(start: 19, length: 30, type: typeof(WebSiteInterceptor))]
+        [ReadProperty(start: 19, length: 30, type: typeof(WebSiteSpanInterceptor))]
         public string WebSite { get; set; }
 
-        public bool Equals(NothingWithInterceptor other)
+        public bool Equals(PearsonWithSpanInterceptor other)
         {
             return Name == other.Name &&
                    WebSite == other.WebSite;
@@ -30,12 +35,12 @@ namespace Writer.Benchmark
 
         public override bool Equals(object obj)
         {
-            NothingWithInterceptor other = (NothingWithInterceptor)obj;
+            PearsonWithSpanInterceptor other = (PearsonWithSpanInterceptor)obj;
 
             return other.Equals(this);
         }
 
-        public bool Equals(NothingWithInterceptor x, NothingWithInterceptor y)
+        public bool Equals(PearsonWithSpanInterceptor x, PearsonWithSpanInterceptor y)
         {
             return x.Equals(y);
         }
@@ -45,7 +50,7 @@ namespace Writer.Benchmark
             return HashCode.Combine(Name, WebSite);
         }
 
-        public int GetHashCode([DisallowNull] NothingWithInterceptor obj)
+        public int GetHashCode([DisallowNull] PearsonWithSpanInterceptor obj)
         {
             return HashCode.Combine(obj.Name, obj.WebSite);
         }

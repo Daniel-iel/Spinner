@@ -57,7 +57,7 @@ namespace Spinner.Test
             NothingDecimalReader nothingDecimalReader = spinnerReader.ReadFromString(positionalString);
 
             // Act
-            bool decimalInterceptorWasCached = InterceptorCache.TryGet(typeof(DecimalInterceptor).Name, out IInterceptor interceptor);
+            bool decimalInterceptorWasCached = InterceptorCache.TryGet(typeof(DecimalInterceptor), out IInterceptor interceptor);
 
             // Assert
             Assert.True(decimalInterceptorWasCached);

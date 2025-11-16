@@ -1,6 +1,6 @@
 ﻿using Spinner.Interceptors;
 
-namespace Writer.Benchmark
+namespace Spinner.Benchmark.Interceptors
 {
     internal class WebSiteInterceptor : IInterceptor
     {

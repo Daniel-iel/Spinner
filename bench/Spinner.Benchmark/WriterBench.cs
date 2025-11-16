@@ -1,6 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
 using Spinner;
+using Spinner.Benchmark.Models;
 
 namespace Writer.Benchmark
 {
@@ -12,27 +13,27 @@ namespace Writer.Benchmark
     [GcServer(true)]
     public class WriterBench
     {
-        private Nothing instance;
-        private NothingWithInterceptor instanceWithParser;
+        private Person instance;
+        private PersonWithInterceptor instanceWithParser;
 
         [GlobalSetup]
         public void Setup()
         {
-            instance = new Nothing("Bench Test", "www.bench.com");
-            instanceWithParser = new NothingWithInterceptor("Bench Test", "www.bench.com");
+            instance = new Person("Bench Test", "www.bench.com");
+            instanceWithParser = new PersonWithInterceptor("Bench Test", "www.bench.com");
         }
 
         [Benchmark]
         public void WriteAsString()
         {
-            Spinner<Nothing> spinner = new Spinner<Nothing>(instance);
+            Spinner<Person> spinner = new Spinner<Person>(instance);
             spinner.WriteAsString();
         }
 
         [Benchmark]
         public void WriteAsSpan()
         {
-            Spinner<Nothing> spinner = new Spinner<Nothing>(instance);
+            Spinner<Person> spinner = new Spinner<Person>(instance);
             spinner.WriteAsSpan();
         }
     }

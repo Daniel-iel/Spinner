@@ -1,10 +1,10 @@
 ﻿using Microsoft.VisualStudio.Utilities;
 using Spinner.Attribute;
 using Spinner.Enums;
-using Spinner.Internals.Guards;
-using Spinner.Internals.Extensions;
-using Spinner.Internals.Cache;
 using Spinner.Interceptors;
+using Spinner.Internals.Cache;
+using Spinner.Internals.Extensions;
+using Spinner.Internals.Guards;
 using System;
 using System.Collections.Immutable;
 using System.Linq;
@@ -17,7 +17,7 @@ namespace Spinner
     /// Spinner object that abstract all rule to read or write an string.
     /// </summary>
     /// <typeparam name="T">The type of object to write or read.</typeparam>
-    public ref struct Spinner<T> where T : new()
+    public struct Spinner<T> where T : new()
     {
         private readonly PooledStringBuilder _sb = PooledStringBuilder.GetInstance();
         private readonly T _obj;
@@ -117,7 +117,7 @@ namespace Spinner
 
                 if (attribute.Type is not null)
                 {
-                    if (!InterceptorCache.TryGet(attribute.Type.Name, out IInterceptor interceptor))
+                    if (!InterceptorCache.TryGet(attribute.Type, out IInterceptor interceptor))
                     {
                         interceptor = (IInterceptor)Activator.CreateInstance(attribute.Type);
                         InterceptorCache.Add(attribute.Type.Name, interceptor);
