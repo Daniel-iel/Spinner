@@ -4,7 +4,7 @@ namespace Spinner.Test.Helper.Interceptors
 {
     internal sealed class CacheInterceptor : IInterceptor
     {
-        public object Parse(object obj)
+        public string Parse(string obj)
         {
             return obj;
         }

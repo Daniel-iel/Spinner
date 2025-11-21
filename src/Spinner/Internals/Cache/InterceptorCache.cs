@@ -13,14 +13,9 @@ namespace Spinner.Internals.Cache
             return cache.GetOrAdd(type, static t => (IInterceptor)Activator.CreateInstance(t));
         }
 
-        public static bool Add(string key, IInterceptor value)
-        {
-            return cache.TryAdd(value.GetType(), value);
-        }
-
         public static bool TryGet(Type key, out IInterceptor output)
         {
-             if (cache.TryGetValue(key, out IInterceptor value))
+            if (cache.TryGetValue(key, out IInterceptor value))
             {
                 output = value;
                 return true;

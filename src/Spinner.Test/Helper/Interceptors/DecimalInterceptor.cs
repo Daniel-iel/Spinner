@@ -5,10 +5,10 @@ namespace Spinner.Test.Helper.Interceptors
 {
     internal sealed class DecimalInterceptor : IInterceptor
     {
-        public object Parse(object obj)
+        public string Parse(string obj)
         {
-            string value = obj.ToString().Insert(2, ".");
-            return decimal.Parse(value, new CultureInfo("en-US"));
+            string value = obj.Insert(2, ".");
+            return decimal.Parse(value, new CultureInfo("en-US")).ToString();
         }
     }
 }

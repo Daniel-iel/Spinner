@@ -2,6 +2,6 @@
 {
     public interface IInterceptor
     {
-        object Parse(object obj);
+        string Parse(string value);
     }
 }

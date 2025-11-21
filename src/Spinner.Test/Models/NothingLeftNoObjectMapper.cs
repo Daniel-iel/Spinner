@@ -3,8 +3,12 @@ using System;
 
 namespace Spinner.Test.Models
 {
-    internal struct NothingLeftNoObjectMapper : IEquatable<NothingLeftNoObjectMapper>
+    internal sealed class NothingLeftNoObjectMapper : IEquatable<NothingLeftNoObjectMapper>
     {
+        public NothingLeftNoObjectMapper()
+        {
+
+        }
         public NothingLeftNoObjectMapper(string name, string webSite)
         {
             Name = name;

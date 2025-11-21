@@ -4,9 +4,9 @@ namespace Spinner.Benchmark.Interceptors
 {
     internal class WebSiteInterceptor : IInterceptor
     {
-        public object Parse(object propertyValue)
+        public string Parse(string propertyValue)
         {
-            return $"WebSite: {propertyValue.ToString()}";
+            return $"WebSite: {propertyValue}";
         }
     }
 }

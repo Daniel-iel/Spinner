@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
     <LangVersion>11.0</LangVersion>
     <Authors>Daniel Oliveira</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -19,15 +18,12 @@
     <PackAsTool>False</PackAsTool>
     <EnableNETAnalyzers>True</EnableNETAnalyzers>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="ClrHeapAllocationAnalyzer" Version="3.0.0" />
     <PackageReference Include="Microsoft.CodeAnalysis" Version="4.11.0" />
@@ -42,9 +38,8 @@
     <PackageReference Include="ReflectionAnalyzers" Version="0.3.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>    
+    </PackageReference>
   </ItemGroup>
-  
   <ItemGroup>
     <None Include="..\..\assets\logo.png">
       <Pack>True</Pack>
@@ -55,5 +50,4 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
-
 </Project>

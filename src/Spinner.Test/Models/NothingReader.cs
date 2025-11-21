@@ -6,6 +6,11 @@ namespace Spinner.Test.Models
     [ObjectMapper(length: 50)]
     internal sealed class NothingReader : IEquatable<NothingReader>
     {
+        public NothingReader()
+        {
+
+        }
+
         [ReadProperty(start: 1, length: 19)]
         public string Name { get; set; }
 

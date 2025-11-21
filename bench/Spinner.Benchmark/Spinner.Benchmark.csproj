@@ -1,19 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Remove="C:\Users\iel_1\.nuget\packages\microsoft.visualstudio.diagnosticshub.benchmarkdotnetdiagnosers\18.3.36714.1\contentFiles\cs\any\BenchmarkProfilerAgentConfig.g.cs" />
   </ItemGroup>
-
   <ItemGroup>
     <None Remove="C:\Users\iel_1\.nuget\packages\microsoft.diagnostics.tracing.traceevent\3.1.21\buildTransitive\..\lib\netstandard2.0\Dia2Lib.dll" />
     <None Remove="C:\Users\iel_1\.nuget\packages\microsoft.diagnostics.tracing.traceevent\3.1.21\buildTransitive\..\lib\netstandard2.0\TraceReloggerLib.dll" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.15.6" />
     <PackageReference Include="BenchmarkDotNet.Annotations" Version="0.15.7" />
@@ -27,9 +23,7 @@
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" />
     <PackageReference Include="Microsoft.VisualStudio.DiagnosticsHub.BenchmarkDotNetDiagnosers" Version="18.3.36714.1" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\src\Spinner\Spinner.csproj" />
   </ItemGroup>
-
 </Project>

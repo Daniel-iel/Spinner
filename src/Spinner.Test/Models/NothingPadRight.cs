@@ -5,8 +5,12 @@ using System;
 namespace Spinner.Test.Models
 {
     [ObjectMapper(length: 50)]
-    internal struct NothingPadRight : IEquatable<NothingPadRight>
+    internal sealed class NothingPadRight : IEquatable<NothingPadRight>
     {
+        public NothingPadRight()
+        {
+
+        }
         public NothingPadRight(string name, string webSite)
         {
             Name = name;

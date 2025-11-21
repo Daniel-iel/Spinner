@@ -4,8 +4,12 @@ using System;
 namespace Spinner.Test.Models
 {
     [ObjectMapper(length: 50)]
-    internal struct NothingNoAttribute : IEquatable<NothingNoAttribute>
+    internal sealed class NothingNoAttribute : IEquatable<NothingNoAttribute>
     {
+        public NothingNoAttribute()
+        {
+
+        }
         public NothingNoAttribute(string name, string webSite)
         {
             Name = name;

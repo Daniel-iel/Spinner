@@ -1,6 +1,7 @@
-﻿using Spinner.Internals.Cache;
-using Spinner.Interceptors;
+﻿using Spinner.Interceptors;
+using Spinner.Internals.Cache;
 using Spinner.Test.Helper.Interceptors;
+using System;
 using Xunit;
 
 namespace Spinner.Test.Cache
@@ -11,10 +12,11 @@ namespace Spinner.Test.Cache
         public void TryGet_WhenCalled_ShouldReturnInterceptorFromCache()
         {
             // Arrange
-            const string key = "key";
             IInterceptor interceptor = new CacheInterceptor();
+            Type key = interceptor.GetType();
 
-            InterceptorCache.Add(key, interceptor);
+            InterceptorCache.GetOrAdd(key);
+
             // Act
             var typeCached = InterceptorCache.TryGet(key, out var typeInCache);
 

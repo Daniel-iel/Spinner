@@ -1,3 +1,4 @@
+using Spinner.Attribute;
 using Spinner.Exceptions;
 using Spinner.Interceptors;
 using Spinner.Internals.Cache;
@@ -18,11 +19,11 @@ namespace Spinner.Test
         {
             // Arrange
             NothingPadLeft nothing = new NothingPadLeft("spinner", "www.spinner.com.br");
-            Spinner<NothingPadLeft> spinnerWriter = new Spinner<NothingPadLeft>(nothing);
+            Spinner<NothingPadLeft> spinnerWriter = new Spinner<NothingPadLeft>();
             Spinner<NothingReader> spinnerReader = new Spinner<NothingReader>();
 
             // Act
-            string positionalString = spinnerWriter.WriteAsString();
+            string positionalString = spinnerWriter.WriteAsString(nothing);
             NothingReader nothingReader = spinnerReader.ReadFromString(positionalString);
 
             // Assert
@@ -34,11 +35,11 @@ namespace Spinner.Test
         {
             // Arrange
             NothingDecimal nothing = new NothingDecimal("0001");
-            Spinner<NothingDecimal> spinnerWriter = new Spinner<NothingDecimal>(nothing);
+            Spinner<NothingDecimal> spinnerWriter = new Spinner<NothingDecimal>();
             Spinner<NothingDecimalReader> spinnerReader = new Spinner<NothingDecimalReader>();
 
             // Act
-            string positionalString = spinnerWriter.WriteAsString();
+            string positionalString = spinnerWriter.WriteAsString(nothing);
             NothingDecimalReader nothingReader = spinnerReader.ReadFromString(positionalString);
 
             // Assert
@@ -50,10 +51,10 @@ namespace Spinner.Test
         {
             // Arrange
             NothingDecimal nothing = new NothingDecimal("0001");
-            Spinner<NothingDecimal> spinnerWriter = new Spinner<NothingDecimal>(nothing);
+            Spinner<NothingDecimal> spinnerWriter = new Spinner<NothingDecimal>();
             Spinner<NothingDecimalReader> spinnerReader = new Spinner<NothingDecimalReader>();
 
-            string positionalString = spinnerWriter.WriteAsString();
+            string positionalString = spinnerWriter.WriteAsString(nothing);
             NothingDecimalReader nothingDecimalReader = spinnerReader.ReadFromString(positionalString);
 
             // Act
@@ -69,11 +70,11 @@ namespace Spinner.Test
         {
             // Arrange
             NothingPadLeft nothing = new NothingPadLeft("spinner", "www.spinner.com.br");
-            Spinner<NothingPadLeft> spinnerWriter = new Spinner<NothingPadLeft>(nothing);
+            Spinner<NothingPadLeft> spinnerWriter = new Spinner<NothingPadLeft>();
             Spinner<NothingReader> spinnerReader = new Spinner<NothingReader>();
 
             // Act
-            ReadOnlySpan<char> positionalString = spinnerWriter.WriteAsSpan();
+            ReadOnlySpan<char> positionalString = spinnerWriter.WriteAsSpan(nothing);
             NothingReader nothingReader = spinnerReader.ReadFromSpan(positionalString);
 
             // Assert
@@ -87,15 +88,14 @@ namespace Spinner.Test
             NothingPadLeft nothingFirst = new NothingPadLeft("spinnerFirst", "www.spinner.com.br");
             NothingPadLeft nothingSecond = new NothingPadLeft("spinnerSecond", "www.spinner.com.br");
 
-            Spinner<NothingPadLeft> spinnerWriterFirst = new Spinner<NothingPadLeft>(nothingFirst);
-            Spinner<NothingPadLeft> spinnerWriterSecond = new Spinner<NothingPadLeft>(nothingSecond);
+            Spinner<NothingPadLeft> spinnerWriter = new Spinner<NothingPadLeft>();
 
             Spinner<NothingReader> spinnerReaderFirst = new Spinner<NothingReader>();
             Spinner<NothingReader> spinnerReaderSecond = new Spinner<NothingReader>();
 
             // Act
-            string positionalStringFirst = spinnerWriterFirst.WriteAsString();
-            string positionalStringSecond = spinnerWriterSecond.WriteAsString();
+            string positionalStringFirst = spinnerWriter.WriteAsString(nothingFirst);
+            string positionalStringSecond = spinnerWriter.WriteAsString(nothingSecond);
 
             NothingReader nothingReaderFirst = spinnerReaderFirst.ReadFromString(positionalStringFirst);
             NothingReader nothingReaderSecond = spinnerReaderSecond.ReadFromString(positionalStringSecond);
@@ -111,15 +111,14 @@ namespace Spinner.Test
             NothingPadLeft nothingFirst = new NothingPadLeft("spinnerFirst", "www.spinner.com.br");
             NothingPadLeft nothingSecond = new NothingPadLeft("spinnerSecond", "www.spinner.com.br");
 
-            Spinner<NothingPadLeft> spinnerWriterFirst = new Spinner<NothingPadLeft>(nothingFirst);
-            Spinner<NothingPadLeft> spinnerWriterSecond = new Spinner<NothingPadLeft>(nothingSecond);
+            Spinner<NothingPadLeft> spinnerWriter = new Spinner<NothingPadLeft>();
 
             Spinner<NothingReader> spinnerReaderFirst = new Spinner<NothingReader>();
             Spinner<NothingReader> spinnerReaderSecond = new Spinner<NothingReader>();
 
             // Act
-            ReadOnlySpan<char> positionalStringFirst = spinnerWriterFirst.WriteAsSpan();
-            ReadOnlySpan<char> positionalStringSecond = spinnerWriterSecond.WriteAsSpan();
+            ReadOnlySpan<char> positionalStringFirst = spinnerWriter.WriteAsSpan(nothingFirst);
+            ReadOnlySpan<char> positionalStringSecond = spinnerWriter.WriteAsSpan(nothingSecond);
 
             NothingReader nothingReaderFirst = spinnerReaderFirst.ReadFromSpan(positionalStringFirst);
             NothingReader nothingReaderSecond = spinnerReaderSecond.ReadFromSpan(positionalStringSecond);
@@ -131,13 +130,15 @@ namespace Spinner.Test
         [Fact]
         public void GetReadProperties_WhenCaller_ShouldValidateHowManyPropertiesWasMapped()
         {
-            Spinner<NothingReader> spinner = new Spinner<NothingReader>();
+            // Act
+            var properties = typeof(NothingReader).GetProperties()
+                .Where(p => p.GetCustomAttributes(typeof(ReadPropertyAttribute), false).Any())
+                .ToArray();
 
-            IImmutableList<PropertyInfo> props = spinner.GetReadProperties;
-
-            Assert.Equal(2, props.Count);
-            Assert.Equal("Name", props.First().Name);
-            Assert.Equal("WebSite", props.Last().Name);
+            // Assert
+            Assert.Equal(2, properties.Length);
+            Assert.Equal("Name", properties[0].Name);
+            Assert.Equal("WebSite", properties[1].Name);
         }
 
         [Fact]
