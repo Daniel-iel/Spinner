@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
-    <LangVersion>11.0</LangVersion>
+    <LangVersion>12.0</LangVersion>
     <Authors>Daniel Oliveira</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>integration;string-mapper;string-protocol;convert-string-object</PackageTags>

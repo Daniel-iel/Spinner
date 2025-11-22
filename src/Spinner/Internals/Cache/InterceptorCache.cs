@@ -1,6 +1,9 @@
 ﻿using Spinner.Interceptors;
 using System;
 using System.Collections.Concurrent;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("Spinner.Test")]
 
 namespace Spinner.Internals.Cache
 {
