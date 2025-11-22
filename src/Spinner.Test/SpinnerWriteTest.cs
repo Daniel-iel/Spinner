@@ -2,9 +2,7 @@ using Spinner.Attribute;
 using Spinner.Exceptions;
 using Spinner.Test.Models;
 using System;
-using System.Collections.Immutable;
 using System.Linq;
-using System.Reflection;
 using Xunit;
 
 namespace Spinner.Test
@@ -294,7 +292,7 @@ namespace Spinner.Test
 
             // Assert
             PropertyNotMappedException ex = Assert.Throws<PropertyNotMappedException>(act);
-            Assert.Equal("Property Name should have WriteProperty configured.", ex.Message);
+            Assert.Equal("Type Spinner.Test.Models.NothingNoAttribute does not have properties mapped for writing.", ex.Message);
         }
 
         [Fact]
@@ -313,7 +311,7 @@ namespace Spinner.Test
 
             // Assert
             PropertyNotMappedException ex = Assert.Throws<PropertyNotMappedException>(act);
-            Assert.Equal("Property Name should have WriteProperty configured.", ex.Message);
+            Assert.Equal("Type Spinner.Test.Models.NothingNoAttribute does not have properties mapped for writing.", ex.Message);
         }
     }
 }

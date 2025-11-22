@@ -5,9 +5,7 @@ using Spinner.Internals.Cache;
 using Spinner.Test.Helper.Interceptors;
 using Spinner.Test.Models;
 using System;
-using System.Collections.Immutable;
 using System.Linq;
-using System.Reflection;
 using Xunit;
 
 namespace Spinner.Test
@@ -155,7 +153,7 @@ namespace Spinner.Test
 
             // Assert
             PropertyNotMappedException ex = Assert.Throws<PropertyNotMappedException>(act);
-            Assert.Equal("Property Name should have ReadProperty configured.", ex.Message);
+            Assert.Equal("Type Spinner.Test.Models.NothingNoAttribute does not have properties mapped for reading.", ex.Message);
         }
 
         [Fact]
@@ -172,7 +170,7 @@ namespace Spinner.Test
 
             // Assert
             PropertyNotMappedException ex = Assert.Throws<PropertyNotMappedException>(act);
-            Assert.Equal("Property Name should have ReadProperty configured.", ex.Message);
+            Assert.Equal("Type Spinner.Test.Models.NothingNoAttribute does not have properties mapped for reading.", ex.Message);
         }
     }
 }

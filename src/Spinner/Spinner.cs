@@ -45,7 +45,6 @@ namespace Spinner
             {
                 var prop = readProps[i];
                 var readAttr = (ReadPropertyAttribute)prop.GetCustomAttributes(typeof(ReadPropertyAttribute), false)[0];
-                Guard.ReadProperty.NotMapped(prop, readAttr);
                 ReadProperties[i] = (prop, readAttr, CreateSpanSetDelegate(prop));
             }
 
@@ -53,7 +52,6 @@ namespace Spinner
             {
                 var prop = writeProps[i];
                 var writeAttr = (WritePropertyAttribute)prop.GetCustomAttributes(typeof(WritePropertyAttribute), false)[0];
-                Guard.WriteProperty.NotMapped(prop, writeAttr);
                 WriteProperties[i] = (prop, writeAttr, CreateGetDelegate(prop));
             }
         }
@@ -114,6 +112,8 @@ namespace Spinner
         [MethodImpl(MethodImplOptions.AggressiveOptimization)]
         private static T ReadPositionalString(ReadOnlySpan<char> text)
         {
+            Guard.ReadProperty.NotMapped<T>(ReadProperties.Length);
+
             var obj = new T();
 
             for (int i = 0; i < ReadProperties.Length; i++)
@@ -139,6 +139,8 @@ namespace Spinner
         [MethodImpl(MethodImplOptions.AggressiveOptimization)]
         private static void WritePositionalString(ref StringBuilder sb, T obj)
         {
+            Guard.WriteProperty.NotMapped<T>(WriteProperties.Length);
+
             for (int i = 0; i < WriteProperties.Length; i++)
             {
                 var (_, atr, getter) = WriteProperties[i];
@@ -170,7 +172,8 @@ namespace Spinner
         private static Func<PropertyInfo, ushort> PredicateForOrderByWriteProperty()
         {
             return (prop) => ((WritePropertyAttribute)prop
-                .GetCustomAttributes(typeof(WritePropertyAttribute), false)[0])?.Order ?? default;
+             .GetCustomAttributes(typeof(WritePropertyAttribute), false)
+             .FirstOrDefault())?.Order ?? default;
         }
 
         private static Func<PropertyInfo, bool> PredicateForWriteProperty()
