@@ -6,7 +6,7 @@ sidebar_position: 1
 
 ## Prerequisites
 
-Spinner is compatible with the following versions of .NET: `.NET 7`, `.NET 6`, `.NET 5`.
+Spinner is compatible with the following versions of .NET: `.NET 8`, `.NET 9`, `.NET 10`.
 
 :::info
 
@@ -36,18 +36,46 @@ For a comprehensive understanding of how to configure your object, refer to the 
 
 ## Using Spinner
 
+### Writing Objects to Strings
+
 Execute **WriteAsString** to obtain the mapped object as a string, or use **WriteAsSpan** to retrieve the result as a span.
 
 ```csharp
  var nothing = new Nothing("spinner", "www.spinner.com.br");
- var spinner = new Spinner<Nothing>(nothing);
- var stringResponse = spinner.WriteAsString();   
+ var spinner = new Spinner<Nothing>();
+ var stringResponse = spinner.WriteAsString(nothing);   
  //output: "              spinner            www.spinner.com.br"
 ```
 
 ```csharp
  var nothing = new Nothing("spinner", "www.spinner.com.br");
- var spinner = new Spinner<Nothing>(nothing);
- var spanResponse = spinner.WriteAsSpan();   
+ var spinner = new Spinner<Nothing>();
+ var spanResponse = spinner.WriteAsSpan(nothing);   
  //output: "              spinner            www.spinner.com.br"
 ```
+
+### Reading Strings to Objects
+
+Use **ReadFromString** to parse a positional string into an object, or **ReadFromSpan** for better performance with span-based processing.
+
+```csharp
+ var spinner = new Spinner<NothingReader>();
+ var obj = spinner.ReadFromString("              spinner            www.spinner.com.br");
+ //obj.Name = "spinner"
+ //obj.WebSite = "www.spinner.com.br"
+```
+
+```csharp
+ var spinner = new Spinner<NothingReader>();
+ ReadOnlySpan<char> data = "              spinner            www.spinner.com.br".AsSpan();
+ var obj = spinner.ReadFromSpan(data);
+ //obj.Name = "spinner"
+ //obj.WebSite = "www.spinner.com.br"
+```
+
+## Next Steps
+
+- Learn about **[Writing Objects](/docs/mapping-object-in-string)**
+- Learn about **[Reading Strings](/docs/mapping-string-in-object)**
+- Explore **[Interceptors](/docs/mapping-string-into-type)** for custom value processing
+- Check out **[Advanced Features](/docs/advanced-features)** for performance optimizations and additional capabilities

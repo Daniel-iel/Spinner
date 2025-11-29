@@ -32,13 +32,45 @@ The sum `length` of all mapped property should not be more than ObjectMapper `le
 
 :::
 
+## Padding Configuration
+
+The `WriteProperty` attribute supports configuring padding direction using the `PaddingType` enum.
+
+### Left Padding (Default)
+
+```csharp
+using Spinner.Enums;
+
+[WriteProperty(length: 10, order: 1, paddingChar: '0', padding: PaddingType.Left)]
+public string Code { get; set; }
+
+// Example: Code = "123" => Output: "0000000123"
+```
+
+### Right Padding
+
+```csharp
+using Spinner.Enums;
+
+[WriteProperty(length: 20, order: 1, paddingChar: ' ', padding: PaddingType.Right)]
+public string Name { get; set; }
+
+// Example: Name = "John" => Output: "John                "
+```
+
+:::tip
+
+If the `padding` parameter is not specified, `PaddingType.Left` is used by default.
+
+:::
+
 ## Instantiate
 
-To map your object as a string, instantiate the `Spinner` class by providing the object type as 'T' and an instance of the object in the constructor.
+To map your object as a string, instantiate the `Spinner` class by providing the object type as 'T'.
 
 ```csharp
   Nothing nothing = new Nothing("spinner", "www.spinner.com.br");
-  Spinner<Nothing> spinner = new Spinner<Nothing>(nothing);  
+  Spinner<Nothing> spinner = new Spinner<Nothing>();  
 ```
 
 ## Write an Object
@@ -46,5 +78,10 @@ To map your object as a string, instantiate the `Spinner` class by providing the
 Once the object is configured, you can call the `WriteAsString` method to write the object in string format.
 
 ```csharp
-  string stringResponse = spinner.WriteAsString();
+  string stringResponse = spinner.WriteAsString(nothing);
 ```
+
+For better performance in high-throughput scenarios, use `WriteAsSpan`:
+
+```csharp
+  ReadOnlySpan<char> spanResponse = spinner.WriteAsSpan(nothing);

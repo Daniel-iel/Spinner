@@ -25,9 +25,13 @@ Moreover, Spinner boasts a user-friendly interface that empowers developers to e
 
 ### Features
 
-* Swift Writing Speed.
-* Effortlessly Transforms Objects into Mapped Strings.
-* Seamlessly Converts Mapped Strings back into Objects.
+* Swift Writing Speed with Zero-Allocation Performance
+* Effortlessly Transforms Objects into Mapped Strings
+* Seamlessly Converts Mapped Strings back into Objects
+* Support for Multiple Primitive Types (int, decimal, DateTime, etc.)
+* High-Performance Span-Based Processing
+* Configurable Padding (Left/Right)
+* Custom Value Interceptors
 
 ## Quick Start
 
@@ -59,9 +63,28 @@ public struct Nothing
 }
     
  var nothing = new Nothing("spinner", "www.spinner.com.br");
- var spinner = new Spinner<Nothing>(nothing);
- var stringResponse = spinner.WriteAsString();   
+ var spinner = new Spinner<Nothing>();
+ var stringResponse = spinner.WriteAsString(nothing);   
  // stringResponse = "              spinner            www.spinner.com.br"
+```
+
+### Reading from Strings
+
+```csharp
+[ObjectMapper(length: 50)]
+public class NothingReader
+{
+  [ReadProperty(start: 0, length: 20)]        
+  public string Name { get; set; }
+
+  [ReadProperty(start: 20, length: 30)]        
+  public string WebSite { get; set; }
+}
+
+var spinner = new Spinner<NothingReader>();
+var obj = spinner.ReadFromString("              spinner            www.spinner.com.br");
+// obj.Name = "spinner"
+// obj.WebSite = "www.spinner.com.br"
 ```
 
 ## Documentation
