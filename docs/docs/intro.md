@@ -15,10 +15,10 @@ Spinner is compatible with the following versions of .NET: `.NET 7`, `.NET 6`, `
 dotnet version 3.1 support was discontinued in spinner version 2.
 
 :::
-
 :::tip Performance
 
 Version 2.0 introduces major performance improvements:
+
 - **60x faster** read operations
 - **31x faster** write operations  
 - **Up to 26x less** memory allocation
@@ -48,6 +48,20 @@ using Spinner;
 For a comprehensive understanding of how to configure your object, refer to the **[example](/docs/mapping-object-in-string)**
 
 ## Using Spinner
+
+### Creating a Spinner Instance
+
+Create a single `Spinner<T>` instance and reuse it for better performance:
+
+```csharp
+var spinner = new Spinner<Nothing>();
+```
+
+:::tip Performance
+
+`Spinner<T>` instances are thread-safe and can be reused across multiple operations and threads. Create one instance per type and reuse it throughout your application.
+
+:::
 
 ### Writing Objects to Strings
 
@@ -85,6 +99,12 @@ Use **ReadFromString** to parse a positional string into an object, or **ReadFro
  //obj.Name = "spinner"
  //obj.WebSite = "www.spinner.com.br"
 ```
+
+:::tip Performance
+
+`ReadFromSpan` is more efficient than `ReadFromString` as it avoids string allocations. Prefer this method in performance-critical scenarios.
+
+:::
 
 ## Next Steps
 

@@ -26,12 +26,19 @@ Position indexing starts at 0. Make sure your `start` and `length` values correc
 
 :::
 
+:::info ObjectMapper Length
+
+While `ObjectMapper` helps document the expected string length, it's not strictly enforced during reading. The `start` and `length` parameters in `ReadProperty` determine what portion of the string is extracted.
+
+:::
+
 ## Supported Data Types
 
-Spinner automatically converts string values to the following types:
+Spinner automatically converts string values to the following types without requiring interceptors:
 
-- **Numeric**: `int`, `long`, `short`, `ushort`, `uint`, `ulong`, `byte`, `sbyte`, `nint`, `nuint`
-- **Decimal**: `float`, `double`, `decimal`
+- **Numeric**: `int`, `long`, `short`, `ushort`, `uint`, `ulong`, `byte`, `sbyte`
+- **Native Integers**: `nint`, `nuint`
+- **Floating Point**: `float`, `double`, `decimal`
 - **Date/Time**: `DateTime`, `TimeSpan`
 - **Other**: `string`, `char`, `bool`
 

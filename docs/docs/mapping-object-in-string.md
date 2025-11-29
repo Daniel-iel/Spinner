@@ -32,6 +32,12 @@ The sum `length` of all mapped property should not be more than ObjectMapper `le
 
 :::
 
+:::info ObjectMapper is Optional
+
+The `ObjectMapper` attribute is optional. If omitted, the output length will be determined by the sum of all `WriteProperty` lengths. However, specifying it can improve performance by pre-allocating the correct buffer size.
+
+:::
+
 ## Padding Configuration
 
 The `WriteProperty` attribute supports configuring padding direction using the `PaddingType` enum.

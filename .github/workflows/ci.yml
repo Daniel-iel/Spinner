@@ -14,16 +14,17 @@ jobs:
       APP: "${{ github.workspace }}/src"
       PROJECT_TEST: "${{ github.workspace }}/src/Spinner.Test"
       PROJECT_SLN: "./src/Spinner.sln"      
-      PROJECT_BIN6: "./src/Spinner/bin/Release/net6.0"
+      PROJECT_BIN10: "./src/Spinner/bin/Release/net10.0"
+      PROJECT_BIN9: "./src/Spinner/bin/Release/net9.0"
       PROJECT_BIN8: "./src/Spinner/bin/Release/net8.0"
 
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        dotnet-version: ["8.0.400"]
+        dotnet-version: ["10.0.x", "9.0.x", "8.0.x"]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Get Build Version 🏷️
         run: |
@@ -34,10 +35,10 @@ jobs:
         shell: pwsh
 
       - name: Setup NuGet 🔧
-        uses: NuGet/setup-nuget@v1.0.5
+        uses: NuGet/setup-nuget@v2
 
       - name: Setup .NET Core SDK ${{ matrix.dotnet-version }} 🔧
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
 
@@ -68,22 +69,27 @@ jobs:
           cd ${{ env.PROJECT_TEST}}
           dotnet stryker --reporter "progress"
 
-      - name: Run Infer .Net 6.0 🔍
-        uses: microsoft/infersharpaction@v1.2
+      - name: Run Infer .NET 10.0 🔍
+        uses: microsoft/infersharpaction@v1.5
         with:
-          binary-path: ${{ env.PROJECT_BIN6 }}
+          binary-path: ${{ env.PROJECT_BIN10 }}
 
-      - name: Run Infer .Net 8.0 🔍
-        uses: microsoft/infersharpaction@v1.2
+      - name: Run Infer .NET 9.0 🔍
+        uses: microsoft/infersharpaction@v1.5
+        with:
+          binary-path: ${{ env.PROJECT_BIN9 }}
+
+      - name: Run Infer .NET 8.0 🔍
+        uses: microsoft/infersharpaction@v1.5
         with:
           binary-path: ${{ env.PROJECT_BIN8 }}
 
       - name: Codecov 📊
-        uses: codecov/codecov-action@v2.1.0
+        uses: codecov/codecov-action@v4
         with:
           token: ${{secrets.CODECOV_TOKEN}}
           directory: ${{ env.PROJECT_TEST }}
-          file: coverage.opencover.xml
+          files: coverage.opencover.xml
 
       - name: Publish Package ✉️
         if: startsWith(github.ref, 'refs/tags/v')

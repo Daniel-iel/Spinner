@@ -11,16 +11,19 @@ This guide will help you migrate from Spinner v1.x to v2.0. Version 2.0 introduc
 ### 1. Class Type Change: `ref struct` ? `sealed class`
 
 **v1.x:**
+
 ```csharp
 public ref struct Spinner<T> where T : new()
 ```
 
 **v2.0:**
+
 ```csharp
 public sealed class Spinner<T> where T : new()
 ```
 
 **Impact:** `Spinner<T>` is no longer a `ref struct`, which means:
+
 - ? Can now be used as a field in classes
 - ? Can be passed to async methods
 - ? Can be stored in collections
@@ -29,6 +32,7 @@ public sealed class Spinner<T> where T : new()
 ### 2. Constructor Changes
 
 **v1.x:**
+
 ```csharp
 // Required object instance in constructor for writing
 var obj = new MyClass("data", "value");
@@ -41,6 +45,7 @@ var obj = spinner.ReadFromString(data);
 ```
 
 **v2.0:**
+
 ```csharp
 // Single constructor, object passed to methods
 var obj = new MyClass("data", "value");
@@ -53,6 +58,7 @@ var obj = spinner.ReadFromString(data);  // Returns object
 ```
 
 **Migration Steps:**
+
 1. Remove object from constructor
 2. Pass object to `WriteAsString()` or `WriteAsSpan()` methods
 3. Capture return value from `ReadFromString()` or `ReadFromSpan()` methods
@@ -62,11 +68,13 @@ var obj = spinner.ReadFromString(data);  // Returns object
 #### WriteAsString()
 
 **v1.x:**
+
 ```csharp
 public string WriteAsString()
 ```
 
 **v2.0:**
+
 ```csharp
 public string WriteAsString(T obj)
 ```
@@ -74,6 +82,7 @@ public string WriteAsString(T obj)
 #### WriteAsSpan()
 
 **v1.x:**
+
 ```csharp
 public ReadOnlySpan<char> WriteAsSpan()
 ```
@@ -88,12 +97,14 @@ public ReadOnlySpan<char> WriteAsSpan(T obj)
 The following properties have been removed in v2.0:
 
 **v1.x:**
+
 ```csharp
 public readonly IImmutableList<PropertyInfo> GetWriteProperties
 public readonly IImmutableList<PropertyInfo> GetReadProperties
 ```
 
 **v2.0:**
+
 ```csharp
 // ? These properties no longer exist
 // Use reflection directly if needed:
@@ -108,17 +119,20 @@ typeof(T).GetProperties().Where(p =>
 #### StringBuilder Management
 
 **v1.x:**
+
 ```csharp
 private readonly PooledStringBuilder _sb = PooledStringBuilder.GetInstance();
 ```
 
 **v2.0:**
+
 ```csharp
 [ThreadStatic]
 private static StringBuilder builder;
 ```
 
 **Impact:**
+
 - Better thread-safety with `ThreadStatic`
 - Reduced allocations through reuse
 - No need for external pooling library
@@ -126,18 +140,21 @@ private static StringBuilder builder;
 #### Property Caching
 
 **v1.x:**
+
 ```csharp
 private static readonly PropertyInfo[] WriteProperties
 private static readonly PropertyInfo[] ReadProperties
 ```
 
 **v2.0:**
+
 ```csharp
 private static readonly (PropertyInfo PropertyInfo, WritePropertyAttribute Attribute, Func<T, string> Getter)[] WriteProperties;
 private static readonly (PropertyInfo PropertyInfo, ReadPropertyAttribute Attribute, Action<T, string> Setter)[] ReadProperties;
 ```
 
 **Impact:**
+
 - ? Significantly faster property access via compiled delegates
 - ?? No more reflection overhead during serialization/deserialization
 - ?? Attributes cached to avoid repeated lookups
@@ -274,11 +291,12 @@ public string Name { get; set; }
 
 ## Troubleshooting
 
-### Compilation Error: "Cannot convert from 'MyClass' to 'Spinner<MyClass>'"
+### Compilation Error: Cannot convert from 'MyClass' to 'Spinner\<MyClass\>'
 
 **Cause:** You're still using the v1.x constructor pattern.
 
 **Fix:**
+
 ```csharp
 // ? Old way
 var spinner = new Spinner<MyClass>(obj);
@@ -288,11 +306,12 @@ var spinner = new Spinner<MyClass>();
 var result = spinner.WriteAsString(obj);
 ```
 
-### Compilation Error: "Spinner<T> does not contain a definition for 'GetWriteProperties'"
+### Compilation Error: "Spinner\<T>\ does not contain a definition for 'GetWriteProperties'"
 
 **Cause:** The properties were removed in v2.0.
 
 **Fix:**
+
 ```csharp
 // ? Old way
 var props = spinner.GetWriteProperties;
@@ -312,6 +331,7 @@ var props = typeof(MyClass).GetProperties()
 ## Recommended Upgrade Path
 
 1. **Update NuGet Package**
+
    ```bash
    dotnet add package Spinner --version 2.0.0
    ```
@@ -344,6 +364,7 @@ var props = typeof(MyClass).GetProperties()
 ## Support
 
 If you encounter issues during migration:
+
 - Check the [GitHub Issues](https://github.com/Daniel-iel/Spinner/issues)
 - Review the [Documentation](https://spinnerframework.com/)
 - Create a new issue with migration details
