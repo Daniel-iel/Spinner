@@ -118,7 +118,7 @@ private readonly PooledStringBuilder _sb = PooledStringBuilder.GetInstance();
 private static StringBuilder builder;
 ```
 
-**Impact:** 
+**Impact:**
 - Better thread-safety with `ThreadStatic`
 - Reduced allocations through reuse
 - No need for external pooling library
@@ -234,6 +234,12 @@ Version 2.0 brings significant performance improvements:
 | StringBuilder | Pooled | ThreadStatic | Lower memory pressure |
 | Attribute Lookup | Per operation | Cached on startup | ~100x faster |
 | Type Conversion | Reflection | Direct parsing | ~5-10x faster |
+
+:::tip Benchmark Results
+
+For detailed benchmark comparisons showing **up to 79x faster** performance and **26x less** memory allocation, see the **[Performance Benchmarks](/docs/performance-benchmarks)** page.
+
+:::
 
 ## New Features in v2.0
 

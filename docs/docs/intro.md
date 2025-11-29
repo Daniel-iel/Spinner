@@ -4,13 +4,26 @@ sidebar_position: 1
 
 # Getting Started
 
+Spinner is a high-performance library for converting objects to/from positional (fixed-width) strings. With version 2.0, Spinner delivers **up to 79x faster** performance and **26x less** memory allocation compared to v1.x.
+
 ## Prerequisites
 
-Spinner is compatible with the following versions of .NET: `.NET 8`, `.NET 9`, `.NET 10`.
+Spinner is compatible with the following versions of .NET: `.NET 7`, `.NET 6`, `.NET 5`.
 
 :::info
 
 dotnet version 3.1 support was discontinued in spinner version 2.
+
+:::
+
+:::tip Performance
+
+Version 2.0 introduces major performance improvements:
+- **60x faster** read operations
+- **31x faster** write operations  
+- **Up to 26x less** memory allocation
+
+See the **[Performance Benchmarks](/docs/performance-benchmarks)** page for detailed results.
 
 :::
    
