@@ -198,13 +198,7 @@ namespace Spinner
         [MethodImpl(MethodImplOptions.AggressiveOptimization)]
         private static Action<T, string> CreateSpanSetDelegate(PropertyInfo propertyInfo)
         {
-            var setMethod = propertyInfo.GetSetMethod();
-
-            if (setMethod is null)
-            {
-                throw new InvalidOperationException($"Property {propertyInfo.Name} does not have a setter.");
-            }
-
+            var setMethod = propertyInfo.GetSetMethod() ?? throw new InvalidOperationException($"Property {propertyInfo.Name} does not have a setter.");
             var propertyType = propertyInfo.PropertyType;
 
             return propertyType switch
@@ -275,13 +269,13 @@ namespace Spinner
 
         private static Action<T, string> CreateGenericSetter(MethodInfo setMethod, Type propertyType)
         {
-            var delegateType = typeof(Action<,>).MakeGenericType(typeof(T), propertyType);
-            var typedDelegate = Delegate.CreateDelegate(delegateType, setMethod);
+            // Use reflection to create a strongly - typed delegate and avoid boxing
+            var typedSetter = Delegate.CreateDelegate(typeof(Action<T, object>), setMethod);
 
             return (instance, str) =>
             {
-                var value = Convert.ChangeType(str, propertyType);
-                typedDelegate.DynamicInvoke(instance, value);
+                object value = Convert.ChangeType(str, propertyType);
+                ((Action<T, object>)typedSetter)(instance, value);
             };
         }
     }
