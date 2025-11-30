@@ -208,69 +208,46 @@ namespace Spinner
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void InvokeTypedSetter(Delegate setter, T instance, object value, Type propertyType)
         {
-            if (propertyType == typeof(string))
+            _ = Type.GetTypeCode(propertyType) switch
             {
-                ((Action<T, string>)setter)(instance, value as string ?? value.ToString());
-            }
-            else if (propertyType == typeof(int))
+                TypeCode.String => InvokeAction<string>(setter, instance, value as string ?? value.ToString()),
+                TypeCode.Int32 => InvokeAction<int>(setter, instance, ConvertValue<int>(value)),
+                TypeCode.Int64 => InvokeAction<long>(setter, instance, ConvertValue<long>(value)),
+                TypeCode.Decimal => InvokeAction<decimal>(setter, instance, ConvertValue<decimal>(value)),
+                TypeCode.DateTime => InvokeAction<DateTime>(setter, instance, ConvertValue<DateTime>(value)),
+                TypeCode.Boolean => InvokeAction<bool>(setter, instance, ConvertValue<bool>(value)),
+                TypeCode.Byte => InvokeAction<byte>(setter, instance, ConvertValue<byte>(value)),
+                TypeCode.SByte => InvokeAction<sbyte>(setter, instance, ConvertValue<sbyte>(value)),
+                TypeCode.Int16 => InvokeAction<short>(setter, instance, ConvertValue<short>(value)),
+                TypeCode.UInt16 => InvokeAction<ushort>(setter, instance, ConvertValue<ushort>(value)),
+                TypeCode.UInt32 => InvokeAction<uint>(setter, instance, ConvertValue<uint>(value)),
+                TypeCode.UInt64 => InvokeAction<ulong>(setter, instance, ConvertValue<ulong>(value)),
+                TypeCode.Single => InvokeAction<float>(setter, instance, ConvertValue<float>(value)),
+                TypeCode.Double => InvokeAction<double>(setter, instance, ConvertValue<double>(value)),
+                TypeCode.Char => InvokeAction<char>(setter, instance, ConvertValue<char>(value)),
+                _ => InvokeSetterForOtherTypes(setter, instance, value, propertyType)
+            };
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static bool InvokeAction<TValue>(Delegate setter, T instance, TValue value)
+        {
+            ((Action<T, TValue>)setter)(instance, value);
+            return true;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static TValue ConvertValue<TValue>(object value) where TValue : struct, IParsable<TValue>
+        {
+            return value is TValue typedValue ? typedValue : TValue.Parse(value.ToString(), null);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static bool InvokeSetterForOtherTypes(Delegate setter, T instance, object value, Type propertyType)
+        {
+            if (propertyType == typeof(TimeSpan))
             {
-                ((Action<T, int>)setter)(instance, value is int intVal ? intVal : int.Parse(value.ToString()));
-            }
-            else if (propertyType == typeof(long))
-            {
-                ((Action<T, long>)setter)(instance, value is long longVal ? longVal : long.Parse(value.ToString()));
-            }
-            else if (propertyType == typeof(decimal))
-            {
-                ((Action<T, decimal>)setter)(instance, value is decimal decVal ? decVal : decimal.Parse(value.ToString()));
-            }
-            else if (propertyType == typeof(DateTime))
-            {
-                ((Action<T, DateTime>)setter)(instance, value is DateTime dtVal ? dtVal : DateTime.Parse(value.ToString()));
-            }
-            else if (propertyType == typeof(bool))
-            {
-                ((Action<T, bool>)setter)(instance, value is bool boolVal ? boolVal : bool.Parse(value.ToString()));
-            }
-            else if (propertyType == typeof(TimeSpan))
-            {
-                ((Action<T, TimeSpan>)setter)(instance, value is TimeSpan tsVal ? tsVal : TimeSpan.Parse(value.ToString()));
-            }
-            else if (propertyType == typeof(byte))
-            {
-                ((Action<T, byte>)setter)(instance, value is byte byteVal ? byteVal : byte.Parse(value.ToString()));
-            }
-            else if (propertyType == typeof(sbyte))
-            {
-                ((Action<T, sbyte>)setter)(instance, value is sbyte sbyteVal ? sbyteVal : sbyte.Parse(value.ToString()));
-            }
-            else if (propertyType == typeof(short))
-            {
-                ((Action<T, short>)setter)(instance, value is short shortVal ? shortVal : short.Parse(value.ToString()));
-            }
-            else if (propertyType == typeof(ushort))
-            {
-                ((Action<T, ushort>)setter)(instance, value is ushort ushortVal ? ushortVal : ushort.Parse(value.ToString()));
-            }
-            else if (propertyType == typeof(uint))
-            {
-                ((Action<T, uint>)setter)(instance, value is uint uintVal ? uintVal : uint.Parse(value.ToString()));
-            }
-            else if (propertyType == typeof(ulong))
-            {
-                ((Action<T, ulong>)setter)(instance, value is ulong ulongVal ? ulongVal : ulong.Parse(value.ToString()));
-            }
-            else if (propertyType == typeof(float))
-            {
-                ((Action<T, float>)setter)(instance, value is float floatVal ? floatVal : float.Parse(value.ToString()));
-            }
-            else if (propertyType == typeof(double))
-            {
-                ((Action<T, double>)setter)(instance, value is double doubleVal ? doubleVal : double.Parse(value.ToString()));
-            }
-            else if (propertyType == typeof(char))
-            {
-                ((Action<T, char>)setter)(instance, value is char charVal ? charVal : char.Parse(value.ToString()));
+                ((Action<T, TimeSpan>)setter)(instance, ConvertValue<TimeSpan>(value));
             }
             else if (propertyType == typeof(nint))
             {
@@ -288,6 +265,7 @@ namespace Spinner
                 }
                 setter.DynamicInvoke(instance, value);
             }
+            return true;
         }
     }
 }
