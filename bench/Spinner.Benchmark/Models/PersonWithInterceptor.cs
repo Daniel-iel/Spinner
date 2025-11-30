@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace Spinner.Benchmark.Models
 {
     [ObjectMapper(length: 50)]
-    public class PersonWithInterceptor : IEquatable<PersonWithInterceptor>, IEqualityComparer<PersonWithInterceptor>
+    public sealed class PersonWithInterceptor : IEquatable<PersonWithInterceptor>, IEqualityComparer<PersonWithInterceptor>
     {
         public PersonWithInterceptor() { }
 

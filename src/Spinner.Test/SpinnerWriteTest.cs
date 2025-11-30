@@ -262,12 +262,9 @@ namespace Spinner.Test
         [Fact]
         public void GetWriteProperties_WhenCaller_ShouldValidateHowManyPropertiesWasMapped()
         {
-            // Arrange
-            NothingPadRight nothing = new NothingPadRight("spinnerFirst", "www.spinner.com.br");
-
             // Act
             var properties = typeof(NothingPadRight).GetProperties()
-                .Where(p => p.GetCustomAttributes(typeof(WritePropertyAttribute), false).Any())
+                .Where(p => p.GetCustomAttributes(typeof(WritePropertyAttribute), false).Length > 0)
                 .ToArray();
 
             // Assert

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading;
 
+namespace Spinner.Benchmark.Helpers;
+
 public static class PerfTest
 {
     static DateTime now;

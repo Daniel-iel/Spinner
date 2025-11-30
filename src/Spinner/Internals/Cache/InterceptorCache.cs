@@ -21,7 +21,6 @@ namespace Spinner.Internals.Cache
             });
         }
 
-
         public static bool TryGet(Type key, out IInterceptor output)
         {
             if (cache.TryGetValue(key, out IInterceptor value))

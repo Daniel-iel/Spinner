@@ -53,7 +53,7 @@ namespace Spinner.Test
             Spinner<NothingDecimalReader> spinnerReader = new Spinner<NothingDecimalReader>();
 
             string positionalString = spinnerWriter.WriteAsString(nothing);
-            NothingDecimalReader nothingDecimalReader = spinnerReader.ReadFromString(positionalString);
+            spinnerReader.ReadFromString(positionalString);
 
             // Act
             bool decimalInterceptorWasCached = InterceptorCache.TryGet(typeof(DecimalInterceptor), out IInterceptor interceptor);
@@ -130,7 +130,7 @@ namespace Spinner.Test
         {
             // Act
             var properties = typeof(NothingReader).GetProperties()
-                .Where(p => p.GetCustomAttributes(typeof(ReadPropertyAttribute), false).Any())
+                .Where(p => p.GetCustomAttributes(typeof(ReadPropertyAttribute), false).Length > 0)
                 .ToArray();
 
             // Assert

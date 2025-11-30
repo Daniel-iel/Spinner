@@ -7,10 +7,8 @@ namespace Spinner.Test.Models
     [ObjectMapper(length: 4)]
     internal sealed class NothingDecimalReader : IEquatable<NothingDecimalReader>
     {
-        public NothingDecimalReader()
-        {
+        public NothingDecimalReader() { }
 
-        }
         [ReadProperty(start: 0, length: 4, type: typeof(DecimalInterceptor))]
         public decimal Value { get; set; }
 

@@ -5,10 +5,7 @@ namespace Spinner.Test.Models
 {
     internal sealed class NothingLeftNoObjectMapper : IEquatable<NothingLeftNoObjectMapper>
     {
-        public NothingLeftNoObjectMapper()
-        {
-
-        }
+        public NothingLeftNoObjectMapper() { }
         public NothingLeftNoObjectMapper(string name, string webSite)
         {
             Name = name;

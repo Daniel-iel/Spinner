@@ -44,7 +44,7 @@ namespace Spinner.Test.Cache
     {
         public object Parse(string value)
         {
-            throw new NotImplementedException();
+            return "";
         }
     }
 }

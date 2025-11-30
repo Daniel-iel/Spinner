@@ -71,7 +71,7 @@ namespace Spinner
             var sb = builder ??= new StringBuilder(ReadObjectMapper?.Length ?? 256);
             sb.Clear();
 
-            WritePositionalString(ref sb, obj);
+            WritePositionalString(obj, ref sb);
 
             return ReadObjectMapper is not null
                     ? sb.ToString(0, ReadObjectMapper.Length)
@@ -137,7 +137,7 @@ namespace Spinner
         }
 
         [MethodImpl(MethodImplOptions.AggressiveOptimization)]
-        private static void WritePositionalString(ref StringBuilder sb, T obj)
+        private static void WritePositionalString(T obj, ref StringBuilder sb)
         {
             Guard.WriteProperty.NotMapped<T>(WriteProperties.Length);
 
