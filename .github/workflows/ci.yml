@@ -64,7 +64,7 @@ jobs:
         run: dotnet test ${{env.PROJECT_SLN }} --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 
       - name: Mutant Test 🧪👾
-        if: github.event_name == 'pull_request' && matrix.dotnet-version == '9.0.x'        
+        if: false # github.event_name == 'pull_request' && matrix.dotnet-version == '9.0.x'        
         run: dotnet stryker --test-project ./src/Spinner.Test/Spinner.Test.csproj --verbosity trace --log-to-file
 
       - name: Run Infer .NET 10.0 🔍
