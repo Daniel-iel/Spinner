@@ -65,7 +65,7 @@ jobs:
 
       - name: Mutant Test 🧪👾
         if: github.event_name == 'pull_request' && matrix.dotnet-version == '9.0.x'        
-        run: dotnet stryker --project-file  ${{ env.PROJECT_TEST }}/Spinner.Test.csproj
+        run: dotnet stryker --project  ${{ env.PROJECT_TEST }}/Spinner.Test.csproj --verbosity trace --log-to-file
 
       - name: Run Infer .NET 10.0 🔍
         uses: microsoft/infersharpaction@v1.5
