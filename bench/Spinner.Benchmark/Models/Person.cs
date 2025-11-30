@@ -6,7 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace Spinner.Benchmark.Models
 {
     [ObjectMapper(length: 50)]
-    internal class Person : IEquatable<Person>, IEqualityComparer<Person>
+    internal sealed class Person : IEquatable<Person>, IEqualityComparer<Person>
     {
         public Person() { }
 
