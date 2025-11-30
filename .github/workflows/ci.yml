@@ -65,7 +65,8 @@ jobs:
 
       - name: Mutant Test 🧪👾
         if: github.event_name == 'pull_request' && matrix.dotnet-version == '9.0.x'
-        run: cd ${{ env.APP}} && dotnet stryker --reporter progress
+        working-directory: ${{ env.APP }}
+        run: dotnet stryker --reporter progress
 
       - name: Run Infer .NET 10.0 🔍
         uses: microsoft/infersharpaction@v1.5
