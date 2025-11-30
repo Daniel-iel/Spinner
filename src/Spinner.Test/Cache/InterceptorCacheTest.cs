@@ -42,7 +42,7 @@ namespace Spinner.Test.Cache
 
     internal class NonExistentInterceptor : IInterceptor
     {
-        public string Parse(string value)
+        public object Parse(string value)
         {
             throw new NotImplementedException();
         }

@@ -2,7 +2,7 @@
 
 namespace Spinner.Benchmark.Interceptors
 {
-    internal class WebSiteInterceptor : IInterceptor
+    internal class WebSiteInterceptor : IInterceptor<string>
     {
         public string Parse(string propertyValue)
         {

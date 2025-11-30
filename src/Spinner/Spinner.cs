@@ -17,7 +17,7 @@ namespace Spinner
         private static StringBuilder builder;
 
         private static readonly (PropertyInfo PropertyInfo, WritePropertyAttribute Attribute, Func<T, string> Getter)[] WriteProperties;
-        private static readonly (PropertyInfo PropertyInfo, ReadPropertyAttribute Attribute, Action<T, string> Setter)[] ReadProperties;
+        private static readonly (PropertyInfo PropertyInfo, ReadPropertyAttribute Attribute, Delegate Setter)[] ReadProperties;
         private static readonly ObjectMapperAttribute ReadObjectMapper;
 
         static Spinner()
@@ -38,14 +38,14 @@ namespace Spinner
               .OrderBy(PredicateForOrderByWriteProperty())
               .ToArray();
 
-            ReadProperties = new (PropertyInfo, ReadPropertyAttribute, Action<T, string>)[readProps.Length];
+            ReadProperties = new (PropertyInfo, ReadPropertyAttribute, Delegate)[readProps.Length];
             WriteProperties = new (PropertyInfo, WritePropertyAttribute, Func<T, string>)[writeProps.Length];
 
             for (int i = 0; i < readProps.Length; i++)
             {
                 var prop = readProps[i];
                 var readAttr = (ReadPropertyAttribute)prop.GetCustomAttributes(typeof(ReadPropertyAttribute), false)[0];
-                ReadProperties[i] = (prop, readAttr, CreateSpanSetDelegate(prop));
+                ReadProperties[i] = (prop, readAttr, CreateTypedSetDelegate(prop));
             }
 
             for (int i = 0; i < writeProps.Length; i++)
@@ -125,11 +125,11 @@ namespace Spinner
                 if (attribute.Type is not null)
                 {
                     var interceptor = InterceptorCache.GetOrAdd(attribute.Type);
-                    setter(obj, interceptor.Parse(trimmedSlice.ToString()));
+                    InvokeTypedSetter(setter, obj, interceptor.Parse(trimmedSlice.ToString()), prop.PropertyType);
                 }
                 else
                 {
-                    setter(obj, new string(trimmedSlice));
+                    InvokeTypedSetter(setter, obj, new string(trimmedSlice), prop.PropertyType);
                 }
             }
 
@@ -196,87 +196,98 @@ namespace Spinner
         }
 
         [MethodImpl(MethodImplOptions.AggressiveOptimization)]
-        private static Action<T, string> CreateSpanSetDelegate(PropertyInfo propertyInfo)
+        private static Delegate CreateTypedSetDelegate(PropertyInfo propertyInfo)
         {
             var setMethod = propertyInfo.GetSetMethod() ?? throw new InvalidOperationException($"Property {propertyInfo.Name} does not have a setter.");
             var propertyType = propertyInfo.PropertyType;
 
-            return propertyType switch
-            {
-                Type t when t == typeof(string) =>
-                    (Action<T, string>)Delegate.CreateDelegate(typeof(Action<T, string>), setMethod),
-
-                Type t when t == typeof(int) =>
-                    CreateTypedSetter(setMethod, int.Parse),
-
-                Type t when t == typeof(long) =>
-                    CreateTypedSetter(setMethod, long.Parse),
-
-                Type t when t == typeof(decimal) =>
-                    CreateTypedSetter(setMethod, decimal.Parse),
-
-                Type t when t == typeof(DateTime) =>
-                    CreateTypedSetter(setMethod, DateTime.Parse),
-
-                Type t when t == typeof(bool) =>
-                    CreateTypedSetter(setMethod, bool.Parse),
-
-                Type t when t == typeof(TimeSpan) =>
-                    CreateTypedSetter(setMethod, TimeSpan.Parse),
-
-                Type t when t == typeof(byte) =>
-                    CreateTypedSetter(setMethod, byte.Parse),
-
-                Type t when t == typeof(sbyte) =>
-                    CreateTypedSetter(setMethod, sbyte.Parse),
-
-                Type t when t == typeof(short) =>
-                    CreateTypedSetter(setMethod, short.Parse),
-
-                Type t when t == typeof(ushort) =>
-                    CreateTypedSetter(setMethod, ushort.Parse),
-
-                Type t when t == typeof(uint) =>
-                    CreateTypedSetter(setMethod, uint.Parse),
-
-                Type t when t == typeof(ulong) =>
-                    CreateTypedSetter(setMethod, ulong.Parse),
-
-                Type t when t == typeof(float) =>
-                    CreateTypedSetter(setMethod, float.Parse),
-
-                Type t when t == typeof(double) =>
-                    CreateTypedSetter(setMethod, double.Parse),
-
-                Type t when t == typeof(char) =>
-                    CreateTypedSetter(setMethod, char.Parse),
-
-                Type t when t == typeof(nint) =>
-                    CreateTypedSetter(setMethod, nint.Parse),
-
-                Type t when t == typeof(nuint) =>
-                    CreateTypedSetter(setMethod, nuint.Parse),
-
-                _ => CreateGenericSetter(setMethod, propertyType)
-            };
+            var delegateType = typeof(Action<,>).MakeGenericType(typeof(T), propertyType);
+            return Delegate.CreateDelegate(delegateType, setMethod);
         }
 
-        private static Action<T, string> CreateTypedSetter<TValue>(MethodInfo setMethod, Func<string, TValue> parser)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static void InvokeTypedSetter(Delegate setter, T instance, object value, Type propertyType)
         {
-            var typedSetter = (Action<T, TValue>)Delegate.CreateDelegate(typeof(Action<T, TValue>), setMethod);
-            return (instance, str) => typedSetter(instance, parser(str));
-        }
-
-        private static Action<T, string> CreateGenericSetter(MethodInfo setMethod, Type propertyType)
-        {
-            // Use reflection to create a strongly - typed delegate and avoid boxing
-            var typedSetter = Delegate.CreateDelegate(typeof(Action<T, object>), setMethod);
-
-            return (instance, str) =>
+            if (propertyType == typeof(string))
             {
-                object value = Convert.ChangeType(str, propertyType);
-                ((Action<T, object>)typedSetter)(instance, value);
-            };
+                ((Action<T, string>)setter)(instance, value as string ?? value.ToString());
+            }
+            else if (propertyType == typeof(int))
+            {
+                ((Action<T, int>)setter)(instance, value is int intVal ? intVal : int.Parse(value.ToString()));
+            }
+            else if (propertyType == typeof(long))
+            {
+                ((Action<T, long>)setter)(instance, value is long longVal ? longVal : long.Parse(value.ToString()));
+            }
+            else if (propertyType == typeof(decimal))
+            {
+                ((Action<T, decimal>)setter)(instance, value is decimal decVal ? decVal : decimal.Parse(value.ToString()));
+            }
+            else if (propertyType == typeof(DateTime))
+            {
+                ((Action<T, DateTime>)setter)(instance, value is DateTime dtVal ? dtVal : DateTime.Parse(value.ToString()));
+            }
+            else if (propertyType == typeof(bool))
+            {
+                ((Action<T, bool>)setter)(instance, value is bool boolVal ? boolVal : bool.Parse(value.ToString()));
+            }
+            else if (propertyType == typeof(TimeSpan))
+            {
+                ((Action<T, TimeSpan>)setter)(instance, value is TimeSpan tsVal ? tsVal : TimeSpan.Parse(value.ToString()));
+            }
+            else if (propertyType == typeof(byte))
+            {
+                ((Action<T, byte>)setter)(instance, value is byte byteVal ? byteVal : byte.Parse(value.ToString()));
+            }
+            else if (propertyType == typeof(sbyte))
+            {
+                ((Action<T, sbyte>)setter)(instance, value is sbyte sbyteVal ? sbyteVal : sbyte.Parse(value.ToString()));
+            }
+            else if (propertyType == typeof(short))
+            {
+                ((Action<T, short>)setter)(instance, value is short shortVal ? shortVal : short.Parse(value.ToString()));
+            }
+            else if (propertyType == typeof(ushort))
+            {
+                ((Action<T, ushort>)setter)(instance, value is ushort ushortVal ? ushortVal : ushort.Parse(value.ToString()));
+            }
+            else if (propertyType == typeof(uint))
+            {
+                ((Action<T, uint>)setter)(instance, value is uint uintVal ? uintVal : uint.Parse(value.ToString()));
+            }
+            else if (propertyType == typeof(ulong))
+            {
+                ((Action<T, ulong>)setter)(instance, value is ulong ulongVal ? ulongVal : ulong.Parse(value.ToString()));
+            }
+            else if (propertyType == typeof(float))
+            {
+                ((Action<T, float>)setter)(instance, value is float floatVal ? floatVal : float.Parse(value.ToString()));
+            }
+            else if (propertyType == typeof(double))
+            {
+                ((Action<T, double>)setter)(instance, value is double doubleVal ? doubleVal : double.Parse(value.ToString()));
+            }
+            else if (propertyType == typeof(char))
+            {
+                ((Action<T, char>)setter)(instance, value is char charVal ? charVal : char.Parse(value.ToString()));
+            }
+            else if (propertyType == typeof(nint))
+            {
+                ((Action<T, nint>)setter)(instance, value is nint nintVal ? nintVal : nint.Parse(value.ToString()));
+            }
+            else if (propertyType == typeof(nuint))
+            {
+                ((Action<T, nuint>)setter)(instance, value is nuint nuintVal ? nuintVal : nuint.Parse(value.ToString()));
+            }
+            else
+            {
+                if (value.GetType() != propertyType)
+                {
+                    value = Convert.ChangeType(value, propertyType);
+                }
+                setter.DynamicInvoke(instance, value);
+            }
         }
     }
 }

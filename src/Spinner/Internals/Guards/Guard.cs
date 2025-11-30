@@ -6,9 +6,9 @@ namespace Spinner.Internals.Guards
     {
         public static class ReadProperty
         {
-            public static void NotMapped<T>(int lenght)
+            public static void NotMapped<T>(int length)
             {
-                if (lenght == 0)
+                if (length == 0)
                 {
                     throw new PropertyNotMappedException($"Type {typeof(T).FullName} does not have properties mapped for reading.");
                 }

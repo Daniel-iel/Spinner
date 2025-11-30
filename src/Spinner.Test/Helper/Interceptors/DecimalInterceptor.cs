@@ -5,7 +5,7 @@ namespace Spinner.Test.Helper.Interceptors
 {
     internal sealed class DecimalInterceptor : IInterceptor
     {
-        public string Parse(string obj)
+        public object Parse(string obj)
         {
             string value = obj.Insert(2, ".");
             return decimal.Parse(value, new CultureInfo("en-US")).ToString();
