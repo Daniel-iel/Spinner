@@ -42,6 +42,9 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
 
+      - name: Setup Stryker 🔧
+        run: dotnet tool install -g dotnet-stryker --version 4.8.1 || dotnet tool update -g dotnet-stryker --version 4.8.1
+
       - name: Install dotnet-format tool 🔧
         run: dotnet tool install -g dotnet-format || dotnet tool update -g dotnet-format
 
@@ -61,18 +64,8 @@ jobs:
         run: dotnet test ${{env.PROJECT_SLN }} --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 
       - name: Mutant Test 🧪👾
-        if: github.event_name == 'pull_request' && matrix.dotnet-version == '10.0.x'
-        uses: stryker-mutator/github-action@v0.0.1
-        with:
-          testProject: ${{env.PROJECT_TEST}}
-          breakAt: "0"
-
-      - name: Upload Mutation Report 📂
-        if: github.event_name == 'pull_request' && matrix.dotnet-version == '10.0.x'
-        uses: actions/upload-artifact@v4
-        with:
-          name: mutation-report
-          path: ${{env.PROJECT_TEST}}/StrykerOutput/**/**/*.html
+        if: github.event_name == 'pull_request'
+        run: cd ${{ env.APP}} && dotnet stryker --reporter progress
 
       - name: Run Infer .NET 10.0 🔍
         uses: microsoft/infersharpaction@v1.5
