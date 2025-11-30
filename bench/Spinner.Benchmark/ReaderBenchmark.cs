@@ -1,4 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Jobs;
 using Microsoft.VSDiagnostics;
 using Spinner;
@@ -6,11 +7,7 @@ using Spinner.Benchmark.Models;
 
 namespace Writer.Benchmark
 {
-    [MemoryDiagnoser(true)]
-    [CPUUsageDiagnoser]
-    [SimpleJob(RuntimeMoniker.Net10_0, baseline: true)]
-    [SimpleJob(RuntimeMoniker.Net90)]
-    [SimpleJob(RuntimeMoniker.Net80)]
+    [Config(typeof(BenchmarkConfig))]
     [GcServer(true)]
     public class ReaderBenchmark
     {
