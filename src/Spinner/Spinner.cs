@@ -14,7 +14,7 @@ namespace Spinner
     public sealed class Spinner<T> where T : new()
     {
         [ThreadStatic]
-        private static StringBuilder builder;
+        private static StringBuilder _builder;
 
         private static readonly (PropertyInfo PropertyInfo, WritePropertyAttribute Attribute, Func<T, string> Getter)[] WriteProperties;
         private static readonly (PropertyInfo PropertyInfo, ReadPropertyAttribute Attribute, Delegate Setter)[] ReadProperties;
@@ -62,13 +62,27 @@ namespace Spinner
         public ObjectMapperAttribute GetObjectMapper => ReadObjectMapper;
 
         /// <summary>
+        /// Gets or creates the thread-local StringBuilder instance.
+        /// </summary>
+        private static StringBuilder GetStringBuilder()
+        {
+            var sb = _builder;
+            if (sb == null)
+            {
+                sb = new StringBuilder(ReadObjectMapper?.Length ?? 256);
+                _builder = sb;
+            }
+            return sb;
+        }
+
+        /// <summary>
         /// Convert T in a positional string.
         /// </summary>
         /// <param name="obj">Object to serialize.</param>
         /// <returns>Returns a string mapped of T.</returns>
         public string WriteAsString(T obj)
         {
-            var sb = builder ??= new StringBuilder(ReadObjectMapper?.Length ?? 256);
+            var sb = GetStringBuilder();
             sb.Clear();
 
             WritePositionalString(ref sb, obj);
