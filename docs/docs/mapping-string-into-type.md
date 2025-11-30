@@ -12,22 +12,21 @@ When reading positional strings, Spinner automatically converts values to common
 
 ## Creating an Interceptor
 
-To create an interceptor, implement the `IInterceptor` interface:
+To create an interceptor, implement the `IInterceptor<T>` interface where `T` is the return type:
 
 ```csharp
 using Spinner.Interceptors;
 
-public class WebSiteInterceptor : IInterceptor
+public class WebSiteInterceptor : IInterceptor<string>
 {
-    public object Parse(object propertyValue)
+    public string Parse(string value)
     {
         // Add "https://" prefix if not present
-        var url = propertyValue.ToString();
-        if (!url.StartsWith("http://") && !url.StartsWith("https://"))
+        if (!value.StartsWith("http://") && !value.StartsWith("https://"))
         {
-            return $"https://{url.Trim()}";
+            return $"https://{value.Trim()}";
         }
-        return url.Trim();
+        return value.Trim();
     }
 }
 ```
@@ -61,14 +60,13 @@ var result = spinner.ReadFromString(data);
 ### Currency Formatting
 
 ```csharp
-public class CurrencyInterceptor : IInterceptor
+public class CurrencyInterceptor : IInterceptor<decimal>
 {
-    public object Parse(object propertyValue)
+    public decimal Parse(string value)
     {
-        var value = propertyValue.ToString().Trim();
         // Remove currency symbols and parse
-        value = value.Replace("$", "").Replace(",", "");
-        return decimal.Parse(value);
+        var trimmed = value.Trim().Replace("$", "").Replace(",", "");
+        return decimal.Parse(trimmed);
     }
 }
 
@@ -79,13 +77,12 @@ public decimal Price { get; set; }
 ### Custom Date Formats
 
 ```csharp
-public class CustomDateInterceptor : IInterceptor
+public class CustomDateInterceptor : IInterceptor<DateTime>
 {
-    public object Parse(object propertyValue)
+    public DateTime Parse(string value)
     {
-        var value = propertyValue.ToString().Trim();
         // Parse custom format: YYYYMMDD
-        return DateTime.ParseExact(value, "yyyyMMdd", null);
+        return DateTime.ParseExact(value.Trim(), "yyyyMMdd", null);
     }
 }
 
@@ -96,12 +93,12 @@ public DateTime Date { get; set; }
 ### Boolean Mapping
 
 ```csharp
-public class YesNoInterceptor : IInterceptor
+public class YesNoInterceptor : IInterceptor<bool>
 {
-    public object Parse(object propertyValue)
+    public bool Parse(string value)
     {
-        var value = propertyValue.ToString().Trim().ToUpper();
-        return value == "Y" || value == "YES" || value == "1";
+        var normalized = value.Trim().ToUpper();
+        return normalized == "Y" || normalized == "YES" || normalized == "1";
     }
 }
 

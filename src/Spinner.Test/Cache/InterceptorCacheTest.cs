@@ -12,13 +12,12 @@ namespace Spinner.Test.Cache
         public void TryGet_WhenCalled_ShouldReturnInterceptorFromCache()
         {
             // Arrange
-            IInterceptor interceptor = new CacheInterceptor();
-            Type key = interceptor.GetType();
+            Type key = typeof(CacheInterceptor);
 
-            InterceptorCache.GetOrAdd(key);
+            InterceptorCache.GetOrAdd<string>(key);
 
             // Act
-            var typeCached = InterceptorCache.TryGet(key, out var typeInCache);
+            var typeCached = InterceptorCache.TryGet<string>(key, out var typeInCache);
 
             // Assert
             Assert.True(typeCached);
@@ -32,7 +31,7 @@ namespace Spinner.Test.Cache
             Type key = typeof(NonExistentInterceptor);
 
             // Act
-            var typeCached = InterceptorCache.TryGet(key, out var typeInCache);
+            var typeCached = InterceptorCache.TryGet<string>(key, out var typeInCache);
 
             // Assert
             Assert.False(typeCached);
@@ -40,9 +39,9 @@ namespace Spinner.Test.Cache
         }
     }
 
-    internal class NonExistentInterceptor : IInterceptor
+    internal class NonExistentInterceptor : IInterceptor<string>
     {
-        public object Parse(string value)
+        public string Parse(string value)
         {
             return "";
         }

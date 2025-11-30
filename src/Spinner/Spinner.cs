@@ -17,7 +17,7 @@ namespace Spinner
         private static StringBuilder builder;
 
         private static readonly (PropertyInfo PropertyInfo, WritePropertyAttribute Attribute, Func<T, string> Getter)[] WriteProperties;
-        private static readonly (PropertyInfo PropertyInfo, ReadPropertyAttribute Attribute, Delegate Setter)[] ReadProperties;
+        private static readonly (PropertyInfo PropertyInfo, ReadPropertyAttribute Attribute, Delegate Setter, Func<string, object> Parser)[] ReadProperties;
         private static readonly ObjectMapperAttribute ReadObjectMapper;
 
         static Spinner()
@@ -38,14 +38,15 @@ namespace Spinner
               .OrderBy(PredicateForOrderByWriteProperty())
               .ToArray();
 
-            ReadProperties = new (PropertyInfo, ReadPropertyAttribute, Delegate)[readProps.Length];
+            ReadProperties = new (PropertyInfo, ReadPropertyAttribute, Delegate, Func<string, object>)[readProps.Length];
             WriteProperties = new (PropertyInfo, WritePropertyAttribute, Func<T, string>)[writeProps.Length];
 
             for (int i = 0; i < readProps.Length; i++)
             {
                 var prop = readProps[i];
                 var readAttr = (ReadPropertyAttribute)prop.GetCustomAttributes(typeof(ReadPropertyAttribute), false)[0];
-                ReadProperties[i] = (prop, readAttr, CreateTypedSetDelegate(prop));
+                var parser = readAttr.Type is not null ? CreateParserDelegate(readAttr.Type, prop.PropertyType) : null;
+                ReadProperties[i] = (prop, readAttr, CreateTypedSetDelegate(prop), parser);
             }
 
             for (int i = 0; i < writeProps.Length; i++)
@@ -118,18 +119,27 @@ namespace Spinner
 
             for (int i = 0; i < ReadProperties.Length; i++)
             {
-                var (prop, attribute, setter) = ReadProperties[i];
+                var (prop, attribute, setter, parser) = ReadProperties[i];
 
                 var trimmedSlice = text.Slice(attribute.Start, attribute.Length).Trim();
 
-                if (attribute.Type is not null)
+                if (parser is not null)
                 {
-                    var interceptor = InterceptorCache.GetOrAdd(attribute.Type);
-                    InvokeTypedSetter(setter, obj, interceptor.Parse(trimmedSlice.ToString()), prop.PropertyType);
+                    InvokeTypedSetter(
+                        setter,
+                        obj,
+                        parser(trimmedSlice.ToString()),
+                        prop.PropertyType
+                    );
                 }
                 else
                 {
-                    InvokeTypedSetter(setter, obj, new string(trimmedSlice), prop.PropertyType);
+                    InvokeTypedSetter(
+                        setter,
+                        obj,
+                        new string(trimmedSlice),
+                        prop.PropertyType
+                    );
                 }
             }
 
@@ -205,6 +215,29 @@ namespace Spinner
             return Delegate.CreateDelegate(delegateType, setMethod);
         }
 
+        private static Func<string, object> CreateParserDelegate(Type interceptorType, Type propertyType)
+        {
+            var interceptorInterfaceType = interceptorType
+                .GetInterfaces()
+                .FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(Interceptors.IInterceptor<>))
+                ?? throw new InvalidOperationException($"Type {interceptorType.FullName} does not implement IInterceptor<T>");
+
+            var returnType = interceptorInterfaceType.GetGenericArguments()[0];
+
+            var createParserMethod = typeof(Spinner<T>)
+                .GetMethod(nameof(CreateTypedParser), BindingFlags.NonPublic | BindingFlags.Static)
+                .MakeGenericMethod(returnType);
+
+            return (Func<string, object>)createParserMethod.Invoke(null, new object[] { interceptorType });
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Func<string, object> CreateTypedParser<TResult>(Type interceptorType)
+        {
+            var interceptor = InterceptorCache.GetOrAdd<TResult>(interceptorType);
+            return (string value) => interceptor.Parse(value);
+        }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void InvokeTypedSetter(Delegate setter, T instance, object value, Type propertyType)
         {
@@ -263,8 +296,10 @@ namespace Spinner
                 {
                     value = Convert.ChangeType(value, propertyType);
                 }
+
                 setter.DynamicInvoke(instance, value);
             }
+
             return true;
         }
     }

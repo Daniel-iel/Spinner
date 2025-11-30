@@ -12,7 +12,7 @@ Spinner is compatible with the following versions of .NET: `.NET 10(LTS)`, `.NET
 
 :::info
 
-dotnet version 3.1 support was discontinued in spinner version 2.
+dotnet version 3.1, 5, 6 and 7 support was discontinued in spinner version 2.
 
 :::
 :::tip Performance

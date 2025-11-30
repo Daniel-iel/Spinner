@@ -56,7 +56,7 @@ namespace Spinner.Test
             spinnerReader.ReadFromString(positionalString);
 
             // Act
-            bool decimalInterceptorWasCached = InterceptorCache.TryGet(typeof(DecimalInterceptor), out IInterceptor interceptor);
+            bool decimalInterceptorWasCached = InterceptorCache.TryGet<string>(typeof(DecimalInterceptor), out Interceptors.IInterceptor<string> interceptor);
 
             // Assert
             Assert.True(decimalInterceptorWasCached);

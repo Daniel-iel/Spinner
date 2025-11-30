@@ -9,23 +9,23 @@ namespace Spinner.Internals.Cache
 {
     internal static class InterceptorCache
     {
-        private static readonly ConcurrentDictionary<Type, IInterceptor> cache = new ConcurrentDictionary<Type, IInterceptor>();
+        private static readonly ConcurrentDictionary<Type, object> cache = new ConcurrentDictionary<Type, object>();
 
-        public static IInterceptor GetOrAdd(Type type)
+        public static Interceptors.IInterceptor<T> GetOrAdd<T>(Type interceptorType)
         {
-            return cache.GetOrAdd(type, static t =>
+            return (Interceptors.IInterceptor<T>)cache.GetOrAdd(interceptorType, static t =>
             {
-                var instance = Activator.CreateInstance(t) as IInterceptor;
+                var instance = Activator.CreateInstance(t);
 
-                return (IInterceptor)instance ?? throw new InvalidOperationException($"Failed to create instance of interceptor type {t.FullName}");
+                return instance ?? throw new InvalidOperationException($"Failed to create instance of interceptor type {t.FullName}");
             });
         }
 
-        public static bool TryGet(Type key, out IInterceptor output)
+        public static bool TryGet<T>(Type key, out Interceptors.IInterceptor<T> output)
         {
-            if (cache.TryGetValue(key, out IInterceptor value))
+            if (cache.TryGetValue(key, out object value))
             {
-                output = value;
+                output = (Interceptors.IInterceptor<T>)value;
                 return true;
             }
 
