@@ -8,7 +8,7 @@ Spinner is a high-performance library for converting objects to/from positional 
 
 ## Prerequisites
 
-Spinner is compatible with the following versions of .NET: `.NET 7`, `.NET 6`, `.NET 5`.
+Spinner is compatible with the following versions of .NET: `.NET 10(LTS)`, `.NET 9`, `.NET 8(LTS)`.
 
 :::info
 

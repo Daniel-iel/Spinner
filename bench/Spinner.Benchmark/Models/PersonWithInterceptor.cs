@@ -9,10 +9,8 @@ namespace Spinner.Benchmark.Models
     [ObjectMapper(length: 50)]
     public class PersonWithInterceptor : IEquatable<PersonWithInterceptor>, IEqualityComparer<PersonWithInterceptor>
     {
-        public PersonWithInterceptor()
-        {
+        public PersonWithInterceptor() { }
 
-        }
         public PersonWithInterceptor(string name, string webSite)
         {
             Name = name;
@@ -35,6 +33,11 @@ namespace Spinner.Benchmark.Models
 
         public override bool Equals(object obj)
         {
+            if (obj == null)
+            {
+                return false;
+            }
+
             PersonWithInterceptor other = (PersonWithInterceptor)obj;
 
             return other.Equals(this);

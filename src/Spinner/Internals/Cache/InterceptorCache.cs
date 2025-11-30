@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Spinner.Interceptors;
+using System;
 using System.Collections.Concurrent;
 using System.Runtime.CompilerServices;
-using Spinner.Interceptors;
 
 [assembly: InternalsVisibleTo("Spinner.Test")]
 
@@ -13,8 +13,14 @@ namespace Spinner.Internals.Cache
 
         public static IInterceptor GetOrAdd(Type type)
         {
-            return cache.GetOrAdd(type, static t => (IInterceptor)Activator.CreateInstance(t));
+            return cache.GetOrAdd(type, static t =>
+            {
+                var instance = Activator.CreateInstance(t) as IInterceptor;
+
+                return (IInterceptor)instance ?? throw new InvalidOperationException($"Failed to create instance of interceptor type {t.FullName}");
+            });
         }
+
 
         public static bool TryGet(Type key, out IInterceptor output)
         {

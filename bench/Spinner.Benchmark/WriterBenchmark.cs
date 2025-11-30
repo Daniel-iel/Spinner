@@ -29,13 +29,13 @@ namespace Writer.Benchmark
         [Benchmark]
         public void WriteAsString()
         {
-            var trancode = spinner.WriteAsString(instance);
+            spinner.WriteAsString(instance);
         }
 
         [Benchmark]
         public void WriteAsSpan()
         {
-            var span = spinner.WriteAsSpan(instance);
+            spinner.WriteAsSpan(instance);
         }
     }
 }
