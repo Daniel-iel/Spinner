@@ -57,6 +57,6 @@ public static class PerfTest
 
         Console.WriteLine("{0:N3} μs per item", totalTime * 1000 / totalItem);
         Console.WriteLine("Allocation: {0:N0} bytes, {1:N2} per item", alloc, alloc / totalItem);
-        Console.WriteLine("Memory usage: {0:N2} mb", GC.GetTotalMemory(false) / 1024 / 1024.0);
+        Console.WriteLine("Memory usage: {0:N2} mb", GC.GetTotalMemory(false) / 1024.0 / 1024.0);
     }
 }
