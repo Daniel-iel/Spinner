@@ -17,6 +17,7 @@
 ![Meercode](https://api.meercode.io/badge//?type=ci-score&lastDay=90)
 ![Snyk](https://img.shields.io/snyk/vulnerabilities/github/Daniel-iel/Spinner)
 [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support-yellow?style=flat&logo=buy-me-a-coffee)](https://buymeacoffee.com/daniavila)
+[![Known Vulnerabilities](https://snyk.io/github/Daniel-iel/Spinner/badge.svg)](https://snyk.io/test/github/Daniel-iel/Spinner)
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/N4N86ZS61)
 
 ## Introduction
