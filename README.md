@@ -9,6 +9,7 @@
 [![CI](https://github.com/Daniel-iel/Spinner/actions/workflows/ci.yml/badge.svg)](https://github.com/Daniel-iel/Spinner/actions/workflows/ci.yml)
 [![Documentation](https://github.com/Daniel-iel/Spinner/actions/workflows/ci-documentation.yml/badge.svg)](https://github.com/Daniel-iel/Spinner/actions/workflows/ci-documentation.yml)
 [![Benchmarks](https://github.com/Daniel-iel/Spinner/actions/workflows/ci-benchmark.yml/badge.svg)](https://github.com/Daniel-iel/Spinner/actions/workflows/ci-benchmark.yml)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/11549/badge)](https://www.bestpractices.dev/projects/11549)
 
 [![NuGet](https://img.shields.io/nuget/v/spinner)](https://www.nuget.org/packages/Spinner/)
 [![Downloads](https://img.shields.io/nuget/dt/Spinner)](https://www.nuget.org/packages/Spinner/)
