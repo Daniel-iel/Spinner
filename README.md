@@ -14,7 +14,8 @@
 [![Downloads](https://img.shields.io/nuget/dt/Spinner)](https://www.nuget.org/packages/Spinner/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
 [![Code Factor](https://www.codefactor.io/repository/github/Daniel-iel/spinner/badge)](https://www.codefactor.io/repository/github/Daniel-iel/spinner)
-![Snyk](https://img.shields.io/snyk/vulnerabilities/github/Daniel-iel/Spinner)
+[![Known Vulnerabilities](https://snyk.io/test/github/daniel-iel/spinner/badge.svg)](https://snyk.io/test/github/daniel-iel/spinner)
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support-yellow?style=flat&logo=buy-me-a-coffee)](https://buymeacoffee.com/danieliel)
 
 [Documentation](https://spinnerframework.com) | [Getting Started](https://spinnerframework.com/docs/intro) | [API Reference](https://spinnerframework.com/docs/advanced-features)
 
