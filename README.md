@@ -16,6 +16,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
 [![Code Factor](https://www.codefactor.io/repository/github/Daniel-iel/spinner/badge)](https://www.codefactor.io/repository/github/Daniel-iel/spinner)
 [![DeepSource](https://app.deepsource.com/gh/daniel-iel/spinner.svg/?label=active+issues&show_trend=true)](https://app.deepsource.com/gh/daniel-iel/spinner/)
+[![codecov](https://codecov.io/github/Daniel-iel/Spinner/graph/badge.svg?token=0DO0Z5CA6N)](https://codecov.io/github/Daniel-iel/Spinner)
 [![Known Vulnerabilities](https://snyk.io/test/github/daniel-iel/spinner/badge.svg)](https://snyk.io/test/github/daniel-iel/spinner)
 [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support-yellow?style=flat&logo=buy-me-a-coffee)](https://buymeacoffee.com/danieliel)
 
