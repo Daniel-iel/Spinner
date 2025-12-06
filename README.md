@@ -20,7 +20,7 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/daniel-iel/spinner/badge.svg)](https://snyk.io/test/github/daniel-iel/spinner)
 [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support-yellow?style=flat&logo=buy-me-a-coffee)](https://buymeacoffee.com/danieliel)
 
-[Documentation](https://spinnerframework.com) | [Getting Started](https://spinnerframework.com/docs/intro) | [API Reference](https://spinnerframework.com/docs/advanced-features)
+[Documentation](https://daniel-iel.github.io/Spinner/) | [Getting Started](https://daniel-iel.github.io/Spinner/docs/intro) | [API Reference](http://https://daniel-iel.github.io/Spinner/docs/advanced-features)
 
 </div>
 
@@ -58,7 +58,7 @@
 | **WriteAsString** | 1.2 �s | 40 ns | **31x faster** ? |
 | **Memory Usage** | 664-808 B | 32-128 B | **6-20x less** ?? |
 
-*Benchmarks run on .NET 10.0 with BenchmarkDotNet. See [detailed benchmarks](https://spinnerframework.com/docs/performance-benchmarks) for more information.*
+*Benchmarks run on .NET 10.0 with BenchmarkDotNet. See [detailed benchmarks](https://daniel-iel.github.io/docs/performance-benchmarks) for more information.*
 
 ## 📋 Use Cases
 
@@ -154,21 +154,21 @@ public int Age { get; set; }  // Automatically parses string to int
 public DateTime BirthDate { get; set; }  // Automatically parses to DateTime
 ```
 
-For more examples, see the [full documentation](https://spinnerframework.com/docs/intro).
+For more examples, see the [full documentation](https://daniel-iel.github.io/docs/intro).
 
 ## 📚 Documentation
 
-For comprehensive documentation, visit our official website: [spinnerframework.com](https://spinnerframework.com/)
+For comprehensive documentation, visit our official website: [spinnerframework.com](https://daniel-iel.github.io/)
 
 ### Quick Links
 
-* **[Getting Started](https://spinnerframework.com/docs/intro)** - Installation and basic usage
-* **[Writing Objects](https://spinnerframework.com/docs/mapping-object-in-string)** - Convert objects to positional strings
-* **[Reading Strings](https://spinnerframework.com/docs/mapping-string-in-object)** - Parse positional strings to objects
-* **[Interceptors](https://spinnerframework.com/docs/mapping-string-into-type)** - Custom value transformations
-* **[Advanced Features](https://spinnerframework.com/docs/advanced-features)** - Thread-safety, padding, and optimizations
-* **[Migration Guide](https://spinnerframework.com/docs/migration-guide-v2)** - Upgrading from v1.x to v2.0
-* **[Performance Benchmarks](https://spinnerframework.com/docs/performance-benchmarks)** - Detailed performance analysis
+* **[Getting Started](https://daniel-iel.github.io/docs/intro)** - Installation and basic usage
+* **[Writing Objects](https://daniel-iel.github.io/docs/mapping-object-in-string)** - Convert objects to positional strings
+* **[Reading Strings](https://daniel-iel.github.io/docs/mapping-string-in-object)** - Parse positional strings to objects
+* **[Interceptors](https://daniel-iel.github.io/docs/mapping-string-into-type)** - Custom value transformations
+* **[Advanced Features](https://daniel-iel.github.io/docs/advanced-features)** - Thread-safety, padding, and optimizations
+* **[Migration Guide](https://daniel-iel.github.io/docs/migration-guide-v2)** - Upgrading from v1.x to v2.0
+* **[Performance Benchmarks](https://daniel-iel.github.io/docs/performance-benchmarks)** - Detailed performance analysis
 
 ## Contributing
 
@@ -393,9 +393,8 @@ copies or substantial portions of the Software.
 
 ---
 
-**Made with ❤️ by the Spinner team**
+**Made with ❤️ by the Daniel-Iel**
 
 [⬆ Back to top](#)
 
 </div>
-
