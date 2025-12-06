@@ -1,14 +1,17 @@
 ﻿using Spinner.Attribute;
+using Spinner.Benchmark.Interceptors;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Writer.Benchmark
+namespace Spinner.Benchmark.Models
 {
     [ObjectMapper(length: 50)]
-    internal struct NothingWithInterceptor : IEquatable<NothingWithInterceptor>, IEqualityComparer<NothingWithInterceptor>
+    public sealed class PersonWithInterceptor : IEquatable<PersonWithInterceptor>, IEqualityComparer<PersonWithInterceptor>
     {
-        public NothingWithInterceptor(string name, string webSite)
+        public PersonWithInterceptor() { }
+
+        public PersonWithInterceptor(string name, string webSite)
         {
             Name = name;
             WebSite = webSite;
@@ -22,7 +25,7 @@ namespace Writer.Benchmark
         [ReadProperty(start: 19, length: 30, type: typeof(WebSiteInterceptor))]
         public string WebSite { get; set; }
 
-        public bool Equals(NothingWithInterceptor other)
+        public bool Equals(PersonWithInterceptor other)
         {
             return Name == other.Name &&
                    WebSite == other.WebSite;
@@ -30,12 +33,17 @@ namespace Writer.Benchmark
 
         public override bool Equals(object obj)
         {
-            NothingWithInterceptor other = (NothingWithInterceptor)obj;
+            if (obj == null)
+            {
+                return false;
+            }
+
+            PersonWithInterceptor other = (PersonWithInterceptor)obj;
 
             return other.Equals(this);
         }
 
-        public bool Equals(NothingWithInterceptor x, NothingWithInterceptor y)
+        public bool Equals(PersonWithInterceptor x, PersonWithInterceptor y)
         {
             return x.Equals(y);
         }
@@ -45,7 +53,7 @@ namespace Writer.Benchmark
             return HashCode.Combine(Name, WebSite);
         }
 
-        public int GetHashCode([DisallowNull] NothingWithInterceptor obj)
+        public int GetHashCode([DisallowNull] PersonWithInterceptor obj)
         {
             return HashCode.Combine(obj.Name, obj.WebSite);
         }

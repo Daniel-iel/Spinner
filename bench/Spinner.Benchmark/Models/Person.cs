@@ -3,12 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Writer.Benchmark
+namespace Spinner.Benchmark.Models
 {
     [ObjectMapper(length: 50)]
-    internal struct Nothing : IEquatable<Nothing>, IEqualityComparer<Nothing>
+    internal sealed class Person : IEquatable<Person>, IEqualityComparer<Person>
     {
-        public Nothing(string name, string webSite)
+        public Person() { }
+
+        public Person(string name, string webSite)
         {
             Name = name;
             WebSite = webSite;
@@ -22,7 +24,7 @@ namespace Writer.Benchmark
         [ReadProperty(start: 19, length: 30)]
         public string WebSite { get; set; }
 
-        public bool Equals(Nothing other)
+        public bool Equals(Person other)
         {
             return Name == other.Name &&
                    WebSite == other.WebSite;
@@ -30,12 +32,17 @@ namespace Writer.Benchmark
 
         public override bool Equals(object obj)
         {
-            Nothing other = (Nothing)obj;
+            if (obj == null)
+            {
+                return false;
+            }
+
+            Person other = (Person)obj;
 
             return other.Equals(this);
         }
 
-        public bool Equals(Nothing x, Nothing y)
+        public bool Equals(Person x, Person y)
         {
             return x.Equals(y);
         }
@@ -45,7 +52,7 @@ namespace Writer.Benchmark
             return HashCode.Combine(Name, WebSite);
         }
 
-        public int GetHashCode([DisallowNull] Nothing obj)
+        public int GetHashCode([DisallowNull] Person obj)
         {
             return HashCode.Combine(obj.Name, obj.WebSite);
         }

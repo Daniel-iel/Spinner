@@ -4,8 +4,10 @@ using System;
 namespace Spinner.Test.Models
 {
     [ObjectMapper(length: 4)]
-    internal struct NothingDecimal : IEquatable<NothingDecimal>
+    internal sealed class NothingDecimal : IEquatable<NothingDecimal>
     {
+        public NothingDecimal() { }
+
         public NothingDecimal(string value)
         {
             Value = value;
