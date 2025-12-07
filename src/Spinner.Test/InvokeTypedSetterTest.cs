@@ -3,6 +3,7 @@ using Spinner.Test.Helper.Models;
 using Spinner.Test.Helper.Models.TypeModels;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using Xunit;
 
 namespace Spinner.Test
@@ -202,9 +203,22 @@ namespace Spinner.Test
             Assert.Equal(expected, result.Value);
         }
 
+        public static IEnumerable<object[]> SingleTestData()
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                yield return new object[] { "123,456   ", 123.456F };
+                yield return new object[] { "-99,99    ", -99.99F };
+            }
+            else
+            {
+                yield return new object[] { "123.456   ", 123.456F };
+                yield return new object[] { "-99.99    ", -99.99F };
+            }
+        }
+
         [Theory]
-        [InlineData("123,456   ", 123.456F)]
-        [InlineData("-99,99    ", -99.99F)]
+        [MemberData(nameof(SingleTestData))]
         public void InvokeTypedSetter_ShouldHandleSingleType(string input, float expected)
         {
             // Arrange
@@ -217,9 +231,22 @@ namespace Spinner.Test
             Assert.Equal(expected, result.Value, 3);
         }
 
+        public static IEnumerable<object[]> DoubleTestData()
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                yield return new object[] { "123,456789     ", 123.456789 };
+                yield return new object[] { "-99,99         ", -99.99 };
+            }
+            else
+            {
+                yield return new object[] { "123.456789     ", 123.456789 };
+                yield return new object[] { "-99.99         ", -99.99 };
+            }
+        }
+
         [Theory]
-        [InlineData("123,456789     ", 123.456789)]
-        [InlineData("-99,99         ", -99.99)]
+        [MemberData(nameof(DoubleTestData))]
         public void InvokeTypedSetter_ShouldHandleDoubleType(string input, double expected)
         {
             // Arrange
