@@ -1,7 +1,7 @@
-﻿namespace Spinner.Interceptors
+namespace Spinner.Interceptors
 {
-    public interface IInterceptor
+    public interface IInterceptor<T>
     {
-        object Parse(object obj);
+        T Parse(string value);
     }
 }

@@ -1,25 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+    <LangVersion>12.0</LangVersion>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="BenchmarkDotNet" Version="0.14.0" />
-    <PackageReference Include="BenchmarkDotNet.Annotations" Version="0.14.0" />
+    <Compile Remove="C:\Users\iel_1\.nuget\packages\microsoft.visualstudio.diagnosticshub.benchmarkdotnetdiagnosers\18.3.36714.1\contentFiles\cs\any\BenchmarkProfilerAgentConfig.g.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="C:\Users\iel_1\.nuget\packages\microsoft.diagnostics.tracing.traceevent\3.1.21\buildTransitive\..\lib\netstandard2.0\Dia2Lib.dll" />
+    <None Remove="C:\Users\iel_1\.nuget\packages\microsoft.diagnostics.tracing.traceevent\3.1.21\buildTransitive\..\lib\netstandard2.0\TraceReloggerLib.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.15.8" />
+    <PackageReference Include="BenchmarkDotNet.Annotations" Version="0.15.8" />
     <PackageReference Include="ClrHeapAllocationAnalyzer" Version="3.0.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis" Version="4.11.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4">
+    <PackageReference Include="Microsoft.CodeAnalysis" Version="5.0.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.11.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.11.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="5.0.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.DiagnosticsHub.BenchmarkDotNetDiagnosers" Version="18.3.36726.2" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\src\Spinner\Spinner.csproj" />
   </ItemGroup>
-
 </Project>

@@ -1,6 +1,7 @@
-﻿using Spinner.Internals.Cache;
-using Spinner.Interceptors;
+﻿using Spinner.Interceptors;
+using Spinner.Internals.Cache;
 using Spinner.Test.Helper.Interceptors;
+using System;
 using Xunit;
 
 namespace Spinner.Test.Cache
@@ -11,16 +12,38 @@ namespace Spinner.Test.Cache
         public void TryGet_WhenCalled_ShouldReturnInterceptorFromCache()
         {
             // Arrange
-            const string key = "key";
-            IInterceptor interceptor = new CacheInterceptor();
+            Type key = typeof(CacheInterceptor);
 
-            InterceptorCache.Add(key, interceptor);
+            InterceptorCache.GetOrAdd<string>(key);
+
             // Act
-            var typeCached = InterceptorCache.TryGet(key, out var typeInCache);
+            var typeCached = InterceptorCache.TryGet<string>(key, out var typeInCache);
 
             // Assert
             Assert.True(typeCached);
             Assert.IsType<CacheInterceptor>(typeInCache);
+        }
+
+        [Fact]
+        public void TryGet_WhenKeyNotInCache_ShouldReturnFalseAndDefaultOutput()
+        {
+            // Arrange
+            Type key = typeof(NonExistentInterceptor);
+
+            // Act
+            var typeCached = InterceptorCache.TryGet<string>(key, out var typeInCache);
+
+            // Assert
+            Assert.False(typeCached);
+            Assert.Null(typeInCache);
+        }
+    }
+
+    internal class NonExistentInterceptor : IInterceptor<string>
+    {
+        public string Parse(string value)
+        {
+            return "";
         }
     }
 }

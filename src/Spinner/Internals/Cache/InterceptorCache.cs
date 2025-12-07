@@ -1,23 +1,25 @@
-﻿using Spinner.Interceptors;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("Spinner.Test")]
 
 namespace Spinner.Internals.Cache
 {
     internal static class InterceptorCache
     {
-        private static readonly Dictionary<string, IInterceptor> cache = new Dictionary<string, IInterceptor>();
+        private static readonly ConcurrentDictionary<Type, object> cache = new ConcurrentDictionary<Type, object>();
 
-        public static bool Add(string key, IInterceptor value)
+        public static Interceptors.IInterceptor<T> GetOrAdd<T>(Type interceptorType)
         {
-            return cache.TryAdd(key, value);
+            return (Interceptors.IInterceptor<T>)cache.GetOrAdd(interceptorType, static t => Activator.CreateInstance(t));
         }
 
-        public static bool TryGet(string key, out IInterceptor output)
+        public static bool TryGet<T>(Type key, out Interceptors.IInterceptor<T> output)
         {
-            if (cache.TryGetValue(key, out IInterceptor value))
+            if (cache.TryGetValue(key, out object value))
             {
-                output = value;
+                output = (Interceptors.IInterceptor<T>)value;
                 return true;
             }
 
