@@ -18,15 +18,20 @@ namespace Spinner
 
         private static readonly (PropertyInfo PropertyInfo, WritePropertyAttribute Attribute, Func<T, string> Getter)[] WriteProperties;
         private static readonly (PropertyInfo PropertyInfo, ReadPropertyAttribute Attribute, Delegate Setter, Func<string, object> Parser)[] ReadProperties;
-        private static readonly ObjectMapperAttribute ReadObjectMapper;
+        private static readonly ObjectMapperAttribute _objectMapperAttribute;
 
         static Spinner()
         {
             var allProperties = typeof(T).GetProperties();
 
-            ReadObjectMapper = (ObjectMapperAttribute)typeof(T)
+            _objectMapperAttribute = (ObjectMapperAttribute)typeof(T)
                 .GetCustomAttributes(typeof(ObjectMapperAttribute), false)
                 .FirstOrDefault();
+
+            if (_objectMapperAttribute is not null)
+            {
+                Guard.ObjectMapper.ValidateLength<T>(_objectMapperAttribute.Length);
+            }
 
             var readProps = allProperties
                 .Where(PredicateForReadProperty())
@@ -60,7 +65,7 @@ namespace Spinner
         /// <summary>
         /// Get configuration property of T.
         /// </summary>
-        public ObjectMapperAttribute GetObjectMapper => ReadObjectMapper;
+        public ObjectMapperAttribute GetObjectMapper => _objectMapperAttribute;
 
         /// <summary>
         /// Convert T in a positional string.
@@ -69,13 +74,20 @@ namespace Spinner
         /// <returns>Returns a string mapped of T.</returns>
         public string WriteAsString(T obj)
         {
-            var sb = builder ??= new StringBuilder(ReadObjectMapper?.Length ?? 256);
-            sb.Clear();
+            var sb = builder;
+            if (sb == null)
+            {
+                sb = builder = new StringBuilder(_objectMapperAttribute?.Length ?? 256);
+            }
+            else
+            {
+                sb.Clear();
+            }
 
             WritePositionalString(obj, ref sb);
 
-            return ReadObjectMapper is not null
-                    ? sb.ToString(0, ReadObjectMapper.Length)
+            return _objectMapperAttribute is not null
+                    ? sb.ToString(0, _objectMapperAttribute.Length)
                     : sb.ToString();
         }
 
@@ -158,23 +170,23 @@ namespace Spinner
 
                 int len = atr.Length;
 
+                // Stryker disable all: it's not possible to write a test that covers this case from >= to >
                 if (str.Length >= len)
                 {
                     sb.Append(str, 0, len);
+                    continue;
                 }
-                else
+
+                if (atr.Padding == PaddingType.Left)
                 {
-                    if (atr.Padding == PaddingType.Left)
-                    {
-                        sb.Append(atr.PaddingChar, len - str.Length);
-                    }
-
+                    sb.Append(atr.PaddingChar, len - str.Length);
                     sb.Append(str);
+                }
 
-                    if (atr.Padding == PaddingType.Right)
-                    {
-                        sb.Append(atr.PaddingChar, len - str.Length);
-                    }
+                if (atr.Padding == PaddingType.Right)
+                {
+                    sb.Append(str);
+                    sb.Append(atr.PaddingChar, len - str.Length);
                 }
             }
         }
@@ -241,32 +253,63 @@ namespace Spinner
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void InvokeTypedSetter(Delegate setter, T instance, object value, Type propertyType)
         {
-            _ = Type.GetTypeCode(propertyType) switch
+            switch (Type.GetTypeCode(propertyType))
             {
-                TypeCode.String => InvokeAction<string>(setter, instance, value as string ?? value.ToString()),
-                TypeCode.Int32 => InvokeAction<int>(setter, instance, ConvertValue<int>(value)),
-                TypeCode.Int64 => InvokeAction<long>(setter, instance, ConvertValue<long>(value)),
-                TypeCode.Decimal => InvokeAction<decimal>(setter, instance, ConvertValue<decimal>(value)),
-                TypeCode.DateTime => InvokeAction<DateTime>(setter, instance, ConvertValue<DateTime>(value)),
-                TypeCode.Boolean => InvokeAction<bool>(setter, instance, ConvertValue<bool>(value)),
-                TypeCode.Byte => InvokeAction<byte>(setter, instance, ConvertValue<byte>(value)),
-                TypeCode.SByte => InvokeAction<sbyte>(setter, instance, ConvertValue<sbyte>(value)),
-                TypeCode.Int16 => InvokeAction<short>(setter, instance, ConvertValue<short>(value)),
-                TypeCode.UInt16 => InvokeAction<ushort>(setter, instance, ConvertValue<ushort>(value)),
-                TypeCode.UInt32 => InvokeAction<uint>(setter, instance, ConvertValue<uint>(value)),
-                TypeCode.UInt64 => InvokeAction<ulong>(setter, instance, ConvertValue<ulong>(value)),
-                TypeCode.Single => InvokeAction<float>(setter, instance, ConvertValue<float>(value)),
-                TypeCode.Double => InvokeAction<double>(setter, instance, ConvertValue<double>(value)),
-                TypeCode.Char => InvokeAction<char>(setter, instance, ConvertValue<char>(value)),
-                _ => InvokeSetterForOtherTypes(setter, instance, value, propertyType)
-            };
+                case TypeCode.String:
+                    InvokeAction<string>(setter, instance, value.ToString());
+                    break;
+                case TypeCode.Int32:
+                    InvokeAction<int>(setter, instance, ConvertValue<int>(value));
+                    break;
+                case TypeCode.Int64:
+                    InvokeAction<long>(setter, instance, ConvertValue<long>(value));
+                    break;
+                case TypeCode.Decimal:
+                    InvokeAction<decimal>(setter, instance, ConvertValue<decimal>(value));
+                    break;
+                case TypeCode.DateTime:
+                    InvokeAction<DateTime>(setter, instance, ConvertValue<DateTime>(value));
+                    break;
+                case TypeCode.Boolean:
+                    InvokeAction<bool>(setter, instance, ConvertValue<bool>(value));
+                    break;
+                case TypeCode.Byte:
+                    InvokeAction<byte>(setter, instance, ConvertValue<byte>(value));
+                    break;
+                case TypeCode.SByte:
+                    InvokeAction<sbyte>(setter, instance, ConvertValue<sbyte>(value));
+                    break;
+                case TypeCode.Int16:
+                    InvokeAction<short>(setter, instance, ConvertValue<short>(value));
+                    break;
+                case TypeCode.UInt16:
+                    InvokeAction<ushort>(setter, instance, ConvertValue<ushort>(value));
+                    break;
+                case TypeCode.UInt32:
+                    InvokeAction<uint>(setter, instance, ConvertValue<uint>(value));
+                    break;
+                case TypeCode.UInt64:
+                    InvokeAction<ulong>(setter, instance, ConvertValue<ulong>(value));
+                    break;
+                case TypeCode.Single:
+                    InvokeAction<float>(setter, instance, ConvertValue<float>(value));
+                    break;
+                case TypeCode.Double:
+                    InvokeAction<double>(setter, instance, ConvertValue<double>(value));
+                    break;
+                case TypeCode.Char:
+                    InvokeAction<char>(setter, instance, ConvertValue<char>(value));
+                    break;
+                default:
+                    InvokeSetterForOtherTypes(setter, instance, value, propertyType);
+                    break;
+            }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static bool InvokeAction<TValue>(Delegate setter, T instance, TValue value)
+        private static void InvokeAction<TValue>(Delegate setter, T instance, TValue value)
         {
             ((Action<T, TValue>)setter)(instance, value);
-            return true;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -276,7 +319,7 @@ namespace Spinner
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static bool InvokeSetterForOtherTypes(Delegate setter, T instance, object value, Type propertyType)
+        private static void InvokeSetterForOtherTypes(Delegate setter, T instance, object value, Type propertyType)
         {
             if (propertyType == typeof(TimeSpan))
             {
@@ -299,8 +342,6 @@ namespace Spinner
 
                 setter.DynamicInvoke(instance, value);
             }
-
-            return true;
         }
     }
 }

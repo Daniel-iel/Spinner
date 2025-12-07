@@ -97,7 +97,6 @@ namespace Spinner.Test
                 {
                     var localResults = new List<string>();
 
-                    // Synchronize all threads to start at the same time
                     barrier.SignalAndWait();
 
                     for (int i = 0; i < 100; i++)
@@ -106,7 +105,6 @@ namespace Spinner.Test
                         string result = spinner.WriteAsString(obj);
                         localResults.Add(result);
 
-                        // Small delay to increase chance of detecting race conditions
                         Thread.Sleep(1);
                     }
 
@@ -119,7 +117,6 @@ namespace Spinner.Test
             // Assert
             Assert.Equal(threadCount, results.Count);
 
-            // Verify each thread got unique results based on their input
             foreach (var kvp in results)
             {
                 Assert.Equal(100, kvp.Value.Count);
@@ -147,7 +144,6 @@ namespace Spinner.Test
                         var obj = new NothingPadLeft($"T{threadId:D3}I{i:D3}", $"U{i:D3}");
                         ReadOnlySpan<char> span = spinner.WriteAsSpan(obj);
 
-                        // Copy span to array to verify later
                         char[] copy = span.ToArray();
                         allResults.Add(copy);
                     }
@@ -162,11 +158,10 @@ namespace Spinner.Test
             Assert.Empty(exceptions);
             Assert.Equal(threadCount * iterationsPerThread, allResults.Count);
 
-            // Verify no memory corruption - each result should be valid
             Assert.All(allResults, result =>
             {
                 Assert.Equal(50, result.Length);
-                Assert.DoesNotContain('\0', result.Take(50)); // No null chars in expected range
+                Assert.DoesNotContain('\0', result.Take(50));
             });
         }
 

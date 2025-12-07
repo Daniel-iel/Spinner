@@ -25,5 +25,16 @@ namespace Spinner.Internals.Guards
                 }
             }
         }
+
+        public static class ObjectMapper
+        {
+            public static void ValidateLength<T>(ushort length)
+            {
+                if (length == 0)
+                {
+                    throw new System.InvalidOperationException($"ObjectMapperAttribute.Length must be greater than 0 for type {typeof(T).FullName}.");
+                }
+            }
+        }
     }
 }
