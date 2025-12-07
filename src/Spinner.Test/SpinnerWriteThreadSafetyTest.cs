@@ -1,4 +1,4 @@
-using Spinner.Test.Models;
+using Spinner.Test.Helper.Models;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;

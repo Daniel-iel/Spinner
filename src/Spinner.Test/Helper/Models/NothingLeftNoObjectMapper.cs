@@ -1,26 +1,24 @@
 ﻿using Spinner.Attribute;
 using System;
 
-namespace Spinner.Test.Models
+namespace Spinner.Test.Helper.Models
 {
-    [ObjectMapper(length: 50)]
-    internal sealed class NothingPadLeft : IEquatable<NothingPadLeft>
+    internal sealed class NothingLeftNoObjectMapper : IEquatable<NothingLeftNoObjectMapper>
     {
-        public NothingPadLeft() { }
-
-        public NothingPadLeft(string name, string webSite)
+        public NothingLeftNoObjectMapper() { }
+        public NothingLeftNoObjectMapper(string name, string webSite)
         {
             Name = name;
             WebSite = webSite;
         }
 
-        [WriteProperty(length: 30, order: 2, paddingChar: ' ')]
-        public string WebSite { get; set; }
-
         [WriteProperty(length: 20, order: 1, paddingChar: ' ')]
         public string Name { get; set; }
 
-        public bool Equals(NothingPadLeft other)
+        [WriteProperty(length: 30, order: 2, paddingChar: ' ')]
+        public string WebSite { get; set; }
+
+        public bool Equals(NothingLeftNoObjectMapper other)
         {
             return Name == other.Name &&
                    WebSite == other.WebSite;
@@ -33,7 +31,7 @@ namespace Spinner.Test.Models
 
         public override bool Equals(object obj)
         {
-            return obj is NothingPadLeft nothingLeft && Equals(nothingLeft);
+            return obj is NothingLeftNoObjectMapper nothingLeftNoObjectMapper && Equals(nothingLeftNoObjectMapper);
         }
     }
 }

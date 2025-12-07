@@ -2,7 +2,7 @@
 using Spinner.Enums;
 using System;
 
-namespace Spinner.Test.Models
+namespace Spinner.Test.Helper.Models
 {
     [ObjectMapper(length: 50)]
     internal sealed class NothingPadRight : IEquatable<NothingPadRight>

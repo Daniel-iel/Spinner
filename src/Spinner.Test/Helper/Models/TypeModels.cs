@@ -1,6 +1,6 @@
 using Spinner.Attribute;
 
-namespace Spinner.Test.Models
+namespace Spinner.Test.Helper.Models
 {
     public class Int32Model
     {
@@ -106,7 +106,7 @@ namespace Spinner.Test.Models
 
     public class StringModelWithInterceptor
     {
-        [ReadProperty(0, 20, typeof(Helper.Interceptors.ObjectToStringInterceptor))]
+        [ReadProperty(0, 20, typeof(Interceptors.ObjectToStringInterceptor))]
         public string Value { get; set; }
     }
 }

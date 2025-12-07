@@ -1,9 +1,8 @@
 using Spinner.Attribute;
 using Spinner.Exceptions;
-using Spinner.Interceptors;
 using Spinner.Internals.Cache;
 using Spinner.Test.Helper.Interceptors;
-using Spinner.Test.Models;
+using Spinner.Test.Helper.Models;
 using System;
 using System.Linq;
 using Xunit;
@@ -64,22 +63,6 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void ReadFromSpan_WhenCalled_ShouldReturnObjectMappedAsSpan()
-        {
-            // Arrange
-            NothingPadLeft nothing = new NothingPadLeft("spinner", "www.spinner.com.br");
-            Spinner<NothingPadLeft> spinnerWriter = new Spinner<NothingPadLeft>();
-            Spinner<NothingReader> spinnerReader = new Spinner<NothingReader>();
-
-            // Act
-            ReadOnlySpan<char> positionalString = spinnerWriter.WriteAsSpan(nothing);
-            NothingReader nothingReader = spinnerReader.ReadFromSpan(positionalString);
-
-            // Assert
-            Assert.True(nothing.GetHashCode() == nothingReader.GetHashCode());
-        }
-
-        [Fact]
         public void ReadFromString_WhenCalled_ShouldValidateIfTwoResponsesAreDifferent()
         {
             // Arrange
@@ -97,29 +80,6 @@ namespace Spinner.Test
 
             NothingReader nothingReaderFirst = spinnerReaderFirst.ReadFromString(positionalStringFirst);
             NothingReader nothingReaderSecond = spinnerReaderSecond.ReadFromString(positionalStringSecond);
-
-            // Assert
-            Assert.True(nothingReaderFirst.GetHashCode() != nothingReaderSecond.GetHashCode());
-        }
-
-        [Fact]
-        public void ReadFromSpan_WhenCalled_ShouldValidateIfTwoResponsesAreDifferent()
-        {
-            // Arrange
-            NothingPadLeft nothingFirst = new NothingPadLeft("spinnerFirst", "www.spinner.com.br");
-            NothingPadLeft nothingSecond = new NothingPadLeft("spinnerSecond", "www.spinner.com.br");
-
-            Spinner<NothingPadLeft> spinnerWriter = new Spinner<NothingPadLeft>();
-
-            Spinner<NothingReader> spinnerReaderFirst = new Spinner<NothingReader>();
-            Spinner<NothingReader> spinnerReaderSecond = new Spinner<NothingReader>();
-
-            // Act
-            ReadOnlySpan<char> positionalStringFirst = spinnerWriter.WriteAsSpan(nothingFirst);
-            ReadOnlySpan<char> positionalStringSecond = spinnerWriter.WriteAsSpan(nothingSecond);
-
-            NothingReader nothingReaderFirst = spinnerReaderFirst.ReadFromSpan(positionalStringFirst);
-            NothingReader nothingReaderSecond = spinnerReaderSecond.ReadFromSpan(positionalStringSecond);
 
             // Assert
             Assert.True(nothingReaderFirst.GetHashCode() != nothingReaderSecond.GetHashCode());
@@ -153,24 +113,26 @@ namespace Spinner.Test
 
             // Assert
             PropertyNotMappedException ex = Assert.Throws<PropertyNotMappedException>(act);
-            Assert.Equal("Type Spinner.Test.Models.NothingNoAttribute does not have properties mapped for reading.", ex.Message);
+            Assert.Equal("Type Spinner.Test.Helper.Models.NothingNoAttribute does not have properties mapped for reading.", ex.Message);
         }
 
         [Fact]
-        public void ReadFromSpan_WhenCalled_ShouldThrowExceptionIfNotExistsAnyPropertiesWithReadPropertyAttribute()
+        public void ReadFromString_WhenInterceptorDoesNotImplementIInterceptor_ShouldThrowInvalidOperationException()
         {
-            Action act = () =>
+            // Arrange
+            const string input = "test value";
+
+            // Act & Assert
+            var exception = Assert.Throws<TypeInitializationException>(() =>
             {
-                // Arrange
-                Spinner<NothingNoAttribute> spinnerReader = new Spinner<NothingNoAttribute>();
+                var spinner = new Spinner<ModelWithInvalidInterceptor>();
+                spinner.ReadFromString(input);
+            });
 
-                // Act
-                spinnerReader.ReadFromSpan("");
-            };
-
-            // Assert
-            PropertyNotMappedException ex = Assert.Throws<PropertyNotMappedException>(act);
-            Assert.Equal("Type Spinner.Test.Models.NothingNoAttribute does not have properties mapped for reading.", ex.Message);
+            Assert.NotNull(exception.InnerException);
+            Assert.IsType<InvalidOperationException>(exception.InnerException);
+            Assert.Contains("does not implement IInterceptor<T>", exception.InnerException.Message);
+            Assert.Contains("InvalidInterceptor", exception.InnerException.Message);
         }
     }
 }

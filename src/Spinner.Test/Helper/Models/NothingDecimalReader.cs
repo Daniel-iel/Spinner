@@ -2,7 +2,7 @@
 using Spinner.Test.Helper.Interceptors;
 using System;
 
-namespace Spinner.Test.Models
+namespace Spinner.Test.Helper.Models
 {
     [ObjectMapper(length: 4)]
     internal sealed class NothingDecimalReader : IEquatable<NothingDecimalReader>

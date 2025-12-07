@@ -1,8 +1,8 @@
-using Spinner.Test.Models;
 using System;
 using System.Collections.Concurrent;
 using Xunit;
 using System.Threading.Tasks;
+using Spinner.Test.Helper.Models;
 
 namespace Spinner.Test
 {

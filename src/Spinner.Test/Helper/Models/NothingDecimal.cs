@@ -1,7 +1,7 @@
 using Spinner.Attribute;
 using System;
 
-namespace Spinner.Test.Models
+namespace Spinner.Test.Helper.Models
 {
     [ObjectMapper(length: 4)]
     internal sealed class NothingDecimal : IEquatable<NothingDecimal>

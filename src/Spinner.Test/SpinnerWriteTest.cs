@@ -1,13 +1,15 @@
 using Spinner.Attribute;
 using Spinner.Exceptions;
-using Spinner.Test.Models;
+using Spinner.Test.Helper.Models;
 using System;
 using System.Linq;
+using System.Reflection;
+using System.Text;
 using Xunit;
 
 namespace Spinner.Test
 {
-    public class SpinnerWriteTest
+    public partial class SpinnerWriteTest
     {
         [Fact]
         public void WriteAsString_WhenCalled_ShouldReturnObjectMappedAsStringWithPadLeft()
@@ -91,56 +93,6 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void WriteAsSpan_WhenCalled_ShouldReturnObjectMappedAsSpanWithPadLeft()
-        {
-            // Arrange
-            NothingPadLeft nothing = new NothingPadLeft("spinner", "www.spinner.com.br");
-            Spinner<NothingPadLeft> spinner = new Spinner<NothingPadLeft>();
-            ReadOnlySpan<char> expected = new ReadOnlySpan<char>("             spinner            www.spinner.com.br".ToCharArray());
-
-            // Act
-            ReadOnlySpan<char> positionalString = spinner.WriteAsSpan(nothing);
-
-            // Assert
-            Assert.Equal(50, positionalString.Length);
-            Assert.Equal(expected.ToString(), positionalString.ToString());
-        }
-
-        [Fact]
-        public void WriteAsSpan_WhenCalled_ShouldValidateIfConfigurationLengthIsEqualToLengthSpanThatWasMappedWithPadLeft()
-        {
-            // Arrange
-            NothingPadLeft nothing = new NothingPadLeft("spinner", "www.spinner.com.br");
-            Spinner<NothingPadLeft> spinner = new Spinner<NothingPadLeft>();
-            ReadOnlySpan<char> expected = new ReadOnlySpan<char>("             spinner            www.spinner.com.br".ToCharArray());
-
-            // Act
-            ObjectMapperAttribute objectMapper = spinner.GetObjectMapper;
-            ReadOnlySpan<char> positionalString = spinner.WriteAsSpan(nothing);
-
-            // Assert
-            Assert.Equal(objectMapper.Length, positionalString.Length);
-            Assert.Equal(expected.ToString(), positionalString.ToString());
-        }
-
-        [Fact]
-        public void WriteAsSpan_WhenCalled_ShouldValidateIfNoObjectMapperIsUsedWithPadLeft()
-        {
-            // Arrange
-            NothingLeftNoObjectMapper nothing = new NothingLeftNoObjectMapper("             spinner", "            www.spinner.com.br");
-            Spinner<NothingLeftNoObjectMapper> spinner = new Spinner<NothingLeftNoObjectMapper>();
-            ReadOnlySpan<char> expected = new ReadOnlySpan<char>("             spinner            www.spinner.com.br".ToCharArray());
-
-            // Act
-            ObjectMapperAttribute objectMapper = spinner.GetObjectMapper;
-            ReadOnlySpan<char> positionalString = spinner.WriteAsSpan(nothing);
-
-            // Assert
-            Assert.Null(objectMapper);
-            Assert.Equal(expected.ToString(), positionalString.ToString());
-        }
-
-        [Fact]
         public void WriteAsString_WhenCalled_ShouldValidateIfTwoResponseAreDifferentWithPadLeft()
         {
             // Arrange
@@ -151,22 +103,6 @@ namespace Spinner.Test
             // Act
             string positionalStringFirst = spinner.WriteAsString(nothingFirst);
             string positionalStringSecond = spinner.WriteAsString(nothingSecond);
-
-            // Assert
-            Assert.True(positionalStringFirst != positionalStringSecond);
-        }
-
-        [Fact]
-        public void WriteAsSpan_WhenCalled_ShouldValidateIfTwoResponsesAreDifferent_WithPadLeft()
-        {
-            // Arrange
-            NothingPadLeft nothingFirst = new NothingPadLeft("spinnerFirst", "www.spinner.com.br");
-            NothingPadLeft nothingSecond = new NothingPadLeft("spinnerSecond", "www.spinner.com.br");
-            Spinner<NothingPadLeft> spinner = new Spinner<NothingPadLeft>();
-
-            // Act
-            ReadOnlySpan<char> positionalStringFirst = spinner.WriteAsSpan(nothingFirst);
-            ReadOnlySpan<char> positionalStringSecond = spinner.WriteAsSpan(nothingSecond);
 
             // Assert
             Assert.True(positionalStringFirst != positionalStringSecond);
@@ -206,39 +142,6 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void WriteAsSpan_WhenCalled_ShouldValidateIfTwoResponsesAreDifferentPadRight()
-        {
-            // Arrange
-            NothingPadRight nothing = new NothingPadRight("spinner", "www.spinner.com.br");
-            Spinner<NothingPadRight> spinner = new Spinner<NothingPadRight>();
-            ReadOnlySpan<char> expected = new ReadOnlySpan<char>("spinner             www.spinner.com.br            ".ToCharArray());
-
-            // Act
-            ReadOnlySpan<char> positionalString = spinner.WriteAsSpan(nothing);
-
-            // Assert
-            Assert.Equal(50, positionalString.Length);
-            Assert.Equal(expected.ToString(), positionalString.ToString());
-        }
-
-        [Fact]
-        public void WriteAsSpan_WhenCalled_ShouldValidateIfConfigurationLengthIsEqualToLengthSpanThatWasMappedWithPadRight()
-        {
-            // Arrange
-            NothingPadRight nothing = new NothingPadRight("spinner", "www.spinner.com.br");
-            Spinner<NothingPadRight> spinner = new Spinner<NothingPadRight>();
-            ReadOnlySpan<char> expected = new ReadOnlySpan<char>("spinner             www.spinner.com.br            ".ToCharArray());
-
-            // Act
-            ObjectMapperAttribute objectMapper = spinner.GetObjectMapper;
-            ReadOnlySpan<char> positionalString = spinner.WriteAsSpan(nothing);
-
-            // Assert
-            Assert.Equal(objectMapper.Length, positionalString.Length);
-            Assert.Equal(expected.ToString(), positionalString.ToString());
-        }
-
-        [Fact]
         public void WriteAsString_WhenCalled_ShouldValidateIfTwoResponseAreDifferentWithPadRight()
         {
             // Arrange
@@ -249,22 +152,6 @@ namespace Spinner.Test
             // Act
             string positionalStringFirst = spinner.WriteAsString(nothingFirst);
             string positionalStringSecond = spinner.WriteAsString(nothingSecond);
-
-            // Assert
-            Assert.True(positionalStringFirst != positionalStringSecond);
-        }
-
-        [Fact]
-        public void WriteAsSpan_WhenCalled_ShouldValidateIfTwoResponsesAreDifferentWithPadRight()
-        {
-            // Arrange
-            NothingPadRight nothingFirst = new NothingPadRight("spinnerFirst", "www.spinner.com.br");
-            NothingPadRight nothingSecond = new NothingPadRight("spinnerSecond", "www.spinner.com.br");
-            Spinner<NothingPadRight> spinner = new Spinner<NothingPadRight>();
-
-            // Act
-            ReadOnlySpan<char> positionalStringFirst = spinner.WriteAsSpan(nothingFirst);
-            ReadOnlySpan<char> positionalStringSecond = spinner.WriteAsSpan(nothingSecond);
 
             // Assert
             Assert.True(positionalStringFirst != positionalStringSecond);
@@ -298,24 +185,7 @@ namespace Spinner.Test
 
             // Assert
             PropertyNotMappedException ex = Assert.Throws<PropertyNotMappedException>(act);
-            Assert.Equal("Type Spinner.Test.Models.NothingNoAttribute does not have properties mapped for writing.", ex.Message);
-        }
-
-        [Fact]
-        public void WriteAsSpan_WhenCalled_ShouldThrowExceptionIfNotExistsAnyPropertiesWithWritePropertyAttribute()
-        {
-            // Act
-            Action act = () =>
-            {
-                // Arrange
-                NothingNoAttribute nothing = new NothingNoAttribute("spinnerFirst", "www.spinner.com.br");
-                Spinner<NothingNoAttribute> spinner = new Spinner<NothingNoAttribute>();
-                spinner.WriteAsSpan(nothing);
-            };
-
-            // Assert
-            PropertyNotMappedException ex = Assert.Throws<PropertyNotMappedException>(act);
-            Assert.Equal("Type Spinner.Test.Models.NothingNoAttribute does not have properties mapped for writing.", ex.Message);
+            Assert.Equal("Type Spinner.Test.Helper.Models.NothingNoAttribute does not have properties mapped for writing.", ex.Message);
         }
 
         [Fact]
@@ -439,6 +309,56 @@ namespace Spinner.Test
             Assert.NotNull(result);
             Assert.Equal(300, result.Length);
             Assert.Equal(300, spinner.GetObjectMapper.Length);
+        }
+
+        [Fact]
+        public void WriteAsString_WhenPropertyHasNoSetter_ShouldThrowInvalidOperationException()
+        {
+            // Arrange
+            var model = new ModelWithReadOnlyPropertyForWrite();
+
+            // Act & Assert
+            var exception = Assert.Throws<TypeInitializationException>(() =>
+            {
+                var spinner = new Spinner<ModelWithReadOnlyPropertyForWrite>();
+                spinner.WriteAsString(model);
+            });
+
+            Assert.NotNull(exception.InnerException);
+            Assert.IsType<InvalidOperationException>(exception.InnerException);
+            Assert.Contains("does not have a setter", exception.InnerException.Message);
+            Assert.Contains("Value", exception.InnerException.Message);
+        }
+
+        [Fact]
+        public void WriteAsString_ShouldUseSmallCapacityForSmallObjectMapper()
+        {
+            // Arrange
+            var spinner = new Spinner<ModelWithSmall50Length>();
+            var model = new ModelWithSmall50Length { Data = "X" };
+
+            // Act
+            string result = spinner.WriteAsString(model);
+
+            // Assert
+            Assert.Equal(50, result.Length);
+
+            var spinnerType = typeof(Spinner<ModelWithSmall50Length>);
+            var builderField = spinnerType.GetField("builder", BindingFlags.NonPublic | BindingFlags.Static);
+            var stringBuilder = builderField?.GetValue(null) as StringBuilder;
+
+            Assert.NotNull(stringBuilder);
+
+            Assert.True(stringBuilder.Capacity < 256 || stringBuilder.Capacity == 256,
+                $"StringBuilder capacity should be close to 50 for ObjectMapper(50), but got {stringBuilder.Capacity}. " +
+                $"If capacity is always 256, the code is using hardcoded value instead of ObjectMapper.Length");
+
+            if (stringBuilder.Capacity == 256 && result.Length == 50)
+            {
+                Assert.Fail("StringBuilder initialized with capacity 256 for ObjectMapper(50). " +
+                    "This suggests the code is using 'new StringBuilder(256)' instead of " +
+                    "'new StringBuilder(_objectMapperAttribute?.Length ?? 256)'");
+            }
         }
     }
 }
