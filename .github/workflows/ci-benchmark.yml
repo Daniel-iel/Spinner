@@ -5,9 +5,7 @@ on:
     branches: [main]
     tags:
       - v*    
-  pull_request:
-    branches: [main, feature/*]
-
+ 
 jobs:
   build:
     env:

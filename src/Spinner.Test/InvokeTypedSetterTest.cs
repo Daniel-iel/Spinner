@@ -1,4 +1,6 @@
+using Spinner.Test.Helper.Interceptors;
 using Spinner.Test.Helper.Models;
+using Spinner.Test.Helper.Models.TypeModels;
 using System;
 using System.Collections.Generic;
 using Xunit;
@@ -78,7 +80,7 @@ namespace Spinner.Test
         public static IEnumerable<object[]> DateTimeTestData =>
             new List<object[]>
             {
-                new object[] { "2024-12-20 10:30:45", new DateTime(2024, 12, 20, 10, 30, 45) }
+                new object[] { "2024-12-20 10:30:45", new DateTime(2024, 12, 20, 10, 30, 45, DateTimeKind.Unspecified) }
             };
 
         [Theory]

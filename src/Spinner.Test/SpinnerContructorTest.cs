@@ -1,4 +1,3 @@
-using Spinner.Attribute;
 using Spinner.Test.Helper.Models;
 using System;
 using Xunit;
@@ -6,14 +5,14 @@ using Xunit;
 namespace Spinner.Test
 {
     public class InvalidOperationExceptionTest
-    {    
+    {
         [Fact]
         public void Spinner_WhenObjectMapperAttributeLengthIsZero_ShouldThrowInvalidOperationException()
         {
             // Act & Assert
             var exception = Assert.Throws<TypeInitializationException>(() =>
             {
-                var spinner = new Spinner<ModelWithZeroLength>();
+                _ = new Spinner<ModelWithZeroLength>();
             });
 
             Assert.NotNull(exception.InnerException);
