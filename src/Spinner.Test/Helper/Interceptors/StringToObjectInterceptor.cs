@@ -1,4 +1,5 @@
 using Spinner.Interceptors;
+using System.Globalization;
 
 namespace Spinner.Test.Helper.Interceptors
 {
@@ -6,7 +7,7 @@ namespace Spinner.Test.Helper.Interceptors
     {
         public object Parse(string value)
         {            
-            return int.TryParse(value, out var intValue) ? intValue : value;
+            return int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var intValue) ? intValue : value;
         }
     }
 }

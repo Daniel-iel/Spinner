@@ -1,5 +1,6 @@
 using Spinner.Interceptors;
 using System;
+using System.Globalization;
 
 namespace Spinner.Test.Helper.Interceptors
 {
@@ -7,7 +8,7 @@ namespace Spinner.Test.Helper.Interceptors
     {
         public DateTimeOffset Parse(string value)
         {
-            return DateTimeOffset.Parse(value);
+            return DateTimeOffset.Parse(value, CultureInfo.InvariantCulture);
         }
     }
 }
