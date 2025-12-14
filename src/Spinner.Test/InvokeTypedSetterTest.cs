@@ -348,5 +348,135 @@ namespace Spinner.Test
             // Assert
             Assert.Equal(expected, result.Value);
         }
+
+        public static IEnumerable<object[]> GuidTestData =>
+            new List<object[]>
+            {
+                new object[] { "12345678-1234-1234-1234-123456789012", new Guid("12345678-1234-1234-1234-123456789012") },
+                new object[] { "00000000-0000-0000-0000-000000000000", Guid.Empty }
+            };
+
+        [Theory]
+        [MemberData(nameof(GuidTestData))]
+        public void InvokeTypedSetter_ShouldHandleGuidTypeWithInterceptor(string input, Guid expected)
+        {
+            // Arrange
+            var spinner = new Spinner<GuidModel>();
+
+            // Act
+            var result = spinner.ReadFromString(input);
+
+            // Assert
+            Assert.Equal(expected, result.Value);
+            Assert.IsType<Guid>(result.Value);
+        }
+
+        public static IEnumerable<object[]> DateTimeOffsetTestData()
+        {
+            var dto1 = new DateTimeOffset(2024, 12, 20, 10, 30, 45, TimeSpan.Zero);
+            yield return new object[] { dto1.ToString("O").PadRight(30), dto1 };
+
+            var dto2 = DateTimeOffset.UtcNow;
+            yield return new object[] { dto2.ToString("O").PadRight(30), dto2 };
+        }
+
+        [Theory]
+        [MemberData(nameof(DateTimeOffsetTestData))]
+        public void InvokeTypedSetter_ShouldHandleDateTimeOffsetType(string input, DateTimeOffset expected)
+        {
+            // Arrange
+            var spinner = new Spinner<DateTimeOffsetModel>();
+
+            // Act
+            var result = spinner.ReadFromString(input);
+
+            // Assert
+            Assert.Equal(expected, result.Value);
+            Assert.IsType<DateTimeOffset>(result.Value);
+        }
+
+        [Fact]
+        public void InvokeTypedSetter_ShouldThrowExceptionForInvalidDateTimeOffsetFormat()
+        {
+            // Arrange
+            var spinner = new Spinner<DateTimeOffsetModel>();
+            var invalidInput = "not-a-valid-datetimeoffset   ";
+
+            // Act & Assert
+            Assert.ThrowsAny<Exception>(() => spinner.ReadFromString(invalidInput));
+        }
+
+        [Theory]
+        [InlineData("100       ", 100.0)]
+        [InlineData("42        ", 42.0)]
+        [InlineData("0         ", 0.0)]
+        [InlineData("-50       ", -50.0)]
+        [InlineData("123       ", 123.0)]
+        [InlineData("999       ", 999.0)]
+        public void InvokeTypedSetter_ShouldConvertIntToDoubleWhenInterceptorReturnsWrongType(string input, double expected)
+        {
+            // Arrange
+            var spinner = new Spinner<DoubleModelWithIntInterceptor>();
+
+            // Act
+            var result = spinner.ReadFromString(input);
+
+            // Assert
+            Assert.Equal(expected, result.Value, 0.01);
+            Assert.IsType<double>(result.Value);
+        }
+
+        [Theory]
+        [InlineData("42        ", 42)]
+        [InlineData("100       ", 100)]
+        [InlineData("0         ", 0)]
+        [InlineData("123       ", 123)]
+        [InlineData("456       ", 456)]
+        [InlineData("789       ", 789)]
+        [InlineData("999       ", 999)]
+        public void InvokeTypedSetter_ShouldConvertToObjectPropertyType(string input, int expected)
+        {
+            // Arrange
+            var spinner = new Spinner<ObjectPropertyModel>();
+
+            // Act
+            var result = spinner.ReadFromString(input);
+
+            // Assert
+            Assert.NotNull(result.Value);
+            Assert.IsType<int>(result.Value);
+            Assert.Equal(expected, result.Value);
+        }
+
+        [Fact]
+        public void InvokeTypedSetter_ShouldThrowExceptionWhenConvertingStringToDBNull()
+        {
+            // Arrange
+            var spinner = new Spinner<DBNullModel>();
+
+            // Act & Assert
+            Assert.Throws<InvalidCastException>(() =>
+                spinner.ReadFromString("value               "));
+        }
+
+        [Fact]
+        public void InvokeTypedSetter_ShouldConvertBoolToObject()
+        {
+            // Arrange
+            var spinner = new Spinner<BoolAsObjectModel>();
+
+            // Act
+            var resultTrue = spinner.ReadFromString("True      ");
+            var resultFalse = spinner.ReadFromString("False     ");
+
+            // Assert
+            Assert.NotNull(resultTrue.Value);
+            Assert.IsType<bool>(resultTrue.Value);
+            Assert.True((bool)resultTrue.Value);
+
+            Assert.NotNull(resultFalse.Value);
+            Assert.IsType<bool>(resultFalse.Value);
+            Assert.False((bool)resultFalse.Value);
+        }
     }
 }
