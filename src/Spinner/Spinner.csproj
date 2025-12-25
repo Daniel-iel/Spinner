@@ -5,7 +5,7 @@
     <Authors>Daniel Oliveira</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>integration;string-mapper;string-protocol;convert-string-object</PackageTags>
-    <PackageProjectUrl>https://spinnerframework.com/</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/Daniel-iel/Spinner</PackageProjectUrl>
     <PackageIcon>logo.png</PackageIcon>
     <Title>Spinner Framework</Title>
     <Description>Spinner is a simple object mapper, it’s useful to communicate to any system that uses a positional string as communication.</Description>
