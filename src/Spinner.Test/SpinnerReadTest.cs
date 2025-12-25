@@ -1,12 +1,10 @@
+using Spinner.Attribute;
 using Spinner.Exceptions;
-using Spinner.Interceptors;
 using Spinner.Internals.Cache;
 using Spinner.Test.Helper.Interceptors;
-using Spinner.Test.Models;
+using Spinner.Test.Helper.Models;
 using System;
-using System.Collections.Immutable;
 using System.Linq;
-using System.Reflection;
 using Xunit;
 
 namespace Spinner.Test
@@ -18,11 +16,11 @@ namespace Spinner.Test
         {
             // Arrange
             NothingPadLeft nothing = new NothingPadLeft("spinner", "www.spinner.com.br");
-            Spinner<NothingPadLeft> spinnerWriter = new Spinner<NothingPadLeft>(nothing);
+            Spinner<NothingPadLeft> spinnerWriter = new Spinner<NothingPadLeft>();
             Spinner<NothingReader> spinnerReader = new Spinner<NothingReader>();
 
             // Act
-            string positionalString = spinnerWriter.WriteAsString();
+            string positionalString = spinnerWriter.WriteAsString(nothing);
             NothingReader nothingReader = spinnerReader.ReadFromString(positionalString);
 
             // Assert
@@ -34,11 +32,11 @@ namespace Spinner.Test
         {
             // Arrange
             NothingDecimal nothing = new NothingDecimal("0001");
-            Spinner<NothingDecimal> spinnerWriter = new Spinner<NothingDecimal>(nothing);
+            Spinner<NothingDecimal> spinnerWriter = new Spinner<NothingDecimal>();
             Spinner<NothingDecimalReader> spinnerReader = new Spinner<NothingDecimalReader>();
 
             // Act
-            string positionalString = spinnerWriter.WriteAsString();
+            string positionalString = spinnerWriter.WriteAsString(nothing);
             NothingDecimalReader nothingReader = spinnerReader.ReadFromString(positionalString);
 
             // Assert
@@ -50,34 +48,18 @@ namespace Spinner.Test
         {
             // Arrange
             NothingDecimal nothing = new NothingDecimal("0001");
-            Spinner<NothingDecimal> spinnerWriter = new Spinner<NothingDecimal>(nothing);
+            Spinner<NothingDecimal> spinnerWriter = new Spinner<NothingDecimal>();
             Spinner<NothingDecimalReader> spinnerReader = new Spinner<NothingDecimalReader>();
 
-            string positionalString = spinnerWriter.WriteAsString();
-            NothingDecimalReader nothingDecimalReader = spinnerReader.ReadFromString(positionalString);
+            string positionalString = spinnerWriter.WriteAsString(nothing);
+            spinnerReader.ReadFromString(positionalString);
 
             // Act
-            bool decimalInterceptorWasCached = InterceptorCache.TryGet(typeof(DecimalInterceptor).Name, out IInterceptor interceptor);
+            bool decimalInterceptorWasCached = InterceptorCache.TryGet<string>(typeof(DecimalInterceptor), out Interceptors.IInterceptor<string> interceptor);
 
             // Assert
             Assert.True(decimalInterceptorWasCached);
             Assert.IsType<DecimalInterceptor>(interceptor);
-        }
-
-        [Fact]
-        public void ReadFromSpan_WhenCalled_ShouldReturnObjectMappedAsSpan()
-        {
-            // Arrange
-            NothingPadLeft nothing = new NothingPadLeft("spinner", "www.spinner.com.br");
-            Spinner<NothingPadLeft> spinnerWriter = new Spinner<NothingPadLeft>(nothing);
-            Spinner<NothingReader> spinnerReader = new Spinner<NothingReader>();
-
-            // Act
-            ReadOnlySpan<char> positionalString = spinnerWriter.WriteAsSpan();
-            NothingReader nothingReader = spinnerReader.ReadFromSpan(positionalString);
-
-            // Assert
-            Assert.True(nothing.GetHashCode() == nothingReader.GetHashCode());
         }
 
         [Fact]
@@ -87,15 +69,14 @@ namespace Spinner.Test
             NothingPadLeft nothingFirst = new NothingPadLeft("spinnerFirst", "www.spinner.com.br");
             NothingPadLeft nothingSecond = new NothingPadLeft("spinnerSecond", "www.spinner.com.br");
 
-            Spinner<NothingPadLeft> spinnerWriterFirst = new Spinner<NothingPadLeft>(nothingFirst);
-            Spinner<NothingPadLeft> spinnerWriterSecond = new Spinner<NothingPadLeft>(nothingSecond);
+            Spinner<NothingPadLeft> spinnerWriter = new Spinner<NothingPadLeft>();
 
             Spinner<NothingReader> spinnerReaderFirst = new Spinner<NothingReader>();
             Spinner<NothingReader> spinnerReaderSecond = new Spinner<NothingReader>();
 
             // Act
-            string positionalStringFirst = spinnerWriterFirst.WriteAsString();
-            string positionalStringSecond = spinnerWriterSecond.WriteAsString();
+            string positionalStringFirst = spinnerWriter.WriteAsString(nothingFirst);
+            string positionalStringSecond = spinnerWriter.WriteAsString(nothingSecond);
 
             NothingReader nothingReaderFirst = spinnerReaderFirst.ReadFromString(positionalStringFirst);
             NothingReader nothingReaderSecond = spinnerReaderSecond.ReadFromString(positionalStringSecond);
@@ -105,39 +86,17 @@ namespace Spinner.Test
         }
 
         [Fact]
-        public void ReadFromSpan_WhenCalled_ShouldValidateIfTwoResponsesAreDifferent()
-        {
-            // Arrange
-            NothingPadLeft nothingFirst = new NothingPadLeft("spinnerFirst", "www.spinner.com.br");
-            NothingPadLeft nothingSecond = new NothingPadLeft("spinnerSecond", "www.spinner.com.br");
-
-            Spinner<NothingPadLeft> spinnerWriterFirst = new Spinner<NothingPadLeft>(nothingFirst);
-            Spinner<NothingPadLeft> spinnerWriterSecond = new Spinner<NothingPadLeft>(nothingSecond);
-
-            Spinner<NothingReader> spinnerReaderFirst = new Spinner<NothingReader>();
-            Spinner<NothingReader> spinnerReaderSecond = new Spinner<NothingReader>();
-
-            // Act
-            ReadOnlySpan<char> positionalStringFirst = spinnerWriterFirst.WriteAsSpan();
-            ReadOnlySpan<char> positionalStringSecond = spinnerWriterSecond.WriteAsSpan();
-
-            NothingReader nothingReaderFirst = spinnerReaderFirst.ReadFromSpan(positionalStringFirst);
-            NothingReader nothingReaderSecond = spinnerReaderSecond.ReadFromSpan(positionalStringSecond);
-
-            // Assert
-            Assert.True(nothingReaderFirst.GetHashCode() != nothingReaderSecond.GetHashCode());
-        }
-
-        [Fact]
         public void GetReadProperties_WhenCaller_ShouldValidateHowManyPropertiesWasMapped()
         {
-            Spinner<NothingReader> spinner = new Spinner<NothingReader>();
+            // Act
+            var properties = typeof(NothingReader).GetProperties()
+                .Where(p => p.GetCustomAttributes(typeof(ReadPropertyAttribute), false).Length > 0)
+                .ToArray();
 
-            IImmutableList<PropertyInfo> props = spinner.GetReadProperties;
-
-            Assert.Equal(2, props.Count);
-            Assert.Equal("Name", props.First().Name);
-            Assert.Equal("WebSite", props.Last().Name);
+            // Assert
+            Assert.Equal(2, properties.Length);
+            Assert.Equal("Name", properties[0].Name);
+            Assert.Equal("WebSite", properties[1].Name);
         }
 
         [Fact]
@@ -154,24 +113,26 @@ namespace Spinner.Test
 
             // Assert
             PropertyNotMappedException ex = Assert.Throws<PropertyNotMappedException>(act);
-            Assert.Equal("Property Name should have ReadProperty configured.", ex.Message);
+            Assert.Equal("Type Spinner.Test.Helper.Models.NothingNoAttribute does not have properties mapped for reading.", ex.Message);
         }
 
         [Fact]
-        public void ReadFromSpan_WhenCalled_ShouldThrowExceptionIfNotExistsAnyPropertiesWithReadPropertyAttribute()
+        public void ReadFromString_WhenInterceptorDoesNotImplementIInterceptor_ShouldThrowInvalidOperationException()
         {
-            Action act = () =>
+            // Arrange
+            const string input = "test value";
+
+            // Act & Assert
+            var exception = Assert.Throws<TypeInitializationException>(() =>
             {
-                // Arrange
-                Spinner<NothingNoAttribute> spinnerReader = new Spinner<NothingNoAttribute>();
+                var spinner = new Spinner<ModelWithInvalidInterceptor>();
+                spinner.ReadFromString(input);
+            });
 
-                // Act
-                spinnerReader.ReadFromSpan("");
-            };
-
-            // Assert
-            PropertyNotMappedException ex = Assert.Throws<PropertyNotMappedException>(act);
-            Assert.Equal("Property Name should have ReadProperty configured.", ex.Message);
+            Assert.NotNull(exception.InnerException);
+            Assert.IsType<InvalidOperationException>(exception.InnerException);
+            Assert.Contains("does not implement IInterceptor<T>", exception.InnerException.Message);
+            Assert.Contains("InvalidInterceptor", exception.InnerException.Message);
         }
     }
 }

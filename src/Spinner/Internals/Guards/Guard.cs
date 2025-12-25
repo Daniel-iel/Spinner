@@ -1,5 +1,4 @@
 ﻿using Spinner.Exceptions;
-using System.Reflection;
 
 namespace Spinner.Internals.Guards
 {
@@ -7,22 +6,33 @@ namespace Spinner.Internals.Guards
     {
         public static class ReadProperty
         {
-            public static void NotMapped(PropertyInfo property, Attribute.ReadPropertyAttribute attribute)
+            public static void NotMapped<T>(int length)
             {
-                if (attribute is null)
+                if (length == 0)
                 {
-                    throw new PropertyNotMappedException($"Property {property.Name} should have ReadProperty configured.");
+                    throw new PropertyNotMappedException($"Type {typeof(T).FullName} does not have properties mapped for reading.");
                 }
             }
         }
 
         public static class WriteProperty
         {
-            public static void NotMapped(PropertyInfo property, Attribute.WritePropertyAttribute attribute)
+            public static void NotMapped<T>(int length)
             {
-                if (attribute is null)
+                if (length == 0)
                 {
-                    throw new PropertyNotMappedException($"Property {property.Name} should have WriteProperty configured.");
+                    throw new PropertyNotMappedException($"Type {typeof(T).FullName} does not have properties mapped for writing.");
+                }
+            }
+        }
+
+        public static class ObjectMapper
+        {
+            public static void ValidateLength<T>(ushort length)
+            {
+                if (length == 0)
+                {
+                    throw new System.InvalidOperationException($"ObjectMapperAttribute.Length must be greater than 0 for type {typeof(T).FullName}.");
                 }
             }
         }
