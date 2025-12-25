@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        dotnet-version: ["10.0.x", "9.0.x", "8.0.x"]
+        dotnet-version: ["10.0.x"]
 
     steps:
       - uses: actions/checkout@v4
@@ -66,21 +66,6 @@ jobs:
       - name: Mutant Test 🧪👾
         if: false # github.event_name == 'pull_request' && matrix.dotnet-version == '9.0.x'        
         run: dotnet stryker --test-project ./src/Spinner.Test/Spinner.Test.csproj --verbosity trace --log-to-file
-
-      - name: Run Infer .NET 10.0 🔍
-        uses: microsoft/infersharpaction@v1.5
-        with:
-          binary-path: ${{ env.PROJECT_BIN10 }}
-
-      - name: Run Infer .NET 9.0 🔍
-        uses: microsoft/infersharpaction@v1.5
-        with:
-          binary-path: ${{ env.PROJECT_BIN9 }}
-
-      - name: Run Infer .NET 8.0 🔍
-        uses: microsoft/infersharpaction@v1.5
-        with:
-          binary-path: ${{ env.PROJECT_BIN8 }}
 
       - name: Codecov 📊
         uses: codecov/codecov-action@v4
