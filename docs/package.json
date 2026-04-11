@@ -3,11 +3,9 @@
   "version": "2.0.0",
   "description": "Spinner documentation v2 — static site",
   "scripts": {
-    "build": "node build.js",
-    "deploy": "gh-pages -d build"
+    "build": "node build.js"
   },
   "devDependencies": {
-    "gh-pages": "^6.1.1",
     "posthtml": "^0.16.7",
     "posthtml-include": "^1.7.4",
     "sass": "^1.99.0"
