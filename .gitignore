@@ -35,6 +35,9 @@ StrykerOutput
 node_modules
 */node_modules
 
+docs/build
+docs/build/*
+
 *.lock
 *.lock*
 
@@ -51,3 +54,6 @@ infer-out/*
 */infer-out
 
 diagram.html
+
+docs/build
+docs/build/*

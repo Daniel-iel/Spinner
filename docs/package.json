@@ -3,20 +3,11 @@
   "version": "2.0.0",
   "description": "Spinner documentation v2 — static site",
   "scripts": {
-    "build:css": "sass scss/main.scss css/main.css --style compressed",
-    "build:html": "node build-html.js",
-    "build": "npm run build:css && npm run build:html",
-    "watch:css": "sass --watch scss/main.scss:css/main.css",
-    "watch:html": "nodemon --watch src --ext html --exec \"node build-html.js\"",
-    "dev": "concurrently \"npm run watch:css\" \"npm run watch:html\" \"live-server --port=3000 --open=index.html\""
+    "build": "node build.js"
   },
   "devDependencies": {
-    "concurrently": "^9.0.0",
-    "live-server": "^1.2.2",
-    "nodemon": "^3.0.0",
-    "posthtml": "^0.16.6",
+    "posthtml": "^0.16.7",
     "posthtml-include": "^1.7.4",
-    "sass": "^1.77.0"
-  },
-  "dependencies": {}
+    "sass": "^1.99.0"
+  }
 }

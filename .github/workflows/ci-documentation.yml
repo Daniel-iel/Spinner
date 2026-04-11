@@ -37,7 +37,7 @@ jobs:
 
       - name: Restore Dependencies 📦
         working-directory: ${{ env.DOC_FOLDER }}
-        run: npm install --force
+        run: npm install
 
       - name: Build Documentation 🔨
         working-directory: ${{ env.DOC_FOLDER }}
