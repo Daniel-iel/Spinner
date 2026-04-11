@@ -39,7 +39,7 @@ jobs:
 
       - name: Build 🔨
         working-directory: ${{ env.DOC_FOLDER }}
-        run: npm run build && npm run deploy
+        run: npm run build
 
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
