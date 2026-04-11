@@ -15,10 +15,16 @@
   justify-content: space-between;
   padding        : 0 $space-lg;
   gap            : $space-md;
-  background     : rgba($c-bg-primary, .88);
-  backdrop-filter: blur(20px) saturate(180%);
-  border-bottom  : 1px solid $c-border;
-  box-shadow     : 0 1px 0 rgba(255,255,255,.03);
+  background     : rgba($c-bg-primary, .92);
+  backdrop-filter: blur(16px) saturate(200%);
+  -webkit-backdrop-filter: blur(16px) saturate(200%);
+  border-bottom  : 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow     : 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition     : all $transition;
+  
+  &:hover {
+    border-bottom-color: rgba(255, 255, 255, 0.12);
+  }
 
   &__left {
     display    : flex;
@@ -46,10 +52,11 @@
   }
 
   &__logo-text {
-    background             : linear-gradient(90deg, $c-purple-light, $c-pink-light);
+    background             : linear-gradient(90deg, $c-orange-accent, $c-violet-light);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip        : text;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
   }
 
   &__logo-badge {

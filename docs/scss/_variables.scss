@@ -1,0 +1,101 @@
+// ════════════════════════════════════════════════════════════════
+//  _variables.scss  —  Design Tokens
+//  All values are exposed as CSS custom properties in _base.scss
+// ════════════════════════════════════════════════════════════════
+
+// ── Palette ──────────────────────────────────────────────────────
+// Primary backgrounds — refined dark palette
+$c-bg-primary   : #0f0f12;   // darkest base
+$c-bg-secondary : #16161a;   // elevated bg
+$c-bg-card      : #1a1a22;   // card surface
+$c-bg-card-hover: #21212d;   // card hover
+$c-bg-surface   : rgba(255, 255, 255, 0.04);  // glasmorphic overlay
+
+// Primary accent — vibrant orange
+$c-orange-accent : #f97316;   // vivid orange — primary accent
+$c-purple       : #f97316;   // alias → orange accent
+$c-purple-light : #fb923c;   // lighter orange
+$c-purple-dark  : #c2410c;   // darker orange
+
+// Complementary colors — sophisticated palette
+$c-violet       : #a16eff;   // vibrant complementary
+$c-violet-light : #c49fff;   // lighter violet
+$c-violet-dark  : #7c3aed;   // darker violet
+$c-emerald      : #06d6a0;   // success + accent
+$c-emerald-dark : #059669;   // darker emerald
+$c-slate        : #64748b;   // muted neutral
+
+// Aliases for legacy compatibility
+$c-pink         : $c-violet;
+$c-pink-light   : $c-violet-light;
+$c-cyan         : $c-emerald;
+$c-cyan-light   : $c-emerald;
+$c-blue         : $c-violet;
+$c-green        : $c-emerald;
+$c-orange       : $c-orange-accent;
+$c-red          : #ef4444;
+$c-yellow       : #f59e0b;
+
+$c-text-1       : #fafafa;   // headings — bright white
+$c-text-2       : #d4d4d8;   // body — light gray (improved contrast)
+$c-text-3       : #a1a1aa;   // secondary — muted gray
+$c-text-4       : #71717a;   // tertiary — very muted
+$c-border       : rgba(255, 255, 255, 0.08); // refined border
+$c-border-hover : rgba(249, 115, 22, 0.4);   // hover state
+
+// ── Gradients ────────────────────────────────────────────────────
+$grad-primary   : linear-gradient(135deg, #c2410c 0%, $c-orange-accent 100%);
+$grad-accent    : linear-gradient(135deg, $c-orange-accent 0%, $c-violet-light 100%);
+$grad-success   : linear-gradient(135deg, $c-emerald 0%, $c-emerald-dark 100%);
+$grad-hero-bg   : linear-gradient(180deg, #0f0f12 0%, #1a1a22 100%); // subtle gradient
+$grad-text      : linear-gradient(90deg, $c-orange-accent 0%, $c-violet-light 100%);
+$grad-card-border: linear-gradient(135deg, rgba($c-orange-accent, .45), rgba($c-violet-light, .25));
+
+// ── Layout ───────────────────────────────────────────────────────
+$header-h       : 64px;
+$sidebar-w      : 268px;
+
+// ── Spacing scale ─────────────────────────────────────────────────
+// Refined 8-point grid system
+$space-xs       : 4px;    // micro-spacing
+$space-sm       : 8px;    // small gaps
+$space-md       : 16px;   // standard padding
+$space-lg       : 24px;   // larger padding
+$space-xl       : 32px;   // section spacing
+$space-2xl      : 48px;   // large sections
+$space-3xl      : 64px;   // hero sections
+$space-4xl      : 96px;   // page margins
+
+// ── Radius ───────────────────────────────────────────────────────
+$radius-sm      : 6px;
+$radius-md      : 10px;
+$radius-lg      : 16px;
+$radius-xl      : 24px;
+$radius-full    : 9999px;
+
+// ── Shadows ──────────────────────────────────────────────────────
+// Layered shadows for depth and GlassMorphism
+$shadow-xs      : 0 1px 2px rgba(0, 0, 0, 0.3);
+$shadow-sm      : 0 2px 8px rgba(0, 0, 0, 0.45);
+$shadow-md      : 0 6px 20px rgba(0, 0, 0, 0.55);
+$shadow-lg      : 0 12px 40px rgba(0, 0, 0, 0.65);
+$shadow-orange  : 0 0 30px rgba($c-orange-accent, .25), 0 0 60px rgba($c-orange-accent, .08);
+$shadow-violet  : 0 0 30px rgba($c-violet, .2), 0 0 60px rgba($c-violet, .05);
+$shadow-emerald : 0 0 30px rgba($c-emerald, .2), 0 0 60px rgba($c-emerald, .05);
+$shadow-card    : 0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,.06);
+$shadow-card-hover: 0 12px 48px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255,255,255,.08);
+
+// ── Typography ───────────────────────────────────────────────────
+$font-sans      : 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$font-mono      : 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+// ── Transitions ──────────────────────────────────────────────────
+$ease-out       : cubic-bezier(0.4, 0, 0.2, 1);
+$transition     : 200ms $ease-out;
+$transition-slow: 350ms $ease-out;
+
+// ── Breakpoints ──────────────────────────────────────────────────
+$bp-sm          : 640px;
+$bp-md          : 768px;
+$bp-lg          : 1024px;
+$bp-xl          : 1280px;
