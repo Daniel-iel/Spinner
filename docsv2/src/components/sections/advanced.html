@@ -1,0 +1,54 @@
+<!-- ═══ ADVANCED ═══ -->
+<section class="section" id="advanced">
+  <div class="section__header">
+    <span class="section__tag">Advanced</span>
+    <h2 class="section__title">Advanced Features</h2>
+  </div>
+
+  <div class="scroll-anchor" id="thread-safety"></div>
+  <h3 class="section__h3">Thread Safety</h3>
+  <div class="callout callout--success">
+    <div class="callout__icon">✅</div>
+    <div class="callout__body">
+      <strong>Fully thread-safe.</strong> A single <code class="ic">Spinner&lt;T&gt;</code> instance
+      can be shared across hundreds of concurrent threads with no locks.
+    </div>
+  </div>
+  <p class="section__text">
+    All write-side mutable state lives in <code class="ic">[ThreadStatic]</code> StringBuilder
+    fields — each thread gets its own buffer. Property metadata is cached in a
+    <code class="ic">ConcurrentDictionary</code> on first access and never mutated afterward.
+  </p>
+  <div class="code-block">
+    <div class="code-block__header">
+      <span class="code-block__dot code-block__dot--red"></span>
+      <span class="code-block__dot code-block__dot--yellow"></span>
+      <span class="code-block__dot code-block__dot--green"></span>
+      <span class="code-block__lang">C# — Singleton / DI</span>
+      <button class="code-block__copy" data-copy="">Copy</button>
+    </div>
+    <pre class="code-block__pre"><code class="code-block__code"><span class="cm">// ASP.NET Core — register as Singleton</span>
+builder.Services.AddSingleton&lt;<span class="ty">Spinner</span>&lt;<span class="ty">PersonModel</span>&gt;&gt;();
+
+<span class="cm">// Or use a static readonly field</span>
+<span class="kw">private static readonly</span> <span class="ty">Spinner</span>&lt;<span class="ty">PersonModel</span>&gt; _spinner = <span class="kw">new</span>();</code></pre>
+  </div>
+
+  <div class="scroll-anchor" id="type-support"></div>
+  <h3 class="section__h3">Inspecting the Mapper</h3>
+  <p class="section__text">Use <code class="ic">GetObjectMapper</code> to retrieve the mapping metadata at runtime:</p>
+  <div class="code-block">
+    <div class="code-block__header">
+      <span class="code-block__dot code-block__dot--red"></span>
+      <span class="code-block__dot code-block__dot--yellow"></span>
+      <span class="code-block__dot code-block__dot--green"></span>
+      <span class="code-block__lang">C#</span>
+      <button class="code-block__copy" data-copy="">Copy</button>
+    </div>
+    <pre class="code-block__pre"><code class="code-block__code"><span class="kw">var</span> spinner = <span class="kw">new</span> <span class="ty">Spinner</span>&lt;<span class="ty">PersonModel</span>&gt;();
+<span class="ty">ObjectMapper</span>[] mappers = spinner.GetObjectMapper;
+
+<span class="kw">foreach</span> (<span class="kw">var</span> m <span class="kw">in</span> mappers)
+    Console.WriteLine(<span class="st">$"Field length: {m.Lenght}"</span>);</code></pre>
+  </div>
+</section>

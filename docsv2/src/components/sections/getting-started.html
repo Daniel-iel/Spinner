@@ -1,0 +1,66 @@
+<!-- ═══ GETTING STARTED ═══ -->
+<section class="section" id="getting-started">
+  <div class="section__header">
+    <span class="section__tag">Introduction</span>
+    <h2 class="section__title">Getting Started</h2>
+    <p class="section__subtitle">Spinner targets .NET 8 and above. Install it from NuGet in seconds.</p>
+  </div>
+
+  <div class="scroll-anchor" id="installation"></div>
+  <h3 class="section__h3">Installation</h3>
+
+  <div class="code-block">
+    <div class="code-block__header">
+      <span class="code-block__dot code-block__dot--red"></span>
+      <span class="code-block__dot code-block__dot--yellow"></span>
+      <span class="code-block__dot code-block__dot--green"></span>
+      <span class="code-block__lang">Package Manager</span>
+      <button class="code-block__copy" data-copy="Install-Package Spinner">Copy</button>
+    </div>
+    <pre class="code-block__pre"><code class="code-block__code"><span class="code-cmd">Install-Package</span> Spinner</code></pre>
+  </div>
+
+  <div class="code-block">
+    <div class="code-block__header">
+      <span class="code-block__dot code-block__dot--red"></span>
+      <span class="code-block__dot code-block__dot--yellow"></span>
+      <span class="code-block__dot code-block__dot--green"></span>
+      <span class="code-block__lang">.NET CLI</span>
+      <button class="code-block__copy" data-copy="dotnet add package Spinner">Copy</button>
+    </div>
+    <pre class="code-block__pre"><code class="code-block__code"><span class="code-cmd">dotnet add package</span> Spinner</code></pre>
+  </div>
+
+  <div class="scroll-anchor" id="quick-start"></div>
+  <h3 class="section__h3">Quick Start</h3>
+  <p class="section__text">Define your model with attributes, then create a <code class="ic">Spinner&lt;T&gt;</code> instance:</p>
+
+  <div class="code-block">
+    <div class="code-block__header">
+      <span class="code-block__dot code-block__dot--red"></span>
+      <span class="code-block__dot code-block__dot--yellow"></span>
+      <span class="code-block__dot code-block__dot--green"></span>
+      <span class="code-block__lang">C#</span>
+      <button class="code-block__copy" data-copy="// See docs for full example">Copy</button>
+    </div>
+    <pre class="code-block__pre"><code class="code-block__code"><span class="kw">using</span> Spinner.Attributes;
+
+<span class="kw">public class</span> <span class="ty">PersonModel</span>
+{
+    [<span class="ty">ObjectMapper</span>(<span class="nm">30</span>)]
+    <span class="kw">public string</span> Name { <span class="kw">get</span>; <span class="kw">set</span>; }
+
+    [<span class="ty">ObjectMapper</span>(<span class="nm">8</span>)]
+    <span class="kw">public string</span> BirthDate { <span class="kw">get</span>; <span class="kw">set</span>; }
+}
+
+<span class="cm">// Write: object → fixed-width string</span>
+<span class="kw">var</span> spinner = <span class="kw">new</span> <span class="ty">Spinner</span>&lt;<span class="ty">PersonModel</span>&gt;();
+<span class="kw">var</span> person  = <span class="kw">new</span> <span class="ty">PersonModel</span> { Name = <span class="st">"John Doe"</span>, BirthDate = <span class="st">"19900101"</span> };
+<span class="kw">string</span> result = spinner.WriteAsString(person);
+<span class="cm">// → "John Doe                      19900101"</span>
+
+<span class="cm">// Read: fixed-width string → object</span>
+<span class="ty">PersonModel</span> parsed = spinner.ReadFromString(result);</code></pre>
+  </div>
+</section>

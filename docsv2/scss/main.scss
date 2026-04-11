@@ -1,0 +1,14 @@
+// ════════════════════════════════════════════════════════════════
+//  main.scss  —  Entry Point
+//  Import order matters: variables first, then base, then modules
+// ════════════════════════════════════════════════════════════════
+
+@use 'variables';
+@use 'base';
+@use 'layout';
+@use 'header';
+@use 'hero';
+@use 'components';
+@use 'code';
+@use 'sections';
+@use 'responsive';

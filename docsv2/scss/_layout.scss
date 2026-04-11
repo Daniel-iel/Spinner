@@ -1,0 +1,114 @@
+// ════════════════════════════════════════════════════════════════
+//  _layout.scss  —  Page shell, sidebar + content split
+// ════════════════════════════════════════════════════════════════
+@use 'variables' as *;
+
+.layout {
+  display        : flex;
+  min-height     : 100vh;
+  padding-top    : $header-h;
+}
+
+// ════════════════════════════════════════════════════════════════
+//  SIDEBAR
+// ════════════════════════════════════════════════════════════════
+.sidebar {
+  position   : fixed;
+  top        : $header-h;
+  left       : 0;
+  bottom     : 0;
+  width      : $sidebar-w;
+  overflow-y : auto;
+  background : $c-bg-secondary;
+  border-right: 1px solid $c-border;
+  padding    : $space-lg $space-md;
+  display    : flex;
+  flex-direction: column;
+  gap        : $space-md;
+  z-index    : 50;
+
+  // ── Search ──
+  &__search {
+    position  : relative;
+    &-icon {
+      position : absolute;
+      left     : 12px;
+      top      : 50%;
+      transform: translateY(-50%);
+      color    : $c-text-4;
+    }
+    &-input {
+      width       : 100%;
+      padding     : 8px 12px 8px 34px;
+      background  : rgba(255,255,255,.04);
+      border      : 1px solid $c-border;
+      border-radius: $radius-md;
+      color       : $c-text-1;
+      font-family : $font-sans;
+      font-size   : .8125rem;
+      outline     : none;
+      transition  : border-color $transition, box-shadow $transition;
+      &::placeholder { color: $c-text-4; }
+      &:focus {
+        border-color: rgba($c-purple, .5);
+        box-shadow  : 0 0 0 3px rgba($c-purple, .12);
+      }
+    }
+  }
+
+  // ── Nav ──
+  &__nav { display: flex; flex-direction: column; gap: $space-md; }
+
+  &__group {
+    display       : flex;
+    flex-direction: column;
+    gap           : $space-xs;
+  }
+
+  &__group-label {
+    font-size     : .6875rem;
+    font-weight   : 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color         : $c-text-4;
+    padding       : 0 8px;
+    margin-bottom : 2px;
+  }
+
+  &__list {
+    list-style: none;
+    display   : flex;
+    flex-direction: column;
+    gap       : 2px;
+  }
+
+  &__link {
+    display    : block;
+    padding    : 7px 12px;
+    border-radius: $radius-sm;
+    font-size  : .875rem;
+    color      : $c-text-3;
+    transition : color $transition, background $transition, border-left-color $transition;
+    border-left: 2px solid transparent;
+    &:hover {
+      color      : $c-text-1;
+      background : rgba(255,255,255,.04);
+    }
+    // active state set via JS
+    &--active {
+      color      : $c-purple-light;
+      background : rgba($c-purple, .12);
+      border-left-color: $c-purple;
+    }
+  }
+}
+
+// ════════════════════════════════════════════════════════════════
+//  CONTENT
+// ════════════════════════════════════════════════════════════════
+.content {
+  flex   : 1;
+  margin-left : $sidebar-w;
+  min-width   : 0;
+  padding-bottom: $space-3xl;
+}

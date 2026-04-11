@@ -1,0 +1,75 @@
+<!-- ═══ INTERCEPTORS ═══ -->
+<section class="section" id="interceptors">
+  <div class="section__header">
+    <span class="section__tag">Core Concepts</span>
+    <h2 class="section__title">Interceptors</h2>
+    <p class="section__subtitle">Plug custom conversion logic into the pipeline without sacrificing performance.</p>
+  </div>
+
+  <p class="section__text">Implement <code class="ic">IInterceptor&lt;T&gt;</code> to override how a single field is read or written:</p>
+
+  <div class="code-block">
+    <div class="code-block__header">
+      <span class="code-block__dot code-block__dot--red"></span>
+      <span class="code-block__dot code-block__dot--yellow"></span>
+      <span class="code-block__dot code-block__dot--green"></span>
+      <span class="code-block__lang">C# — Currency Interceptor</span>
+      <button class="code-block__copy" data-copy="">Copy</button>
+    </div>
+    <pre class="code-block__pre"><code class="code-block__code"><span class="kw">public class</span> <span class="ty">CurrencyInterceptor</span> : <span class="ty">IInterceptor</span>&lt;<span class="kw">decimal</span>&gt;
+{
+    <span class="cm">// "0000001234" → 12.34</span>
+    <span class="kw">public decimal</span> Read(<span class="ty">ReadOnlySpan</span>&lt;<span class="kw">char</span>&gt; value)
+    {
+        <span class="kw">if</span> (<span class="kw">long</span>.TryParse(value, <span class="kw">out var</span> raw))
+            <span class="kw">return</span> raw / <span class="nm">100m</span>;
+        <span class="kw">return</span> <span class="nm">0m</span>;
+    }
+
+    <span class="cm">// 12.34 → "0000001234"</span>
+    <span class="kw">public string</span> Write(<span class="kw">decimal</span> value)
+        => ((long)(value * <span class="nm">100</span>)).ToString(<span class="st">"D10"</span>);
+}
+
+<span class="kw">public class</span> <span class="ty">PaymentModel</span>
+{
+    [<span class="ty">ObjectMapper</span>(<span class="nm">10</span>)]
+    [<span class="ty">ReadProperty</span>(<span class="nm">0</span>, <span class="kw">typeof</span>(<span class="ty">CurrencyInterceptor</span>))]
+    [<span class="ty">WriteProperty</span>(<span class="ty">PaddingType</span>.Right, <span class="kw">typeof</span>(<span class="ty">CurrencyInterceptor</span>))]
+    <span class="kw">public decimal</span> Amount { <span class="kw">get</span>; <span class="kw">set</span>; }
+}</code></pre>
+  </div>
+
+  <div class="callout callout--tip">
+    <div class="callout__icon">💡</div>
+    <div class="callout__body">
+      <strong>Performance:</strong> Interceptors are cached as compiled delegates on first use.
+      Benchmarks show up to <strong>79× improvement</strong> over naive reflection approaches
+      even with custom interception active.
+    </div>
+  </div>
+
+  <h3 class="section__h3">Common Use Cases</h3>
+  <div class="usecase-grid">
+    <div class="usecase-card">
+      <span class="usecase-card__num">01</span>
+      <h4 class="usecase-card__title">Currency Formatting</h4>
+      <p class="usecase-card__desc">Convert integer cents to decimal amounts and back.</p>
+    </div>
+    <div class="usecase-card">
+      <span class="usecase-card__num">02</span>
+      <h4 class="usecase-card__title">Custom Date Formats</h4>
+      <p class="usecase-card__desc">Parse non-standard date representations like <code class="ic">YYYYMMDD</code>.</p>
+    </div>
+    <div class="usecase-card">
+      <span class="usecase-card__num">03</span>
+      <h4 class="usecase-card__title">Boolean Mapping</h4>
+      <p class="usecase-card__desc">Map <code class="ic">"S"</code>/<code class="ic">"N"</code> or <code class="ic">"1"</code>/<code class="ic">"0"</code> to <code class="ic">bool</code> values.</p>
+    </div>
+    <div class="usecase-card">
+      <span class="usecase-card__num">04</span>
+      <h4 class="usecase-card__title">Enum Conversion</h4>
+      <p class="usecase-card__desc">Map status codes like <code class="ic">"AP"</code> or <code class="ic">"RJ"</code> to typed enums.</p>
+    </div>
+  </div>
+</section>

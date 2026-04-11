@@ -1,0 +1,434 @@
+// ════════════════════════════════════════════════════════════════
+//  _components.scss  —  Buttons, Badges, Callouts, Cards
+// ════════════════════════════════════════════════════════════════
+@use 'variables' as *;
+@use 'sass:color';
+
+// ════════════════════════
+//  BUTTONS
+// ════════════════════════
+.btn {
+  display        : inline-flex;
+  align-items    : center;
+  gap            : $space-sm;
+  padding        : 9px 18px;
+  border-radius  : $radius-md;
+  font-family    : $font-sans;
+  font-size      : .875rem;
+  font-weight    : 600;
+  line-height    : 1;
+  text-decoration: none;
+  cursor         : pointer;
+  transition     : all $transition;
+  border         : 1px solid transparent;
+  white-space    : nowrap;
+
+  // Sizes
+  &--lg {
+    padding  : 12px 26px;
+    font-size: 1rem;
+  }
+
+  // Variants
+  &--primary {
+    background: $grad-primary;
+    color     : #fff;
+    box-shadow: 0 4px 20px rgba($c-purple, .4);
+    &:hover {
+      color    : #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 28px rgba($c-purple, .55);
+      filter   : brightness(1.08);
+    }
+    &:active { transform: translateY(0); }
+  }
+
+  &--outline {
+    background  : transparent;
+    border-color: rgba($c-purple, .5);
+    color       : $c-purple-light;
+    &:hover {
+      color      : $c-text-1;
+      background : rgba($c-purple, .1);
+      border-color: $c-purple;
+    }
+  }
+
+  &--ghost {
+    background: rgba(255,255,255,.05);
+    color     : $c-text-3;
+    border-color: $c-border;
+    &:hover {
+      color     : $c-text-1;
+      background: rgba(255,255,255,.08);
+    }
+  }
+}
+
+// ════════════════════════
+//  INLINE CODE
+// ════════════════════════
+.ic {
+  font-family  : $font-mono;
+  font-size    : .8125em;
+  padding      : 2px 6px;
+  background   : rgba(255,255,255,.07);
+  border-radius: $radius-sm;
+  color        : $c-cyan-light;
+  border       : 1px solid rgba(255,255,255,.06);
+
+  &--removed {
+    color           : $c-red;
+    background      : rgba($c-red, .1);
+    text-decoration : line-through;
+  }
+}
+
+// ════════════════════════
+//  CALLOUTS
+// ════════════════════════
+.callout {
+  display    : flex;
+  gap        : $space-md;
+  padding    : $space-md $space-lg;
+  border-radius: $radius-md;
+  border-left: 3px solid;
+  margin     : $space-lg 0;
+
+  &__icon { font-size: 1.25rem; flex-shrink: 0; line-height: 1.6; }
+  &__body { font-size: .9rem; color: $c-text-2; line-height: 1.7; }
+
+  &--info {
+    background  : rgba($c-blue, .07);
+    border-color: $c-blue;
+    .callout__icon, strong { color: color.adjust($c-blue, $lightness: 20%); }
+  }
+  &--tip {
+    background  : rgba($c-cyan, .07);
+    border-color: $c-cyan;
+    .callout__icon, strong { color: $c-cyan-light; }
+  }
+  &--success {
+    background  : rgba($c-green, .07);
+    border-color: $c-green;
+    .callout__icon, strong { color: color.adjust($c-green, $lightness: 15%); }
+  }
+  &--warning {
+    background  : rgba($c-orange, .08);
+    border-color: $c-orange;
+    .callout__icon, strong { color: color.adjust($c-orange, $lightness: 10%); }
+  }
+}
+
+// ════════════════════════
+//  FEATURE CARDS
+// ════════════════════════
+.feature-grid {
+  display              : grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap                  : $space-md;
+  padding              : 0 $space-2xl $space-2xl;
+}
+
+.feature-card {
+  position     : relative;
+  padding      : $space-lg;
+  background   : $c-bg-card;
+  border-radius: $radius-lg;
+  border       : 1px solid $c-border;
+  transition   : transform $transition, box-shadow $transition, border-color $transition;
+  overflow     : hidden;
+
+  // Gradient shimmer border on hover via pseudo-element
+  &::before {
+    content      : '';
+    position     : absolute;
+    inset        : 0;
+    border-radius: $radius-lg;
+    background   : $grad-card-border;
+    opacity      : 0;
+    transition   : opacity $transition-slow;
+    z-index      : 0;
+    padding      : 1px;
+    -webkit-mask : linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+
+  &:hover {
+    transform   : translateY(-3px);
+    box-shadow  : $shadow-card, $shadow-purple;
+    border-color: rgba($c-purple, .3);
+    &::before { opacity: 1; }
+  }
+
+  &__icon {
+    font-size    : 1.75rem;
+    margin-bottom: $space-md;
+    display      : block;
+    filter       : drop-shadow(0 0 10px rgba($c-purple, .6));
+  }
+
+  &__title {
+    font-size   : 1rem;
+    font-weight : 700;
+    color       : $c-text-1;
+    margin-bottom: $space-sm;
+  }
+
+  &__desc {
+    font-size  : .875rem;
+    color      : $c-text-3;
+    line-height: 1.65;
+  }
+}
+
+// ════════════════════════
+//  TYPE BADGES
+// ════════════════════════
+.type-grid {
+  display  : flex;
+  flex-wrap: wrap;
+  gap      : $space-sm;
+  margin   : $space-md 0;
+}
+
+.type-badge {
+  padding     : 5px 12px;
+  border-radius: $radius-full;
+  font-size   : .8125rem;
+  font-family : $font-mono;
+  font-weight : 500;
+  background  : rgba($c-purple, .12);
+  color       : $c-purple-light;
+  border      : 1px solid rgba($c-purple, .25);
+  transition  : all $transition;
+  &:hover {
+    background: rgba($c-purple, .22);
+    border-color: $c-purple;
+    color: $c-text-1;
+  }
+}
+
+// ════════════════════════
+//  METHOD CARDS
+// ════════════════════════
+.method-grid {
+  display              : grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap                  : $space-md;
+  margin               : $space-lg 0;
+}
+
+.method-card {
+  padding      : $space-lg;
+  background   : $c-bg-card;
+  border-radius: $radius-md;
+  border       : 1px solid $c-border;
+  transition   : border-color $transition;
+  &:hover { border-color: rgba($c-cyan, .35); }
+
+  &__sig {
+    display    : block;
+    font-family: $font-mono;
+    font-size  : .875rem;
+    color      : $c-cyan-light;
+    margin-bottom: $space-sm;
+    word-break : break-word;
+  }
+
+  &__desc {
+    font-size  : .875rem;
+    color      : $c-text-3;
+    margin-bottom: $space-md;
+    code { color: $c-cyan-light; }
+  }
+
+  &__ret {
+    display    : inline-block;
+    font-size  : .75rem;
+    font-family: $font-mono;
+    padding    : 3px 8px;
+    border-radius: $radius-sm;
+    background : rgba($c-cyan, .1);
+    color      : $c-cyan;
+    border     : 1px solid rgba($c-cyan, .2);
+  }
+}
+
+// ════════════════════════
+//  USE CASE CARDS
+// ════════════════════════
+.usecase-grid {
+  display              : grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap                  : $space-md;
+  margin               : $space-lg 0;
+}
+
+.usecase-card {
+  padding      : $space-lg;
+  background   : $c-bg-card;
+  border-radius: $radius-md;
+  border       : 1px solid $c-border;
+  position     : relative;
+  overflow     : hidden;
+
+  &::after {
+    content     : '';
+    position    : absolute;
+    bottom      : 0;
+    left        : 0;
+    right       : 0;
+    height      : 2px;
+    background  : $grad-primary;
+    transform   : scaleX(0);
+    transform-origin: left;
+    transition  : transform $transition-slow;
+  }
+  &:hover::after { transform: scaleX(1); }
+
+  &__num {
+    display    : block;
+    font-size  : .6875rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    color      : $c-purple;
+    margin-bottom: $space-sm;
+    font-family: $font-mono;
+  }
+
+  &__title {
+    font-size  : .9375rem;
+    font-weight: 700;
+    color      : $c-text-1;
+    margin-bottom: 6px;
+  }
+
+  &__desc {
+    font-size: .8125rem;
+    color    : $c-text-3;
+    code { color: $c-cyan-light; }
+  }
+}
+
+// ════════════════════════
+//  TIP CARDS
+// ════════════════════════
+.tips-grid {
+  display              : grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap                  : $space-md;
+  margin               : $space-lg 0;
+}
+
+.tip-card {
+  padding      : $space-lg;
+  background   : $c-bg-card;
+  border-radius: $radius-md;
+  border       : 1px solid $c-border;
+  border-top   : 3px solid $c-purple;
+  transition   : transform $transition, box-shadow $transition;
+  &:hover {
+    transform : translateY(-2px);
+    box-shadow: $shadow-card;
+  }
+
+  &__num {
+    font-size  : .6875rem;
+    font-family: $font-mono;
+    font-weight: 700;
+    color      : $c-purple;
+    display    : block;
+    margin-bottom: $space-sm;
+    letter-spacing: .1em;
+  }
+
+  &__title {
+    font-size  : .9375rem;
+    font-weight: 700;
+    color      : $c-text-1;
+    margin-bottom: $space-sm;
+  }
+
+  &__desc {
+    font-size: .875rem;
+    color    : $c-text-3;
+    line-height: 1.65;
+    code { color: $c-cyan-light; }
+  }
+}
+
+// ════════════════════════
+//  TWO-COLUMN LAYOUT
+// ════════════════════════
+.two-col {
+  display              : grid;
+  grid-template-columns: 1fr 1fr;
+  gap                  : $space-md;
+  margin               : $space-md 0;
+  @media (max-width: $bp-md) { grid-template-columns: 1fr; }
+}
+
+// ════════════════════════
+//  NEW FEATURE GRID
+// ════════════════════════
+.newfeature-grid {
+  display              : grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap                  : $space-sm;
+  margin               : $space-lg 0;
+}
+
+.newfeature-item {
+  display    : flex;
+  align-items: center;
+  gap        : $space-sm;
+  padding    : $space-md;
+  background : rgba($c-green, .05);
+  border-radius: $radius-md;
+  border     : 1px solid rgba($c-green, .12);
+  font-size  : .875rem;
+  color      : $c-text-2;
+  code { color: $c-cyan-light; }
+}
+
+.newfeature-badge {
+  font-size   : .625rem;
+  font-weight : 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding     : 2px 6px;
+  border-radius: $radius-sm;
+  background  : rgba($c-green, .2);
+  color       : color.adjust($c-green, $lightness: 15%);
+  flex-shrink : 0;
+}
+
+// ════════════════════════
+//  REMOVED LIST
+// ════════════════════════
+.removed-list {
+  display       : flex;
+  flex-direction: column;
+  gap           : $space-sm;
+  margin        : $space-md 0;
+}
+
+.removed-item {
+  display    : flex;
+  align-items: center;
+  gap        : $space-md;
+  padding    : $space-md;
+  background : rgba($c-red, .05);
+  border-radius: $radius-md;
+  border     : 1px solid rgba($c-red, .12);
+  font-size  : .875rem;
+  color      : $c-text-2;
+  flex-wrap  : wrap;
+
+  &__arrow {
+    color    : $c-text-4;
+    font-size: .875rem;
+  }
+}

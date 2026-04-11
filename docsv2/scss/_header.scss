@@ -1,0 +1,117 @@
+// ════════════════════════════════════════════════════════════════
+//  _header.scss  —  Sticky Top Navigation Bar
+// ════════════════════════════════════════════════════════════════
+@use 'variables' as *;
+
+.header {
+  position       : fixed;
+  top            : 0;
+  left           : 0;
+  right          : 0;
+  z-index        : 100;
+  height         : $header-h;
+  display        : flex;
+  align-items    : center;
+  justify-content: space-between;
+  padding        : 0 $space-lg;
+  gap            : $space-md;
+  background     : rgba($c-bg-primary, .88);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom  : 1px solid $c-border;
+  box-shadow     : 0 1px 0 rgba(255,255,255,.03);
+
+  &__left {
+    display    : flex;
+    align-items: center;
+    gap        : $space-md;
+    flex-shrink: 0;
+  }
+
+  // ── Logo ──
+  &__logo {
+    display    : flex;
+    align-items: center;
+    gap        : $space-sm;
+    font-weight: 700;
+    font-size  : 1.125rem;
+    color      : $c-text-1;
+    text-decoration: none;
+    transition : opacity $transition;
+    &:hover { opacity: .85; color: $c-text-1; }
+  }
+
+  &__logo-icon {
+    font-size: 1.25rem;
+    filter   : drop-shadow(0 0 8px rgba($c-purple, .8));
+  }
+
+  &__logo-text {
+    background             : linear-gradient(90deg, $c-purple-light, $c-pink-light);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip        : text;
+  }
+
+  &__logo-badge {
+    padding     : 2px 8px;
+    border-radius: $radius-full;
+    font-size   : .625rem;
+    font-weight : 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    background  : $grad-primary;
+    color       : $c-text-1;
+    -webkit-text-fill-color: $c-text-1;
+    margin-left : 2px;
+  }
+
+  // ── Nav links ──
+  &__nav {
+    display    : flex;
+    align-items: center;
+    gap        : $space-xs;
+  }
+
+  &__nav-link {
+    padding     : 6px 14px;
+    border-radius: $radius-md;
+    font-size   : .875rem;
+    font-weight : 500;
+    color       : $c-text-3;
+    transition  : color $transition, background $transition;
+    &:hover {
+      color     : $c-text-1;
+      background: $c-bg-surface;
+    }
+  }
+
+  // ── Actions ──
+  &__actions {
+    display    : flex;
+    align-items: center;
+    gap        : $space-sm;
+    flex-shrink: 0;
+  }
+
+  // ── Burger (mobile) ──
+  &__burger {
+    display       : none;
+    flex-direction: column;
+    gap           : 4px;
+    background    : none;
+    border        : none;
+    cursor        : pointer;
+    padding       : 6px;
+    border-radius : $radius-sm;
+    &:hover { background: $c-bg-surface; }
+
+    span {
+      display     : block;
+      width       : 20px;
+      height      : 2px;
+      background  : $c-text-3;
+      border-radius: $radius-full;
+      transition  : all $transition;
+    }
+  }
+}
