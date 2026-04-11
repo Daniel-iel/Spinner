@@ -1,0 +1,94 @@
+<!-- ═══ MIGRATION ═══ -->
+<section class="section" id="migration">
+  <div class="section__header">
+    <span class="section__tag">Upgrade</span>
+    <h2 class="section__title">Migration Guide v2.0</h2>
+    <p class="section__subtitle">Upgrading from v1.x brings massive performance gains with minimal breaking changes.</p>
+  </div>
+
+  <div class="callout callout--warning">
+    <div class="callout__icon">⚠️</div>
+    <div class="callout__body">
+      v2.0 contains <strong>breaking changes</strong>. Review the items below before upgrading.
+    </div>
+  </div>
+
+  <h3 class="section__h3">Breaking Changes</h3>
+
+  <div class="mig-card">
+    <h4 class="mig-card__title">Spinner is now a <code class="ic">sealed class</code></h4>
+    <div class="mig-compare">
+      <div class="mig-compare__col mig-compare__col--before">
+        <div class="mig-compare__label">v1.x — ref struct</div>
+        <pre><code class="code-block__code"><span class="cm">// Could NOT be stored in a field</span>
+<span class="kw">var</span> spinner = <span class="kw">new</span> <span class="ty">Spinner</span>&lt;<span class="ty">T</span>&gt;(value);</code></pre>
+      </div>
+      <div class="mig-compare__arrow">→</div>
+      <div class="mig-compare__col mig-compare__col--after">
+        <div class="mig-compare__label">v2.0 — sealed class</div>
+        <pre><code class="code-block__code"><span class="cm">// Storable, injectable, singleton-safe</span>
+<span class="kw">var</span> spinner = <span class="kw">new</span> <span class="ty">Spinner</span>&lt;<span class="ty">T</span>&gt;();</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="mig-card">
+    <h4 class="mig-card__title">Read method signatures simplified</h4>
+    <div class="mig-compare">
+      <div class="mig-compare__col mig-compare__col--before">
+        <div class="mig-compare__label">v1.x</div>
+        <pre><code class="code-block__code">T result = spinner.ReadFromString&lt;<span class="ty">T</span>&gt;(value);</code></pre>
+      </div>
+      <div class="mig-compare__arrow">→</div>
+      <div class="mig-compare__col mig-compare__col--after">
+        <div class="mig-compare__label">v2.0</div>
+        <pre><code class="code-block__code">T result = spinner.ReadFromString(value);</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="mig-card">
+    <h4 class="mig-card__title">Removed properties</h4>
+    <div class="removed-list">
+      <div class="removed-item">
+        <code class="ic ic--removed">GetWriteProperties</code>
+        <span class="removed-item__arrow">→</span>
+        <span>Use <code class="ic">GetObjectMapper</code></span>
+      </div>
+      <div class="removed-item">
+        <code class="ic ic--removed">GetReadProperties</code>
+        <span class="removed-item__arrow">→</span>
+        <span>Use <code class="ic">GetObjectMapper</code></span>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="section__h3">New in v2.0</h3>
+  <div class="newfeature-grid">
+    <div class="newfeature-item"><span class="newfeature-badge">NEW</span> Sealed class — storable in fields &amp; DI</div>
+    <div class="newfeature-item"><span class="newfeature-badge">NEW</span> Compiled delegate property caching</div>
+    <div class="newfeature-item"><span class="newfeature-badge">NEW</span> ThreadStatic StringBuilder for writes</div>
+    <div class="newfeature-item"><span class="newfeature-badge">NEW</span> <code class="ic">ReadFromSpan</code> zero-allocation API</div>
+    <div class="newfeature-item"><span class="newfeature-badge">NEW</span> Static cache shared across all instances</div>
+    <div class="newfeature-item"><span class="newfeature-badge">NEW</span> <code class="ic">AggressiveOptimization</code> on all hot paths</div>
+  </div>
+
+  <h3 class="section__h3">Improvement Summary</h3>
+  <div class="bench-table">
+    <div class="bench-table__row bench-table__row--head">
+      <div>Operation</div><div>Speed</div><div>Memory</div>
+    </div>
+    <div class="bench-table__row bench-table__row--win">
+      <div>Read (string)</div><div><span class="delta">60× faster</span></div><div>26× less</div>
+    </div>
+    <div class="bench-table__row bench-table__row--win">
+      <div>Read (span)</div><div><span class="delta">76× faster</span></div><div>0 B allocated</div>
+    </div>
+    <div class="bench-table__row bench-table__row--win">
+      <div>Write</div><div><span class="delta">31× faster</span></div><div>26× less</div>
+    </div>
+    <div class="bench-table__row bench-table__row--win">
+      <div>Interceptors</div><div><span class="delta">79× faster</span></div><div>26× less</div>
+    </div>
+  </div>
+</section>

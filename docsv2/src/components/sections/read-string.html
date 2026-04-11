@@ -1,0 +1,73 @@
+<!-- ═══ READ STRING ═══ -->
+<section class="section" id="read-string">
+  <div class="section__header">
+    <span class="section__tag">Core Concepts</span>
+    <h2 class="section__title">Read String to Object</h2>
+    <p class="section__subtitle">Parse fixed-width strings back into strongly-typed .NET objects automatically.</p>
+  </div>
+
+  <h3 class="section__h3">Configuration</h3>
+
+  <div class="code-block">
+    <div class="code-block__header">
+      <span class="code-block__dot code-block__dot--red"></span>
+      <span class="code-block__dot code-block__dot--yellow"></span>
+      <span class="code-block__dot code-block__dot--green"></span>
+      <span class="code-block__lang">C#</span>
+      <button class="code-block__copy" data-copy="">Copy</button>
+    </div>
+    <pre class="code-block__pre"><code class="code-block__code"><span class="kw">public class</span> <span class="ty">OrderModel</span>
+{
+    [<span class="ty">ObjectMapper</span>(<span class="nm">10</span>)]
+    [<span class="ty">ReadProperty</span>(<span class="nm">0</span>)]          <span class="cm">// position 0 → chars 0..9</span>
+    <span class="kw">public string</span> OrderId { <span class="kw">get</span>; <span class="kw">set</span>; }
+
+    [<span class="ty">ObjectMapper</span>(<span class="nm">15</span>)]
+    [<span class="ty">ReadProperty</span>(<span class="nm">1</span>)]          <span class="cm">// position 1 → chars 10..24</span>
+    <span class="kw">public decimal</span> Amount { <span class="kw">get</span>; <span class="kw">set</span>; }
+
+    [<span class="ty">ObjectMapper</span>(<span class="nm">8</span>)]
+    [<span class="ty">ReadProperty</span>(<span class="nm">2</span>)]          <span class="cm">// position 2 → chars 25..32</span>
+    <span class="kw">public</span> <span class="ty">DateTime</span> OrderDate { <span class="kw">get</span>; <span class="kw">set</span>; }
+}
+
+<span class="kw">var</span> spinner = <span class="kw">new</span> <span class="ty">Spinner</span>&lt;<span class="ty">OrderModel</span>&gt;();
+<span class="ty">OrderModel</span> order = spinner.ReadFromString(<span class="st">"ORD001    000000099.9920240101"</span>);</code></pre>
+  </div>
+
+  <h3 class="section__h3">Supported Types</h3>
+  <p class="section__text">Spinner automatically converts these primitive types — no interceptor needed:</p>
+  <div class="type-grid">
+    <span class="type-badge">string</span>
+    <span class="type-badge">int</span>
+    <span class="type-badge">long</span>
+    <span class="type-badge">decimal</span>
+    <span class="type-badge">double</span>
+    <span class="type-badge">float</span>
+    <span class="type-badge">bool</span>
+    <span class="type-badge">char</span>
+    <span class="type-badge">short</span>
+    <span class="type-badge">byte</span>
+    <span class="type-badge">DateTime</span>
+    <span class="type-badge">DateOnly</span>
+    <span class="type-badge">TimeOnly</span>
+    <span class="type-badge">Guid</span>
+    <span class="type-badge">uint</span>
+    <span class="type-badge">ulong</span>
+  </div>
+
+  <h3 class="section__h3">Zero-Allocation Reading</h3>
+  <p class="section__text">For hot throughput paths, use <code class="ic">ReadFromSpan</code> to skip string creation entirely:</p>
+  <div class="code-block">
+    <div class="code-block__header">
+      <span class="code-block__dot code-block__dot--red"></span>
+      <span class="code-block__dot code-block__dot--yellow"></span>
+      <span class="code-block__dot code-block__dot--green"></span>
+      <span class="code-block__lang">C# — Span API</span>
+      <button class="code-block__copy" data-copy="">Copy</button>
+    </div>
+    <pre class="code-block__pre"><code class="code-block__code"><span class="cm">// No string allocation — pass a Span directly from a buffer / memory-mapped file</span>
+<span class="ty">ReadOnlySpan</span>&lt;<span class="kw">char</span>&gt; raw = buffer.AsSpan(<span class="nm">0</span>, <span class="nm">33</span>);
+<span class="ty">PersonModel</span> person = spinner.ReadFromSpan(raw);</code></pre>
+  </div>
+</section>

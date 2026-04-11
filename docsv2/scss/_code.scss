@@ -1,0 +1,93 @@
+// ════════════════════════════════════════════════════════════════
+//  _code.scss  —  Code Blocks
+// ════════════════════════════════════════════════════════════════
+@use 'variables' as *;
+@use 'sass:color';
+
+.code-block {
+  background   : #0a0a14;
+  border-radius: $radius-md;
+  border       : 1px solid $c-border;
+  overflow     : hidden;
+  margin       : $space-md 0;
+  box-shadow   : $shadow-md;
+
+  &__header {
+    display    : flex;
+    align-items: center;
+    gap        : $space-sm;
+    padding    : 10px $space-md;
+    background : #0f0f1e;
+    border-bottom: 1px solid $c-border;
+    // Gradient accent line on top
+    border-top : 2px solid transparent;
+    border-image: $grad-primary 1;
+  }
+
+  &__dot {
+    width        : 11px;
+    height       : 11px;
+    border-radius: 50%;
+    flex-shrink  : 0;
+    &--red    { background: #ff5f57; }
+    &--yellow { background: #febc2e; }
+    &--green  { background: #28c840; }
+  }
+
+  &__lang {
+    margin-left : auto;
+    font-size   : .6875rem;
+    font-weight : 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color       : $c-text-4;
+    font-family : $font-sans;
+    margin-right: auto;
+  }
+
+  &__copy {
+    margin-left : auto;
+    font-size   : .75rem;
+    font-family : $font-sans;
+    font-weight : 600;
+    padding     : 3px 10px;
+    border-radius: $radius-sm;
+    background  : rgba($c-purple, .15);
+    border      : 1px solid rgba($c-purple, .25);
+    color       : $c-purple-light;
+    cursor      : pointer;
+    transition  : all $transition;
+    white-space : nowrap;
+    flex-shrink : 0;
+    &:hover {
+      background: rgba($c-purple, .3);
+      color     : $c-text-1;
+    }
+    &.copied {
+      background: rgba($c-green, .2);
+      border-color: rgba($c-green, .3);
+      color     : color.adjust($c-green, $lightness: 15%);
+    }
+  }
+
+  &__pre {
+    margin    : 0;
+    padding   : $space-lg;
+    overflow-x: auto;
+    font-family: $font-mono;
+    font-size : .8125rem;
+    line-height: 1.75;
+    tab-size  : 2;
+    color     : #c9d1d9;
+  }
+
+  &__code { display: block; }
+}
+
+// ── Syntax highlighting tokens ──────────────────────────────────
+.kw  { color: #ff79c6; font-weight: 500; }  // keywords
+.ty  { color: #79c0ff; }                    // types / classes
+.st  { color: #a5d6ff; }                    // strings
+.nm  { color: #f8c555; }                    // numbers
+.cm  { color: #586e75; font-style: italic; } // comments
+.code-cmd { color: $c-green; }              // CLI commands
