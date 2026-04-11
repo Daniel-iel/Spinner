@@ -1,0 +1,117 @@
+// ════════════════════════════════════════════════════════════════
+//  _responsive.scss  —  Mobile & Tablet Adaptations + Accessibility
+// ════════════════════════════════════════════════════════════════
+@use 'variables' as *;
+
+// ── Accessibility: Prefers Reduced Motion ────────────────────────
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// ── Tablet ───────────────────────────────────────────────────────
+@media (max-width: $bp-lg) {
+  .header__nav { display: none; }
+
+  .sidebar {
+    transform  : translateX(-100%);
+    transition : transform $transition-slow;
+    z-index    : 200;
+    &.is-open  { transform: translateX(0); }
+  }
+
+  .content { margin-left: 0; }
+
+  .hero {
+    padding: $space-2xl $space-lg;
+    &__title { font-size: clamp(2rem, 6vw, 3.2rem); }
+    &__glow { opacity: 0.3; }
+  }
+
+  .section { padding: $space-2xl $space-lg; }
+  .feature-grid { padding: 0 $space-lg $space-2xl; }
+
+  .bench-table__row {
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  }
+
+  .header__burger { display: flex; }
+}
+
+// ── Mobile ───────────────────────────────────────────────────────
+@media (max-width: $bp-md) {
+  .hero {
+    padding   : $space-xl $space-md;
+    &__metrics{ gap: $space-lg; }
+    &__metric-sep { display: none; }
+    &__glow { opacity: 0.2; }
+  }
+
+  .section { 
+    padding: $space-xl $space-md;
+    &__title::after { width: 40px; }
+  }
+  
+  .feature-grid { padding: 0 $space-md $space-xl; grid-template-columns: 1fr 1fr; }
+
+  .perf-hero { grid-template-columns: 1fr 1fr; }
+
+  .bench-table__row {
+    grid-template-columns: 2fr 1fr 1.5fr;
+    > div:nth-child(4),
+    > div:nth-child(5) { display: none; }
+  }
+
+  .attr-table__row {
+    grid-template-columns: 1fr 1fr;
+    > div:last-child { grid-column: 1 / -1; border-right: none; }
+  }
+
+  .mig-compare { flex-direction: column; }
+  .mig-compare__arrow { transform: rotate(90deg); align-self: center; }
+
+  .header__actions .btn--ghost { display: none; }
+
+  // Better touch targets on mobile
+  .btn {
+    padding: 12px 20px;
+    min-height: 48px;
+  }
+}
+
+// ── Small Mobile ─────────────────────────────────────────────────
+@media (max-width: $bp-sm) {
+  .feature-grid { grid-template-columns: 1fr; }
+  .perf-hero    { grid-template-columns: 1fr; }
+  .hero__actions { flex-direction: column; }
+  .btn--lg { width: 100%; justify-content: center; }
+  
+  body {
+    font-size: 14px;
+  }
+  
+  .section__title::after { width: 32px; }
+}
+
+// ── Overlay when sidebar is open on mobile ───────────────────────
+.sidebar-overlay {
+  display     : none;
+  position    : fixed;
+  inset       : 0;
+  background  : rgba(0,0,0,.7);
+  z-index     : 190;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation   : fade-in 200ms ease-out;
+  
+  &.is-visible { display: block; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}

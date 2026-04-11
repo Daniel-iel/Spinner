@@ -1,0 +1,122 @@
+<!-- ═══ PERFORMANCE ═══ -->
+<section class="section" id="performance">
+  <div class="section__header">
+    <span class="section__tag">Performance</span>
+    <h2 class="section__title">Performance Benchmarks</h2>
+    <p class="section__subtitle">Measured on Windows 11 · 12th Gen Intel Core i5-1235U · .NET 8 / 9 / 10</p>
+  </div>
+
+  <div class="perf-hero">
+    <div class="perf-stat">
+      <span class="perf-stat__val perf-stat__val--purple">79×</span>
+      <span class="perf-stat__label">Faster with Interceptors</span>
+    </div>
+    <div class="perf-stat">
+      <span class="perf-stat__val perf-stat__val--pink">60×</span>
+      <span class="perf-stat__label">Faster Read Operations</span>
+    </div>
+    <div class="perf-stat">
+      <span class="perf-stat__val perf-stat__val--cyan">26×</span>
+      <span class="perf-stat__label">Less Memory Allocated</span>
+    </div>
+    <div class="perf-stat">
+      <span class="perf-stat__val perf-stat__val--green">0 B</span>
+      <span class="perf-stat__label">Alloc with Span APIs</span>
+    </div>
+  </div>
+
+  <h3 class="section__h3">Read Benchmarks</h3>
+  <div class="bench-table">
+    <div class="bench-table__row bench-table__row--head">
+      <div>Method</div><div>Version</div><div>Mean (μs)</div><div>Alloc (B)</div><div>Delta</div>
+    </div>
+    <div class="bench-table__row">
+      <div>ReadFromString</div>
+      <div><span class="tag tag--old">v1.x</span></div>
+      <div>15,234.2</div>
+      <div>8,432</div>
+      <div>baseline</div>
+    </div>
+    <div class="bench-table__row bench-table__row--win">
+      <div>ReadFromString</div>
+      <div><span class="tag tag--new">v2.0</span></div>
+      <div>253.1</div>
+      <div>324</div>
+      <div><span class="delta">60× faster</span></div>
+    </div>
+    <div class="bench-table__row bench-table__row--win">
+      <div>ReadFromSpan</div>
+      <div><span class="tag tag--new">v2.0</span></div>
+      <div>198.7</div>
+      <div>0</div>
+      <div><span class="delta">76× / 0 B</span></div>
+    </div>
+  </div>
+
+  <h3 class="section__h3">Write Benchmarks</h3>
+  <div class="bench-table">
+    <div class="bench-table__row bench-table__row--head">
+      <div>Method</div><div>Version</div><div>Mean (μs)</div><div>Alloc (B)</div><div>Delta</div>
+    </div>
+    <div class="bench-table__row">
+      <div>WriteAsString</div>
+      <div><span class="tag tag--old">v1.x</span></div>
+      <div>8,921.5</div>
+      <div>12,800</div>
+      <div>baseline</div>
+    </div>
+    <div class="bench-table__row bench-table__row--win">
+      <div>WriteAsString</div>
+      <div><span class="tag tag--new">v2.0</span></div>
+      <div>287.4</div>
+      <div>492</div>
+      <div><span class="delta">31× faster</span></div>
+    </div>
+  </div>
+
+  <h3 class="section__h3">Interceptor Benchmarks</h3>
+  <div class="bench-table">
+    <div class="bench-table__row bench-table__row--head">
+      <div>Method</div><div>Version</div><div>Mean (μs)</div><div>Alloc (B)</div><div>Delta</div>
+    </div>
+    <div class="bench-table__row">
+      <div>ReadWithInterceptor</div>
+      <div><span class="tag tag--old">v1.x</span></div>
+      <div>42,108.0</div>
+      <div>18,920</div>
+      <div>baseline</div>
+    </div>
+    <div class="bench-table__row bench-table__row--win">
+      <div>ReadWithInterceptor</div>
+      <div><span class="tag tag--new">v2.0</span></div>
+      <div>533.1</div>
+      <div>720</div>
+      <div><span class="delta">79× faster</span></div>
+    </div>
+  </div>
+
+  <div class="scroll-anchor" id="best-practices"></div>
+  <h3 class="section__h3">Best Practices</h3>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <span class="tip-card__num">01</span>
+      <h4 class="tip-card__title">Reuse Instances</h4>
+      <p class="tip-card__desc">Create one <code class="ic">Spinner&lt;T&gt;</code> and reuse it everywhere — property metadata is compiled and cached after first use.</p>
+    </div>
+    <div class="tip-card">
+      <span class="tip-card__num">02</span>
+      <h4 class="tip-card__title">Prefer Span APIs</h4>
+      <p class="tip-card__desc">Use <code class="ic">ReadFromSpan</code> and <code class="ic">WriteAsSpan</code> on hot paths to achieve true zero-allocation throughput.</p>
+    </div>
+    <div class="tip-card">
+      <span class="tip-card__num">03</span>
+      <h4 class="tip-card__title">Avoid Per-Request Creation</h4>
+      <p class="tip-card__desc">Never instantiate <code class="ic">Spinner&lt;T&gt;</code> inside loops or per-request code — that discards cached delegates.</p>
+    </div>
+    <div class="tip-card">
+      <span class="tip-card__num">04</span>
+      <h4 class="tip-card__title">DI as Singleton</h4>
+      <p class="tip-card__desc">In ASP.NET Core, register <code class="ic">Spinner&lt;T&gt;</code> as a Singleton so the cache is built once and shared.</p>
+    </div>
+  </div>
+</section>

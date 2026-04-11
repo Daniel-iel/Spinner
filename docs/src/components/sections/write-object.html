@@ -1,0 +1,82 @@
+<!-- ═══ WRITE OBJECT ═══ -->
+<section class="section" id="write-object">
+  <div class="section__header">
+    <span class="section__tag">Core Concepts</span>
+    <h2 class="section__title">Write Object to String</h2>
+    <p class="section__subtitle">Map strongly-typed .NET objects to fixed-width strings using declarative attributes.</p>
+  </div>
+
+  <h3 class="section__h3">Attributes</h3>
+  <div class="attr-table">
+    <div class="attr-table__row attr-table__row--head">
+      <div>Attribute</div><div>Parameter</div><div>Description</div>
+    </div>
+    <div class="attr-table__row">
+      <div><code class="ic">ObjectMapper</code></div>
+      <div><code class="ic">length</code></div>
+      <div>Defines the field length in the output string</div>
+    </div>
+    <div class="attr-table__row">
+      <div><code class="ic">WriteProperty</code></div>
+      <div><code class="ic">paddingType</code></div>
+      <div>Configures padding direction: <code class="ic">Left</code> or <code class="ic">Right</code></div>
+    </div>
+    <div class="attr-table__row">
+      <div><code class="ic">WriteProperty</code></div>
+      <div><code class="ic">interceptorType</code></div>
+      <div>Optional custom <code class="ic">IInterceptor&lt;T&gt;</code> for this field</div>
+    </div>
+  </div>
+
+  <h3 class="section__h3">Padding Types</h3>
+  <div class="callout callout--info">
+    <div class="callout__icon">ℹ️</div>
+    <div class="callout__body">
+      <strong>PaddingType.Left</strong> is the default — value is aligned left, spaces on right.<br />
+      Use <strong>PaddingType.Right</strong> for right-aligned fields (e.g. numeric amounts).
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="code-block">
+      <div class="code-block__header">
+        <span class="code-block__dot code-block__dot--red"></span>
+        <span class="code-block__dot code-block__dot--yellow"></span>
+        <span class="code-block__dot code-block__dot--green"></span>
+        <span class="code-block__lang">Left Padding (default)</span>
+        <button class="code-block__copy" data-copy="PaddingType.Left">Copy</button>
+      </div>
+      <pre class="code-block__pre"><code class="code-block__code">[<span class="ty">ObjectMapper</span>(<span class="nm">10</span>)]
+[<span class="ty">WriteProperty</span>(<span class="ty">PaddingType</span>.Left)]
+<span class="kw">public string</span> Name { <span class="kw">get</span>; <span class="kw">set</span>; }
+<span class="cm">// "John      "</span></code></pre>
+    </div>
+    <div class="code-block">
+      <div class="code-block__header">
+        <span class="code-block__dot code-block__dot--red"></span>
+        <span class="code-block__dot code-block__dot--yellow"></span>
+        <span class="code-block__dot code-block__dot--green"></span>
+        <span class="code-block__lang">Right Padding</span>
+        <button class="code-block__copy" data-copy="PaddingType.Right">Copy</button>
+      </div>
+      <pre class="code-block__pre"><code class="code-block__code">[<span class="ty">ObjectMapper</span>(<span class="nm">10</span>)]
+[<span class="ty">WriteProperty</span>(<span class="ty">PaddingType</span>.Right)]
+<span class="kw">public string</span> Amount { <span class="kw">get</span>; <span class="kw">set</span>; }
+<span class="cm">// "      1000"</span></code></pre>
+    </div>
+  </div>
+
+  <h3 class="section__h3">API</h3>
+  <div class="method-grid">
+    <div class="method-card">
+      <code class="method-card__sig">WriteAsString(<span class="ty">T</span> obj)</code>
+      <p class="method-card__desc">Concatenates all mapped fields into a single string.</p>
+      <span class="method-card__ret">→ string</span>
+    </div>
+    <div class="method-card">
+      <code class="method-card__sig">WriteAsSpan(<span class="ty">T</span> obj)</code>
+      <p class="method-card__desc">Returns a <code class="ic">ReadOnlySpan&lt;char&gt;</code> backed by the ThreadStatic buffer — zero extra allocation.</p>
+      <span class="method-card__ret">→ ReadOnlySpan&lt;char&gt;</span>
+    </div>
+  </div>
+</section>
