@@ -10,8 +10,11 @@
 .btn {
   display        : inline-flex;
   align-items    : center;
+  justify-content: center;
   gap            : $space-sm;
-  padding        : 9px 18px;
+  padding        : 10px 20px;
+  min-height     : 44px;
+  min-width      : 44px;
   border-radius  : $radius-md;
   font-family    : $font-sans;
   font-size      : .875rem;
@@ -22,45 +25,64 @@
   transition     : all $transition;
   border         : 1px solid transparent;
   white-space    : nowrap;
+  position       : relative;
+  overflow       : hidden;
 
   // Sizes
   &--lg {
-    padding  : 12px 26px;
+    padding  : 13px 28px;
     font-size: 1rem;
+    min-height: 48px;
   }
 
   // Variants
   &--primary {
     background: $grad-primary;
     color     : #fff;
-    box-shadow: 0 4px 20px rgba($c-purple, .4);
+    box-shadow: $shadow-orange;
     &:hover {
       color    : #fff;
-      transform: translateY(-1px);
-      box-shadow: 0 8px 28px rgba($c-purple, .55);
-      filter   : brightness(1.08);
+      transform: translateY(-2px);
+      box-shadow: 0 0 40px rgba($c-orange-accent, .4), 0 0 80px rgba($c-orange-accent, .15);
+      filter   : brightness(1.1);
     }
-    &:active { transform: translateY(0); }
+    &:active { 
+      transform: translateY(0);
+      box-shadow: $shadow-orange;
+    }
+    &:focus-visible {
+      outline: 2px solid $c-text-1;
+      outline-offset: 2px;
+    }
   }
 
   &--outline {
     background  : transparent;
-    border-color: rgba($c-purple, .5);
-    color       : $c-purple-light;
+    border-color: rgba($c-orange-accent, .6);
+    color       : $c-orange-accent;
     &:hover {
       color      : $c-text-1;
-      background : rgba($c-purple, .1);
-      border-color: $c-purple;
+      background : rgba($c-orange-accent, .12);
+      border-color: $c-orange-accent;
+    }
+    &:focus-visible {
+      outline: 2px solid $c-orange-accent;
+      outline-offset: 2px;
     }
   }
 
   &--ghost {
     background: rgba(255,255,255,.05);
-    color     : $c-text-3;
+    color     : $c-text-2;
     border-color: $c-border;
     &:hover {
       color     : $c-text-1;
-      background: rgba(255,255,255,.08);
+      background: rgba(255,255,255,.1);
+      border-color: rgba(255,255,255,.12);
+    }
+    &:focus-visible {
+      outline: 2px solid $c-text-1;
+      outline-offset: 2px;
     }
   }
 }
@@ -71,15 +93,17 @@
 .ic {
   font-family  : $font-mono;
   font-size    : .8125em;
-  padding      : 2px 6px;
-  background   : rgba(255,255,255,.07);
+  padding      : 3px 8px;
+  background   : rgba(255,255,255,.06);
   border-radius: $radius-sm;
-  color        : $c-cyan-light;
-  border       : 1px solid rgba(255,255,255,.06);
+  color        : $c-emerald;
+  border       : 1px solid rgba(255,255,255,.08);
+  font-weight  : 500;
 
   &--removed {
     color           : $c-red;
-    background      : rgba($c-red, .1);
+    background      : rgba($c-red, .12);
+    border-color    : rgba($c-red, .2);
     text-decoration : line-through;
   }
 }
@@ -90,13 +114,31 @@
 .callout {
   display    : flex;
   gap        : $space-md;
-  padding    : $space-md $space-lg;
+  padding    : $space-lg;
   border-radius: $radius-md;
   border-left: 3px solid;
   margin     : $space-lg 0;
+  background : rgba(255, 255, 255, 0.02);
+  border    : 1px solid rgba(255, 255, 255, 0.06);
+  transition : all $transition;
 
-  &__icon { font-size: 1.25rem; flex-shrink: 0; line-height: 1.6; }
-  &__body { font-size: .9rem; color: $c-text-2; line-height: 1.7; }
+  &:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  &__icon { 
+    font-size: 1.25rem; 
+    flex-shrink: 0; 
+    line-height: 1.6; 
+    opacity: 0.9;
+  }
+  
+  &__body { 
+    font-size: .9375rem; 
+    color: $c-text-2; 
+    line-height: 1.75;
+  }
 
   &--info {
     background  : rgba($c-blue, .07);
@@ -157,8 +199,8 @@
 
   &:hover {
     transform   : translateY(-3px);
-    box-shadow  : $shadow-card, $shadow-purple;
-    border-color: rgba($c-purple, .3);
+    box-shadow  : $shadow-card, $shadow-orange;
+    border-color: rgba($c-orange-accent, .3);
     &::before { opacity: 1; }
   }
 
